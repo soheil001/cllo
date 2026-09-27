@@ -486,7 +486,7 @@
 
         <!-- اسلاید ۱ — ویدیو -->
         <div class="slide slide-1" data-slide="0" data-type="video">
-          <video class="slide-bg" id="heroVideo" preload="auto" playsinline webkit-playsinline muted poster="" fetchpriority="high">
+          <video class="slide-bg" id="heroVideo" preload="auto" playsinline webkit-playsinline muted autoplay fetchpriority="high" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen="false">
             <source src="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
@@ -907,25 +907,20 @@ updateLoginIcon();
 verifyCurrentSubscription();
 
 /* ===== HERO SLIDER ===== */
-const slidesEl=document.getElementById('slides');
 const slides=Array.from(document.querySelectorAll('.slide'));
 const dots=document.querySelectorAll('.dot');
 const heroVideo=document.getElementById('heroVideo');
 let cur=0;
 const total=6;
-const AUTOPLAY_MS=4200;       // مدت اسلایدهای معمولی
-const VIDEO_ADVANCE_MS=10000; // ۱۰ ثانیه برای اسلاید ویدیو
+const AUTOPLAY_MS=4200;        // مدت اسلایدهای تصویری
+const VIDEO_ADVANCE_MS=12000;  // ۱۲ ثانیه — از لحظه پخش واقعی
 
-let autoAdvanceHandle=null;   // handle برای setTimeout
-let videoSoundEnabled=false;  // آیا صدای ویدیو روشن است؟
+let autoAdvanceHandle=null;
+let videoSoundEnabled=false;
+let videoTimerStarted=false;   // تایمر ویدیو فقط یک بار از playing شروع شود
 
-/* آیکون‌های SVG میوت / آنمیوت */
-const SVG_MUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-<line x1="23" y1="9" x2="17" y2="15"/>
-<line x1="17" y1="9" x2="23" y2="15"/>`;
-const SVG_UNMUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>`;
+const SVG_MUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`;
+const SVG_UNMUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>`;
 
 function updateMuteIcon(){
   const svg=document.getElementById('muteSvg');
@@ -955,49 +950,69 @@ function clearScheduledAdvance(){
   if(autoAdvanceHandle){clearTimeout(autoAdvanceHandle);autoAdvanceHandle=null;}
 }
 
-function scheduleAdvance(){
+/* تایمر اسلایدهای تصویری — ویدیو تایمر خودش را دارد */
+function scheduleImageAdvance(){
   clearScheduledAdvance();
-  const delay=(cur===0)?VIDEO_ADVANCE_MS:AUTOPLAY_MS;
-  autoAdvanceHandle=setTimeout(()=>{goTo(cur+1);},delay);
+  if(cur===0)return; // اسلاید ویدیو تایمر خودش را دارد
+  autoAdvanceHandle=setTimeout(()=>{goTo(cur+1);},AUTOPLAY_MS);
 }
 
-function tryEnableVideoSound(){
-  if(!heroVideo||videoSoundEnabled)return;
-  heroVideo.muted=false;heroVideo.volume=0.35;
-  const p=heroVideo.play();
-  if(p&&p.catch){
-    p.then(()=>{videoSoundEnabled=true;updateMuteIcon();})
-     .catch(()=>{heroVideo.muted=true;heroVideo.play().catch(()=>{});});
-  }else{videoSoundEnabled=true;updateMuteIcon();}
+/* تایمر ویدیو: فقط از رویداد 'playing' شروع می‌شود */
+function startVideoTimer(){
+  if(videoTimerStarted)return;
+  videoTimerStarted=true;
+  clearScheduledAdvance();
+  autoAdvanceHandle=setTimeout(()=>{
+    if(cur===0)goTo(1);
+  },VIDEO_ADVANCE_MS);
 }
 
-/* باز کردن قفل صدا با اولین لمس کاربر */
-function unlockAudioOnce(){
-  if(heroVideo&&cur===0){
-    heroVideo.muted=false;heroVideo.volume=0.35;
-    heroVideo.play()
-      .then(()=>{videoSoundEnabled=true;updateMuteIcon();})
-      .catch(()=>{});
-  }
-}
-document.addEventListener('touchstart',unlockAudioOnce,{passive:true,once:true});
-document.addEventListener('click',unlockAudioOnce,{once:true});
-
+/* پخش ویدیو — تایمر را playing شروع می‌کند نه اینجا */
 function playHeroVideo(){
   if(!heroVideo)return;
+  videoTimerStarted=false; // ریست تا رویداد playing دوباره تایمر بزنه
   try{heroVideo.currentTime=0;}catch(e){}
+  heroVideo.muted=true; // همیشه از حالت میوت شروع کن تا autoplay مشکل نداشته باشه
   heroVideo.volume=0.35;
-  heroVideo.muted=!videoSoundEnabled;
   const p=heroVideo.play();
-  if(p&&p.catch)p.catch(()=>{heroVideo.muted=true;heroVideo.play().catch(()=>{});});
+  if(p&&p.catch)p.catch(()=>{});
   updateMuteIcon();
 }
 
 function pauseHeroVideo(){
   if(!heroVideo)return;
   heroVideo.pause();
-  /* currentTime را ریست نمی‌کنیم تا روی آخرین فریم بماند */
+  // روی آخرین فریم می‌ماند — currentTime ریست نمی‌شود
 }
+
+/* رویداد playing: ویدیو واقعاً شروع کرد — حالا تایمر بزن */
+if(heroVideo){
+  heroVideo.addEventListener('playing',function(){
+    if(cur===0)startVideoTimer();
+  });
+  /* اگه ویدیو اصلاً لود نشد، بعد از ۱۵ ثانیه برو بعدی */
+  heroVideo.addEventListener('error',function(){
+    if(cur===0&&!videoTimerStarted){
+      clearScheduledAdvance();
+      autoAdvanceHandle=setTimeout(()=>{if(cur===0)goTo(1);},2000);
+    }
+  });
+}
+
+/* باز کردن صدا با اولین لمس — بعد از اینکه ویدیو در حال پخش بود */
+function unlockAudioOnce(){
+  if(heroVideo&&cur===0&&!heroVideo.paused){
+    heroVideo.muted=false;
+    heroVideo.volume=0.35;
+    videoSoundEnabled=true;
+    updateMuteIcon();
+  }
+}
+document.addEventListener('touchstart',unlockAudioOnce,{passive:true,once:true});
+document.addEventListener('click',function onFirstClick(){
+  unlockAudioOnce();
+  document.removeEventListener('click',onFirstClick);
+});
 
 function goTo(n){
   const prevIndex=cur;
@@ -1008,20 +1023,19 @@ function goTo(n){
   });
   dots.forEach((d,i)=>d.classList.toggle('active',i===cur));
 
-  /* مدیریت ویدیو */
   if(prevIndex===0&&cur!==0){
-    pauseHeroVideo(); /* ویدیو متوقف می‌شود، روی آخرین فریم می‌ماند */
+    pauseHeroVideo();
+    clearScheduledAdvance();
   }
   if(cur===0){
     playHeroVideo();
+    // تایمر از رویداد 'playing' شروع می‌شه، نه اینجا
   }
 
-  /* دکمه میوت فقط روی اسلاید اول نمایش داده می‌شود */
   const muteBtn=document.getElementById('muteBtn');
   if(muteBtn)muteBtn.style.display=(cur===0)?'flex':'none';
 
-  clearScheduledAdvance();
-  scheduleAdvance();
+  if(cur!==0)scheduleImageAdvance();
 }
 
 /* شروع اولیه */
