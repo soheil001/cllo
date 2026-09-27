@@ -134,6 +134,12 @@
   }
   .hero-mini-btn{width:30px;height:30px;flex:0 0 30px;border-radius:50%;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.10);color:#fff;font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 
+  /* کارت ویدیو — کمی بزرگتر از بقیه */
+  .slide.active.slide-video-hero{
+    transform:translate(-50%,-50%) scale(1.10);
+    z-index:5;
+  }
+
   /* دکمه میوت */
   .mute-btn{
     position:absolute;z-index:10;left:10px;bottom:10px;
@@ -485,18 +491,12 @@
       <div class="slides" id="slides">
 
         <!-- اسلاید ۱ — ویدیو -->
-        <div class="slide slide-1" data-slide="0" data-type="video">
+        <div class="slide slide-1 slide-video-hero" data-slide="0" data-type="video">
           <video class="slide-bg" id="heroVideo" preload="auto" playsinline webkit-playsinline muted autoplay fetchpriority="high" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen="false">
             <source src="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4" type="video/mp4">
           </video>
-          <div class="slide-info">
-            <div class="slide-title">یادگیری انگلیسی با CLLO</div>
-            <div class="slide-subtitle">تمرین، پادکست و آموزش در یک تجربه مدرن</div>
-          </div>
-          <!-- دکمه میوت شیشه‌ای -->
           <button class="mute-btn" id="muteBtn" type="button" aria-label="قطع/وصل صدا" onclick="toggleMute(event)">
             <svg id="muteSvg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <!-- آیکون میوت (پیش‌فرض: صدا خاموش) -->
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
               <line x1="23" y1="9" x2="17" y2="15"/>
               <line x1="17" y1="9" x2="23" y2="15"/>
