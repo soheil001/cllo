@@ -97,7 +97,7 @@
     width:min(46%,290px);height:auto;aspect-ratio:9/16;
     border-radius:20px;overflow:hidden;opacity:0;
     transform:translate(-50%,-50%) scale(.78);
-    transition:transform .58s cubic-bezier(.22,.75,.2,1),opacity .45s ease,filter .45s ease;
+    transition:transform .5s cubic-bezier(0.22,1,0.36,1),opacity .4s ease,filter .4s ease;
     /* بدون border، بدون box-shadow */
     border:none;box-shadow:none;background:transparent;
     will-change:transform,opacity;
@@ -124,14 +124,7 @@
   .slide.next{opacity:.62;transform:translate(calc(-50% - 56%),-50%) scale(.82);z-index:3;filter:saturate(.78) brightness(.78);}
   .slide.far-prev{opacity:.18;transform:translate(calc(-50% + 106%),-50%) scale(.65);z-index:1;filter:blur(1px) brightness(.58);}
   .slide.far-next{opacity:.18;transform:translate(calc(-50% - 106%),-50%) scale(.65);z-index:1;filter:blur(1px) brightness(.58);}
-  .hero-counter{
-    position:absolute;right:18px;top:14px;z-index:12;
-    display:flex;gap:4px;direction:ltr;align-items:center;
-    padding:5px 9px;border-radius:16px;color:#fff;font-size:9px;
-    background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.16);
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  }
-  .hero-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:12;}
+  .hero-dots{display:flex;gap:5px;align-items:center;justify-content:center;flex:1 1 auto;}
   .dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.32);cursor:pointer;transition:.25s;}
   .dot.active{width:15px;border-radius:7px;background:#fff;box-shadow:0 0 9px rgba(255,255,255,.48);}
   .hero-bottom{
@@ -142,14 +135,10 @@
     backdrop-filter:none;-webkit-backdrop-filter:none;
   }
   .hero-mini-btn{width:30px;height:30px;flex:0 0 30px;border-radius:50%;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.10);color:#fff;font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-  .hero-mini-thumb{width:42px;height:42px;border-radius:50%;overflow:hidden;flex:0 0 42px;border:1px solid rgba(255,255,255,.28);box-shadow:0 3px 10px rgba(0,0,0,.20);}
-  .hero-mini-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-  .hero-mini-copy{min-width:0;flex:1;direction:rtl;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;padding:7px 14px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.20);box-shadow:0 8px 20px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
-  .hero-mini-copy strong{font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .hero-mini-copy span{font-size:8px;color:rgba(255,255,255,.58);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
   /* ============ MOBILE ≤ 599px ============ */
   @media (max-width: 599px){
+    :root{--story-ring:106px;}
     .browser-hero{width:calc(100% - 14px);margin:8px auto 0;border-radius:0;overflow:visible;}
     .browser-hero > header{width:calc(100% - 12px);height:50px;margin:6px auto 0;padding:5px;border-radius:26px;}
     .browser-left,.browser-right{gap:3px;}
@@ -167,12 +156,8 @@
     .slide-info{right:7px;left:7px;bottom:7px;padding:7px 9px;border-radius:11px;}
     .slide-title{font-size:10.5px;}
     .slide-subtitle{font-size:7px;}
-    .hero-counter{right:9px;top:7px;font-size:8px;padding:4px 7px;}
     .hero-bottom{width:calc(100% - 22px);height:54px;margin:-2px auto 9px;padding:5px 6px;gap:5px;border-radius:27px;}
     .hero-mini-btn{width:26px;height:26px;flex-basis:26px;font-size:17px;}
-    .hero-mini-thumb{width:36px;height:36px;flex-basis:36px;}
-    .hero-mini-copy strong{font-size:9px;}
-    .hero-mini-copy span{font-size:7px;}
     .hero-dots{bottom:0px;}
   }
 
@@ -420,8 +405,8 @@
     .stories-outer{margin-left:10px;margin-right:10px;}
     .stories-wrapper{padding:14px 5px 12px;border-radius:23px;}
     .stories-scroll{gap:12px;padding-left:6px;padding-right:6px;}
-    :root{--story-ring:70px;}
-    .story-label{max-width:70px;font-size:10px;}
+    :root{--story-ring:100px;}
+    .story-label{max-width:100px;font-size:10px;}
     .podium-stage{height:305px;gap:5px;}
     .podium-avatar-wrap{width:56px;height:56px;}
     .podium-person.rank-1 .podium-avatar-wrap{width:70px;height:70px;}
@@ -544,7 +529,9 @@
           </div>
         </div>
       </div>
-      <div class="hero-counter"><span id="heroCounter">1</span><span>/</span><span>6</span></div>
+    </div>
+    <div class="hero-bottom">
+      <button class="hero-mini-btn" id="heroMiniPrev" aria-label="قبلی">‹</button>
       <div class="hero-dots">
         <div class="dot active" data-i="0"></div>
         <div class="dot" data-i="1"></div>
@@ -552,14 +539,6 @@
         <div class="dot" data-i="3"></div>
         <div class="dot" data-i="4"></div>
         <div class="dot" data-i="5"></div>
-      </div>
-    </div>
-    <div class="hero-bottom">
-      <button class="hero-mini-btn" id="heroMiniPrev" aria-label="قبلی">‹</button>
-      <div class="hero-mini-thumb"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/slide1.jpg" id="heroMiniImg" alt=""></div>
-      <div class="hero-mini-copy">
-        <strong id="heroMiniTitle">یادگیری انگلیسی با CLLO</strong>
-        <span id="heroMiniSub">تمرین و آموزش در یک تجربه مدرن</span>
       </div>
       <button class="hero-mini-btn" id="heroMiniNext" aria-label="بعدی">›</button>
     </div>
@@ -888,18 +867,6 @@ verifyCurrentSubscription();
 const slidesEl=document.getElementById('slides');
 const slides=Array.from(document.querySelectorAll('.slide'));
 const dots=document.querySelectorAll('.dot');
-const heroCounter=document.getElementById('heroCounter');
-const heroMiniImg=document.getElementById('heroMiniImg');
-const heroMiniTitle=document.getElementById('heroMiniTitle');
-const heroMiniSub=document.getElementById('heroMiniSub');
-const slideMeta=[
-  {title:'یادگیری انگلیسی با CLLO',sub:'تمرین و آموزش در یک تجربه مدرن',img:'http://fs3.centraldnserver.com/~planlife/pics/english/slide1.jpg'},
-  {title:'تمرینات ۴ گزینه‌ای',sub:'سطحت را مرحله‌به‌مرحله بالاتر ببر',img:'http://fs3.centraldnserver.com/~planlife/pics/english/slide2.jpg'},
-  {title:'هر روز کمی بهتر',sub:'یادگیری انگلیسی، ساده و جذاب',img:'http://fs3.centraldnserver.com/~planlife/pics/english/slide3.jpg'},
-  {title:'آموزش با هوش مصنوعی',sub:'مکالمه هوشمند، هر زمان که بخواهی',img:'http://fs3.centraldnserver.com/~planlife/pics/english/4.jpg'},
-  {title:'پادکست‌های آموزشی',sub:'گوش کن و یاد بگیر در هر لحظه',img:'http://fs3.centraldnserver.com/~planlife/pics/english/5.jpg'},
-  {title:'دوره‌های تصویری',sub:'آموزش قدم‌به‌قدم با ویدیو',img:'http://fs3.centraldnserver.com/~planlife/pics/english/6.jpg'}
-];
 let cur=0;const total=6;
 function relativeClass(i){
   const d=(i-cur+total)%total;
@@ -914,10 +881,6 @@ function goTo(n){
   cur=(n+total)%total;
   slides.forEach((s,i)=>{s.classList.remove('active','prev','next','far-prev','far-next');const c=relativeClass(i);if(c)s.classList.add(c);});
   dots.forEach((d,i)=>d.classList.toggle('active',i===cur));
-  if(heroCounter)heroCounter.textContent=String(cur+1);
-  if(heroMiniImg)heroMiniImg.src=slideMeta[cur].img;
-  if(heroMiniTitle)heroMiniTitle.textContent=slideMeta[cur].title;
-  if(heroMiniSub)heroMiniSub.textContent=slideMeta[cur].sub;
 }
 goTo(0);
 document.getElementById('heroMiniNext').addEventListener('click',()=>goTo(cur+1));
@@ -927,18 +890,24 @@ let timer=setInterval(()=>goTo(cur+1),4200);
 document.getElementById('hero').addEventListener('mouseenter',()=>clearInterval(timer));
 document.getElementById('hero').addEventListener('mouseleave',()=>{timer=setInterval(()=>goTo(cur+1),4200);});
 const heroStageEl=document.querySelector('.hero-stage');
-let swipeStartX=0,swipeStartY=0,swipeActive=false;
+let swipeStartX=0,swipeStartY=0,swipeActive=false,swipeLocked=false;
 heroStageEl.addEventListener('touchstart',function(e){
   if(e.touches.length!==1)return;
   swipeStartX=e.touches[0].clientX;swipeStartY=e.touches[0].clientY;
-  swipeActive=true;clearInterval(timer);
+  swipeActive=true;swipeLocked=false;clearInterval(timer);
 },{passive:true});
+heroStageEl.addEventListener('touchmove',function(e){
+  if(!swipeActive||e.touches.length!==1)return;
+  const dx=e.touches[0].clientX-swipeStartX,dy=e.touches[0].clientY-swipeStartY;
+  if(!swipeLocked&&Math.abs(dx)>6&&Math.abs(dx)>Math.abs(dy)){swipeLocked=true;}
+  if(swipeLocked)e.preventDefault();
+},{passive:false});
 heroStageEl.addEventListener('touchend',function(e){
   if(!swipeActive)return;swipeActive=false;
   const t=e.changedTouches[0];
   const dx=t.clientX-swipeStartX,dy=t.clientY-swipeStartY;
   if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2){
-    if(dx<0)goTo(cur+1);else goTo(cur-1);
+    if(dx<0)goTo(cur-1);else goTo(cur+1);
   }
   timer=setInterval(()=>goTo(cur+1),4200);
 },{passive:true});
