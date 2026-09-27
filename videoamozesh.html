@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1b3e">
+<title>Explore Lingua — planlife.ir</title>
+<link rel="preconnect" href="http://fs3.centraldnserver.com">
+<link rel="dns-prefetch" href="http://fs3.centraldnserver.com">
+<link rel="preconnect" href="https://hjzzvzxhrqovvducnxha.supabase.co" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:'Farhang';src:url('fonts/farhang-regular.woff2') format('woff2');font-weight:400;font-display:swap;}
+  @font-face{font-family:'Farhang';src:url('fonts/farhang-bold.woff2') format('woff2');font-weight:700 900;font-display:swap;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{min-height:100%;}
+  body{
+    font-family:'Farhang','Estedad',sans-serif;color:#fff;
+    padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+    background:linear-gradient(150deg,#0d1b3e 0%,#0f3460 35%,#1a5276 65%,#0a2540 100%);background-attachment:fixed;
+  }
+  body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,100,220,.2),transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 80%,rgba(0,40,140,.18),transparent 60%);}
+  .wrap{max-width:520px;margin:0 auto;position:relative;z-index:1;}
+
+  header{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;margin:14px 16px 6px;padding:10px 16px;
+    display:flex;align-items:center;justify-content:center;min-height:54px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:18px;
+    backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+    box-shadow:0 8px 32px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.4);}
+  .title{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;letter-spacing:1.5px;direction:ltr;}
+  .back{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:12px;
+    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;text-decoration:none;}
+  .back:active{background:rgba(255,255,255,.3);}
+
+  .login-icon-btn{
+    position:absolute;right:12px;top:50%;transform:translateY(-50%);
+    width:34px;height:34px;border-radius:12px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    color:#ff5a5a;background:rgba(255,80,80,.16);
+    border:1px solid rgba(255,90,90,.65);
+    box-shadow:0 0 14px rgba(255,80,80,.28), inset 0 1px 0 rgba(255,255,255,.25);
+    transition:color .25s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .login-icon-btn.logged-in{
+    color:#2ecc71;background:rgba(46,204,113,.16);
+    border-color:rgba(46,204,113,.7);
+    box-shadow:0 0 14px rgba(46,204,113,.35), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .login-icon-btn:active{transform:translateY(-50%) scale(.93);}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:10px 3px 40px;}
+  .item{position:relative;aspect-ratio:9/16;background:#0a1a3a;overflow:hidden;cursor:pointer;border-radius:6px;
+    -webkit-tap-highlight-color:transparent;transition:transform .15s;}
+  .item:active{transform:scale(.97);}
+  .item img,.item video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
+  .item::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to bottom,transparent 55%,rgba(5,15,40,.75));}
+  .lock{position:absolute;top:7px;right:7px;z-index:2;display:flex;align-items:center;gap:3px;padding:4px 8px;border-radius:30px;
+    background:rgba(5,15,40,.55);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:9.5px;font-weight:700;}
+  .item.open .lock{background:rgba(36,130,75,.6);}
+  .play{position:absolute;bottom:8px;left:8px;z-index:2;width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;}
+
+  /* feed */
+  .feed-modal{position:fixed;inset:0;z-index:9000;background:#000;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .feed-modal.open{opacity:1;pointer-events:auto;}
+  .feed{position:absolute;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain;}
+  .feed::-webkit-scrollbar{display:none;}
+  .slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;background:#000;overflow:hidden;}
+  .slide video{width:100%;height:100%;object-fit:contain;background:#000;}
+  .slide .shade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(to top,rgba(5,15,40,.85),transparent);pointer-events:none;}
+  .slide .cap{position:absolute;left:16px;right:16px;bottom:calc(22px + env(safe-area-inset-bottom,0px));font-size:14px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.8);}
+  .spin{position:absolute;top:50%;left:50%;width:34px;height:34px;margin:-17px;border-radius:50%;
+    border:3px solid rgba(255,255,255,.25);border-top-color:#fff;animation:sp .8s linear infinite;pointer-events:none;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .fclose{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:16px;z-index:9100;width:42px;height:42px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;font-size:26px;line-height:1;cursor:pointer;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;}
+
+  /* popups (same as English page) */
+  .popup-overlay{position:fixed;inset:0;z-index:10000;background:rgba(5,15,50,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .popup-overlay.open{opacity:1;pointer-events:auto;}
+  .popup-sheet{width:100%;max-width:520px;background:rgba(8,20,55,.92);border:1px solid rgba(255,255,255,.18);border-bottom:none;
+    border-radius:28px 28px 0 0;padding:28px 24px 32px;box-shadow:0 -20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.2);
+    transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.2,.64,1);}
+  .popup-overlay.open .popup-sheet{transform:translateY(0);}
+  .popup-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);margin:0 auto 20px;}
+  .popup-title{font-size:17px;font-weight:800;text-align:center;margin-bottom:6px;}
+  .popup-sub{font-size:12px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:22px;line-height:1.6;}
+  .phone-row{display:flex;gap:10px;margin-bottom:14px;direction:ltr;}
+  .prefix-box{flex-shrink:0;width:64px;height:52px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.75);font-family:'Poppins',sans-serif;}
+  .phone-input{flex:1;height:52px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;padding:0 16px;
+    font-size:15px;font-weight:600;color:#fff;font-family:inherit;direction:ltr;text-align:left;outline:none;}
+  .phone-input:focus{border-color:rgba(0,150,255,.7);background:rgba(255,255,255,.15);}
+  .phone-input::placeholder{color:rgba(255,255,255,.3);}
+  .input-error{font-size:11px;color:#6bb8ff;text-align:center;margin-top:-8px;margin-bottom:8px;min-height:16px;}
+  .btn-login{width:100%;height:50px;border-radius:16px;border:none;background:linear-gradient(135deg,#0f3460,#1a5276,#1e90ff);color:#fff;
+    font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,80,200,.4);}
+  .btn-login:active{transform:scale(.97);}.btn-login:disabled{opacity:.5;}
+  .subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:4px;}
+  .subscribe-divider{text-align:center;font-size:11px;color:rgba(255,255,255,.35);margin:4px 0;}
+  .btn-sub{width:100%;height:46px;border-radius:14px;border:none;display:flex;align-items:center;justify-content:center;gap:8px;
+    font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;color:#fff;}
+  .btn-sub:active{transform:scale(.97);opacity:.88;}
+  .btn-sub.telegram{background:linear-gradient(135deg,#1e88e5,#0d47a1);}
+  .btn-sub.bale{background:linear-gradient(135deg,#00c853,#1b5e20);}
+  .btn-sub.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);}
+  .btn-sub.price{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);font-size:12px;}
+
+  .price-overlay{position:fixed;inset:0;z-index:11000;background:rgba(5,10,30,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .price-overlay.open{opacity:1;pointer-events:auto;}
+  .price-sheet{width:100%;max-width:400px;background:rgba(8,18,50,.96);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:28px 22px 24px;
+    box-shadow:0 24px 80px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.2);transform:scale(.9);transition:transform .35s cubic-bezier(.34,1.3,.64,1);}
+  .price-overlay.open .price-sheet{transform:scale(1);}
+  .price-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .price-title{font-size:17px;font-weight:800;}
+  .price-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:16px;cursor:pointer;}
+  .plan-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+  .plan-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+  .plan-prices{text-align:left;}
+  .plan-old{font-size:11px;color:rgba(255,100,100,.7);text-decoration:line-through;direction:ltr;}
+  .plan-new{font-size:14px;font-weight:800;color:#7ec8ff;direction:ltr;}
+  .price-subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:16px;}
+
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,.95);
+    border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;box-shadow:0 8px 32px rgba(0,0,0,.4);
+    opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="english.html" aria-label="بازگشت">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="title">Explore Lingua</div>
+    <button class="login-icon-btn" id="loginIconBtn" type="button" aria-label="ورود" onclick="onLoginIconClick()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6"/>
+      </svg>
+    </button>
+  </header>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="feed-modal" id="feedModal">
+  <button class="fclose" onclick="closeFeed()" aria-label="بستن">×</button>
+  <div class="feed" id="feed"></div>
+</div>
+
+<!-- Login / subscription popup (same system as the English page) -->
+<div class="popup-overlay" id="loginPopup">
+  <div class="popup-sheet">
+    <div class="popup-handle"></div>
+    <div class="popup-title">🔐 ورود به Lingua</div>
+    <div class="popup-sub">برای تماشای ویدیوها، شماره موبایل اشتراک خود را وارد کنید</div>
+    <div class="phone-row">
+      <div class="prefix-box">+98</div>
+      <input class="phone-input" id="phoneInput" type="tel" inputmode="numeric" placeholder="9123456789" maxlength="11">
+    </div>
+    <div class="input-error" id="phoneError"></div>
+    <button class="btn-login" id="btnLogin" onclick="doLogin()"><span id="loginBtnText">ورود</span></button>
+    <div class="subscribe-divider">— یا —</div>
+    <div class="subscribe-btns">
+      <button class="btn-sub price" onclick="openPricePopup()">💎 قیمت اشتراک</button>
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank" rel="noopener">تهیه کد اشتراک — تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank" rel="noopener">تهیه کد اشتراک — بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank" rel="noopener">تهیه کد اشتراک — واتس‌اپ</a>
+    </div>
+  </div>
+</div>
+
+<div class="price-overlay" id="pricePopup">
+  <div class="price-sheet">
+    <div class="price-header">
+      <div class="price-title">💎 قیمت اشتراک</div>
+      <button class="price-close" onclick="closePricePopup()">✕</button>
+    </div>
+    <div class="plan-row"><div class="plan-name">اشتراک ماهانه</div><div class="plan-prices"><div class="plan-new">۲۸۰,۰۰۰ تومان</div></div></div>
+    <div class="plan-row"><div class="plan-name">اشتراک ۶ ماهه</div><div class="plan-prices"><div class="plan-old">۱,۶۸۰,۰۰۰</div><div class="plan-new">۱,۱۹۰,۰۰۰ تومان</div></div></div>
+    <div class="plan-row"><div class="plan-name">اشتراک سالانه</div><div class="plan-prices"><div class="plan-old">۳,۳۶۰,۰۰۰</div><div class="plan-new">۲,۵۸۰,۰۰۰ تومان</div></div></div>
+    <div class="price-subscribe-btns">
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank" rel="noopener">خرید از تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank" rel="noopener">خرید از بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank" rel="noopener">خرید از واتس‌اپ</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ Supabase + session (same as English page) ============ */
+const SUPABASE_URL='https://hjzzvzxhrqovvducnxha.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
+async function sbGet(table,filter){
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}&limit=1`,{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
+  return r.json();
+}
+async function sbInsert(table,body){
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{method:'POST',
+    headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(body)});
+  return r.ok;
+}
+const SESSION_KEY='lingua_session_v1';
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch(e){return null;}}
+function setSession(d){try{localStorage.setItem(SESSION_KEY,JSON.stringify(d));}catch(e){}}
+function isLoggedIn(){const s=getSession();return !!(s&&s.phone&&s.verified);}
+function showToast(m,d=2800){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),d);}
+
+/* ============ Videos — files live in /video/graphic/ ============ */
+const BASE='http://fs3.centraldnserver.com/~planlife/pics/english/video/graphic/';
+/* برای اضافه کردن ویدیو: فایل N.mp4 را در همین پوشه آپلود کنید و عدد N را به این لیست اضافه کنید */
+const VIDEO_IDS=[1,2,3,4,5,6,7];
+/* عنوان اختیاری برای هر ویدیو: TITLES={3:'عنوان ویدیوی ۳'} */
+const TITLES={};
+/* کاور اختیاری: اگر برای ویدیویی فایل N.jpg هم گذاشتید، عدد N را اینجا بنویسید. بقیه از فریم اول خود ویدیو کاور می‌گیرند */
+const JPG_COVERS=[];
+const videos=VIDEO_IDS.map(n=>({
+  src:`${BASE}${n}.mp4`,
+  cover:JPG_COVERS.includes(n)?`${BASE}${n}.jpg`:'',
+  title:TITLES[n]||''
+}));
+
+/* ============ Access ============ */
+let unlocked=false;
+function setAccess(on){
+  unlocked=on;
+  const ic=document.getElementById('loginIconBtn');
+  if(ic){
+    ic.classList.toggle('logged-in',on);
+    ic.setAttribute('aria-label',on?'حساب کاربری':'ورود');
+  }
+  document.querySelectorAll('.item').forEach(el=>{
+    el.classList.toggle('open',on);
+    el.querySelector('.lock').textContent=on?'✓ فعال':'🔒 قفل';
+  });
+}
+async function verifySubscription(){
+  const s=getSession();
+  if(!s||!s.phone||!s.verified){setAccess(false);return false;}
+  try{
+    const subs=await sbGet('subscriptions',`phone=eq.${encodeURIComponent(s.phone)}&is_active=eq.true`);
+    const ok=Array.isArray(subs)&&subs.length>0;
+    if(!ok)try{localStorage.removeItem(SESSION_KEY);}catch(e){}
+    setAccess(ok);return ok;
+  }catch(e){setAccess(false);return false;}
+}
+
+/* آیکن ورود: اگر وارد نشده باشد پاپ‌آپ ورود، اگر وارد شده باشد خروج از حساب */
+function onLoginIconClick(){
+  if(isLoggedIn()){
+    if(confirm('می‌خواهید از حساب خود خارج شوید؟')){
+      try{localStorage.removeItem(SESSION_KEY);}catch(e){}
+      location.reload();
+    }
+  }else{
+    openLoginPopup(null);
+  }
+}
+
+/* ============ Grid ============ */
+const grid=document.getElementById('grid');
+grid.innerHTML=videos.map((v,i)=>`
+  <div class="item" data-i="${i}">
+    ${v.cover
+      ?`<img src="${v.cover}" alt="ویدیو ${i+1}" width="180" height="320" decoding="async" fetchpriority="high">`
+      :`<video src="${v.src}#t=0.001" preload="metadata" muted playsinline webkit-playsinline disablepictureinpicture tabindex="-1"></video>`}
+    <div class="lock">🔒 قفل</div>
+    <div class="play"><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff"><path d="M7 4l13 8-13 8z"/></svg></div>
+  </div>`).join('');
+
+grid.addEventListener('click',e=>{
+  const it=e.target.closest('.item');if(!it)return;
+  const i=+it.dataset.i;
+  if(!isLoggedIn()){openLoginPopup(()=>openFeed(i));return;}
+  openFeed(i);                       // باز شدن فوری؛ بررسی اشتراک در پس‌زمینه
+  verifySubscription().then(ok=>{
+    if(!ok){closeFeed();openLoginPopup(()=>openFeed(i));}
+  });
+});
+
+/* ============ Feed (videos are only loaded after access is confirmed) ============ */
+const feed=document.getElementById('feed');
+const feedModal=document.getElementById('feedModal');
+let slides=[],io=null;
+
+function loadSlide(s,mode){
+  if(!s||s.dataset.loaded==='full')return;
+  const v=s.querySelector('video');
+  if(mode==='full'||!v.src){
+    v.preload=mode==='full'?'auto':'metadata';
+    if(!v.src){v.src=videos[+s.dataset.i].src+'#t=0.001';v.load();}
+    if(mode==='full')s.dataset.loaded='full';
+  }
+}
+function buildFeed(){
+  feed.innerHTML=videos.map((v,i)=>`
+    <div class="slide" data-i="${i}">
+      <video playsinline webkit-playsinline loop preload="metadata"></video>
+      <div class="spin"></div>
+      <div class="shade"></div>
+      ${v.title?`<div class="cap">${v.title}</div>`:''}
+    </div>`).join('');
+  slides=[...feed.querySelectorAll('.slide')];
+  slides.forEach(s=>{
+    const v=s.querySelector('video'),sp=s.querySelector('.spin');
+    ['playing','canplay','loadeddata'].forEach(ev=>v.addEventListener(ev,()=>sp.style.display='none'));
+    ['waiting','loadstart'].forEach(ev=>v.addEventListener(ev,()=>sp.style.display=''));
+    s.addEventListener('click',()=>v.paused?v.play().catch(()=>{}):v.pause());
+  });
+  if(io)io.disconnect();
+  io=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      const s=en.target,v=s.querySelector('video'),i=slides.indexOf(s);
+      if(en.isIntersecting&&en.intersectionRatio>.6){
+        loadSlide(s,'full');
+        v.play().catch(()=>{});
+        loadSlide(slides[i+1],'meta');   // پیش‌بارگذاری سبک ویدیوی بعدی
+        loadSlide(slides[i-1],'meta');
+      }else v.pause();
+    });
+  },{threshold:[0,.6,1]});
+  slides.forEach(s=>io.observe(s));
+}
+function openFeed(i){
+  buildFeed();
+  feedModal.classList.add('open');
+  document.body.style.overflow='hidden';
+  feed.scrollTop=slides[i].offsetTop;
+  loadSlide(slides[i],'full');
+  slides[i].querySelector('video').play().catch(()=>{});
+}
+function closeFeed(){
+  feedModal.classList.remove('open');
+  document.body.style.overflow='';
+  slides.forEach(s=>{const v=s.querySelector('video');v.pause();v.removeAttribute('src');v.load();});
+  if(io)io.disconnect();
+}
+document.addEventListener('keydown',e=>{
+  if(!feedModal.classList.contains('open'))return;
+  if(e.key==='Escape')closeFeed();
+  if(e.key==='ArrowDown')feed.scrollBy({top:feed.clientHeight,behavior:'smooth'});
+  if(e.key==='ArrowUp')feed.scrollBy({top:-feed.clientHeight,behavior:'smooth'});
+});
+
+/* ============ Login popup ============ */
+let pendingAction=null;
+function openLoginPopup(a){
+  pendingAction=a||null;
+  document.getElementById('loginPopup').classList.add('open');
+  setTimeout(()=>document.getElementById('phoneInput').focus(),400);
+}
+function closeLoginPopup(){document.getElementById('loginPopup').classList.remove('open');pendingAction=null;}
+document.getElementById('loginPopup').addEventListener('click',function(e){if(e.target===this)closeLoginPopup();});
+document.getElementById('phoneInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+async function doLogin(){
+  const input=document.getElementById('phoneInput'),err=document.getElementById('phoneError'),
+        btn=document.getElementById('btnLogin'),txt=document.getElementById('loginBtnText');
+  err.textContent='';
+  let phone=input.value.trim().replace(/\D/g,'');
+  if(phone.startsWith('0'))phone=phone.slice(1);
+  if(phone.length<10||phone.length>11){err.textContent='شماره موبایل معتبر نیست';return;}
+  btn.disabled=true;txt.textContent='در حال بررسی...';
+  try{
+    const subs=await sbGet('subscriptions',`phone=eq.${phone}&is_active=eq.true`);
+    if(subs&&subs.length>0){
+      setSession({phone,verified:true,ts:Date.now()});
+      await sbInsert('users',{phone});
+      const a=pendingAction;
+      closeLoginPopup();setAccess(true);
+      showToast('✅ خوش آمدید! ویدیوها باز شدند');
+      if(a)setTimeout(a,150);
+    }else{
+      await sbInsert('users',{phone});
+      err.textContent='اشتراک فعال یافت نشد. لطفاً کد اشتراک تهیه کنید.';
+    }
+  }catch(e){err.textContent='خطا در اتصال. دوباره تلاش کنید.';}
+  btn.disabled=false;txt.textContent='ورود';
+}
+function openPricePopup(){document.getElementById('pricePopup').classList.add('open');}
+function closePricePopup(){document.getElementById('pricePopup').classList.remove('open');}
+document.getElementById('pricePopup').addEventListener('click',function(e){if(e.target===this)closePricePopup();});
+
+verifySubscription();
+</script>
+</body>
+</html>
