@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>لغت انگلیسی — PlanLife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;background:#020813;font-family:Inter,Arial,sans-serif;color:#fff;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 20% 15%,rgba(40,104,255,.22),transparent 28%),radial-gradient(circle at 80% 20%,rgba(124,69,255,.18),transparent 30%),radial-gradient(circle at 50% 90%,rgba(0,150,255,.10),transparent 35%),#020813}
+body::after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(2,8,19,.10),rgba(2,8,19,.75))}
+.app{width:100%;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:30px}
+.phone{width:390px;min-height:820px;max-height:920px;position:relative;overflow:hidden;border-radius:44px;background:linear-gradient(180deg,rgba(4,22,43,.95),rgba(1,10,21,.98));border:1px solid rgba(138,186,255,.55);box-shadow:0 30px 100px rgba(0,0,0,.65),inset 0 0 40px rgba(65,130,255,.06)}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .35s ease,transform .35s ease,visibility .35s ease;z-index:2;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.active{opacity:1;visibility:visible;transform:translateX(0)}
+.header{position:absolute;top:0;left:0;right:0;z-index:10;padding:28px 22px 12px;background:linear-gradient(180deg,rgba(2,8,19,.85) 0%,rgba(2,8,19,.4) 70%,transparent 100%)}
+.top-row{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px}
+.sound-logo{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:radial-gradient(circle,rgba(110,96,255,.25),transparent 70%)}
+.sound-bars{display:flex;gap:3px;align-items:center;height:28px}
+.sound-bars span{width:4px;border-radius:5px;background:linear-gradient(180deg,#9b7dff,#387eff)}
+.sound-bars span:nth-child(1){height:10px}.sound-bars span:nth-child(2){height:19px}.sound-bars span:nth-child(3){height:25px}.sound-bars span:nth-child(4){height:15px}.sound-bars span:nth-child(5){height:21px}.sound-bars span:nth-child(6){height:11px}
+.brand-text h1{font-size:26px;line-height:1.1;font-weight:700;letter-spacing:-1px;direction:ltr}
+.brand-text p{margin-top:3px;color:#7e9abd;font-size:13px;direction:ltr}
+.login-icon-btn{width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#ff5a5a;background:rgba(255,80,80,.16);border:1px solid rgba(255,90,90,.65);box-shadow:0 0 14px rgba(255,80,80,.28),inset 0 1px 0 rgba(255,255,255,.25);transition:all .25s ease}
+.login-icon-btn.logged-in{color:#2ecc71;background:rgba(46,204,113,.16);border-color:rgba(46,204,113,.7);box-shadow:0 0 14px rgba(46,204,113,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.login-icon-btn:active{transform:scale(.93)}
+.hero{position:relative;height:220px;background-image:linear-gradient(180deg,rgba(2,8,19,.15) 0%,rgba(2,8,19,.05) 30%,rgba(2,8,19,.55) 65%,rgba(2,8,19,.98) 100%),url("http://fs3.centraldnserver.com/~planlife/pics/english/podcast/slide.jpeg");background-size:cover;background-position:center top;background-repeat:no-repeat}
+.hero-text{position:absolute;z-index:2;left:22px;bottom:20px;text-align:left}
+.hero-text p{color:#89b4e7;font-size:14px;letter-spacing:.2px}
+.hero-text strong{display:block;margin-top:4px;font-size:16px;font-weight:600}
+.search-button{width:40px;height:40px;position:absolute;right:20px;bottom:18px;border-radius:50%;background:rgba(2,13,28,.55);border:1px solid rgba(150,190,255,.2);color:#fff;font-size:19px;cursor:pointer;z-index:4}
+.source-tabs-wrap{padding:16px 16px 0;overflow-x:auto;scrollbar-width:none}
+.source-tabs-wrap::-webkit-scrollbar{display:none}
+.source-tabs{display:flex;gap:10px;padding-bottom:4px;width:fit-content;min-width:100%}
+.source-tab{position:relative;white-space:nowrap;padding:10px 18px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.3px;cursor:pointer;color:rgba(180,210,255,.65);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 16px rgba(0,0,0,.25);transition:all .25s ease;overflow:hidden;font-family:inherit}
+.source-tab::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);opacity:0;transition:opacity .25s}
+.source-tab:hover::before{opacity:1}
+.source-tab:hover{color:rgba(220,235,255,.9);border-color:rgba(255,255,255,.2)}
+.source-tab.active{color:#fff;background:rgba(86,106,255,.25);border-color:rgba(130,160,255,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 24px rgba(70,90,255,.35),0 0 0 1px rgba(100,130,255,.2)}
+.source-tab.active::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:30px;height:2px;border-radius:2px;background:linear-gradient(90deg,#6c88ff,#a57bff)}
+.list{padding:16px 16px 40px}
+.vocab-card{position:relative;display:flex;gap:13px;padding:11px;margin-bottom:11px;border-radius:22px;background:linear-gradient(135deg,rgba(9,34,59,.92),rgba(3,19,35,.92));border:1px solid rgba(94,150,213,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);cursor:pointer;min-height:110px;align-items:flex-start;transition:transform .2s,border-color .2s,box-shadow .2s}
+.vocab-card:hover{transform:translateY(-2px);border-color:rgba(102,135,255,.45);box-shadow:0 12px 30px rgba(0,0,0,.25),0 0 25px rgba(69,92,255,.08)}
+.vocab-card.locked{cursor:default}
+.vocab-card.locked .play-small{background:rgba(30,50,80,.7);box-shadow:none}
+.lock-overlay{position:absolute;inset:0;border-radius:22px;z-index:8;background:rgba(2,10,25,.5);display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding:14px;pointer-events:none}
+.lock-icon{font-size:20px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.cover{width:100px;height:100px;flex:none;border-radius:16px;overflow:hidden;border:1px solid rgba(135,182,255,.25);position:relative;align-self:center}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.72))}
+.cover-num{position:absolute;left:7px;bottom:7px;right:7px;z-index:2;font-family:Georgia,serif;font-size:11px;line-height:1.1;color:#fff;text-shadow:0 2px 5px #000;direction:ltr;text-align:center}
+.card-content{min-width:0;flex:1;padding-top:4px;padding-right:48px;direction:ltr;text-align:left}
+.card-content h3{font-size:14px;line-height:1.35;font-weight:700;color:#f4f8ff;margin-bottom:4px;direction:ltr;text-align:left}
+.card-en-title{color:#a0c0e8;font-size:11.5px;font-weight:600;direction:ltr;text-align:left;margin-bottom:3px}
+.card-fa-title{color:#7eb8ff;font-size:11px;font-weight:600;text-align:left;direction:ltr;margin-bottom:3px}
+.card-description{color:#8da7c4;font-size:11px;direction:ltr;text-align:left;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.card-meta{display:flex;gap:8px;color:#b4c8df;font-size:10px;margin-bottom:5px;flex-wrap:wrap;direction:ltr}
+.tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:20px;font-size:9px;background:rgba(47,110,204,.22);color:#6fb5ff}
+.level{display:flex;align-items:center;gap:5px;font-size:10px;color:#8eabca;margin-top:5px;direction:ltr}
+.level-bars{display:flex;gap:2px;align-items:flex-end}
+.level-bars span{width:3px;border-radius:3px;background:#3b9eff}
+.level-bars span:nth-child(1){height:5px}.level-bars span:nth-child(2){height:9px}.level-bars span:nth-child(3){height:13px}.level-bars span:nth-child(4){height:8px}
+.play-small{position:absolute;right:11px;bottom:13px;width:42px;height:42px;border-radius:14px;border:none;background:linear-gradient(135deg,#626cff,#7862ff);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(92,91,255,.35);cursor:pointer}
+.card-actions{position:absolute;right:11px;top:12px;display:flex;gap:6px}
+.icon-button{border:0;background:none;color:#7f9bbd;font-size:18px;cursor:pointer}
+.player-page{padding:28px 25px 40px}
+.player-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px}
+.circle-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(120,160,210,.18);background:rgba(8,28,49,.75);color:#fff;font-size:20px;cursor:pointer}
+.player-top-actions{display:flex;gap:10px}
+.player-cover{width:100%;aspect-ratio:1/1;max-width:270px;margin:0 auto 25px;border-radius:27px;overflow:hidden;border:1px solid rgba(125,177,255,.45);box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 35px rgba(52,100,255,.13)}
+.player-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.player-info{text-align:left;direction:ltr;margin-bottom:18px}
+.player-info h2{font-size:20px;line-height:1.3;margin-bottom:6px;direction:ltr;text-align:left}
+.player-fa-subtitle{font-size:13px;font-weight:600;color:#7eb8ff;text-align:left;margin-bottom:6px}
+.player-info p{color:#87a1c0;font-size:13px;direction:rtl;text-align:right}
+.player-meta{display:flex;gap:15px;margin-top:13px;color:#9bb1ca;font-size:11px;direction:ltr;justify-content:flex-start}
+.player-tag{display:inline-block;padding:6px 12px;border-radius:20px;background:#5665df;color:#fff;font-size:10px;margin-bottom:8px}
+.progress-container{margin-top:15px}
+.progress-bar{position:relative;width:100%;height:5px;background:#253e5c;border-radius:10px;cursor:pointer}
+.progress-fill{position:absolute;left:0;top:0;height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,#506eff,#8c5fff)}
+.progress-dot{position:absolute;width:12px;height:12px;top:50%;transform:translate(-50%,-50%);left:0%;border-radius:50%;background:#fff;box-shadow:0 0 12px #6c74ff}
+.time-row{display:flex;justify-content:space-between;margin-top:9px;font-size:11px;color:#8da2bd}
+.player-controls{display:flex;justify-content:center;align-items:center;gap:35px;margin:17px 0}
+.skip{width:42px;height:42px;border:0;background:none;color:#fff;font-size:20px;cursor:pointer}
+.skip small{font-size:10px}
+.big-play{width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#526bff,#845fff);border:3px solid rgba(125,147,255,.8);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 25px rgba(92,90,255,.55),inset 0 0 15px rgba(255,255,255,.08)}
+.waveform{height:50px;display:flex;align-items:center;justify-content:center;gap:3px;margin:10px 0 18px}
+.wave{width:3px;border-radius:10px;background:linear-gradient(180deg,#4b83ff,#8c63ff);animation:wave 1s ease-in-out infinite alternate}
+.wave:nth-child(2n){animation-delay:.1s}.wave:nth-child(3n){animation-delay:.2s}.wave:nth-child(4n){animation-delay:.3s}
+@keyframes wave{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+.wave.paused{animation-play-state:paused}
+.controls-row{display:flex;gap:10px}
+.speed-box{flex:1;display:flex;align-items:center;justify-content:space-around;padding:10px;border-radius:24px;background:rgba(7,29,52,.75);border:1px solid rgba(105,151,207,.18);color:#91a7c2;font-size:10px;min-width:0}
+.speed{cursor:pointer}
+.speed.active{padding:7px 13px;color:#fff;border-radius:20px;background:#5a69ff;box-shadow:0 0 15px rgba(89,94,255,.35)}
+.volume-box{width:130px;min-width:130px;max-width:130px;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:24px;background:rgba(7,29,52,.75);border:1px solid rgba(105,151,207,.18);overflow:hidden}
+.volume-icon{font-size:15px;flex:none}
+.volume-slider{flex:1;min-width:0;width:100%;accent-color:#6c71ff;cursor:pointer;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:#253e5c;outline:none}
+.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#6c71ff;cursor:pointer;box-shadow:0 0 6px rgba(108,113,255,.6)}
+.volume-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#6c71ff;cursor:pointer;border:none}
+.lesson-tabs{display:flex;margin-top:18px;padding:6px;border-radius:24px;background:#071b31}
+.lesson-tab{flex:1;text-align:center;padding:10px 5px;color:#8b9db7;font-size:12px;border-radius:20px;cursor:pointer}
+.lesson-tab.active{background:linear-gradient(135deg,#596cff,#755fff);color:#fff;box-shadow:0 5px 15px rgba(86,92,255,.3)}
+.transcript-box{margin-top:10px;padding:16px;border-radius:23px;background:linear-gradient(135deg,rgba(8,35,68,.96),rgba(3,20,38,.96));border:1px solid rgba(105,157,220,.16)}
+.transcript-loading{text-align:center;color:#6c8aaa;font-size:12px;padding:20px 0}
+.transcript-plain{white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;color:#eef4ff;font-size:13px;line-height:2;text-align:left;direction:ltr;padding:4px 2px}
+.vocabulary{margin-top:10px;padding:13px;border-radius:20px;background:#06182c;border:1px solid rgba(102,153,219,.13)}
+.vocab-header{display:flex;justify-content:space-between;margin-bottom:10px;font-size:12px;direction:ltr}
+.vocab-header span{color:#5eb1ff;font-size:10px}
+.vocab-list{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.vocab-list::-webkit-scrollbar{display:none}
+.vocab-item{min-width:90px;padding:10px;border-radius:14px;background:#0a2748;font-size:10px;direction:ltr;text-align:left}
+.vocab-item strong{display:block;font-size:11px;margin-bottom:3px;color:#7bc4ff}
+.vocab-item small{color:#92a7c1;font-size:9px;display:block;margin-top:2px}
+.vocab-item em{font-style:normal;color:#c5d8f0;font-size:9px}
+.notes-box{margin-top:10px;padding:10px;border-radius:23px;background:linear-gradient(135deg,rgba(8,35,68,.96),rgba(3,20,38,.96));border:1px solid rgba(105,157,220,.16)}
+
+/* ✅ FIX 1: فونت آیفن + سایز بزرگتر */
+.notes-textarea{
+  width:100%;min-height:130px;background:transparent;border:none;outline:none;
+  color:#c8ddf5;font-size:17px;line-height:1.8;resize:none;
+  font-family:-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  padding:8px;direction:auto
+}
+.notes-textarea::placeholder{color:#4a6580}
+
+.repeat-button{width:100%;display:flex;align-items:center;gap:13px;margin-top:10px;padding:13px;border-radius:20px;border:1px solid rgba(94,149,214,.16);background:#06182c;color:#fff;cursor:pointer;text-align:left;direction:ltr;font-family:inherit}
+.repeat-icon{font-size:22px;color:#50b7ff}
+.repeat-text strong{display:block;font-size:12px}
+.repeat-text small{color:#8298b4;font-size:9px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,.95);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap;direction:rtl}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.popup-overlay{position:fixed;inset:0;z-index:10000;background:rgba(5,15,50,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.popup-overlay.open{opacity:1;pointer-events:auto}
+.popup-sheet{width:100%;max-width:520px;background:rgba(8,20,55,.92);border:1px solid rgba(255,255,255,.18);border-bottom:none;border-radius:28px 28px 0 0;padding:28px 24px 32px;box-shadow:0 -20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.2);transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.2,.64,1)}
+.popup-overlay.open .popup-sheet{transform:translateY(0)}
+.popup-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);margin:0 auto 20px}
+.popup-title{font-size:17px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px}
+.popup-sub{font-size:12px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:22px;line-height:1.6}
+.phone-row{display:flex;gap:10px;margin-bottom:14px;direction:ltr}
+.prefix-box{flex-shrink:0;width:64px;height:52px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.5px}
+.phone-input{flex:1;height:52px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;padding:0 16px;font-size:15px;font-weight:600;color:#fff;font-family:inherit;direction:ltr;text-align:left;outline:none;transition:border-color .2s,background .2s}
+.phone-input:focus{border-color:rgba(0,150,255,.7);background:rgba(255,255,255,.15)}
+.phone-input::placeholder{color:rgba(255,255,255,.3)}
+.input-error{font-size:11px;color:#6bb8ff;text-align:center;margin-top:-8px;margin-bottom:8px;min-height:16px}
+.btn-login{width:100%;height:50px;border-radius:16px;border:none;background:linear-gradient(135deg,#0f3460,#1a5276,#1e90ff);color:#fff;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,80,200,.4);transition:transform .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-login:active{transform:scale(.97);opacity:.9}
+.btn-login:disabled{opacity:.5;cursor:not-allowed}
+.subscribe-divider{text-align:center;font-size:11px;color:rgba(255,255,255,.35);margin:4px 0}
+.subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.btn-sub{width:100%;height:46px;border-radius:14px;border:none;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:transform .15s,opacity .15s;text-decoration:none}
+.btn-sub:active{transform:scale(.97);opacity:.88}
+.btn-sub.telegram{background:linear-gradient(135deg,#1e88e5,#0d47a1);color:#fff}
+.btn-sub.bale{background:linear-gradient(135deg,#00c853,#1b5e20);color:#fff}
+.btn-sub.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff}
+.price-overlay{position:fixed;inset:0;z-index:11000;background:rgba(5,10,30,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.price-overlay.open{opacity:1;pointer-events:auto}
+.price-sheet{width:100%;max-width:400px;background:rgba(8,18,50,.96);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:28px 22px 24px;box-shadow:0 24px 80px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.2);transform:scale(.9);transition:transform .35s cubic-bezier(.34,1.3,.64,1)}
+.price-overlay.open .price-sheet{transform:scale(1)}
+.price-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.price-title{font-size:17px;font-weight:800;color:#fff}
+.price-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.plan-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.plan-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.9)}
+.plan-old{font-size:11px;color:rgba(255,100,100,.7);text-decoration:line-through;direction:ltr}
+.plan-new{font-size:14px;font-weight:800;color:#7ec8ff;direction:ltr}
+.price-subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.empty-state{text-align:center;color:#5a7a9a;font-size:13px;padding:40px 20px;direction:rtl}
+.empty-state .emoji{font-size:36px;display:block;margin-bottom:10px}
+@media(max-width:600px){.app{padding:0}.phone{width:100%;min-height:100vh;max-height:none;border-radius:0;border:none}}
+@media(min-width:601px){.phone{height:900px}}
+</style>
+</head>
+<body>
+<div class="app"><div class="phone">
+
+<section class="screen active" id="homeScreen">
+  <header class="header">
+    <div class="top-row">
+      <div class="brand">
+        <div class="sound-logo">
+          <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="brand-text"><h1>Vocabulary</h1><p>Smart Learning</p></div>
+      </div>
+      <button class="login-icon-btn" id="loginIconBtn" type="button" onclick="onLoginIconClick()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <div class="hero">
+    <button class="search-button">⌕</button>
+    <div class="hero-text"><p>PlanLife English</p><strong>From Beginner to Pro</strong></div>
+  </div>
+  <div class="source-tabs-wrap">
+    <div class="source-tabs" id="sourceTabs"></div>
+  </div>
+  <div class="list" id="vocabList"></div>
+</section>
+
+<section class="screen" id="playerScreen">
+  <div class="player-page">
+    <div class="player-top">
+      <button class="circle-btn" onclick="goHome()">‹</button>
+      <div class="player-top-actions">
+        <button class="circle-btn" onclick="togglePlayerFavorite()" id="playerFavorite">♡</button>
+        <button class="circle-btn">···</button>
+      </div>
+    </div>
+    <div class="player-cover"><img id="playerImage" src="" alt=""></div>
+    <div class="player-info">
+      <span class="player-tag" id="playerTag">Beginner</span>
+      <div class="player-fa-subtitle" id="playerFaTitle"></div>
+      <h2 id="playerTitle">Lesson Title</h2>
+      <p id="playerDescription">Description</p>
+      <div class="player-meta">
+        <span id="playerWords">📖 Words</span>
+        <span id="playerDurEl">◷ Duration</span>
+      </div>
+    </div>
+    <audio id="audioPlayer" preload="metadata"></audio>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-dot" id="progressDot"></div>
+      </div>
+      <div class="time-row"><span id="currentTime">00:00</span><span id="audioDuration">00:00</span></div>
+    </div>
+    <div class="player-controls">
+      <button class="skip" onclick="skip(-15)">↶<small>15</small></button>
+      <button class="big-play" id="mainPlay" onclick="togglePlay()">▶</button>
+      <button class="skip" onclick="skip(15)"><small>15</small>↷</button>
+    </div>
+    <div class="waveform" id="waveform"></div>
+    <div class="controls-row">
+      <div class="speed-box">
+        <span class="speed" data-speed=".75">0.75x</span>
+        <span class="speed active" data-speed="1">1x</span>
+        <span class="speed" data-speed="1.25">1.25x</span>
+        <span class="speed" data-speed="1.5">1.5x</span>
+      </div>
+      <div class="volume-box">
+        <span class="volume-icon">🔊</span>
+        <input class="volume-slider" type="range" min="0" max="1" step=".01" value="1" id="volumeSlider">
+      </div>
+    </div>
+    <div class="lesson-tabs">
+      <div class="lesson-tab active" onclick="switchTab(this,'transcript')">Transcript</div>
+      <div class="lesson-tab" onclick="switchTab(this,'vocab')">Vocabulary</div>
+      <div class="lesson-tab" onclick="switchTab(this,'notes')">Notes</div>
+    </div>
+    <div class="transcript-box" id="transcriptContent">
+      <div class="transcript-loading" id="transcriptLoading">Loading transcript...</div>
+      <div id="transcriptLines"></div>
+    </div>
+    <div class="vocabulary" id="vocabContent" style="display:none">
+      <div class="vocab-header"><strong>📖 Vocabulary</strong><span>See All ›</span></div>
+      <div class="vocab-list" id="playerVocabList"></div>
+    </div>
+    <div class="notes-box" id="notesContent" style="display:none">
+      <textarea class="notes-textarea" placeholder="Write your notes here..."></textarea>
+    </div>
+    <button class="repeat-button" onclick="repeatSentence()">
+      <div class="repeat-icon">↻</div>
+      <div class="repeat-text"><strong>Repeat this section</strong><small>برای تمرین بیشتر</small></div>
+      <div style="margin-left:auto">‹</div>
+    </button>
+  </div>
+</section>
+
+</div></div>
+
+<div class="popup-overlay" id="loginPopup">
+  <div class="popup-sheet">
+    <div class="popup-handle"></div>
+    <div class="popup-title">🔐 ورود به Vocabulary</div>
+    <div class="popup-sub">شماره موبایلت رو وارد کن تا به درس‌های صوتی دسترسی داشته باشی</div>
+    <div class="phone-row">
+      <div class="prefix-box">+98</div>
+      <input class="phone-input" id="phoneInput" type="tel" inputmode="numeric" placeholder="9123456789" maxlength="11">
+    </div>
+    <div class="input-error" id="phoneError"></div>
+    <button class="btn-login" id="btnLogin" onclick="doLogin()"><span id="loginBtnText">ورود</span></button>
+    <div class="subscribe-divider">— یا —</div>
+    <div class="subscribe-btns">
+      <button class="btn-sub" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);font-size:12px" onclick="openPricePopup()">💎 پلن‌های اشتراک</button>
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank">دریافت کد — تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank">دریافت کد — بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank">دریافت کد — واتساپ</a>
+    </div>
+  </div>
+</div>
+
+<div class="price-overlay" id="pricePopup" onclick="closePriceIfOutside(event)">
+  <div class="price-sheet">
+    <div class="price-header">
+      <div class="price-title">💎 پلن‌های اشتراک</div>
+      <button class="price-close" onclick="closePricePopup()">✕</button>
+    </div>
+    <div class="plan-row"><div class="plan-name">Monthly Plan</div><div class="plan-prices"><div class="plan-new">۲۸۰,۰۰۰ تومان</div></div></div>
+    <div class="plan-row"><div class="plan-name">6-Month Plan</div><div class="plan-prices"><div class="plan-old">۱,۶۸۰,۰۰۰</div><div class="plan-new">۱,۱۹۰,۰۰۰ تومان</div></div></div>
+    <div class="plan-row"><div class="plan-name">Annual Plan</div><div class="plan-prices"><div class="plan-old">۳,۳۶۰,۰۰۰</div><div class="plan-new">۲,۵۸۰,۰۰۰ تومان</div></div></div>
+    <div class="price-subscribe-btns">
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank">خرید از تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank">خرید از بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank">خرید از واتساپ</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
+const SB_H   = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+
+const tabs = [
+  {
+    id: 'beginner', label: 'لغت‌های مبتدی',
+    items: [
+      {id:'1-Vocabulary',free:true,titleEn:'Vocabulary 1 — Everyday Basics',titleFa:'لغات روزمره پایه',description:'Essential words for daily communication and greetings',level:'Beginner',words:'50 Words',dur:'4 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/Vocabularypic.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/Vocabulary/Vocabulary1.mp3',vocab:[{w:'Hello',t:'سلام'},{w:'Goodbye',t:'خداحافظ'},{w:'Please',t:'لطفاً'},{w:'Thank you',t:'ممنون'},{w:'Sorry',t:'متأسفم'},{w:'Yes',t:'بله'},{w:'No',t:'خیر'},{w:'Good',t:'خوب'},{w:'Bad',t:'بد'},{w:'Help',t:'کمک'},{w:'Water',t:'آب'},{w:'Food',t:'غذا'},{w:'House',t:'خانه'},{w:'Car',t:'ماشین'},{w:'Book',t:'کتاب'},{w:'Time',t:'زمان'},{w:'Day',t:'روز'},{w:'Night',t:'شب'},{w:'Morning',t:'صبح'},{w:'Evening',t:'عصر'},{w:'Friend',t:'دوست'},{w:'Family',t:'خانواده'},{w:'Work',t:'کار'},{w:'School',t:'مدرسه'},{w:'Money',t:'پول'},{w:'Name',t:'اسم'},{w:'City',t:'شهر'},{w:'Street',t:'خیابان'},{w:'Phone',t:'تلفن'},{w:'Door',t:'در'},{w:'Window',t:'پنجره'},{w:'Chair',t:'صندلی'},{w:'Table',t:'میز'},{w:'Bed',t:'تخت'},{w:'Room',t:'اتاق'},{w:'Hot',t:'گرم'},{w:'Cold',t:'سرد'},{w:'Big',t:'بزرگ'},{w:'Small',t:'کوچک'},{w:'New',t:'جدید'},{w:'Old',t:'قدیمی'},{w:'Fast',t:'سریع'},{w:'Slow',t:'آهسته'},{w:'Open',t:'باز'},{w:'Close',t:'بسته'},{w:'Buy',t:'خریدن'},{w:'Sell',t:'فروختن'},{w:'Eat',t:'خوردن'},{w:'Drink',t:'نوشیدن'},{w:'Sleep',t:'خوابیدن'}]},
+      {id:'2-Vocabulary',free:false,titleEn:'Vocabulary 2 — Numbers & Time',titleFa:'اعداد و زمان',description:'Numbers, days, months and telling the time in English',level:'Beginner',words:'50 Words',dur:'4 min 30 sec',image:'http://fs3.centraldnserver.com/~planlife/pics/english/Vocabularypic.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/Vocabulary/Vocabulary2.mp3',vocab:[{w:'One',t:'یک'},{w:'Two',t:'دو'},{w:'Three',t:'سه'},{w:'Four',t:'چهار'},{w:'Five',t:'پنج'},{w:'Ten',t:'ده'},{w:'Monday',t:'دوشنبه'},{w:'Friday',t:'جمعه'},{w:'Year',t:'سال'},{w:'Month',t:'ماه'}]},
+      {id:'3-Vocabulary',free:false,titleEn:'Vocabulary 3 — Colors & Shapes',titleFa:'رنگ‌ها و اشکال',description:'Colors, shapes, sizes and descriptive adjectives',level:'Beginner',words:'50 Words',dur:'4 min 15 sec',image:'http://fs3.centraldnserver.com/~planlife/pics/english/Vocabularypic.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/Vocabulary/Vocabulary3.mp3',vocab:[{w:'Red',t:'قرمز'},{w:'Blue',t:'آبی'},{w:'Green',t:'سبز'},{w:'Yellow',t:'زرد'},{w:'Black',t:'سیاه'},{w:'White',t:'سفید'}]},
+      {id:'4-Vocabulary',free:false,titleEn:'Vocabulary 4 — Family & People',titleFa:'خانواده و مردم',description:'Family members, relationships and describing people',level:'Beginner',words:'50 Words',dur:'5 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/Vocabularypic.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/Vocabulary/Vocabulary4.mp3',vocab:[{w:'Mother',t:'مادر'},{w:'Father',t:'پدر'},{w:'Sister',t:'خواهر'},{w:'Brother',t:'برادر'},{w:'Child',t:'فرزند'}]},
+      {id:'5-Vocabulary',free:false,titleEn:'Vocabulary 5 — Food & Places',titleFa:'غذا و مکان‌ها',description:'Common foods, drinks and everyday places around town',level:'Beginner',words:'50 Words',dur:'4 min 45 sec',image:'http://fs3.centraldnserver.com/~planlife/pics/english/Vocabularypic.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/Vocabulary/Vocabulary5.mp3',vocab:[{w:'Bread',t:'نان'},{w:'Rice',t:'برنج'},{w:'Meat',t:'گوشت'},{w:'Restaurant',t:'رستوران'},{w:'Park',t:'پارک'}]},
+    ]
+  },
+  {id:'intermediate',label:'لغت‌های پیشرفته',items:[{id:'int-01',free:false,titleEn:'Daily Routines',titleFa:'روتین روزانه',description:'افعال و اصطلاحات مربوط به کارهای روزانه',level:'Intermediate',words:'۲۵ لغت',dur:'۱۲ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3',vocab:[{w:'Routine',t:'روتین'},{w:'Schedule',t:'برنامه'},{w:'Commute',t:'رفت‌وآمد'},{w:'Exercise',t:'ورزش'},{w:'Breakfast',t:'صبحانه'}]},{id:'int-02',free:false,titleEn:'Emotions & Feelings',titleFa:'احساسات و عواطف',description:'بیان حالات و احساسات مختلف',level:'Intermediate',words:'۲۸ لغت',dur:'۱۰ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The-decline-of-the-apostrophe.mp3',vocab:[{w:'Anxious',t:'مضطرب'},{w:'Grateful',t:'سپاسگزار'},{w:'Frustrated',t:'ناامید'},{w:'Relieved',t:'آسوده'},{w:'Curious',t:'کنجکاو'}]},{id:'int-03',free:false,titleEn:'Travel Vocabulary',titleFa:'لغات سفر',description:'کلمات ضروری برای سفر به خارج',level:'Intermediate',words:'۳۵ لغت',dur:'۱۵ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20booze%20for%20a%20month.mp3',vocab:[{w:'Passport',t:'گذرنامه'},{w:'Departure',t:'پرواز رفت'},{w:'Luggage',t:'چمدان'},{w:'Boarding',t:'سوار شدن'},{w:'Customs',t:'گمرک'}]}]},
+  {id:'advanced1',label:'لغت‌های پیشرفته ۱',items:[{id:'adv1-01',free:false,titleEn:'Business Communication',titleFa:'ارتباط تجاری',description:'لغات حرفه‌ای برای محیط کار و جلسات',level:'Advanced',words:'۳۰ لغت',dur:'۱۴ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why%20does%20seeing%20someone%20yawn%20make%20you%20yawn.mp3',vocab:[{w:'Negotiate',t:'مذاکره کردن'},{w:'Stakeholder',t:'ذینفع'},{w:'Deadline',t:'مهلت'},{w:'Revenue',t:'درآمد'},{w:'Strategy',t:'استراتژی'}]},{id:'adv1-02',free:false,titleEn:'Academic Writing',titleFa:'نوشتار دانشگاهی',description:'اصطلاحات رسمی برای مقالات علمی',level:'Advanced',words:'۲۵ لغت',dur:'۱۱ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20benefits%20of%20low%20emission%20zones.mp3',vocab:[{w:'Hypothesis',t:'فرضیه'},{w:'Methodology',t:'روش‌شناسی'},{w:'Evidence',t:'شواهد'},{w:'Conclude',t:'نتیجه‌گیری کردن'},{w:'Abstract',t:'چکیده'}]},{id:'adv1-03',free:false,titleEn:'Idioms in Context',titleFa:'اصطلاحات در زمینه',description:'اصطلاحات رایج انگلیسی با مثال',level:'Advanced',words:'۲۰ اصطلاح',dur:'۱۶ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Is%20it%20good%20to%20disagree.mp3',vocab:[{w:'Break the ice',t:'یخ رو شکستن'},{w:'Hit the nail',t:'به جا زدن'},{w:'Bite the bullet',t:'دندان روی جگر گذاشتن'},{w:'Spill the beans',t:'لو دادن'},{w:'Under the weather',t:'حالم خوب نیست'}]}]},
+  {id:'advanced2',label:'لغت‌های پیشرفته ۲',items:[{id:'adv2-01',free:false,titleEn:'Media & Technology',titleFa:'رسانه و فناوری',description:'لغات دنیای دیجیتال و رسانه',level:'Advanced',words:'۳۲ لغت',dur:'۱۳ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/How%20resilient%20are%20you.mp3',vocab:[{w:'Algorithm',t:'الگوریتم'},{w:'Bandwidth',t:'پهنای باند'},{w:'Encrypt',t:'رمزگذاری'},{w:'Platform',t:'پلتفرم'},{w:'Interface',t:'رابط کاربری'}]},{id:'adv2-02',free:false,titleEn:'Environment & Climate',titleFa:'محیط زیست و آب‌وهوا',description:'واژگان مرتبط با بحران اقلیمی',level:'Advanced',words:'۲۸ لغت',dur:'۱۲ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20fast%20fashion.mp3',vocab:[{w:'Carbon footprint',t:'ردپای کربن'},{w:'Renewable',t:'تجدیدپذیر'},{w:'Emission',t:'انتشار'},{w:'Ecosystem',t:'اکوسیستم'},{w:'Sustainable',t:'پایدار'}]},{id:'adv2-03',free:false,titleEn:'Psychology Terms',titleFa:'اصطلاحات روانشناسی',description:'لغات روانشناسی پرکاربرد در انگلیسی',level:'Advanced',words:'۲۲ لغت',dur:'۱۴ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Eating%20pond%20scum.mp3',vocab:[{w:'Cognitive',t:'شناختی'},{w:'Empathy',t:'همدلی'},{w:'Resilience',t:'تاب‌آوری'},{w:'Anxiety',t:'اضطراب'},{w:'Mindset',t:'طرز فکر'}]}]},
+  {id:'advanced3',label:'لغت‌های پیشرفته ۳',items:[{id:'adv3-01',free:false,titleEn:'Politics & Society',titleFa:'سیاست و جامعه',description:'واژگان دنیای سیاست و مسائل اجتماعی',level:'Advanced',words:'۳۵ لغت',dur:'۱۵ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20circular%20economy.mp3',vocab:[{w:'Democracy',t:'دموکراسی'},{w:'Legislation',t:'قانون‌گذاری'},{w:'Sanction',t:'تحریم'},{w:'Referendum',t:'همه‌پرسی'},{w:'Coalition',t:'ائتلاف'}]},{id:'adv3-02',free:false,titleEn:'Health & Medicine',titleFa:'سلامت و پزشکی',description:'لغات پزشکی پرکاربرد در زندگی روزمره',level:'Advanced',words:'۲۸ لغت',dur:'۱۲ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20future%20without%20doctors.mp3',vocab:[{w:'Diagnosis',t:'تشخیص'},{w:'Prescription',t:'نسخه'},{w:'Symptom',t:'علائم'},{w:'Chronic',t:'مزمن'},{w:'Immunity',t:'ایمنی'}]},{id:'adv3-03',free:false,titleEn:'Economy & Finance',titleFa:'اقتصاد و مالی',description:'اصطلاحات اقتصادی و مالی روز دنیا',level:'Advanced',words:'۳۰ لغت',dur:'۱۶ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20quieter%20world.mp3',vocab:[{w:'Inflation',t:'تورم'},{w:'Investment',t:'سرمایه‌گذاری'},{w:'Deficit',t:'کسری بودجه'},{w:'Dividend',t:'سود سهام'},{w:'Liquidity',t:'نقدینگی'}]}]},
+  {id:'advanced4',label:'لغت‌های پیشرفته ۴',items:[{id:'adv4-01',free:false,titleEn:'Philosophy & Ethics',titleFa:'فلسفه و اخلاق',description:'مفاهیم بنیادی فلسفه به زبان انگلیسی',level:'Advanced',words:'۲۵ لغت',dur:'۱۷ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Women%20in%20politics.mp3',vocab:[{w:'Morality',t:'اخلاق'},{w:'Virtue',t:'فضیلت'},{w:'Justice',t:'عدالت'},{w:'Autonomy',t:'خودمختاری'},{w:'Paradox',t:'پارادوکس'}]},{id:'adv4-02',free:false,titleEn:'Art & Literature',titleFa:'هنر و ادبیات',description:'لغات دنیای هنر، ادبیات و فرهنگ',level:'Advanced',words:'۲۲ لغت',dur:'۱۱ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Angela%20merkel.mp3',vocab:[{w:'Metaphor',t:'استعاره'},{w:'Narrative',t:'روایت'},{w:'Aesthetic',t:'زیبایی‌شناسی'},{w:'Critique',t:'نقد'},{w:'Genre',t:'ژانر'}]},{id:'adv4-03',free:false,titleEn:'Science & Research',titleFa:'علم و پژوهش',description:'واژگان علمی و پژوهشی سطح بالا',level:'Advanced',words:'۳۰ لغت',dur:'۱۸ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/too_much_stuff.mp3',vocab:[{w:'Paradigm',t:'پارادایم'},{w:'Variable',t:'متغیر'},{w:'Phenomenon',t:'پدیده'},{w:'Inference',t:'استنتاج'},{w:'Correlation',t:'همبستگی'}]}]},
+  {id:'advanced5',label:'لغت‌های پیشرفته ۵',items:[{id:'adv5-01',free:false,titleEn:'Phrasal Verbs',titleFa:'افعال عبارتی',description:'افعال عبارتی پرکاربرد که مکالمه رو طبیعی می‌کنه',level:'Advanced',words:'۲۵ لغت',dur:'۱۳ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Are%20humans%20a%20messy%20species.mp3',vocab:[{w:'Give up',t:'تسلیم شدن'},{w:'Work out',t:'ورزش / حل کردن'},{w:'Take over',t:'تصاحب کردن'},{w:'Look into',t:'بررسی کردن'},{w:'Put off',t:'به تعویق انداختن'}]},{id:'adv5-02',free:false,titleEn:'Formal vs Informal',titleFa:'رسمی در برابر غیررسمی',description:'تفاوت لحن رسمی و محاوره‌ای در انگلیسی',level:'Advanced',words:'۳۰ لغت',dur:'۱۴ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why%20we%20forget%20the%20things%20we%20learn.mp3',vocab:[{w:'Purchase / Buy',t:'خریدن'},{w:'Commence / Start',t:'شروع کردن'},{w:'Reside / Live',t:'زندگی کردن'},{w:'Inquire / Ask',t:'پرسیدن'},{w:'Assist / Help',t:'کمک کردن'}]},{id:'adv5-03',free:false,titleEn:'Critical Thinking',titleFa:'تفکر انتقادی',description:'لغات برای بحث و تحلیل نقادانه',level:'Advanced',words:'۲۰ لغت',dur:'۱۵ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/What%20makes%20a%20good%20story.mp3',vocab:[{w:'Analyze',t:'تحلیل کردن'},{w:'Evaluate',t:'ارزیابی کردن'},{w:'Bias',t:'سوگیری'},{w:'Perspective',t:'دیدگاه'},{w:'Assumption',t:'فرض'}]}]},
+  {id:'ielts1',label:'لغت‌های IELTS 1',items:[{id:'ielts1-01',free:false,titleEn:'IELTS Academic — Task 1',titleFa:'آیلتس آکادمیک — بخش ۱',description:'لغات ضروری برای توصیف نمودار و جدول',level:'Advanced',words:'۳۵ لغت',dur:'۱۶ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/What%E2%80%99s%20the%20key%20to%20happiness.mp3',vocab:[{w:'Fluctuate',t:'نوسان داشتن'},{w:'Plateau',t:'ثابت ماندن'},{w:'Surge',t:'افزایش ناگهانی'},{w:'Decline',t:'کاهش'},{w:'Proportion',t:'نسبت'}]},{id:'ielts1-02',free:false,titleEn:'IELTS Listening',titleFa:'لیسنینگ آیلتس',description:'لغات پرتکرار در بخش شنیداری آیلتس',level:'Advanced',words:'۳۰ لغت',dur:'۱۴ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/When%20males%20are%20not%20needed.mp3',vocab:[{w:'Approximately',t:'تقریباً'},{w:'Adjacent',t:'مجاور'},{w:'Facility',t:'امکانات'},{w:'Available',t:'موجود'},{w:'Requirement',t:'شرط / نیاز'}]},{id:'ielts1-03',free:false,titleEn:'IELTS Reading',titleFa:'ریدینگ آیلتس',description:'واژگان متون آکادمیک در آیلتس',level:'Advanced',words:'۴۰ لغت',dur:'۱۸ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Where%20do%20your%20tips%20go.mp3',vocab:[{w:'Significant',t:'قابل‌توجه'},{w:'Implication',t:'مفهوم ضمنی'},{w:'Furthermore',t:'علاوه بر این'},{w:'Contradict',t:'تناقض داشتن'},{w:'Infer',t:'استنباط کردن'}]}]},
+  {id:'ielts2',label:'لغت‌های IELTS 2',items:[{id:'ielts2-01',free:false,titleEn:'IELTS Writing — Task 2',titleFa:'آیلتس رایتینگ — تسک ۲',description:'لغات قوی برای نوشتن مقاله آیلتس',level:'Advanced',words:'۳۲ لغت',dur:'۱۵ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3',vocab:[{w:'Contend',t:'استدلال کردن'},{w:'Prevalent',t:'رایج'},{w:'Detrimental',t:'مضر'},{w:'Advocate',t:'حمایت کردن'},{w:'Mitigate',t:'کاهش دادن'}]},{id:'ielts2-02',free:false,titleEn:'IELTS Speaking — Part 2',titleFa:'اسپیکینگ آیلتس — بخش ۲',description:'لغات سطح بالا برای نمره بالا در اسپیکینگ',level:'Advanced',words:'۲۵ لغت',dur:'۱۲ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The-decline-of-the-apostrophe.mp3',vocab:[{w:'Elaborate',t:'توضیح بیشتر دادن'},{w:'Illustrate',t:'مثال زدن'},{w:'In retrospect',t:'با نگاه به گذشته'},{w:'Compelling',t:'قانع‌کننده'},{w:'Pivotal',t:'محوری'}]},{id:'ielts2-03',free:false,titleEn:'AWL — Academic Word List',titleFa:'لیست لغات آکادمیک',description:'مهم‌ترین لغات آکادمیک برای آیلتس ۷+',level:'Advanced',words:'۵۰ لغت',dur:'۲۰ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20booze%20for%20a%20month.mp3',vocab:[{w:'Constitute',t:'تشکیل دادن'},{w:'Derive',t:'استخراج کردن'},{w:'Sector',t:'بخش'},{w:'Proceed',t:'ادامه دادن'},{w:'Acquire',t:'به دست آوردن'}]}]},
+  {id:'professional',label:'لغت‌های حرفه‌ای',items:[{id:'pro-01',free:false,titleEn:'Leadership Language',titleFa:'زبان رهبری',description:'لغات یک رهبر موفق در محیط کار بین‌المللی',level:'Advanced',words:'۳۰ لغت',dur:'۱۵ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why%20does%20seeing%20someone%20yawn%20make%20you%20yawn.mp3',vocab:[{w:'Delegate',t:'تفویض کردن'},{w:'Empower',t:'توانمندسازی'},{w:'Accountability',t:'مسئولیت‌پذیری'},{w:'Visionary',t:'آینده‌نگر'},{w:'Mentor',t:'مربی'}]},{id:'pro-02',free:false,titleEn:'Negotiation & Persuasion',titleFa:'مذاکره و متقاعدسازی',description:'اصطلاحات مذاکره تجاری سطح بین‌المللی',level:'Advanced',words:'۲۸ لغت',dur:'۱۷ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20benefits%20of%20low%20emission%20zones.mp3',vocab:[{w:'Leverage',t:'اهرم / استفاده از قدرت'},{w:'Concession',t:'امتیاز دادن'},{w:'Win-win',t:'برد-برد'},{w:'Counterpart',t:'طرف مقابل'},{w:'Bottom line',t:'خط قرمز'}]},{id:'pro-03',free:false,titleEn:'Corporate Jargon',titleFa:'اصطلاحات شرکتی',description:'زبان اداری که در جلسات بین‌المللی می‌شنوید',level:'Advanced',words:'۳۵ لغت',dur:'۱۹ دقیقه',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Is%20it%20good%20to%20disagree.mp3',vocab:[{w:'Synergy',t:'هم‌افزایی'},{w:'KPI',t:'شاخص کلیدی'},{w:'Bandwidth',t:'ظرفیت / وقت'},{w:'Pivot',t:'تغییر مسیر'},{w:'Scalable',t:'مقیاس‌پذیر'}]}]},
+];
+
+let activeTabId = tabs[0].id;
+
+async function sbGet(table, filter) { const r = await fetch(`${SB_URL}/rest/v1/${table}?${filter}&limit=1`, { headers: SB_H }); return r.json(); }
+async function sbInsert(table, body) { const r = await fetch(`${SB_URL}/rest/v1/${table}`, { method: 'POST', headers: { ...SB_H, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }); return r.ok; }
+
+const SESSION_KEY = 'lingua_vocab_session_v1';
+const getSession  = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch(e) { return null; } };
+const setSession  = d  => localStorage.setItem(SESSION_KEY, JSON.stringify(d));
+const isLoggedIn  = () => { const s = getSession(); return s && s.phone && s.verified; };
+
+function showToast(msg, dur = 2800) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), dur); }
+
+function updateLoginIcon() { const b = document.getElementById('loginIconBtn'); if (b) b.classList.toggle('logged-in', !!isLoggedIn()); }
+function onLoginIconClick() { if (isLoggedIn()) { if (confirm('Are you sure you want to sign out?')) { localStorage.removeItem(SESSION_KEY); location.reload(); } } else { openLoginPopup(); } }
+function openLoginPopup() { document.getElementById('loginPopup').classList.add('open'); setTimeout(() => document.getElementById('phoneInput').focus(), 400); }
+function closeLoginPopup() { document.getElementById('loginPopup').classList.remove('open'); }
+document.getElementById('loginPopup').addEventListener('click', function(e) { if (e.target === this) closeLoginPopup(); });
+
+async function doLogin() {
+  const input = document.getElementById('phoneInput'), errEl = document.getElementById('phoneError'), btn = document.getElementById('btnLogin'), btnText = document.getElementById('loginBtnText');
+  errEl.textContent = '';
+  let phone = input.value.trim().replace(/\D/g, '');
+  if (phone.startsWith('0')) phone = phone.slice(1);
+  if (phone.length < 10 || phone.length > 11) { errEl.textContent = 'شماره موبایل معتبر نیست'; return; }
+  btn.disabled = true; btnText.textContent = 'در حال بررسی...';
+  try {
+    const subs = await sbGet('subscriptions', `phone=eq.${phone}&is_active=eq.true`);
+    if (subs && subs.length > 0) { setSession({ phone, verified: true, ts: Date.now() }); await sbInsert('users', { phone }); closeLoginPopup(); showToast('✅ خوش اومدی! همه درس‌ها باز شدن'); updateLoginIcon(); renderAll(); }
+    else { await sbInsert('users', { phone }); errEl.textContent = 'اشتراک فعالی پیدا نشد. لطفاً کد اشتراک دریافت کن.'; }
+  } catch(e) { errEl.textContent = 'خطا در اتصال. دوباره امتحان کن.'; }
+  btn.disabled = false; btnText.textContent = 'ورود';
+}
+document.getElementById('phoneInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+function openPricePopup()       { document.getElementById('pricePopup').classList.add('open'); }
+function closePricePopup()      { document.getElementById('pricePopup').classList.remove('open'); }
+function closePriceIfOutside(e) { if (e.target === document.getElementById('pricePopup')) closePricePopup(); }
+
+async function verifyCurrentSubscription() {
+  const session = getSession();
+  if (!session || !session.phone || !session.verified) { updateLoginIcon(); return false; }
+  try { const subs = await sbGet('subscriptions', `phone=eq.${encodeURIComponent(session.phone)}&is_active=eq.true`); const active = Array.isArray(subs) && subs.length > 0; if (!active) { localStorage.removeItem(SESSION_KEY); updateLoginIcon(); renderAll(); return false; } updateLoginIcon(); return true; }
+  catch(e) { updateLoginIcon(); return false; }
+}
+
+function renderSourceTabs() {
+  const wrap = document.getElementById('sourceTabs'); wrap.innerHTML = '';
+  tabs.forEach(tab => { const btn = document.createElement('button'); btn.className = 'source-tab' + (tab.id === activeTabId ? ' active' : ''); btn.textContent = tab.label; btn.onclick = () => { activeTabId = tab.id; renderSourceTabs(); renderVocabList(); }; wrap.appendChild(btn); });
+}
+
+function renderVocabList() {
+  const loggedIn = isLoggedIn(); const list = document.getElementById('vocabList'); list.innerHTML = '';
+  const tab = tabs.find(t => t.id === activeTabId); if (!tab) return;
+  tab.items.forEach((item, idx) => {
+    const locked = !item.free && !loggedIn; const card = document.createElement('article'); card.className = 'vocab-card' + (locked ? ' locked' : '');
+    card.innerHTML = `<div class="cover"><img src="${item.image}" alt="${item.titleEn}" loading="lazy"><div class="cover-num">${String(idx+1).padStart(2,'0')}</div></div><div class="card-content"><div class="card-fa-title">${item.titleFa}</div><div class="card-en-title">${item.titleEn}</div><p class="card-description">${item.description}</p><div class="card-meta"><span>📖 ${item.words}</span><span>◷ ${item.dur}</span></div><div class="level"><div class="level-bars">${item.level==='Beginner'?'<span></span><span></span><span></span>':'<span></span><span></span><span></span><span></span>'}</div>${item.level}</div></div><div class="card-actions"><button class="icon-button" onclick="event.stopPropagation();toggleFavorite(this)">♡</button></div>${locked?`<div class="lock-overlay"><span class="lock-icon">🔒</span></div><button class="play-small" onclick="event.stopPropagation();openLoginPopup()">🔒</button>`:`<button class="play-small">▶</button>`}`;
+    card.addEventListener('click', () => locked ? openLoginPopup() : openPlayer(item)); list.appendChild(card);
+  });
+}
+
+function renderAll() { renderSourceTabs(); renderVocabList(); }
+
+const waveform = document.getElementById('waveform');
+for (let i = 0; i < 48; i++) { const bar = document.createElement('div'); bar.className = 'wave paused'; bar.style.height = (Math.floor(Math.random() * 34) + 8) + 'px'; waveform.appendChild(bar); }
+
+const homeScreen   = document.getElementById('homeScreen');
+const playerScreen = document.getElementById('playerScreen');
+const audio        = document.getElementById('audioPlayer');
+const mainPlay     = document.getElementById('mainPlay');
+
+function openPlayer(item) {
+  document.getElementById('playerTitle').textContent       = item.titleEn;
+  document.getElementById('playerFaTitle').textContent     = item.titleFa;
+  document.getElementById('playerDescription').textContent = item.description;
+  document.getElementById('playerTag').textContent         = item.level;
+  document.getElementById('playerImage').src               = item.image;
+  document.getElementById('playerWords').innerHTML         = '📖 ' + item.words;
+  document.getElementById('playerDurEl').innerHTML         = '◷ '  + item.dur;
+  audio.src = item.audio; audio.load();
+  homeScreen.classList.remove('active'); playerScreen.classList.add('active'); playerScreen.scrollTop = 0;
+  mainPlay.textContent = '▶'; setWave(false);
+  document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.lesson-tab')[0].classList.add('active');
+  document.getElementById('transcriptContent').style.display = 'block';
+  document.getElementById('vocabContent').style.display      = 'none';
+  document.getElementById('notesContent').style.display      = 'none';
+  const pl = document.getElementById('playerVocabList'); pl.innerHTML = '';
+  (item.vocab || []).forEach(v => { const el = document.createElement('div'); el.className = 'vocab-item'; el.innerHTML = `<strong>${v.w}</strong><small>${v.t}</small>`; pl.appendChild(el); });
+  loadTranscript(item.id);
+}
+
+async function loadTranscript(id) {
+  const loading = document.getElementById('transcriptLoading'); const lines = document.getElementById('transcriptLines');
+  lines.innerHTML = ''; loading.style.display = 'block'; loading.textContent = '⏳ Loading transcript...';
+  try { const rows = await sbGet('transcripts', `podcast_id=eq.${id}&order=sort_order.asc`); if (!rows || rows.length === 0) { loading.textContent = 'No transcript available yet.'; return; } loading.style.display = 'none'; const div = document.createElement('div'); div.className = 'transcript-plain'; div.textContent = rows[0].content; lines.appendChild(div); }
+  catch(e) { loading.textContent = '⚠️ Failed to load transcript.'; }
+}
+
+function scrollToTranscript() {
+  setTimeout(() => {
+    const screen = document.getElementById('playerScreen'); if (!screen) return;
+    const start = screen.scrollTop, distance = 430, duration = 900; let startTime = null;
+    function easeInOutQuad(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+    function step(timestamp) { if (!startTime) startTime = timestamp; const elapsed = timestamp - startTime; const progress = Math.min(elapsed / duration, 1); screen.scrollTop = start + distance * easeInOutQuad(progress); if (progress < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }, 600);
+}
+
+function goHome() { audio.pause(); playerScreen.classList.remove('active'); homeScreen.classList.add('active'); }
+
+function togglePlay() {
+  if (audio.paused) {
+    audio.play().then(() => { mainPlay.textContent = 'Ⅱ'; setWave(true); scrollToTranscript(); }).catch(e => console.log(e));
+  } else { audio.pause(); mainPlay.textContent = '▶'; setWave(false); }
+}
+
+audio.addEventListener('play',  () => { mainPlay.textContent = 'Ⅱ'; setWave(true);  });
+audio.addEventListener('pause', () => { mainPlay.textContent = '▶'; setWave(false); });
+audio.addEventListener('ended', () => { mainPlay.textContent = '▶'; setWave(false); });
+function setWave(on) { document.querySelectorAll('.wave').forEach(b => b.classList.toggle('paused', !on)); }
+function skip(sec) { if (audio.duration) audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + sec)); }
+function repeatSentence() { if (audio.duration) { audio.currentTime = Math.max(0, audio.currentTime - 5); audio.play(); } }
+
+function formatTime(s) { if (!isFinite(s)) return '00:00'; return String(Math.floor(s/60)).padStart(2,'0')+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+audio.addEventListener('loadedmetadata', () => { document.getElementById('audioDuration').textContent = formatTime(audio.duration); });
+audio.addEventListener('timeupdate', () => { if (!audio.duration) return; const pct=(audio.currentTime/audio.duration)*100; document.getElementById('progressFill').style.width=pct+'%'; document.getElementById('progressDot').style.left=pct+'%'; document.getElementById('currentTime').textContent=formatTime(audio.currentTime); });
+document.getElementById('progressBar').addEventListener('click', e => { if (!audio.duration) return; const rect=document.getElementById('progressBar').getBoundingClientRect(); audio.currentTime=((e.clientX-rect.left)/rect.width)*audio.duration; });
+
+document.getElementById('volumeSlider').addEventListener('input', function() { audio.volume = parseFloat(this.value); });
+document.querySelectorAll('.speed').forEach(btn => { btn.addEventListener('click', function() { document.querySelectorAll('.speed').forEach(s => s.classList.remove('active')); this.classList.add('active'); audio.playbackRate = Number(this.dataset.speed); }); });
+
+function toggleFavorite(btn) { if (btn.textContent.trim()==='♡') { btn.textContent='♥'; btn.style.color='#ff6f9f'; } else { btn.textContent='♡'; btn.style.color=''; } }
+function togglePlayerFavorite() { toggleFavorite(document.getElementById('playerFavorite')); }
+function switchTab(el, tab) {
+  document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('transcriptContent').style.display = tab==='transcript'?'block':'none';
+  document.getElementById('vocabContent').style.display      = tab==='vocab'?'block':'none';
+  document.getElementById('notesContent').style.display      = tab==='notes'?'block':'none';
+}
+
+/* ✅ FIX 2: Space فقط وقتی textarea فوکوس نداره پلیر رو کنترل می‌کنه */
+document.addEventListener('keydown', e => {
+  if (!playerScreen.classList.contains('active')) return;
+  const inTextarea = document.activeElement && document.activeElement.tagName === 'TEXTAREA';
+  if (inTextarea) return;
+  if (e.code === 'Space')  { e.preventDefault(); togglePlay(); }
+  if (e.code === 'Escape') { goHome(); }
+});
+
+updateLoginIcon();
+renderAll();
+verifyCurrentSubscription();
+</script>
+</body>
+</html>
