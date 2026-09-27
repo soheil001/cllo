@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CLLO — cllo.ir</title>
+<link rel="preload" as="video" href="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4">
+<link rel="preload" as="image" href="http://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp">
 <link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   @font-face{font-family:'IranYekan';src:url('fonts/farhang-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
@@ -102,7 +104,7 @@
     background:transparent;
     will-change:transform,opacity;
   }
-  .slide-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 1.2s ease;}
+  .slide-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 1.2s ease;background:#0a1a3a;}
   /* overlay تیره‌تر پایین برای خوانایی متن */
   .slide::after{
     content:'';position:absolute;inset:0;z-index:1;
@@ -214,7 +216,7 @@
   .card-wrap{flex:0 0 var(--card-w);height:var(--card-h);border-radius:26px;padding:3px;background:linear-gradient(145deg,rgba(255,255,255,0.5) 0%,rgba(100,180,255,0.3) 50%,rgba(255,255,255,0.2) 100%);box-shadow:0 2px 0 rgba(255,255,255,0.5),0 16px 36px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.7);cursor:pointer;transition:transform 0.18s,box-shadow 0.18s;flex-shrink:0;position:relative;}
   .card-wrap:active{transform:scale(0.97);box-shadow:0 6px 18px rgba(0,0,0,0.3);}
   .card{border-radius:24px;overflow:hidden;background:#fff;display:flex;flex-direction:column;position:relative;height:100%;}
-  .card-photo{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;}
+  .card-photo{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,#0f3460,#1e90ff);}
   .card-photo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
   .card-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,transparent 20%,rgba(5,15,40,0.4) 50%,rgba(5,15,40,0.92) 100%);pointer-events:none;}
   .badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.4);border-radius:50px;padding:5px 13px;font-size:11px;font-family:'IranYekan','Farhang','Estedad',sans-serif;font-weight:700;color:#fff;z-index:2;letter-spacing:0.2px;}
@@ -461,11 +463,11 @@
     </header>
 
     <div class="categories-popup" id="categoriesPopup">
-      <div class="cat-item" onclick="location.href='https://planlife.ir/Pages/podcasts_free/index.html'">
+      <div class="cat-item" onclick="location.href='cllo.ir/podcast.html'">
         <div class="cat-icon"><img src="" alt="پادکست"></div>
         <span class="cat-label">پادکست</span>
       </div>
-      <div class="cat-item" onclick="showToast('به‌زودی فعال می‌شود')">
+      <div class="cat-item" onclick="showToast('cllo.ir/Vocabulary.html')">
         <div class="cat-icon"><img src="" alt="آموزش لغت"></div>
         <span class="cat-label">آموزش لغت</span>
       </div>
@@ -473,7 +475,7 @@
         <div class="cat-icon"><img src="" alt="هوش مصنوعی"></div>
         <span class="cat-label">هوش مصنوعی</span>
       </div>
-      <div class="cat-item" onclick="location.href='https://planlife.ir/english/videoamozesh'">
+      <div class="cat-item" onclick="location.href='cllo.ir/videoamozesh.html'">
         <div class="cat-icon"><img src="" alt="آموزش ویدیویی"></div>
         <span class="cat-label">آموزش ویدیویی</span>
       </div>
@@ -486,43 +488,45 @@
     <div class="hero-stage">
       <div class="hero-glow"></div>
       <div class="slides" id="slides">
-        <div class="slide slide-1" data-slide="0">
-          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/slide1.jpg" alt="" onerror="this.style.display='none'">
+        <div class="slide slide-1" data-slide="0" data-type="video">
+          <video class="slide-bg" id="heroVideo" preload="auto" playsinline webkit-playsinline muted loop="false" poster="" fetchpriority="high">
+            <source src="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4" type="video/mp4">
+          </video>
           <div class="slide-info">
             <div class="slide-title">یادگیری انگلیسی با CLLO</div>
             <div class="slide-subtitle">تمرین، پادکست و آموزش در یک تجربه مدرن</div>
           </div>
         </div>
         <div class="slide slide-2" data-slide="1">
-          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/slide2.jpg" alt="" onerror="this.style.display='none'">
+          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
           <div class="slide-info">
             <div class="slide-title">تمرینات ۴ گزینه‌ای</div>
             <div class="slide-subtitle">سطحت را مرحله‌به‌مرحله بالاتر ببر</div>
           </div>
         </div>
         <div class="slide slide-3" data-slide="2">
-          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/slide3.jpg" alt="" onerror="this.style.display='none'">
+          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_4991.jpeg" alt="" loading="eager" decoding="async" onerror="this.style.display='none'">
           <div class="slide-info">
             <div class="slide-title">هر روز کمی بهتر</div>
             <div class="slide-subtitle">یادگیری انگلیسی، ساده و جذاب</div>
           </div>
         </div>
         <div class="slide slide-4" data-slide="3">
-          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/4.jpg" alt="" onerror="this.style.display='none'">
+          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/4.jpg" alt="" loading="eager" decoding="async" onerror="this.style.display='none'">
           <div class="slide-info">
             <div class="slide-title">آموزش با هوش مصنوعی</div>
             <div class="slide-subtitle">مکالمه هوشمند، هر زمان که بخواهی</div>
           </div>
         </div>
         <div class="slide slide-5" data-slide="4">
-          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/5.jpg" alt="" onerror="this.style.display='none'">
+          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_5021.jpeg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="slide-info">
             <div class="slide-title">پادکست‌های آموزشی</div>
             <div class="slide-subtitle">گوش کن و یاد بگیر در هر لحظه</div>
           </div>
         </div>
         <div class="slide slide-6" data-slide="5">
-          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/6.jpg" alt="" onerror="this.style.display='none'">
+          <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/6.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="slide-info">
             <div class="slide-title">دوره‌های تصویری</div>
             <div class="slide-subtitle">آموزش قدم‌به‌قدم با ویدیو</div>
@@ -547,36 +551,36 @@
   <div class="stories-outer">
     <div class="stories-wrapper">
       <div class="stories-scroll" id="stories-scroll">
-        <div class="story-item" data-index="0" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779450993/phonto_jmcfqk.png" data-caption="پادکست‌های رایگان PlanLife درباره قانون جذب و تغییر افکار 🎙️" data-btn-show="true" data-btn-text="شنیدن پادکست‌ها" data-btn-link="https://planlife.ir/Pages/podcasts_free/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779450993/phonto_jmcfqk.png" alt="پادکست"></div></div>
-          <div class="story-label">پادکست</div>
+        <div class="story-item" data-index="0" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779450993/phonto_jmcfqk.png" data-caption="پادکست‌ها برای آموزش حرفه ای شمما " data-btn-show="true" data-btn-text="دیدن پادکست ها" data-btn-link="https://cllo.ir/podcast.html">
+          <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_4991.jpeg" alt="پادکست ها" loading="eager" fetchpriority="high" decoding="async"></div></div>
+          <div class="story-label"> پادکست ها </div>
         </div>
-        <div class="story-item" data-index="1" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779278212/IMG_0906_o7pnur.jpg" data-caption="دوره‌های تخصصی آموزش قانون جذب، باور و تغییر رفتار 🚀" data-btn-show="true" data-btn-text="مشاهده دوره‌ها" data-btn-link="https://planlife.ir/dores.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779278212/IMG_0906_o7pnur.jpg" alt="دوره‌ها"></div></div>
-          <div class="story-label">دوره‌ها</div>
+        <div class="story-item" data-index="1" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779278212/IMG_0906_o7pnur.jpg" data-caption="لغت آموز صوتی 🚀" data-btn-show="true" data-btn-text="دیدن آموزش" data-btn-link="https://cllo.ir/podcast.html">
+          <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_5019.jpeg" alt="لغت آموز صوتی" loading="eager" fetchpriority="high" decoding="async"></div></div>
+          <div class="story-label">لغت آموز صوتی</div>
         </div>
-        <div class="story-item" data-index="2" data-img="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781397270/IMG_1897_kgkgss.jpg" data-caption="کتابخانه — بهترین کتاب‌های رشد فردی و تقویت باور 📚" data-btn-show="true" data-btn-text="ورود به کتابخانه" data-btn-link="https://planlife.ir/Pages/Book/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781397270/IMG_1897_kgkgss.jpg" alt="کتابخانه"></div></div>
-          <div class="story-label">کتابخانه</div>
+        <div class="story-item" data-index="2" data-img="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg" data-caption="ویدیوهای آموزشی cllo.ir " data-btn-show="true" data-btn-text="دیدن ویدیوها" data-btn-link="https://planlife.ir/Pages/Book/index.html">
+          <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg" alt="ویدیوهای آموزشی" loading="eager" decoding="async"></div></div>
+          <div class="story-label">ویدیوهای آموزشی</div>
         </div>
         <div class="story-item" data-index="3" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779568027/IMG_1109_xpxghq.png" data-caption="مجله ماورایی — مقالات انگیزشی درباره تغییر افکار 📰" data-btn-show="true" data-btn-text="ورود به مجله" data-btn-link="https://planlife.ir/Pages/Magazine/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779568027/IMG_1109_xpxghq.png" alt="مجله"></div></div>
+          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779568027/IMG_1109_xpxghq.png" alt="مجله" loading="lazy" decoding="async"></div></div>
           <div class="story-label">مجله</div>
         </div>
-        <div class="story-item" data-index="4" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg" data-caption="تمرینات مجازی روزانه و آرامش ذهن برای موفقیت 🧘" data-btn-show="true" data-btn-text="شروع تمرین ذهنی" data-btn-link="https://planlife.ir/Pages/Tamrin/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg" alt="تمرینات"></div></div>
+        <div class="story-item" data-index="4" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg" data-caption="تمرینات مجازی روزانه و آرامش ذهن برای موفقیت 🧘" data-btn-show="true" data-btn-text="شروع تمرین ذهنی" data-btn-link="https://cllo.ir/tamrint.html">
+          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg" alt="تمرینات" loading="lazy" decoding="async"></div></div>
           <div class="story-label">تمرینات</div>
         </div>
         <div class="story-item" data-index="5" data-img="http://fs3.centraldnserver.com/~planlife/pics/IMG_2478.png" data-caption="پاکسازی ذهن و رهایی از افکار منفی 🔥" data-btn-show="true" data-btn-text="شروع پاکسازی ذهن" data-btn-link="https://planlife.ir/Pages/paksazi/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/IMG_2478.png" alt="پاکسازی ذهن"></div></div>
+          <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/IMG_2478.png" alt="پاکسازی ذهن" loading="lazy" decoding="async"></div></div>
           <div class="story-label">پاکسازی ذهن</div>
         </div>
         <div class="story-item" data-index="6" data-img="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781592734/IMG_1963_hhf5wp.jpg" data-caption="تابلو آرزوها و ویژوالایزیشن برای تحقق رویاهای قانون جذب 🔖" data-btn-show="true" data-btn-text="ساخت تابلو آرزو" data-btn-link="https://planlife.ir/Pages/visionboard/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781592734/IMG_1963_hhf5wp.jpg" alt="تابلو آرزو"></div></div>
+          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781592734/IMG_1963_hhf5wp.jpg" alt="تابلو آرزو" loading="lazy" decoding="async"></div></div>
           <div class="story-label">تابلو آرزو</div>
         </div>
         <div class="story-item" data-index="7" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454037/IMG_0213_mrxvu1.png" data-caption="موزیک‌های انگیزشی و مدیتیشن برای آرامش ذهن 🎵" data-btn-show="true" data-btn-text="گوش دادن به موزیک‌ها" data-btn-link="https://planlife.ir/Pages/Music/index.html">
-          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454037/IMG_0213_mrxvu1.png" alt="موزیک"></div></div>
+          <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454037/IMG_0213_mrxvu1.png" alt="موزیک" loading="lazy" decoding="async"></div></div>
           <div class="story-label">موزیک</div>
         </div>
       </div>
@@ -611,26 +615,38 @@
 
     <div class="row-label extra-label">روش‌های یادگیری</div>
     <div class="learning-carousel" id="learningCarousel">
-      <div class="learning-item"><div class="learning-card" data-title="ویدیو آموزشی" data-url="https://planlife.ir/english/videoamozesh">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/videoamozesh.jpeg" alt="ویدیو آموزشی">
+      <div class="learning-item"><div class="learning-card" data-title="ویدیو آموزشی" data-url="https://cllo.ir/videoamozesh.html">
+        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/videoamozesh.jpeg" alt="ویدیو آموزشی" loading="lazy" decoding="async">
         <div class="learning-overlay"></div>
         <div class="learning-card-title">ویدیو آموزشی</div>
       </div><button class="learning-enter" type="button">ورود</button></div>
 
-      <div class="learning-item"><div class="learning-card" data-title="پادکست انگلیسی" data-url="">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp" alt="پادکست انگلیسی">
+      <div class="learning-item"><div class="learning-card" data-title="پادکست انگلیسی" data-url="https://cllo.ir/podcast.html">
+        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp" alt="پادکست انگلیسی" loading="lazy" decoding="async">
         <div class="learning-overlay"></div>
         <div class="learning-card-title">پادکست انگلیسی</div>
       </div><button class="learning-enter" type="button">ورود</button></div>
 
+       <div class="learning-item"><div class="learning-card" data-title="ویدیوهای یوتوب" data-url="https://cllo.ir/Vocabulary.html">
+        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp" alt="ویدیوهای یوتوب" loading="lazy" decoding="async">
+        <div class="learning-overlay"></div>
+        <div class="learning-card-title">ویدیوهای یوتوب</div>
+      </div><button class="learning-enter" type="button">ورود</button></div>
+      
+      <div class="learning-item"><div class="learning-card" data-title="آموزش لغت ها" data-url="https://cllo.ir/Vocabulary.html">
+        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp" alt="آموزش لغت ها" loading="lazy" decoding="async">
+        <div class="learning-overlay"></div>
+        <div class="learning-card-title">آموزش لغت ها</div>
+      </div><button class="learning-enter" type="button">ورود</button></div>
+
       <div class="learning-item"><div class="learning-card" data-title="آموزش با هوش مصنوعی" data-url="">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/aiamozesh.webp" alt="آموزش با هوش مصنوعی">
+        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/aiamozesh.webp" alt="آموزش با هوش مصنوعی" loading="lazy" decoding="async">
         <div class="learning-overlay"></div>
         <div class="learning-card-title">آموزش با هوش مصنوعی</div>
       </div><button class="learning-enter" type="button">ورود</button></div>
 
       <div class="learning-item"><div class="learning-card" data-title="تمرینات" data-url="">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/tamrin.jpg" alt="تمرینات">
+        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/tamrin.jpg" alt="تمرینات" loading="lazy" decoding="async">
         <div class="learning-overlay"></div>
         <div class="learning-card-title">تمرینات</div>
       </div><button class="learning-enter" type="button">ورود</button></div>
@@ -638,18 +654,18 @@
 
     <div class="row-label more-label">بیشتر بدانیم</div>
     <div class="more-carousel">
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/kingston.webp" alt="London"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/london.webp" alt="London"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/miami.webp" alt="Miami"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/amesterdam.webp" alt="Amsterdam"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/d7d63a2a-efc6-4238-ab4d-03c16513b540.webp" alt=""><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/rosia.webp" alt="Russia"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/chicago.webp" alt="Chicago"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/spain.webp" alt="Spain"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/kingston.webp" alt="Kingston"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/london.webp" alt="London"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/miami.webp" alt="Miami"><button class="more-read-btn">خواندن</button></div>
-      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/baku.webp" alt="Baku"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/kingston.webp" alt="London" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/london.webp" alt="London" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/miami.webp" alt="Miami" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/amesterdam.webp" alt="Amsterdam" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/d7d63a2a-efc6-4238-ab4d-03c16513b540.webp" alt="" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/rosia.webp" alt="Russia" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/chicago.webp" alt="Chicago" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/spain.webp" alt="Spain" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/kingston.webp" alt="Kingston" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/london.webp" alt="London" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/miami.webp" alt="Miami" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
+      <div class="more-item"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/Png/baku.webp" alt="Baku" loading="lazy" decoding="async"><button class="more-read-btn">خواندن</button></div>
     </div>
   </div>
 
@@ -810,14 +826,14 @@ function closePriceIfOutside(e){if(e.target===document.getElementById('pricePopu
 const BASE='http://fs3.centraldnserver.com/~planlife/pics/english/';
 const imgs=[1,2,3,4,5,6,7];
 const row1Cards=[
-  {title:'سوالات مبتدی',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۰ تا ۵ قرار دارد.',badge:'مبتدی',hours:'۳۲',free:true,url:'https://planlife.ir/english/azmon-mobtadi.html'},
-  {title:'سوالات مقدماتی',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۵ تا ۱۰ قرار دارد.',badge:'مقدماتی',hours:'۴۸',free:false,url:'https://planlife.ir/english/azmon-moghadamati.html'},
-  {title:'سوالات پیشرفته ۱',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۱۰ تا ۱۵ قرار دارد.',badge:'پیشرفته ۱',hours:'۶۴',free:false,url:'https://planlife.ir/english/azmon-pish1.html'},
-  {title:'سوالات پیشرفته ۲',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۱۵ تا ۲۰ قرار دارد.',badge:'پیشرفته ۲',hours:'۷۲',free:false,url:''},
-  {title:'سوالات پیشرفته ۳',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۲۰ تا ۲۵ قرار دارد.',badge:'پیشرفته ۳',hours:'۸۰',free:false,url:''},
-  {title:'سوالات پیشرفته ۴',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۲۵ تا ۳۰ قرار دارد.',badge:'پیشرفته ۴',hours:'۹۰',free:false,url:''},
-  {title:'سوالات پیشرفته ۵',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۳۰ تا ۳۵ قرار دارد.',badge:'پیشرفته ۵',hours:'۹۶',free:false,url:''},
-  {title:'سوالات پیشرفته ۶',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۳۵ تا ۴۰ قرار دارد.',badge:'پیشرفته ۶',hours:'۱۰۴',free:false,url:''},
+  {title:'سوالات مبتدی',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۰ تا ۵ قرار دارد.',badge:'مبتدی',hours:'۳۲',free:true,url:'https://cllo.ir/azmon/azmon-mobtadi.html'},
+  {title:'سوالات مقدماتی',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۵ تا ۱۰ قرار دارد.',badge:'مقدماتی',hours:'۴۸',free:false,url:'https://cllo.ir/azmon/azmon-moghadamati.html'},
+  {title:'سوالات پیشرفته ۱',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۱۰ تا ۱۵ قرار دارد.',badge:'پیشرفته ۱',hours:'۶۴',free:false,url:'https://cllo.ir/azmon/azmon-pish1.html'},
+  {title:'سوالات پیشرفته ۲',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۱۵ تا ۲۰ قرار دارد.',badge:'پیشرفته ۲',hours:'۷۲',free:false,url:'https://cllo.ir/azmon/azmon-pish2.html'},
+  {title:'سوالات پیشرفته ۳',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۲۰ تا ۲۵ قرار دارد.',badge:'پیشرفته ۳',hours:'۸۰',free:false,url:'https://cllo.ir/azmon/azmon-pish3.html'},
+  {title:'سوالات پیشرفته ۴',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۲۵ تا ۳۰ قرار دارد.',badge:'پیشرفته ۴',hours:'۹۰',free:false,url:'https://cllo.ir/azmon/azmon-pish4.html'},
+  {title:'سوالات پیشرفته ۵',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۳۰ تا ۳۵ قرار دارد.',badge:'پیشرفته ۵',hours:'۹۶',free:false,url:'https://cllo.ir/azmon/azmon-pish5.html'},
+  {title:'سوالات پیشرفته ۶',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۳۵ تا ۴۰ قرار دارد.',badge:'پیشرفته ۶',hours:'۱۰۴',free:false,url:'https://cllo.ir/azmon/azmon-pish6.html'},
   {title:'IELTS ۱',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۴۰ تا ۴۵ قرار دارد.',badge:'IELTS ۱',hours:'۴۸',free:false,url:''},
   {title:'IELTS ۲',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۴۵ تا ۵۰ قرار دارد.',badge:'IELTS ۲',hours:'۶۴',free:false,url:''},
   {title:'IELTS ۳',desc:'اگر یادگیری انگلیسی را ۰ تا ۱۰۰ در نظر بگیریم، این بخش در درجهٔ ۵۰ تا ۵۵ قرار دارد.',badge:'IELTS ۳',hours:'۸۰',free:false,url:''},
@@ -825,7 +841,7 @@ const row1Cards=[
 ];
 function makeCard(c,imgNum,index){
   const locked=!c.free&&!isLoggedIn();
-  return`<div class="card-wrap${locked?' locked':''}" data-index="${index}" data-free="${c.free}"><div class="card"><div class="card-photo"><img src="${BASE}${imgNum}.jpg" alt="${c.title}" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#0f3460,#1e90ff)'"></div><span class="badge">${c.badge}</span><div class="card-body"><div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div><div class="card-footer"><div class="read-time">${c.hours} ساعت</div><button class="btn-read">شروع کن</button></div></div></div></div>`;
+  return`<div class="card-wrap${locked?' locked':''}" data-index="${index}" data-free="${c.free}"><div class="card"><div class="card-photo"><img src="${BASE}${imgNum}.jpg" alt="${c.title}" loading="${index<4?'eager':'lazy'}" fetchpriority="${index<2?'high':'auto'}" decoding="async" onerror="this.style.background='linear-gradient(135deg,#0f3460,#1e90ff)'"></div><span class="badge">${c.badge}</span><div class="card-body"><div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div><div class="card-footer"><div class="read-time">${c.hours} ساعت</div><button class="btn-read">شروع کن</button></div></div></div></div>`;
 }
 function unlockAllCards(){document.querySelectorAll('.card-wrap.locked').forEach(wrap=>{wrap.classList.remove('locked');wrap.querySelector('.card').style.filter='';const overlay=wrap.querySelector('.lock-overlay');if(overlay)overlay.remove();const btn=wrap.querySelector('.btn-read');if(btn)btn.textContent='شروع کن';});}
 const r1=document.getElementById('row1');
@@ -864,10 +880,17 @@ document.querySelectorAll('.learning-item .learning-enter').forEach(function(btn
 learningCards.forEach(function(card){card.addEventListener('click',function(){enterLearningCard(card);});});
 updateLoginIcon();
 verifyCurrentSubscription();
+
+/* ============ HERO SLIDER (with video-driven first slide) ============ */
 const slidesEl=document.getElementById('slides');
 const slides=Array.from(document.querySelectorAll('.slide'));
 const dots=document.querySelectorAll('.dot');
+const heroVideo=document.getElementById('heroVideo');
 let cur=0;const total=6;
+const AUTOPLAY_MS=4200;
+let advanceHandle=null; // setTimeout id for non-video slides
+let videoSoundEnabled=false;
+
 function relativeClass(i){
   const d=(i-cur+total)%total;
   if(d===0)return 'active';
@@ -877,24 +900,99 @@ function relativeClass(i){
   if(d===total-2)return 'far-prev';
   return '';
 }
-function goTo(n){
+
+function tryEnableVideoSound(){
+  if(!heroVideo||videoSoundEnabled)return;
+  heroVideo.muted=false;
+  heroVideo.volume=0.35;
+  const p=heroVideo.play();
+  if(p&&p.catch){
+    p.then(()=>{videoSoundEnabled=true;}).catch(()=>{
+      // autoplay with sound blocked — keep muted, try to unmute on next user gesture
+      heroVideo.muted=true;
+      heroVideo.play().catch(()=>{});
+    });
+  }else{
+    videoSoundEnabled=true;
+  }
+}
+
+// Unlock audio on first user interaction anywhere on the page (mobile autoplay policies)
+function unlockAudioOnce(){
+  if(heroVideo&&cur===0){
+    heroVideo.muted=false;
+    heroVideo.volume=0.35;
+    heroVideo.play().then(()=>{videoSoundEnabled=true;}).catch(()=>{});
+  }
+  document.removeEventListener('touchstart',unlockAudioOnce);
+  document.removeEventListener('click',unlockAudioOnce);
+}
+document.addEventListener('touchstart',unlockAudioOnce,{passive:true,once:true});
+document.addEventListener('click',unlockAudioOnce,{once:true});
+
+function playHeroVideo(){
+  if(!heroVideo)return;
+  try{heroVideo.currentTime=0;}catch(e){}
+  heroVideo.volume=0.35;
+  heroVideo.muted=!videoSoundEnabled;
+  const p=heroVideo.play();
+  if(p&&p.catch)p.catch(()=>{
+    heroVideo.muted=true;
+    heroVideo.play().catch(()=>{});
+  });
+  if(!videoSoundEnabled)tryEnableVideoSound();
+}
+function pauseHeroVideo(){
+  if(!heroVideo)return;
+  heroVideo.pause();
+  try{heroVideo.currentTime=0;}catch(e){}
+}
+
+function clearScheduledAdvance(){
+  if(advanceHandle){clearTimeout(advanceHandle);advanceHandle=null;}
+}
+
+function scheduleAdvance(){
+  clearScheduledAdvance();
+  if(cur===0){
+    // First slide: advance is driven by the video's 'ended' event, not a timer.
+    return;
+  }
+  advanceHandle=setTimeout(()=>{goTo(cur+1);},AUTOPLAY_MS);
+}
+
+function goTo(n,fromUser){
+  const prevIndex=cur;
   cur=(n+total)%total;
   slides.forEach((s,i)=>{s.classList.remove('active','prev','next','far-prev','far-next');const c=relativeClass(i);if(c)s.classList.add(c);});
   dots.forEach((d,i)=>d.classList.toggle('active',i===cur));
+  if(prevIndex===0&&cur!==0){pauseHeroVideo();}
+  if(cur===0){playHeroVideo();}
+  clearScheduledAdvance();
+  scheduleAdvance();
 }
+
+if(heroVideo){
+  heroVideo.addEventListener('ended',function(){
+    if(cur===0)goTo(cur+1);
+  });
+  heroVideo.addEventListener('loadedmetadata',function(){
+    if(cur===0)scheduleAdvance();
+  });
+}
+
 goTo(0);
-document.getElementById('heroMiniNext').addEventListener('click',()=>goTo(cur+1));
-document.getElementById('heroMiniPrev').addEventListener('click',()=>goTo(cur-1));
-dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
-let timer=setInterval(()=>goTo(cur+1),4200);
-document.getElementById('hero').addEventListener('mouseenter',()=>clearInterval(timer));
-document.getElementById('hero').addEventListener('mouseleave',()=>{timer=setInterval(()=>goTo(cur+1),4200);});
+
+document.getElementById('heroMiniNext').addEventListener('click',()=>goTo(cur+1,true));
+document.getElementById('heroMiniPrev').addEventListener('click',()=>goTo(cur-1,true));
+dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i,true)));
+
 const heroStageEl=document.querySelector('.hero-stage');
 let swipeStartX=0,swipeStartY=0,swipeActive=false,swipeLocked=false;
 heroStageEl.addEventListener('touchstart',function(e){
   if(e.touches.length!==1)return;
   swipeStartX=e.touches[0].clientX;swipeStartY=e.touches[0].clientY;
-  swipeActive=true;swipeLocked=false;clearInterval(timer);
+  swipeActive=true;swipeLocked=false;
 },{passive:true});
 heroStageEl.addEventListener('touchmove',function(e){
   if(!swipeActive||e.touches.length!==1)return;
@@ -907,11 +1005,11 @@ heroStageEl.addEventListener('touchend',function(e){
   const t=e.changedTouches[0];
   const dx=t.clientX-swipeStartX,dy=t.clientY-swipeStartY;
   if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2){
-    if(dx<0)goTo(cur-1);else goTo(cur+1);
+    if(dx<0)goTo(cur-1,true);else goTo(cur+1,true);
   }
-  timer=setInterval(()=>goTo(cur+1),4200);
 },{passive:true});
-heroStageEl.addEventListener('touchcancel',function(){swipeActive=false;timer=setInterval(()=>goTo(cur+1),4200);},{passive:true});
+heroStageEl.addEventListener('touchcancel',function(){swipeActive=false;},{passive:true});
+
 var stories=[],storyIndex=0,storyTimer=null;
 var STORY_SEEN_KEY='planlife_lingua_stories_v1';var DAY_MS=24*60*60*1000;
 function getSeenMap(){try{var raw=localStorage.getItem(STORY_SEEN_KEY);if(!raw)return{};var map=JSON.parse(raw),now=Date.now(),cleaned={};Object.keys(map).forEach(function(k){if(now-map[k]<DAY_MS)cleaned[k]=map[k];});return cleaned;}catch(e){return{};}}
@@ -935,7 +1033,7 @@ function initStories(){
 var savedScrollY=0;
 function openStoryModal(idx){storyIndex=idx;savedScrollY=window.scrollY||0;document.body.style.position='fixed';document.body.style.top=(-savedScrollY)+'px';document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%';document.getElementById('story-modal').classList.add('open');renderStoryModal();buildProgressBar();startStoryTimer();}
 function closeStoryModal(){document.getElementById('story-modal').classList.remove('open');clearStoryTimer();var cd=document.getElementById('story-modal-content');var vid=cd.querySelector('video');if(vid){vid.pause();vid.removeAttribute('src');vid.load();vid.remove();}document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.width='';window.scrollTo(0,savedScrollY);}
-function renderStoryModal(){var s=stories[storyIndex];if(!s){closeStoryModal();return;}s.seen=true;s.el.classList.add('seen');markSeen(storyIndex);var cd=document.getElementById('story-modal-content');var oldV=cd.querySelector('video');if(oldV){oldV.pause();oldV.src='';oldV.remove();}var oldI=cd.querySelector('img');if(oldI)oldI.remove();var img=document.createElement('img');img.src=s.img;img.alt='';img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;';cd.appendChild(img);document.getElementById('story-caption').textContent=s.caption;var btn=document.getElementById('story-action-btn');if(s.btnShow&&s.btnLink){btn.textContent=s.btnText||'مشاهده بیشتر';btn.href=s.btnLink;btn.classList.add('show');}else{btn.classList.remove('show');btn.removeAttribute('href');}}
+function renderStoryModal(){var s=stories[storyIndex];if(!s){closeStoryModal();return;}s.seen=true;s.el.classList.add('seen');markSeen(storyIndex);var cd=document.getElementById('story-modal-content');var oldV=cd.querySelector('video');if(oldV){oldV.pause();oldV.src='';oldV.remove();}var oldI=cd.querySelector('img');if(oldI)oldI.remove();var img=document.createElement('img');img.src=s.img;img.alt='';img.loading='eager';img.decoding='async';img.fetchPriority='high';img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;';cd.appendChild(img);document.getElementById('story-caption').textContent=s.caption;var btn=document.getElementById('story-action-btn');if(s.btnShow&&s.btnLink){btn.textContent=s.btnText||'مشاهده بیشتر';btn.href=s.btnLink;btn.classList.add('show');}else{btn.classList.remove('show');btn.removeAttribute('href');}}
 function buildProgressBar(){var bar=document.getElementById('story-progress-bar');bar.innerHTML='';stories.forEach(function(s,i){var seg=document.createElement('div');seg.className='progress-seg';if(i<storyIndex)seg.classList.add('done');if(i===storyIndex)seg.classList.add('active');var fill=document.createElement('div');fill.className='progress-seg-fill';seg.appendChild(fill);bar.appendChild(seg);});}
 function startStoryTimer(){clearStoryTimer();storyTimer=setTimeout(function(){storyNavigate(1);},5000);}
 function clearStoryTimer(){if(storyTimer){clearTimeout(storyTimer);storyTimer=null;}}
