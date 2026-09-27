@@ -913,11 +913,8 @@ const heroVideo=document.getElementById('heroVideo');
 let cur=0;
 const total=6;
 const AUTOPLAY_MS=4200;        // مدت اسلایدهای تصویری
-const VIDEO_ADVANCE_MS=12000;  // ۱۲ ثانیه — از لحظه پخش واقعی
-
 let autoAdvanceHandle=null;
 let videoSoundEnabled=false;
-let videoTimerStarted=false;   // تایمر ویدیو فقط یک بار از playing شروع شود
 
 const SVG_MUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`;
 const SVG_UNMUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>`;
@@ -950,29 +947,17 @@ function clearScheduledAdvance(){
   if(autoAdvanceHandle){clearTimeout(autoAdvanceHandle);autoAdvanceHandle=null;}
 }
 
-/* تایمر اسلایدهای تصویری — ویدیو تایمر خودش را دارد */
+/* اسلایدهای تصویری — تایمر معمولی */
 function scheduleImageAdvance(){
   clearScheduledAdvance();
-  if(cur===0)return; // اسلاید ویدیو تایمر خودش را دارد
+  if(cur===0)return;
   autoAdvanceHandle=setTimeout(()=>{goTo(cur+1);},AUTOPLAY_MS);
 }
 
-/* تایمر ویدیو: فقط از رویداد 'playing' شروع می‌شود */
-function startVideoTimer(){
-  if(videoTimerStarted)return;
-  videoTimerStarted=true;
-  clearScheduledAdvance();
-  autoAdvanceHandle=setTimeout(()=>{
-    if(cur===0)goTo(1);
-  },VIDEO_ADVANCE_MS);
-}
-
-/* پخش ویدیو — تایمر را playing شروع می‌کند نه اینجا */
 function playHeroVideo(){
   if(!heroVideo)return;
-  videoTimerStarted=false; // ریست تا رویداد playing دوباره تایمر بزنه
   try{heroVideo.currentTime=0;}catch(e){}
-  heroVideo.muted=true; // همیشه از حالت میوت شروع کن تا autoplay مشکل نداشته باشه
+  heroVideo.muted=true;
   heroVideo.volume=0.35;
   const p=heroVideo.play();
   if(p&&p.catch)p.catch(()=>{});
@@ -982,17 +967,16 @@ function playHeroVideo(){
 function pauseHeroVideo(){
   if(!heroVideo)return;
   heroVideo.pause();
-  // روی آخرین فریم می‌ماند — currentTime ریست نمی‌شود
 }
 
-/* رویداد playing: ویدیو واقعاً شروع کرد — حالا تایمر بزن */
+/* ویدیو تموم شد → برو اسلاید بعدی */
 if(heroVideo){
-  heroVideo.addEventListener('playing',function(){
-    if(cur===0)startVideoTimer();
+  heroVideo.addEventListener('ended',function(){
+    if(cur===0)goTo(1);
   });
-  /* اگه ویدیو اصلاً لود نشد، بعد از ۱۵ ثانیه برو بعدی */
+  /* اگه ویدیو لود نشد → ۲ ثانیه صبر کن برو بعدی */
   heroVideo.addEventListener('error',function(){
-    if(cur===0&&!videoTimerStarted){
+    if(cur===0){
       clearScheduledAdvance();
       autoAdvanceHandle=setTimeout(()=>{if(cur===0)goTo(1);},2000);
     }
@@ -1036,6 +1020,7 @@ function goTo(n){
   if(muteBtn)muteBtn.style.display=(cur===0)?'flex':'none';
 
   if(cur!==0)scheduleImageAdvance();
+  // اسلاید ویدیو: پیشروی فقط از رویداد 'ended' انجام می‌شه، نه تایمر
 }
 
 /* شروع اولیه */
