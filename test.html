@@ -639,6 +639,63 @@
   }
   .login-status-btn svg{width:18px;height:18px;display:block;}
 
+
+  /* ===== MOBILE SLIDER: INSTAGRAM STORY STYLE ===== */
+  @media (max-width: 600px){
+    .hero{
+      margin:14px 0 0 !important;
+      width:100% !important;
+      height:auto !important;
+      aspect-ratio:9 / 16 !important;
+      border-radius:0 !important;
+      border:0 !important;
+      box-shadow:none !important;
+      background:transparent !important;
+      overflow:hidden !important;
+    }
+
+    .hero::before,
+    .hero::after{
+      border-radius:0 !important;
+    }
+
+    .slides,
+    .slide{
+      width:100% !important;
+      height:100% !important;
+    }
+
+    .slide{
+      border-radius:0 !important;
+      box-shadow:none !important;
+    }
+
+    .slide-bg{
+      width:100% !important;
+      height:100% !important;
+      object-fit:cover !important;
+      object-position:center !important;
+      border-radius:0 !important;
+      transform:scale(1.015) !important;
+    }
+
+    /* Hide the desktop-style surrounding controls/frame on mobile */
+    .hero-controls{
+      left:14px !important;
+      right:14px !important;
+      bottom:14px !important;
+    }
+
+    .hero-arrow{
+      width:34px !important;
+      height:34px !important;
+    }
+
+    .hero-dots{
+      bottom:10px !important;
+    }
+  }
+
 </style>
 </head>
 <body>
