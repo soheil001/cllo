@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>آزمون زبان انگلیسی — پیشرفته ۱</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-behavior: smooth; height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: linear-gradient(140deg, #0D1B2A 0%, #12304F 45%, #0A2540 70%, #0D1B2A 100%);
+    min-height: 100vh; color: #fff; direction: rtl; overflow-x: hidden; height: 100%;
+  }
+  .bg-orb { position:fixed; border-radius:50%; filter:blur(90px); opacity:.15; pointer-events:none; z-index:0; }
+  .orb1 { width:520px; height:520px; background:#2176AE; top:-180px; right:-120px; }
+  .orb2 { width:420px; height:420px; background:#0D4F8A; bottom:-120px; left:-120px; }
+  .orb3 { width:280px; height:280px; background:#0E7FC0; top:50%; left:50%; transform:translate(-50%,-50%); }
+
+  #app { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px 16px; }
+
+  .card {
+    position:relative;
+    background:rgba(255,255,255,0.06); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px);
+    border:1px solid rgba(255,255,255,0.13); border-radius:28px; width:100%; max-width:640px;
+    padding:40px 38px; box-shadow:0 36px 90px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.09);
+    animation:fadeUp .45s cubic-bezier(.22,.87,.33,1) both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+  .brand { display:flex; align-items:center; gap:10px; margin-bottom:28px; }
+  .brand-icon {
+    width:42px; height:42px; background:linear-gradient(135deg,#2176AE,#0D4F8A);
+    border-radius:11px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; box-shadow:0 4px 16px rgba(33,118,174,0.45); flex-shrink:0;
+  }
+  .brand-name { font-size:13px; font-weight:600; color:rgba(255,255,255,0.65); line-height:1.4; }
+  .brand-name span { display:block; color:#fff; font-size:15px; font-weight:700; }
+
+  .progress-wrap { margin-bottom:32px; }
+  .progress-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:12px; color:rgba(255,255,255,0.5); font-weight:500; }
+  .step-label { color:rgba(255,255,255,0.85); font-weight:600; font-size:13px; }
+  .progress-bar-bg { height:6px; background:rgba(255,255,255,0.09); border-radius:99px; overflow:hidden; }
+  .progress-bar-fill { height:100%; background:linear-gradient(90deg,#56B4E9,#2176AE); border-radius:99px; transition:width .6s cubic-bezier(.22,.87,.33,1); box-shadow:0 0 10px rgba(86,180,233,0.55); }
+
+  .q-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(33,118,174,0.18); border:1px solid rgba(33,118,174,0.35); border-radius:99px; padding:4px 14px; font-size:11px; font-weight:600; color:#90CAF9; margin-bottom:14px; }
+  .q-text { font-size:18px; font-weight:700; color:#fff; line-height:1.65; margin-bottom:26px; }
+  .q-text .en { font-family:'Vazirmatn',sans-serif; font-weight:800; color:#90CAF9; letter-spacing:.02em; direction:ltr; display:inline-block; }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option {
+    background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.11); border-radius:16px;
+    padding:14px 18px; cursor:pointer; display:flex; align-items:center; gap:14px;
+    transition:all .22s cubic-bezier(.22,.87,.33,1); position:relative; overflow:hidden;
+    -webkit-tap-highlight-color:transparent; user-select:none;
+  }
+  .option::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(33,118,174,0.18),rgba(13,79,138,0.12)); opacity:0; transition:opacity .22s; border-radius:inherit; }
+  .option:hover { border-color:rgba(86,180,233,0.5); transform:translateX(-3px); }
+  .option:hover::before { opacity:1; }
+  .option:active { transform:scale(0.98); }
+  .option.selected { border-color:#2176AE; background:rgba(33,118,174,0.18); box-shadow:0 0 0 1px rgba(33,118,174,0.4),0 8px 24px rgba(33,118,174,0.2); }
+  .option.selected::before { opacity:1; }
+  .option.correct { border-color:#10B981!important; background:rgba(16,185,129,0.15)!important; box-shadow:0 0 0 1px rgba(16,185,129,0.4),0 8px 24px rgba(16,185,129,0.2)!important; }
+  .option.wrong   { border-color:#EF4444!important; background:rgba(239,68,68,0.15)!important; box-shadow:0 0 0 1px rgba(239,68,68,0.4)!important; }
+  .opt-letter { width:30px; height:30px; border:2px solid rgba(255,255,255,0.2); border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:rgba(255,255,255,0.45); transition:all .2s; position:relative; z-index:1; }
+  .option.selected .opt-letter { border-color:#2176AE; background:#2176AE; color:#fff; }
+  .option.correct  .opt-letter { border-color:#10B981; background:#10B981; color:#fff; }
+  .option.wrong    .opt-letter { border-color:#EF4444; background:#EF4444; color:#fff; }
+  .opt-text { font-size:15px; font-weight:500; color:rgba(255,255,255,0.85); line-height:1.5; flex:1; position:relative; z-index:1; }
+  .option.selected .opt-text { color:#fff; font-weight:600; }
+  .option.correct  .opt-text { color:#6EE7B7; font-weight:600; }
+  .option.wrong    .opt-text { color:#FCA5A5; }
+  .opt-icon { font-size:17px; position:relative; z-index:1; opacity:0; transition:opacity .2s; min-width:20px; text-align:center; }
+  .option.correct .opt-icon { opacity:1; }
+  .option.wrong   .opt-icon { opacity:1; }
+
+  /* Explanation popup */
+  .explanation-popup {
+    position:relative; width:100%; margin:0 0 22px;
+    padding:18px 18px 16px;
+    background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.055));
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:20px;
+    backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+    box-shadow:0 18px 45px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.12);
+    animation:explainIn .3s cubic-bezier(.22,.87,.33,1) both;
+  }
+  .explanation-popup::before {
+    content:''; position:absolute; inset:0; border-radius:inherit;
+    background:linear-gradient(120deg,rgba(239,68,68,.10),rgba(86,180,233,.06),rgba(255,255,255,.03));
+    pointer-events:none;
+  }
+  .explanation-head { display:flex; align-items:center; gap:10px; position:relative; z-index:1; margin-bottom:8px; }
+  .explanation-icon {
+    width:34px; height:34px; border-radius:11px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(239,68,68,.15); border:1px solid rgba(239,68,68,.25);
+    font-size:16px;
+  }
+  .explanation-title { font-size:13px; font-weight:800; color:#fff; }
+  .explanation-text {
+    position:relative; z-index:1;
+    font-size:13px; line-height:1.85; color:rgba(255,255,255,.72);
+    margin-bottom:14px;
+  }
+  .explanation-correct {
+    position:relative; z-index:1;
+    display:flex; align-items:center; gap:7px;
+    font-size:12px; color:#6EE7B7; font-weight:700;
+    background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.16);
+    border-radius:10px; padding:8px 10px; margin-bottom:12px;
+  }
+  .explanation-btn {
+    position:relative; z-index:1; width:100%; padding:11px 16px;
+    border:1px solid rgba(255,255,255,.14); border-radius:11px;
+    background:linear-gradient(135deg,#2176AE,#0D4F8A);
+    color:#fff; font-family:'Vazirmatn',sans-serif; font-size:13px;
+    font-weight:800; cursor:pointer; box-shadow:0 7px 20px rgba(33,118,174,.28);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .explanation-btn:hover { transform:translateY(-1px); box-shadow:0 10px 25px rgba(33,118,174,.38); }
+  .explanation-btn:active { transform:scale(.98); }
+  @keyframes explainIn {
+    from { opacity:0; transform:translateY(-10px) scale(.98); }
+    to { opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .btn-primary { width:100%; padding:16px 24px; background:linear-gradient(135deg,#2176AE,#0D4F8A); color:#fff; border:none; border-radius:14px; font-family:'Vazirmatn',sans-serif; font-size:16px; font-weight:700; cursor:pointer; margin-top:24px; box-shadow:0 8px 28px rgba(33,118,174,0.4); transition:all .22s; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 36px rgba(33,118,174,0.5); }
+  .btn-primary:active { transform:scale(0.98); }
+  .btn-primary:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+  .btn-ghost { background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.7); border-radius:12px; padding:12px 22px; font-family:'Vazirmatn',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:all .2s; }
+  .btn-ghost:hover { background:rgba(255,255,255,0.12); color:#fff; }
+
+  /* Access screen */
+  .access-icon { width:72px; height:72px; background:linear-gradient(135deg,#2176AE,#0D4F8A); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:34px; margin:0 auto 24px auto; box-shadow:0 12px 40px rgba(33,118,174,0.45); }
+  .access-title { font-size:22px; font-weight:800; color:#fff; text-align:center; margin-bottom:8px; }
+  .access-subtitle { font-size:14px; color:rgba(255,255,255,0.5); text-align:center; margin-bottom:32px; line-height:1.7; }
+  .code-input-label { font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); margin-bottom:8px; display:block; }
+  .code-input { width:100%; padding:16px 20px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.14); border-radius:14px; color:#fff; font-family:'Vazirmatn',sans-serif; font-size:18px; font-weight:700; text-align:center; letter-spacing:.1em; outline:none; transition:all .22s; direction:ltr; }
+  .code-input::placeholder { color:rgba(255,255,255,0.18); font-size:14px; font-weight:400; }
+  .code-input:focus { border-color:rgba(86,180,233,0.6); background:rgba(33,118,174,0.1); box-shadow:0 0 0 3px rgba(33,118,174,0.15); }
+  .code-input.error { border-color:rgba(239,68,68,0.6)!important; background:rgba(239,68,68,0.08)!important; animation:shake .35s both; }
+  .code-input.success { border-color:rgba(16,185,129,0.6)!important; background:rgba(16,185,129,0.08)!important; }
+  @keyframes shake { 10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(4px)} 30%,50%,70%{transform:translateX(-4px)} 40%,60%{transform:translateX(4px)} }
+  .error-msg { display:flex; align-items:center; gap:6px; color:#FCA5A5; font-size:13px; font-weight:600; margin-top:10px; opacity:0; transition:opacity .2s; }
+  .error-msg.visible { opacity:1; }
+  .access-footer { text-align:center; margin-top:20px; font-size:12px; color:rgba(255,255,255,0.22); }
+  .btn-get-code { width:100%; padding:14px 24px; background:rgba(255,255,255,0.05); border:1.5px dashed rgba(86,180,233,0.4); color:#90CAF9; border-radius:14px; font-family:'Vazirmatn',sans-serif; font-size:15px; font-weight:600; cursor:pointer; margin-top:12px; transition:all .22s; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-get-code:hover { background:rgba(33,118,174,0.12); border-color:rgba(86,180,233,0.7); color:#fff; }
+
+  /* Modal */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9998; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(6px); padding:20px; }
+  .modal-overlay.hidden { display:none; }
+  .modal-box { background:linear-gradient(145deg,#0f2237,#162d44); border:1px solid rgba(86,180,233,0.25); border-radius:24px; padding:36px 32px; width:100%; max-width:480px; box-shadow:0 40px 100px rgba(0,0,0,0.6); animation:modalIn .35s cubic-bezier(.22,.87,.33,1); }
+  @keyframes modalIn { from{opacity:0;transform:scale(0.92) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  .modal-icon { width:60px; height:60px; background:linear-gradient(135deg,#2176AE,#0D4F8A); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 20px auto; box-shadow:0 8px 28px rgba(33,118,174,0.4); }
+  .modal-title { font-size:20px; font-weight:800; color:#fff; text-align:center; margin-bottom:6px; }
+  .modal-subtitle { font-size:13px; color:rgba(255,255,255,0.45); text-align:center; margin-bottom:28px; line-height:1.7; }
+  .form-field { margin-bottom:16px; }
+  .form-label { font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); margin-bottom:7px; display:block; }
+  .form-input { width:100%; padding:13px 16px; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.12); border-radius:12px; color:#fff; font-family:'Vazirmatn',sans-serif; font-size:15px; font-weight:500; outline:none; transition:all .2s; }
+  .form-input:focus { border-color:rgba(86,180,233,0.55); background:rgba(33,118,174,0.1); box-shadow:0 0 0 3px rgba(33,118,174,0.12); }
+  .form-input::placeholder { color:rgba(255,255,255,0.2); }
+  .form-input.field-error { border-color:rgba(239,68,68,0.6)!important; }
+  .modal-btn-row { display:flex; gap:10px; margin-top:8px; }
+  .modal-btn-submit { flex:1; padding:14px; background:linear-gradient(135deg,#2176AE,#0D4F8A); color:#fff; border:none; border-radius:12px; font-family:'Vazirmatn',sans-serif; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px rgba(33,118,174,0.38); transition:all .22s; }
+  .modal-btn-submit:hover { transform:translateY(-1px); }
+  .modal-btn-cancel { padding:14px 20px; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.6); border-radius:12px; font-family:'Vazirmatn',sans-serif; font-size:15px; font-weight:600; cursor:pointer; transition:all .2s; }
+  .modal-btn-cancel:hover { background:rgba(255,255,255,0.1); color:#fff; }
+  .code-reveal-box { background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.06)); border:2px solid rgba(16,185,129,0.4); border-radius:16px; padding:24px; text-align:center; margin-top:8px; }
+  .code-reveal-label { font-size:12px; color:#6EE7B7; font-weight:700; letter-spacing:.05em; margin-bottom:12px; }
+  .code-reveal-number { font-size:42px; font-weight:900; color:#fff; letter-spacing:.18em; background:rgba(0,0,0,0.3); border-radius:12px; padding:14px 24px; display:inline-block; border:1px solid rgba(16,185,129,0.3); text-shadow:0 0 28px rgba(16,185,129,0.5); direction:ltr; }
+  .code-reveal-msg { font-size:13px; color:rgba(255,255,255,0.55); margin-top:14px; line-height:1.75; }
+  .modal-error { color:#FCA5A5; background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.25); border-radius:12px; padding:12px 14px; font-size:13px; line-height:1.7; margin-top:12px; display:none; }
+  .modal-error.show { display:block; }
+  .spinner { display:inline-block; width:18px; height:18px; border:2.5px solid rgba(255,255,255,0.25); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-left:6px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .code-input.shake { animation:shake .35s both; border-color:rgba(239,68,68,0.6)!important; background:rgba(239,68,68,0.08)!important; }
+
+  /* Start */
+  .start-icon { width:72px; height:72px; background:linear-gradient(135deg,#2176AE,#0D4F8A); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:34px; margin-bottom:24px; box-shadow:0 12px 40px rgba(33,118,174,0.45); }
+  .start-title { font-size:24px; font-weight:800; color:#fff; line-height:1.45; margin-bottom:14px; }
+  .start-desc { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:26px; }
+  .start-stats { display:flex; gap:10px; margin-bottom:28px; flex-wrap:wrap; }
+  .stat-chip { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.11); border-radius:99px; padding:7px 16px; font-size:12px; font-weight:600; color:rgba(255,255,255,0.65); display:flex; align-items:center; gap:6px; }
+  .stat-chip span { color:#90CAF9; }
+
+  /* Result */
+  .result-wrap { text-align:center; }
+  .result-big-emoji { font-size:72px; margin-bottom:16px; display:block; animation:popIn .5s cubic-bezier(.22,.87,.33,1) both; }
+  @keyframes popIn { from{transform:scale(0.5);opacity:0} 80%{transform:scale(1.1)} to{transform:scale(1);opacity:1} }
+  .result-level-label { font-size:13px; color:#90CAF9; font-weight:700; letter-spacing:.06em; margin-bottom:8px; }
+  .result-level-title { font-size:26px; font-weight:900; color:#fff; margin-bottom:6px; }
+  .result-divider { width:60px; height:3px; background:linear-gradient(90deg,#2176AE,#56B4E9); border-radius:99px; margin:16px auto; }
+  .result-score-display { margin:24px 0; }
+  .result-score-big { font-size:88px; font-weight:900; line-height:1; }
+  .result-score-total { font-size:18px; color:rgba(255,255,255,0.35); font-weight:600; margin-top:4px; }
+  .result-pct-badge { display:inline-flex; align-items:center; gap:6px; border-radius:99px; padding:8px 22px; font-size:16px; font-weight:800; margin-top:12px; }
+  .result-message-box { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:22px 26px; margin-top:22px; text-align:right; }
+  .result-message-title { font-size:14px; font-weight:700; color:#90CAF9; margin-bottom:10px; }
+  .result-message-text { font-size:14px; color:rgba(255,255,255,0.65); line-height:1.85; }
+  .result-stats-row { display:flex; gap:10px; margin-top:18px; }
+  .result-stat-mini { flex:1; background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 10px; text-align:center; border:1px solid rgba(255,255,255,0.07); }
+  .result-stat-mini-icon { font-size:18px; margin-bottom:5px; }
+  .result-stat-mini-num { font-size:18px; font-weight:800; }
+  .result-stat-mini-label { font-size:10px; color:rgba(255,255,255,0.35); font-weight:600; margin-top:3px; }
+
+  .slide-exit { animation:slideExit .22s ease forwards; }
+  .slide-enter { animation:slideEnter .35s cubic-bezier(.22,.87,.33,1) forwards; }
+  @keyframes slideExit { to{opacity:0;transform:translateX(30px)} }
+  @keyframes slideEnter { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+
+  @media (max-width:480px) {
+    .card { padding:28px 18px; border-radius:22px; }
+    .q-text { font-size:16px; }
+    .opt-text { font-size:14px; }
+    .start-title { font-size:20px; }
+    .modal-box { padding:28px 20px; }
+    .explanation-popup { padding:15px 14px 14px; margin-bottom:18px; }
+    .explanation-text { font-size:12.5px; }
+    .result-score-big { font-size:72px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- Modal دریافت کد -->
+<div class="modal-overlay hidden" id="code-modal" onclick="handleModalOverlayClick(event)">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-icon" id="m-icon">🎓</div>
+    <div class="modal-title" id="m-title">دریافت کد اشتراک</div>
+    <div class="modal-subtitle" id="m-sub">شماره تلفنی که با آن اشتراک تهیه کرده‌اید را وارد کنید.</div>
+    <div id="m-body"></div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="card" id="main-card"></div>
+</div>
+
+<script>
+// ─── Supabase — همان روش صفحه اصلی ──────────────────────────────────────────
+const SUPABASE_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
+
+async function sbGet(table, filter) {
+  const url = `${SUPABASE_URL}/rest/v1/${table}?${filter}&limit=1`;
+  const r = await fetch(url, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  });
+  return r.json();
+}
+
+async function sbPatch(table, filter, body) {
+  const url = `${SUPABASE_URL}/rest/v1/${table}?${filter}`;
+  const r = await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(body)
+  });
+  return r.ok || r.status === 204;
+}
+
+function genCode() {
+  return String(Math.floor(1000 + Math.random() * 9000));
+}
+
+const state = { screen:'access', currentQ:0, answers:[], score:0, shuffled:[] };
+
+// ─── بانک ۵۰ سوال — سطح پیشرفته ۱ (B1 ابتدایی) ─────────────────────────────
+const QUESTIONS_BANK = [
+  // Present Perfect
+  { badge:'Present Perfect', text:'کدام جمله صحیح است؟', options:['I have seen that movie yesterday.','I saw that movie yesterday.','I have see that movie yesterday.','I was seen that movie yesterday.'], correct:1 },
+  { badge:'Present Perfect', text:'جای خالی را پر کنید: She ___ never ___ sushi before.', options:['has / eaten','have / eaten','has / ate','have / ate'], correct:0 },
+  { badge:'Present Perfect', text:'"Have you ever been to London?" — کدام پاسخ درست است؟', options:["Yes, I have been.","Yes, I went.","Yes, I have went.","Yes, I did."], correct:0 },
+  { badge:'Present Perfect', text:'جای خالی را پر کنید: They ___ just ___ their exam.', options:['have / finished','has / finished','have / finish','did / finished'], correct:0 },
+  { badge:'Present Perfect', text:'کدام جمله با "since" درست است؟', options:["She has worked here since three years.","She has worked here since 2020.","She worked here since 2020.","She is working here since 2020."], correct:1 },
+
+  // Past Continuous
+  { badge:'گذشته استمراری', text:'جای خالی را پر کنید: When I called him, he ___ a shower.', options:['was taking','took','is taking','takes'], correct:0 },
+  { badge:'گذشته استمراری', text:'کدام جمله صحیح است؟', options:['They were watched TV when I arrived.','They was watching TV when I arrived.','They were watching TV when I arrived.','They watching TV when I arrived.'], correct:2 },
+  { badge:'گذشته استمراری', text:'کدام گزینه جمله را کامل می‌کند: "It ___ when we left the house."', options:['rained','was raining','is raining','rains'], correct:1 },
+
+  // Future — will / going to
+  { badge:'آینده — will', text:'برای یک تصمیم لحظه‌ای کدام درست است؟', options:["I'm going to help you.","I will help you.","I am helping you.","I help you."], correct:1 },
+  { badge:'آینده — going to', text:'جای خالی را پر کنید: Look at those clouds! It ___ rain.', options:["will","is going to","is","going to"], correct:1 },
+  { badge:'آینده — will', text:'کدام جمله صحیح است؟', options:["She won't comes to the party.","She won't come to the party.","She doesn't will come to the party.","She will not comes to the party."], correct:1 },
+
+  // Passive Voice
+  { badge:'مجهول (Passive)', text:'کدام جمله مجهول درست است؟', options:['The car was repaired by the mechanic.','The car was repair by the mechanic.','The car repaired by the mechanic.','The car is been repaired by the mechanic.'], correct:0 },
+  { badge:'مجهول (Passive)', text:'جمله "They built this bridge in 1990." را به مجهول تبدیل کنید.', options:['This bridge was built in 1990.','This bridge built in 1990.','This bridge has built in 1990.','This bridge is built in 1990.'], correct:0 },
+  { badge:'مجهول (Passive)', text:'کدام جمله مجهول حال است؟', options:['The letters were written.','The letters are written every week.','The letters have been written.','The letters wrote every week.'], correct:1 },
+
+  // Conditional Type 1
+  { badge:'شرطی نوع ۱', text:'کدام جمله شرطی نوع ۱ صحیح است؟', options:['If it rains, we stay inside.','If it rains, we will stay inside.','If it will rain, we stay inside.','If it rained, we will stay inside.'], correct:1 },
+  { badge:'شرطی نوع ۱', text:'جای خالی را پر کنید: If you study hard, you ___ the test.', options:['passed','will pass','would pass','pass'], correct:1 },
+  { badge:'شرطی نوع ۱', text:'کدام جمله شرطی نوع ۱ است؟', options:['If I were rich, I would travel.','If she studies, she will succeed.','If he had known, he would have called.','If they go, I went too.'], correct:1 },
+
+  // Conditional Type 2
+  { badge:'شرطی نوع ۲', text:'کدام جمله شرطی نوع ۲ صحیح است؟', options:['If I have more time, I will read more.','If I had more time, I would read more.','If I had more time, I will read more.','If I would have more time, I read more.'], correct:1 },
+  { badge:'شرطی نوع ۲', text:'جای خالی: If she ___ the answer, she ___ tell us.', options:['knows / would','knew / would','knew / will','know / would'], correct:1 },
+
+  // Modals — must / should / might
+  { badge:'Modal Verbs', text:'برای ابراز احتمال از کدام استفاده می‌کنیم؟', options:["He must be at home — he might be at home.","He might be at home.","He should be at home.","He can be at home."], correct:1 },
+  { badge:'Modal Verbs', text:'کدام جمله برای توصیه پزشکی مناسب‌تر است؟', options:['You must stop smoking.','You should stop smoking.','You might stop smoking.','You can stop smoking.'], correct:1 },
+  { badge:'Modal Verbs', text:'"You ___ forget your passport." — الزام قوی:', options:['should','might','mustn\'t','couldn\'t'], correct:2 },
+
+  // Phrasal Verbs
+  { badge:'Phrasal Verbs', text:'"Give up" به چه معناست؟', options:['تحویل دادن','تسلیم شدن / دست کشیدن','بالا رفتن','هدیه دادن'], correct:1 },
+  { badge:'Phrasal Verbs', text:'"Look forward to" یعنی چه؟', options:['به جلو نگاه کردن','مراقب بودن','مشتاقانه انتظار داشتن','فراموش کردن'], correct:2 },
+  { badge:'Phrasal Verbs', text:'"Could you turn down the music?" یعنی چه؟', options:['موزیک را قطع کن','موزیک را بلندتر کن','موزیک را آرام‌تر کن','موزیک را عوض کن'], correct:2 },
+  { badge:'Phrasal Verbs', text:'"Run out of" یعنی چه؟', options:['فرار کردن','تمام شدن (یک چیز)','خارج شدن با دویدن','رد شدن'], correct:1 },
+
+  // Vocabulary — Advanced 1
+  { badge:'واژگان پیشرفته', text:'معنی "Ambitious" چیست؟', options:['تنبل','بلندپرواز / جاه‌طلب','آرام','بی‌تجربه'], correct:1 },
+  { badge:'واژگان پیشرفته', text:'معنی "Efficient" چیست؟', options:['ناکارآمد','پرهزینه','کارآمد / مؤثر','کند'], correct:2 },
+  { badge:'واژگان پیشرفته', text:'متضاد "Generous" چیست؟', options:['Kind','Stingy','Honest','Brave'], correct:1 },
+  { badge:'واژگان پیشرفته', text:'معنی "Fluent" در "She speaks fluent English" چیست؟', options:['آهسته','روان و بدون مکث','با لهجه','مبتدی'], correct:1 },
+  { badge:'واژگان پیشرفته', text:'معنی "Postpone" چیست؟', options:['لغو کردن','به تأخیر انداختن','تسریع کردن','فراموش کردن'], correct:1 },
+
+  // Relative Clauses
+  { badge:'جمله وصفی', text:'کدام جمله وصفی صحیح است؟', options:['The man who he lives next door is a doctor.','The man who lives next door is a doctor.','The man which lives next door is a doctor.','The man lives next door is a doctor.'], correct:1 },
+  { badge:'جمله وصفی', text:'جای خالی: "The book ___ I bought yesterday is great."', options:['who','whom','which','what'], correct:2 },
+  { badge:'جمله وصفی', text:'کدام صحیح است؟ (اشاره به مکان)', options:['The city which I grew up is beautiful.','The city where I grew up is beautiful.','The city who I grew up is beautiful.','The city what I grew up is beautiful.'], correct:1 },
+
+  // Reported Speech
+  { badge:'نقل قول غیرمستقیم', text:'"I am tired." → گزارش نقل قول:', options:['She said that she is tired.','She said that she was tired.','She said that she were tired.','She told she was tired.'], correct:1 },
+  { badge:'نقل قول غیرمستقیم', text:'"Where do you live?" → نقل قول غیرمستقیم:', options:['He asked where do I live.','He asked where I live.','He asked where I lived.','He asked where did I live.'], correct:2 },
+
+  // Prepositions — Advanced
+  { badge:'حروف اضافه پیشرفته', text:'کدام صحیح است؟', options:['I\'ve been waiting since two hours.','I\'ve been waiting for two hours.','I\'ve been waiting during two hours.','I\'ve been waiting from two hours.'], correct:1 },
+  { badge:'حروف اضافه پیشرفته', text:'کدام جمله درست است؟', options:['She is interested about history.','She is interested in history.','She is interested on history.','She is interested at history.'], correct:1 },
+  { badge:'حروف اضافه پیشرفته', text:'کدام صحیح است؟', options:['He apologized for being late.','He apologized about being late.','He apologized of being late.','He apologized to being late.'], correct:0 },
+
+  // Gerund vs Infinitive
+  { badge:'Gerund / Infinitive', text:'کدام صحیح است؟', options:['She enjoys to swim.','She enjoys swimming.','She enjoys swim.','She enjoys swam.'], correct:1 },
+  { badge:'Gerund / Infinitive', text:'کدام صحیح است؟', options:['He decided staying home.','He decided to stay home.','He decided stayed home.','He decided stay home.'], correct:1 },
+  { badge:'Gerund / Infinitive', text:'"Avoid" بعد از آن چه می‌آید؟', options:['infinitive (to + verb)','base verb','gerund (verb+ing)','past participle'], correct:2 },
+
+  // Articles — Advanced
+  { badge:'حروف تعریف پیشرفته', text:'کدام صحیح است؟', options:['She plays a piano every evening.','She plays the piano every evening.','She plays piano every evening.','She plays an piano every evening.'], correct:1 },
+  { badge:'حروف تعریف پیشرفته', text:'کدام درست است؟', options:['He is a best student in class.','He is best student in class.','He is the best student in class.','He is an best student in class.'], correct:2 },
+
+  // Vocabulary in Context
+  { badge:'واژگان در متن', text:'"The meeting was ___ because the manager was sick." کدام صحیح است؟', options:['cancelled','delayed','postponed','both B and C'], correct:3 },
+  { badge:'واژگان در متن', text:'"He ___ his job last month and is now looking for a new one."', options:['lost','lose','has lose','losing'], correct:0 },
+  { badge:'واژگان در متن', text:'معنی "deadline" چیست؟', options:['خط پایان مسابقه','مهلت / آخرین فرصت','بن‌بست','تاریخ شروع'], correct:1 },
+
+  // Question Tags
+  { badge:'Question Tags', text:`کدام question tag صحیح است؟ "You're coming to the party, ___?"`, options:["aren't you","isn't you","don't you","weren't you"], correct:0 },
+  { badge:'Question Tags', text:`"She doesn't like coffee, ___?"`, options:["doesn't she","does she","isn't she","did she"], correct:1 },
+
+  // Comparatives / Superlatives Advanced
+  { badge:'مقایسه پیشرفته', text:'کدام صحیح است؟', options:['This is the more interesting book I\'ve read.','This is the most interesting book I\'ve ever read.','This is the interestingest book I\'ve read.','This is more interesting book I\'ve ever read.'], correct:1 },
+  { badge:'مقایسه پیشرفته', text:'کدام صحیح است؟', options:['The sooner you start, the better.','The sooner you start, the more better.','The more soon you start, the better.','Sooner you start, better it is.'], correct:0 },
+];
+
+// ─── توضیحات پاپ‌آپ — ۵۰ سوال ──────────────────────────────────────────────
+const EXPLANATIONS = [
+  // 0 - Present Perfect
+  'در Present Perfect از <span class="en">yesterday</span> استفاده نمی‌شود. این قید با زمان گذشته ساده به کار می‌رود. جمله با <span class="en">yesterday</span> باید <span class="en">I saw that movie yesterday</span> باشد.',
+  'با Present Perfect در جمله منفی ساختار <span class="en">has/have + never + past participle</span> درست است: <span class="en">She has never eaten sushi</span>.',
+  'جواب به <span class="en">Have you ever...?</span> با <span class="en">Yes, I have.</span> داده می‌شود. از <span class="en">went</span> اینجا استفاده نمی‌شود چون زمان Present Perfect است.',
+  'با <span class="en">They</span> از <span class="en">have</span> و با قید <span class="en">just</span> از <span class="en">past participle</span> استفاده می‌شود: <span class="en">They have just finished</span>.',
+  '<span class="en">Since</span> قبل از نقطه‌ای مشخص در زمان می‌آید (مثل سال یا تاریخ)، نه قبل از یک مدت زمان. برای مدت زمان از <span class="en">for</span> استفاده می‌شود.',
+  // 5 - Past Continuous
+  'وقتی یک کار در حال انجام بود و کار دیگری قطعش کرد، از Past Continuous برای کار در حال انجام استفاده می‌شود: <span class="en">was taking</span>.',
+  'ساختار Past Continuous: <span class="en">was/were + verb-ing</span>. با <span class="en">They</span> باید <span class="en">were watching</span> باشد.',
+  'وقتی یک فعل پس‌زمینه در گذشته داریم، Past Continuous به کار می‌رود: <span class="en">It was raining when we left</span>.',
+  // 8 - Future
+  'برای تصمیم‌های لحظه‌ای و پیش‌بینی‌های کلی از <span class="en">will</span> استفاده می‌شود. اما باید توجه داشت در این سوال، گزینه <span class="en">I will help you</span> برای تصمیم لحظه‌ای صحیح است.',
+  'وقتی شواهدی برای اتفاق آینده در دست باشد (مثل ابرهای تیره)، از <span class="en">be going to</span> استفاده می‌شود: <span class="en">It is going to rain</span>.',
+  'شکل منفی <span class="en">will</span> عبارت است از <span class="en">won\'t + base verb</span>: <span class="en">She won\'t come</span>.',
+  // 11 - Passive
+  'در مجهول گذشته ساده ساختار <span class="en">was/were + past participle + by + agent</span> درست است.',
+  'برای تبدیل به مجهول، فاعل جمله معلوم (object) تبدیل به فاعل مجهول می‌شود: <span class="en">This bridge was built in 1990</span>.',
+  'مجهول حال ساده با ساختار <span class="en">is/are + past participle</span> ساخته می‌شود: <span class="en">The letters are written every week</span>.',
+  // 14 - Conditional 1
+  'در شرطی نوع ۱، جمله شرط با <span class="en">Simple Present</span> و نتیجه با <span class="en">will + base verb</span> می‌آید: <span class="en">If it rains, we will stay inside</span>.',
+  'در نتیجه شرطی نوع ۱ از <span class="en">will + base verb</span> استفاده می‌شود: <span class="en">you will pass</span>.',
+  'شرطی نوع ۱ درباره موقعیت‌های ممکن در آینده است. ساختار: <span class="en">If + present simple, will + base verb</span>.',
+  // 17 - Conditional 2
+  'شرطی نوع ۲ برای موقعیت‌های فرضی است. ساختار: <span class="en">If + past simple, would + base verb</span>: <span class="en">If I had more time, I would read more</span>.',
+  'در شرطی نوع ۲، در قسمت شرط از <span class="en">past simple</span> و در نتیجه از <span class="en">would + base verb</span> استفاده می‌شود: <span class="en">If she knew, she would tell us</span>.',
+  // 19 - Modals
+  'برای ابراز احتمال (شاید) از <span class="en">might</span> استفاده می‌شود: <span class="en">He might be at home</span> یعنی «شاید خانه باشد».',
+  'برای توصیه سبک‌تر و مشورت از <span class="en">should</span> استفاده می‌شود. <span class="en">must</span> الزام قوی‌تری دارد و برای توصیه پزشکی معمولاً <span class="en">should</span> طبیعی‌تر است.',
+  '<span class="en">Mustn\'t</span> یعنی «نباید / ممنوع است». برای ممانعت قوی از انجام کاری استفاده می‌شود.',
+  // 22 - Phrasal Verbs
+  '"<span class="en">Give up</span>" یعنی دست کشیدن از چیزی یا تسلیم شدن. مثال: <span class="en">Don\'t give up on your dreams!</span>',
+  '"<span class="en">Look forward to</span>" یعنی با اشتیاق منتظر چیزی بودن. بعد از آن <span class="en">gerund (verb+ing)</span> می‌آید: <span class="en">I look forward to meeting you</span>.',
+  '"<span class="en">Turn down</span>" یعنی کم کردن صدا (یا رد کردن). اینجا یعنی «موزیک را آرام‌تر کن».',
+  '"<span class="en">Run out of</span>" یعنی تمام شدن یا خالی شدن چیزی. مثال: <span class="en">We ran out of milk</span> یعنی «شیرمان تمام شد».',
+  // 26 - Vocabulary
+  '"<span class="en">Ambitious</span>" یعنی «بلندپرواز» — کسی که اهداف و آرزوهای بزرگ دارد.',
+  '"<span class="en">Efficient</span>" یعنی «کارآمد» — کسی یا چیزی که با کمترین اتلاف وقت و انرژی بهترین نتیجه را می‌دهد.',
+  'متضاد <span class="en">Generous</span> (بخشنده) کلمه <span class="en">Stingy</span> است که یعنی «خسیس».',
+  '"<span class="en">Fluent</span>" یعنی «روان» — توانایی صحبت کردن بدون مکث و با اطمینان.',
+  '"<span class="en">Postpone</span>" یعنی «به تأخیر انداختن» — جابجا کردن به زمانی دیرتر.',
+  // 31 - Relative Clauses
+  'در جمله وصفی برای اشاره به شخص از <span class="en">who</span> استفاده می‌شود. ضمیر اضافه (<span class="en">he</span>) حذف می‌شود: <span class="en">The man who lives next door</span>.',
+  'برای اشاره به اشیاء در جمله وصفی از <span class="en">which</span> یا <span class="en">that</span> استفاده می‌شود: <span class="en">The book which/that I bought</span>.',
+  'برای اشاره به مکان در جمله وصفی از <span class="en">where</span> استفاده می‌شود: <span class="en">The city where I grew up</span>.',
+  // 34 - Reported Speech
+  'در نقل قول غیرمستقیم، فعل یک زمان به عقب می‌رود: <span class="en">am → was</span>. پس جمله می‌شود: <span class="en">She said that she was tired</span>.',
+  'در نقل قول سوالی، ترتیب جمله خبری می‌شود (نه سوالی): <span class="en">He asked where I lived</span>.',
+  // 36 - Prepositions
+  'برای مدت زمان از <span class="en">for</span> استفاده می‌شود: <span class="en">for two hours</span>. از <span class="en">since</span> برای نقطه شروع استفاده می‌شود.',
+  'ترکیب ثابت: <span class="en">interested in</span>. مثال: <span class="en">She is interested in history</span>.',
+  'ترکیب ثابت: <span class="en">apologize for</span>. مثال: <span class="en">He apologized for being late</span>.',
+  // 39 - Gerund / Infinitive
+  'فعل <span class="en">enjoy</span> بعد از خود <span class="en">gerund (verb+ing)</span> می‌گیرد: <span class="en">She enjoys swimming</span>.',
+  'فعل <span class="en">decide</span> بعد از خود <span class="en">infinitive (to + verb)</span> می‌گیرد: <span class="en">He decided to stay home</span>.',
+  'فعل <span class="en">avoid</span> بعد از خود <span class="en">gerund (verb+ing)</span> می‌گیرد. مثال: <span class="en">Avoid making mistakes</span>.',
+  // 42 - Articles
+  'قبل از آلات موسیقی به طور کلی از <span class="en">the</span> استفاده می‌شود: <span class="en">play the piano / the guitar</span>.',
+  'قبل از صفت عالی (superlative) همیشه از <span class="en">the</span> استفاده می‌شود: <span class="en">the best student</span>.',
+  // 44 - Vocabulary in Context
+  'هم <span class="en">delayed</span> (به تأخیر افتاد) و هم <span class="en">postponed</span> (به وقت دیگری موکول شد) می‌توانند درست باشند، پس گزینه "B و C هر دو" صحیح است.',
+  '<span class="en">Lost his job</span> یعنی «شغلش را از دست داد». زمان مناسب گذشته ساده است چون <span class="en">last month</span> داریم.',
+  '"<span class="en">Deadline</span>" یعنی «مهلت» — آخرین فرصتی که برای انجام کاری داریم.',
+  // 47 - Question Tags
+  'با <span class="en">You are</span> جمله مثبت، تگ سوالی منفی می‌شود: <span class="en">aren\'t you</span>.',
+  'با <span class="en">doesn\'t</span> در جمله، تگ سوالی <span class="en">does she</span> می‌شود (بدون not).',
+  // 49 - Comparatives
+  'قبل از صفت چندسیلابی در عالی از <span class="en">the most</span> استفاده می‌شود: <span class="en">the most interesting</span>.',
+  'ساختار <span class="en">The + comparative, the + comparative</span> یک ساختار ثابت است: <span class="en">The sooner... the better</span>.',
+];
+
+function getExplanation(qIdx, q) {
+  const exp = EXPLANATIONS[qIdx];
+  if (exp) return exp;
+  return `پاسخ درست «${q.options[q.correct]}» است. این گزینه با ساختار یا معنی موردنظر سوال مطابقت دارد.`;
+}
+
+function toPersian(n) { return String(n).replace(/\d/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]); }
+const LETTERS = ['A','B','C','D'];
+const card = document.getElementById('main-card');
+
+function shuffleArray(arr) {
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function buildShuffled() {
+  // برای حفظ index توضیحات، پس از shuffle، originalIndex را نگه می‌داریم
+  return shuffleArray(QUESTIONS_BANK.map((q,i)=>({...q,originalIndex:i}))).map(q=>{
+    const ct=q.options[q.correct];
+    const opts=shuffleArray(q.options);
+    return {...q, options:opts, correct:opts.indexOf(ct)};
+  });
+}
+function transition(fn) {
+  card.classList.add('slide-exit');
+  setTimeout(()=>{
+    card.classList.remove('slide-exit'); fn();
+    card.classList.add('slide-enter');
+    setTimeout(()=>card.classList.remove('slide-enter'),380);
+  },200);
+}
+function animateCounter(el,from,to,dur,fmt){
+  const s=performance.now();
+  function f(n){const p=Math.min((n-s)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(from+(to-from)*e);if(p<1)requestAnimationFrame(f);}
+  requestAnimationFrame(f);
+}
+
+// ─── Modal دریافت کد — دقیقاً مثل صفحه مقدماتی ──────────────────────────────
+function openModal(){
+  document.getElementById('code-modal').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  document.getElementById('m-icon').textContent='🎓';
+  document.getElementById('m-title').textContent='دریافت کد اشتراک';
+  document.getElementById('m-sub').textContent='شماره تلفنی که با آن اشتراک تهیه کرده‌اید را وارد کنید.';
+  document.getElementById('m-body').innerHTML=`
+    <label class="form-label" for="f-phone">شماره تلفن</label>
+    <input class="form-input" id="f-phone" type="tel" inputmode="numeric" maxlength="11"
+      placeholder="09123456789" autocomplete="tel"
+      onkeydown="if(event.key==='Enter') submitPhone()"
+    />
+    <div class="modal-error" id="m-error"></div>
+    <div class="modal-btn-row">
+      <button class="modal-btn-submit" id="m-btn" onclick="submitPhone()">دریافت کد ←</button>
+      <button class="modal-btn-cancel" onclick="closeModal()">انصراف</button>
+    </div>
+  `;
+  setTimeout(()=>{ const i=document.getElementById('f-phone'); if(i) i.focus(); }, 120);
+}
+function closeModal(){
+  document.getElementById('code-modal').classList.add('hidden');
+  document.body.style.overflow='';
+}
+function handleModalOverlayClick(e){
+  if(e.target===document.getElementById('code-modal')) closeModal();
+}
+
+async function submitPhone(){
+  const input=document.getElementById('f-phone');
+  const btn=document.getElementById('m-btn');
+  const errEl=document.getElementById('m-error');
+  if(!input||!btn) return;
+
+  errEl.classList.remove('show');
+  input.classList.remove('field-error');
+
+  let phone = input.value.trim()
+    .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+    .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/\D/g,'');
+  if(phone.startsWith('0')) phone = phone.slice(1);
+
+  if(phone.length < 10){
+    input.classList.add('field-error');
+    errEl.textContent = 'شماره تلفن معتبر نیست (مثلاً ۰۹۱۲۳۴۵۶۷۸۹)';
+    errEl.classList.add('show');
+    return;
+  }
+
+  btn.disabled=true;
+  btn.innerHTML='در حال بررسی... <span class="spinner"></span>';
+
+  try {
+    const rows = await sbGet('subscriptions', `phone=eq.${phone}&is_active=eq.true`);
+
+    if(!Array.isArray(rows) || rows.length === 0){
+      errEl.textContent = 'این شماره تلفن در سیستم ثبت نشده یا اشتراک فعالی ندارد.';
+      errEl.classList.add('show');
+      btn.disabled=false;
+      btn.innerHTML='دریافت کد ←';
+      return;
+    }
+
+    const row = rows[0];
+    let code = (row.code || '').trim();
+
+    if(!code){
+      code = genCode();
+      await sbPatch('subscriptions', `id=eq.${row.id}`, { code: code });
+    }
+
+    document.getElementById('m-icon').textContent='🎉';
+    document.getElementById('m-title').textContent='کد اشتراک شما';
+    document.getElementById('m-sub').textContent='این کد را ذخیره کنید و برای ورود به آزمون استفاده کنید.';
+    document.getElementById('m-body').innerHTML=`
+      <div class="code-reveal-box">
+        <div class="code-reveal-label">✦ کد اختصاصی آزمون شما</div>
+        <div class="code-reveal-number">${code}</div>
+        <div class="code-reveal-msg">کد را یادداشت کنید.<br>برای ورود به آزمون پیشرفته ۱ همین کد را وارد کنید.</div>
+      </div>
+      <button class="modal-btn-submit" onclick="closeModal()" style="margin-top:20px;width:100%">متوجه شدم ✓</button>
+    `;
+
+  } catch(err){
+    console.error(err);
+    errEl.textContent = 'خطا در ارتباط با سرور. لطفاً چند لحظه بعد دوباره تلاش کنید.';
+    errEl.classList.add('show');
+    btn.disabled=false;
+    btn.innerHTML='دریافت کد ←';
+  }
+}
+
+// ─── Access screen — دقیقاً مثل صفحه مقدماتی ────────────────────────────────
+function renderAccess(){
+  card.innerHTML=`
+    <div class="brand" style="justify-content:center;margin-bottom:24px">
+      <div class="brand-icon">🇬🇧</div>
+      <div class="brand-name"><span>آزمون زبان انگلیسی</span>پیشرفته ۱</div>
+    </div>
+    <div class="access-icon">🔐</div>
+    <div class="access-title">کد اشتراک را وارد کنید</div>
+    <div class="access-subtitle">برای دسترسی به آزمون پیشرفته ۱، کد اختصاصی اشتراک خود را وارد کنید.</div>
+    <label class="code-input-label" for="code-field">کد دسترسی</label>
+    <input class="code-input" id="code-field" type="text" inputmode="numeric" maxlength="4"
+      placeholder="• • • •" autocomplete="off" spellcheck="false"
+      onkeydown="if(event.key==='Enter') checkCode()"
+      oninput="clearErr()"
+    />
+    <div class="error-msg" id="error-msg"><span>⚠️</span><span id="error-text">کد وارد شده اشتباه است.</span></div>
+    <button class="btn-primary" id="access-btn" onclick="checkCode()" style="margin-top:20px">ورود به آزمون ←</button>
+    <button class="btn-get-code" onclick="openModal()">🎓 دریافت کد اشتراک</button>
+    <div class="access-footer">کد اشتراک از طریق شماره تلفن ثبت‌شده قابل دریافت است</div>
+  `;
+  setTimeout(()=>{ const i=document.getElementById('code-field'); if(i) i.focus(); },100);
+}
+function clearErr(){
+  document.getElementById('code-field').classList.remove('shake');
+  document.getElementById('error-msg').classList.remove('visible');
+}
+
+async function checkCode(){
+  const inp = document.getElementById('code-field');
+  const errMsg = document.getElementById('error-msg');
+  const errText = document.getElementById('error-text');
+  const btn = document.getElementById('access-btn');
+
+  let val = inp.value.trim()
+    .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+    .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/\D/g,'');
+  inp.value = val;
+
+  if(!/^\d{4}$/.test(val)){
+    inp.classList.add('shake');
+    setTimeout(()=>inp.classList.remove('shake'),400);
+    errText.textContent='کد باید یک عدد ۴ رقمی باشد.';
+    errMsg.classList.add('visible');
+    return;
+  }
+
+  btn.disabled=true;
+  btn.innerHTML='در حال بررسی... <span class="spinner"></span>';
+
+  try {
+    const rows = await sbGet('subscriptions', `code=eq.${val}&is_active=eq.true`);
+
+    if(Array.isArray(rows) && rows.length > 0){
+      inp.classList.add('success');
+      setTimeout(()=>{ state.screen='start'; transition(renderStart); }, 400);
+    } else {
+      inp.classList.add('shake');
+      setTimeout(()=>inp.classList.remove('shake'),400);
+      errText.textContent='کد وارد شده معتبر نیست یا منقضی شده.';
+      errMsg.classList.add('visible');
+      btn.disabled=false;
+      btn.innerHTML='ورود به آزمون ←';
+    }
+  } catch(err){
+    console.error(err);
+    inp.classList.add('shake');
+    setTimeout(()=>inp.classList.remove('shake'),400);
+    errText.textContent='خطا در ارتباط با سرور. دوباره تلاش کنید.';
+    errMsg.classList.add('visible');
+    btn.disabled=false;
+    btn.innerHTML='ورود به آزمون ←';
+  }
+}
+
+// ── Start ───────────────────────────────────────
+function renderStart(){
+  card.innerHTML=`
+    <div class="brand">
+      <div class="brand-icon">🇬🇧</div>
+      <div class="brand-name"><span>آزمون زبان انگلیسی</span>سطح پیشرفته ۱</div>
+    </div>
+    <div class="start-icon">📝</div>
+    <div class="start-title">آزمون ارزیابی سطح پیشرفته ۱</div>
+    <div class="start-desc">این آزمون سطح B1 ابتدایی را می‌سنجد. سوال‌ها شامل زمان‌های پیچیده‌تر مثل Present Perfect، گذشته استمراری، مجهول، شرطی، Phrasal Verbs، جمله وصفی، نقل قول غیرمستقیم و لغات پیشرفته‌تر است.</div>
+    <div class="start-stats">
+      <div class="stat-chip">⏱️ <span>حدود ۱۵ دقیقه</span></div>
+      <div class="stat-chip">📊 <span>۵۰ سوال</span></div>
+      <div class="stat-chip">🎯 <span>سطح B1 ابتدایی</span></div>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">شروع آزمون ←</button>
+  `;
+}
+
+// ── Question ────────────────────────────────────
+function renderQuestion(){
+  const q=state.shuffled[state.currentQ];
+  const total=state.shuffled.length;
+  const progress=Math.round((state.currentQ/total)*100);
+  const answered=state.answers[state.currentQ];
+  const isWrong=answered!==undefined && answered!==q.correct;
+
+  card.innerHTML=`
+    <div class="brand" style="margin-bottom:18px">
+      <div class="brand-icon" style="width:32px;height:32px;font-size:15px;border-radius:8px">🇬🇧</div>
+      <div class="brand-name" style="font-size:11px"><span style="font-size:13px">آزمون زبان انگلیسی</span>پیشرفته ۱</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="step-label">سوال ${toPersian(state.currentQ+1)} از ${toPersian(total)}</span>
+        <span>${toPersian(progress)}٪ تکمیل شده</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
+    </div>
+
+    ${isWrong ? `
+      <div class="explanation-popup" id="explanation-popup">
+        <div class="explanation-head">
+          <div class="explanation-icon">💡</div>
+          <div class="explanation-title">چرا این پاسخ اشتباه بود؟</div>
+        </div>
+        <div class="explanation-text">${getExplanation(q.originalIndex, q)}</div>
+        <div class="explanation-correct">✓ پاسخ درست: ${q.options[q.correct]}</div>
+        <button class="explanation-btn" onclick="acknowledgeExplanation()">متوجه شدم ✓</button>
+      </div>
+    ` : ''}
+
+    <div class="q-badge">✦ ${q.badge}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options" id="options-list">
+      ${q.options.map((opt,i)=>{
+        let cls='';
+        if(answered!==undefined){
+          if(i===q.correct)cls='correct';
+          else if(i===answered&&answered!==q.correct)cls='wrong';
+        }
+        const icon=cls==='correct'?'✓':cls==='wrong'?'✕':'';
+        const disabled=answered!==undefined?'pointer-events:none':'';
+        return `<div class="option ${cls}" onclick="selectAnswer(${i})" style="${disabled}">
+          <div class="opt-letter">${LETTERS[i]}</div>
+          <div class="opt-text">${opt}</div>
+          <div class="opt-icon">${icon}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:10px;margin-top:22px;align-items:center">
+      ${state.currentQ>0?`<button class="btn-ghost" onclick="prevQ()">→ قبلی</button>`:''}
+      <button class="btn-primary" id="next-btn" style="margin-top:0;${answered===undefined||isWrong?'opacity:.4;cursor:not-allowed':''}"
+        onclick="nextQ()" ${answered===undefined||isWrong?'disabled':''}>
+        ${state.currentQ===total-1?'مشاهده نتیجه ✓':'سوال بعدی ←'}
+      </button>
+    </div>
+  `;
+}
+
+function acknowledgeExplanation(){
+  const popup=document.getElementById('explanation-popup');
+  if(popup){
+    popup.style.animation='none';
+    popup.style.opacity='0';
+    popup.style.transform='translateY(-8px)';
+    popup.style.transition='opacity .18s ease, transform .18s ease';
+  }
+  setTimeout(()=>{ nextQ(); },180);
+}
+
+function selectAnswer(idx){
+  if(state.answers[state.currentQ]!==undefined)return;
+  const q=state.shuffled[state.currentQ];
+  state.answers[state.currentQ]=idx;
+  if(idx===q.correct)state.score++;
+
+  document.querySelectorAll('.option').forEach((el,i)=>{
+    if(i===q.correct){el.classList.add('correct');el.querySelector('.opt-icon').textContent='✓';}
+    else if(i===idx&&idx!==q.correct){el.classList.add('wrong');el.querySelector('.opt-icon').textContent='✕';}
+    el.style.pointerEvents='none';
+  });
+
+  if(idx!==q.correct){
+    renderQuestion();
+    return;
+  }
+
+  const btn=document.getElementById('next-btn');
+  if(btn){btn.disabled=false;btn.style.opacity='1';btn.style.cursor='pointer';}
+}
+
+function nextQ(){ if(state.answers[state.currentQ]===undefined)return; if(state.currentQ<state.shuffled.length-1){state.currentQ++;transition(renderQuestion);}else{state.screen='result';transition(renderResult);} }
+function prevQ(){ if(state.currentQ>0){state.currentQ--;transition(renderQuestion);} }
+
+// ── Result ──────────────────────────────────────
+function renderResult(){
+  const total=state.shuffled.length;
+  const pct=Math.round((state.score/total)*100);
+  let emoji,levelTitle,scoreColor,pctBadgeClass,message;
+
+  if(pct<=40){
+    emoji='🌱'; levelTitle='نیاز به تمرین بیشتر'; scoreColor='#F87171';
+    pctBadgeClass='background:rgba(239,68,68,0.15);border:1.5px solid rgba(239,68,68,0.4);color:#FCA5A5;';
+    message=`<div class="result-message-title">💡 راهنمای پیشرفت</div><div class="result-message-text">سوال‌های این سطح نیاز به تسلط کامل بر گرامر پایه دارند. پیشنهاد می‌شود ابتدا مفاهیم Present Perfect، گذشته استمراری و ساختارهای Passive را مرور کنید.<br><br>با تمرین منظم به این سطح خواهید رسید! 💪</div>`;
+  } else if(pct<=70){
+    emoji='📖'; levelTitle='سطح متوسط B1'; scoreColor='#FBBF24';
+    pctBadgeClass='background:rgba(245,158,11,0.15);border:1.5px solid rgba(245,158,11,0.4);color:#FCD34D;';
+    message=`<div class="result-message-title">🚀 در مسیر درست هستید!</div><div class="result-message-text">درک خوبی از مفاهیم پیشرفته ابتدایی دارید. تمرین بیشتر روی Conditional، Phrasal Verbs و Reported Speech شما را به سطح بالاتری می‌رساند.<br><br>ادامه دهید! ⭐</div>`;
+  } else {
+    emoji='🏆'; levelTitle='سطح B1 قوی'; scoreColor='#34D399';
+    pctBadgeClass='background:rgba(16,185,129,0.15);border:1.5px solid rgba(16,185,129,0.4);color:#6EE7B7;';
+    message=`<div class="result-message-title">🎉 عالی بودید!</div><div class="result-message-text">تسلط بسیار خوبی بر مفاهیم پیشرفته ۱ دارید. آماده‌اید به سطح B1 کامل بروید و مهارت‌هایی مثل Writing، Speaking و درک مطلب پیشرفته‌تر را تقویت کنید.<br><br>به شما افتخار می‌کنیم! 🌟</div>`;
+  }
+
+  card.innerHTML=`
+    <div class="result-wrap">
+      <span class="result-big-emoji">${emoji}</span>
+      <div class="result-level-label">نتیجه ارزیابی شما — پیشرفته ۱</div>
+      <div class="result-level-title">${levelTitle}</div>
+      <div class="result-divider"></div>
+      <div class="result-score-display">
+        <div class="result-score-big" style="color:${scoreColor}" id="score-num">۰</div>
+        <div class="result-score-total">از ${toPersian(total)} سوال</div>
+        <div style="margin-top:14px"><span class="result-pct-badge" style="${pctBadgeClass}" id="pct-badge">۰٪ موفقیت</span></div>
+      </div>
+      <div class="result-stats-row">
+        <div class="result-stat-mini"><div class="result-stat-mini-icon">✅</div><div class="result-stat-mini-num" style="color:#6EE7B7">${toPersian(state.score)}</div><div class="result-stat-mini-label">صحیح</div></div>
+        <div class="result-stat-mini"><div class="result-stat-mini-icon">❌</div><div class="result-stat-mini-num" style="color:#FCA5A5">${toPersian(total-state.score)}</div><div class="result-stat-mini-label">اشتباه</div></div>
+        <div class="result-stat-mini"><div class="result-stat-mini-icon">📊</div><div class="result-stat-mini-num" style="color:${scoreColor}">${toPersian(pct)}٪</div><div class="result-stat-mini-label">درصد</div></div>
+      </div>
+      <div class="result-message-box">${message}</div>
+    </div>
+  `;
+  setTimeout(()=>{
+    animateCounter(document.getElementById('score-num'),0,state.score,1100,v=>toPersian(Math.round(v)));
+    animateCounter(document.getElementById('pct-badge'),0,pct,1200,v=>toPersian(Math.round(v))+'٪ موفقیت');
+  },100);
+}
+
+function startQuiz(){
+  state.shuffled=buildShuffled();
+  Object.assign(state,{screen:'quiz',currentQ:0,answers:[],score:0});
+  transition(renderQuestion);
+}
+
+renderAccess();
+</script>
+</body>
+</html>
