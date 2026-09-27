@@ -12,7 +12,7 @@
     --ink:#1a1535;--muted:#8b84a8;
     --glass:rgba(255,255,255,0.15);--glass-brd:rgba(255,255,255,0.28);
     --pink:#1a5276;--purple:#0f3460;
-    --max-w:520px;--card-w:192px;--card-h:342px;--hero-h:240px;
+    --max-w:520px;--card-w:182px;--card-h:332px;--hero-h:240px;
     --story-ring:76px;--learning-w:228px;--learning-h:280px;
     --more-w:160px;--more-h:284px;
   }
@@ -80,7 +80,7 @@
 
   /* ============ HERO STAGE ============ */
   .hero-stage{
-    position:relative;height:clamp(300px,68vw,460px);
+    position:relative;height:clamp(315px,72vw,475px);
     margin:6px 0 0;overflow:hidden;touch-action:pan-y;
   }
   .hero-glow{
@@ -90,16 +90,16 @@
   }
   .slides{position:absolute;inset:0;width:100%;height:100%;}
 
-  /* ============ SLIDES — کارتی، بدون فریم، بدون shadow ============ */
+  /* ============ SLIDES — کارتی، فریم نازک ============ */
   .slide{
     position:absolute;top:50%;left:50%;
-    /* روی دسکتاپ اندازه معقول */
-    width:min(46%,290px);height:auto;aspect-ratio:9/16;
+    width:min(48%,305px);height:auto;aspect-ratio:9/16;
     border-radius:20px;overflow:hidden;opacity:0;
     transform:translate(-50%,-50%) scale(.78);
-    transition:transform .5s cubic-bezier(0.22,1,0.36,1),opacity .4s ease,filter .4s ease;
-    /* بدون border، بدون box-shadow */
-    border:none;box-shadow:none;background:transparent;
+    transition:transform .65s cubic-bezier(0.25,1,0.3,1),opacity .5s cubic-bezier(0.25,1,0.3,1),filter .5s ease;
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 0 0 1px rgba(255,255,255,.06),0 8px 32px rgba(0,0,0,.3);
+    background:transparent;
     will-change:transform,opacity;
   }
   .slide-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 1.2s ease;}
@@ -129,7 +129,7 @@
   .dot.active{width:15px;border-radius:7px;background:#fff;box-shadow:0 0 9px rgba(255,255,255,.48);}
   .hero-bottom{
     position:relative;z-index:12;
-    width:calc(100% - 44px);height:62px;margin:-1px auto 12px;padding:7px 10px;
+    width:calc(100% - 44px);height:54px;margin:-8px auto 12px;padding:5px 10px;
     display:flex;align-items:center;gap:8px;direction:ltr;border-radius:32px;
     background:none;border:none;box-shadow:none;
     backdrop-filter:none;-webkit-backdrop-filter:none;
@@ -146,9 +146,9 @@
     .browser-address{height:35px;padding:0 9px;font-size:10.5px;gap:5px;}
     .browser-grid{grid-template-columns:repeat(3,3px);grid-template-rows:repeat(3,3px);gap:1.7px;}
     .browser-grid i{width:3px;height:3px;}
-    /* اسلاید بزرگ‌تر روی موبایل — 40px اضافه */
-    .hero-stage{height:clamp(320px,95vw,430px);margin-top:3px;}
-    .slide{width:min(52%,235px);height:auto;aspect-ratio:9/16;border-radius:15px;}
+    /* اسلاید روی موبایل */
+    .hero-stage{height:clamp(350px,104vw,460px);margin-top:3px;}
+    .slide{width:min(55%,265px);height:auto;aspect-ratio:9/16;border-radius:15px;}
     .slide.prev{transform:translate(calc(-50% + 54%),-50%) scale(.80);}
     .slide.next{transform:translate(calc(-50% - 54%),-50%) scale(.80);}
     .slide.far-prev{transform:translate(calc(-50% + 100%),-50%) scale(.63);}
@@ -156,7 +156,7 @@
     .slide-info{right:7px;left:7px;bottom:7px;padding:7px 9px;border-radius:11px;}
     .slide-title{font-size:10.5px;}
     .slide-subtitle{font-size:7px;}
-    .hero-bottom{width:calc(100% - 22px);height:54px;margin:-2px auto 9px;padding:5px 6px;gap:5px;border-radius:27px;}
+    .hero-bottom{width:calc(100% - 22px);height:46px;margin:-10px auto 9px;padding:4px 6px;gap:5px;border-radius:27px;}
     .hero-mini-btn{width:26px;height:26px;flex-basis:26px;font-size:17px;}
     .hero-dots{bottom:0px;}
   }
