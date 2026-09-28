@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CLLO — cllo.ir</title>
-<link rel="preload" as="video" href="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4">
-<link rel="preload" as="image" href="http://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp">
+<link rel="preload" as="video" href="https://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4">
+<link rel="preload" as="image" href="https://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp">
 <link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   @font-face{font-family:'IranYekan';src:url('fonts/farhang-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
@@ -172,6 +172,8 @@
     opacity:0;pointer-events:none;transition:opacity .28s ease;
   }
   #story-modal.open{opacity:1;pointer-events:auto;}
+
+  /* Container کامل عرض صفحه — مثل اینستاگرام */
   .story-container{
     width:100%;
     max-width:430px;
@@ -181,6 +183,7 @@
     position:relative;
     overflow:hidden;
   }
+
   .story-modal-content{
     position:absolute;inset:0;z-index:1;
     background:#111;
@@ -192,6 +195,8 @@
     width:100%;height:100%;
     object-fit:cover;display:block;
   }
+
+  /* Progress bar — بالای صفحه */
   .story-progress-bar{
     position:absolute;top:0;left:0;right:0;z-index:20;
     display:flex;gap:3px;direction:ltr;
@@ -206,12 +211,15 @@
   .progress-seg-fill{height:100%;background:white;width:0%;border-radius:3px;transition:none;}
   .progress-seg.done .progress-seg-fill{width:100%;}
   .progress-seg.active .progress-seg-fill{animation:none;width:0%;}
+
+  /* Header — پایین progress bar */
   .story-modal-header{
     position:absolute;
     left:0;right:0;z-index:20;
     display:flex;align-items:center;gap:10px;padding:8px 14px;
     direction:ltr;
     background:linear-gradient(to bottom,rgba(0,0,0,.25),transparent);
+    /* top پس از init-story با JS ست می‌شه */
     top:calc(env(safe-area-inset-top,0px) + 28px);
   }
   .story-logo-section{display:flex;align-items:center;gap:8px;flex:1;}
@@ -230,12 +238,16 @@
     cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;
   }
   .story-modal-close:active{background:rgba(255,255,255,.22);}
+
+  /* ناوبری — نیمه چپ و راست */
   .story-nav-zone{
     position:absolute;top:0;bottom:0;width:38%;z-index:10;
     cursor:pointer;-webkit-tap-highlight-color:transparent;
   }
   .story-nav-left{left:0;}
   .story-nav-right{right:0;}
+
+  /* ناحیه مکث — وسط صفحه */
   .story-pause-zone{
     position:absolute;
     left:38%;right:38%;
@@ -243,8 +255,11 @@
     z-index:11;
     cursor:pointer;
     -webkit-tap-highlight-color:transparent;
+    /* بقیه صفحه که nav نداره هم می‌گیره با بزرگتر کردن */
     left:30%;right:30%;
   }
+
+  /* Footer */
   .story-footer{
     position:absolute;bottom:0;left:0;right:0;z-index:20;
     display:flex;flex-direction:column;gap:10px;
@@ -277,6 +292,8 @@
   @keyframes glass-shine{0%{left:-100%;}50%{left:100%;}100%{left:100%;}}
   .story-action-btn:active{transform:scale(.97);}
   .story-action-btn.show{display:flex;}
+
+  /* آیکون مکث */
   .story-pause-icon{
     position:absolute;top:50%;left:50%;
     transform:translate(-50%,-50%);
@@ -412,40 +429,6 @@
   .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,0.95);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.4);opacity:0;transition:all 0.3s ease;pointer-events:none;white-space:nowrap;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-  /* ===== TERMINAL (داخل صفحه) ===== */
-  #terminal-modal{
-    position:fixed;inset:0;z-index:12000;background:#050403;
-    opacity:0;pointer-events:none;transition:opacity .28s ease;
-    overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-  }
-  #terminal-modal.open{opacity:1;pointer-events:auto;}
-  #terminal-scroll{min-height:100%;display:flex;justify-content:center;align-items:flex-start;}
-  #terminal-close{
-    position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;
-    width:38px;height:38px;border-radius:50%;
-    background:rgba(0,0,0,.55);border:1px solid rgba(255,190,90,.45);
-    color:#ffa31a;font-size:18px;display:flex;align-items:center;justify-content:center;
-    cursor:pointer;-webkit-tap-highlight-color:transparent;
-  }
-  #term{position:relative;width:100%;max-width:560px;aspect-ratio:941/1672;container-type:inline-size;
-        user-select:none;-webkit-user-select:none;opacity:0;transition:opacity .25s}
-  #term.ready{opacity:1}
-  #term img{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
-  #term .key{position:absolute;padding:0;border:0;border-radius:8px;cursor:pointer;background-color:transparent;background-image:var(--img);background-repeat:no-repeat;
-       touch-action:manipulation;-webkit-tap-highlight-color:transparent;outline:0;
-       transition:transform .07s ease-out,filter .07s;box-shadow:0 4px 5px rgba(0,0,0,.55)}
-  #term .key.down{transform:translateY(2px) scale(.94);filter:brightness(.8);box-shadow:0 1px 2px rgba(0,0,0,.6)}
-  #term .link{position:absolute;display:block;border-radius:14px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-        transition:background .1s,box-shadow .1s,transform .1s}
-  #term .link.down{background:rgba(255,190,90,.12);box-shadow:inset 0 0 22px rgba(255,160,40,.35);transform:scale(.985)}
-  #term .slot{position:absolute;display:none;align-items:center;justify-content:center;background:#0a0603;
-        color:#ffa31a;font:700 6.2cqw "Courier New",monospace !important;text-shadow:0 0 8px #ff8c00,0 0 18px #ff6a00;pointer-events:none}
-  #term .slot.bad{color:#ff2a2a;text-shadow:0 0 8px #f00,0 0 18px #c00}
-  #term .slot.ok{color:#2eea5a;text-shadow:0 0 8px #12c93f,0 0 18px #0a9}
-  #term #led{position:absolute;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .15s}
-  @keyframes tshake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-  #term.shake{animation:tshake .4s}
-
   /* ===== CATEGORIES POPUP ===== */
   .categories-popup{
     position:absolute;top:58px;left:9px;z-index:50;width:216px;
@@ -565,6 +548,22 @@
   @font-face{font-family:'IranYekan';src:url('fonts/iranyekan-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
   @font-face{font-family:'IranYekan';src:url('fonts/iranyekan-bold.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}
   html,body,button,input,textarea,select,html,body,body *{font-family:'IranYekan','Farhang','Estedad',sans-serif !important;}
+
+/* ===== ACCESS TERMINAL POPUP ===== */
+body.modal-open{overflow:hidden}
+.terminal-popup{z-index:99999;padding:18px;background:rgba(2,7,16,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.terminal-sheet{position:relative;width:min(94vw,620px);max-height:94vh;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:30px;background:linear-gradient(145deg,rgba(18,24,38,.96),rgba(4,8,17,.98));box-shadow:0 30px 100px rgba(0,0,0,.62),0 0 70px rgba(66,124,255,.16);animation:terminalIn .32s cubic-bezier(.2,.8,.2,1)}
+.terminal-sheet:before{content:"";position:absolute;inset:-2px;border-radius:32px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(76,129,255,.15),transparent 55%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:2}
+@keyframes terminalIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+.terminal-head{display:flex;align-items:center;gap:12px;padding:18px 56px 12px 18px;direction:rtl;text-align:right}
+.terminal-status-dot{width:10px;height:10px;border-radius:50%;background:#2eea5a;box-shadow:0 0 16px rgba(46,234,90,.8);flex:none}
+.terminal-title{font-size:16px;font-weight:900;color:#fff}.terminal-subtitle{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
+.terminal-close{position:absolute;top:13px;right:13px;width:38px;height:38px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.07);color:#fff;font-size:25px;line-height:1;cursor:pointer;z-index:5;transition:.2s}.terminal-close:hover{background:rgba(255,255,255,.14);transform:rotate(90deg)}
+.terminal-frame-wrap{position:relative;margin:0 12px 12px;border-radius:22px;overflow:auto;background:#050403;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);max-height:72vh}
+#terminalFrame{display:block;width:100%;height:min(72vh,780px);min-height:520px;border:0;background:#050403}
+.terminal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:9px;background:#050403;color:#fff;font-size:12px;z-index:3}.terminal-loading.hide{display:none}.terminal-loading span{width:8px;height:8px;border-radius:50%;background:#2eea5a;box-shadow:0 0 12px #2eea5a;animation:termPulse 1s infinite}@keyframes termPulse{50%{opacity:.3;transform:scale(.65)}}
+.terminal-error{min-height:18px;padding:0 20px;color:#ff6670;font-size:11px;text-align:center;direction:rtl}.terminal-purchase{display:flex;justify-content:center;align-items:center;gap:7px;padding:9px 15px 16px;color:rgba(255,255,255,.5);font-size:11px;direction:rtl}.terminal-purchase a{color:#69a0ff;text-decoration:none;font-weight:800}.terminal-purchase a:hover{text-decoration:underline}
+@media(max-width:600px){.terminal-popup{padding:8px}.terminal-sheet{width:100%;max-height:96vh;border-radius:25px}.terminal-head{padding:15px 52px 10px 15px}.terminal-frame-wrap{margin:0 7px 7px;border-radius:18px;max-height:76vh}#terminalFrame{height:76vh;min-height:470px}.terminal-purchase{padding-bottom:11px}}
 </style>
 </head>
 <body>
@@ -751,8 +750,10 @@
   <div id="story-modal" role="dialog" aria-modal="true" aria-label="استوری">
     <div class="story-container">
 
+      <!-- Progress bar -->
       <div class="story-progress-bar" id="story-progress-bar"></div>
 
+      <!-- Header -->
       <div class="story-modal-header" id="story-modal-header">
         <div class="story-logo-section">
           <div class="story-logo-img">
@@ -765,8 +766,10 @@
         <div class="story-modal-close" onclick="closeStoryModal()" aria-label="بستن">✕</div>
       </div>
 
+      <!-- Content -->
       <div class="story-modal-content" id="story-modal-content"></div>
 
+      <!-- آیکون مکث/پلی وسط -->
       <div class="story-pause-icon" id="story-pause-icon">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <rect x="6" y="4" width="4" height="16" rx="1"/>
@@ -774,11 +777,14 @@
         </svg>
       </div>
 
+      <!-- ناوبری — چپ / راست -->
       <div class="story-nav-zone story-nav-left" id="story-nav-left"></div>
       <div class="story-nav-zone story-nav-right" id="story-nav-right"></div>
 
+      <!-- ناحیه مکث — وسط -->
       <div class="story-pause-zone" id="story-pause-zone"></div>
 
+      <!-- Footer -->
       <div class="story-footer">
         <div class="story-caption" id="story-caption"></div>
         <a class="story-action-btn" id="story-action-btn" href="#" target="_blank" rel="noopener"></a>
@@ -884,41 +890,25 @@
 
 </div><!-- /.wrap -->
 
-<!-- ===== TERMINAL (داخل صفحه) ===== -->
-<div id="terminal-modal" role="dialog" aria-modal="true" aria-label="ترمینال ورود کد">
-  <button id="terminal-close" type="button" aria-label="بستن" onclick="closeTerminalModal()">✕</button>
-  <div id="terminal-scroll"><div id="term"></div></div>
-</div>
-
-<!-- ===== LOGIN POPUP ===== -->
-<div class="popup-overlay" id="loginPopup">
-  <div class="popup-sheet">
-    <div class="popup-handle"></div>
-    <div class="popup-title">🔐 ورود به Lingua</div>
-    <div class="popup-sub">برای دسترسی به محتوا، شماره موبایل خود را وارد کنید</div>
-    <div class="phone-row">
-      <div class="prefix-box">+98</div>
-      <input class="phone-input" id="phoneInput" type="tel" inputmode="numeric" placeholder="9123456789" maxlength="11">
+<!-- ===== ACCESS TERMINAL POPUP ===== -->
+<div class="popup-overlay terminal-popup" id="terminalPopup" aria-hidden="true">
+  <div class="terminal-sheet" role="dialog" aria-modal="true" aria-label="ورود با کد اشتراک">
+    <button class="terminal-close" id="terminalClose" type="button" aria-label="بستن">×</button>
+    <div class="terminal-head">
+      <div class="terminal-status-dot"></div>
+      <div>
+        <div class="terminal-title">ورود با کد اشتراک</div>
+        <div class="terminal-subtitle">کد اشتراک ۶ رقمی خود را وارد کنید</div>
+      </div>
     </div>
-    <div class="input-error" id="phoneError"></div>
-    <button class="btn-login" id="btnLogin" onclick="doLogin()">
-      <span id="loginBtnText">ورود</span>
-    </button>
-    <div class="subscribe-divider">— یا —</div>
-    <div class="subscribe-btns">
-      <button class="btn-sub price" onclick="openPricePopup()">💎 قیمت اشتراک</button>
-      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.83.94z"/></svg>
-        تهیه کد اشتراک — تلگرام
-      </a>
-      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        تهیه کد اشتراک — بله
-      </a>
-      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.122 1.528 5.855L.057 23.617a.5.5 0 0 0 .611.674l5.99-1.57A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.371l-.36-.214-3.724.977.993-3.633-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
-        تهیه کد اشتراک — واتس‌اپ
-      </a>
+    <div class="terminal-frame-wrap">
+      <iframe id="terminalFrame" src="https://cllo.ir/terminal1.html" title="CLLO Access Terminal" loading="eager" allow="autoplay"></iframe>
+      <div class="terminal-loading" id="terminalLoading"><span></span> در حال آماده‌سازی ترمینال...</div>
+    </div>
+    <div class="terminal-error" id="terminalError"></div>
+    <div class="terminal-purchase">
+      <span>کد اشتراک ندارید؟</span>
+      <a href="https://t.me/planlifeir" target="_blank" rel="noopener">خرید کد اشتراک</a>
     </div>
   </div>
 </div>
@@ -962,14 +952,9 @@ async function sbInsert(t,b){const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}`,
 
 /* ========== SESSION ========== */
 const SESSION_KEY='lingua_session_v1';
-/* --- قفل‌گشایی با کد ترمینال --- */
-const TERMINAL_KEY='cllo_terminal_unlock_v1';
-const TERMINAL_TTL=30*24*60*60*1000;                // اعتبار قفل‌گشایی: ۳۰ روز
 function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch(e){return null;}}
 function setSession(d){localStorage.setItem(SESSION_KEY,JSON.stringify(d));}
-function hasTerminalUnlock(){try{const t=parseInt(localStorage.getItem(TERMINAL_KEY)||'0',10);return !!t&&(Date.now()-t)<TERMINAL_TTL;}catch(e){return false;}}
-function setTerminalUnlock(){try{localStorage.setItem(TERMINAL_KEY,String(Date.now()));}catch(e){}}
-function isLoggedIn(){const s=getSession();return !!((s&&s.phone&&s.verified)||hasTerminalUnlock());}
+function isLoggedIn(){const s=getSession();return !!(s&&s.code&&s.verified);}
 
 /* ========== TOAST ========== */
 function showToast(msg,dur=2800){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
@@ -992,205 +977,113 @@ document.addEventListener('click',function(e){
   if(p&&p.classList.contains('open')&&!p.contains(e.target)&&!e.target.closest('#categoriesBtn'))p.classList.remove('open');
 });
 
-/* ========== TERMINAL (داخل همین صفحه) ========== */
-const TERMINAL_CODE="123456";               // کد صحیح
-const TERMINAL_IMG="";                      // اگر data:image/webp;base64,... را اینجا بگذاری دیگر به terminal.html نیازی نیست
-const TERMINAL_IMG_FILE="terminal.html";    // در غیر این صورت تصویر از این فایل خوانده می‌شود
-const TERMINAL_LINKS={telegram:"https://t.me/planlifeir",whatsapp:"https://wa.me/905437333582",bale:"https://ble.ir/planlifeir"};
-var terminalPendingAction=null;
-var terminalOpen=false;
-
-const TERM=(function(){
-  const W=941,H=1672;
-  const term=document.getElementById("term");
-  let ready=false,initing=false;
-  let code="",locked=false,slots=[],led=null,btns={};
-  const px=(el,cx,cy,w,h)=>{const l=cx-w/2,t=cy-h/2;Object.assign(el.style,{left:l/W*100+"%",top:t/H*100+"%",width:w/W*100+"%",height:h/H*100+"%"});return{l,t,w,h};};
-
-  /* ---- صدا ---- */
-  let ac,bus;
-  function initAudio(){
-    try{
-      if(ac){if(ac.state==="suspended")ac.resume();return;}
-      ac=new(window.AudioContext||window.webkitAudioContext)();
-      bus=ac.createGain();bus.gain.value=.9;bus.connect(ac.destination);
-      const len=ac.sampleRate*2.6,ir=ac.createBuffer(2,len,ac.sampleRate);
-      for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6);}
-      const conv=ac.createConvolver();conv.buffer=ir;
-      const wet=ac.createGain();wet.gain.value=.75;bus.connect(conv);conv.connect(wet);wet.connect(ac.destination);
-    }catch(e){ac=null;}
-  }
-  function env(g,t,a,d,v){g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+a+d);}
-  function bell(f,d=1.6,v=.09,delay=0){
-    const t=ac.currentTime+delay;
-    [[1,1],[2.01,.5],[2.76,.32],[5.4,.14]].forEach(([m,a])=>{
-      const o=ac.createOscillator(),g=ac.createGain();
-      o.type="sine";o.frequency.value=f*m*(1+(Math.random()-.5)*.004);
-      env(g,t,.006,d/(m**.5),v*a);o.connect(g).connect(bus);o.start(t);o.stop(t+d+.1);
-    });
-  }
-  function thud(f=95,d=.45,v=.5,delay=0){
-    const t=ac.currentTime+delay,o=ac.createOscillator(),g=ac.createGain();
-    o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(34,t+d);
-    env(g,t,.004,d,v);o.connect(g).connect(bus);o.start(t);o.stop(t+d+.05);
-  }
-  function whoosh(from=250,to=1400,d=.6,v=.12,delay=0){
-    const t=ac.currentTime+delay,n=ac.createBufferSource(),b=ac.createBuffer(1,ac.sampleRate*d,ac.sampleRate),x=b.getChannelData(0);
-    for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;
-    n.buffer=b;const f=ac.createBiquadFilter();f.type="bandpass";f.Q.value=5;
-    f.frequency.setValueAtTime(from,t);f.frequency.exponentialRampToValueAtTime(to,t+d);
-    const g=ac.createGain();env(g,t,d*.4,d*.6,v);n.connect(f).connect(g).connect(bus);n.start(t);
-  }
-  function drone(freqs,d=2.2,v=.07,type="sine",lp=900,delay=0){
-    const t=ac.currentTime+delay,f=ac.createBiquadFilter();f.type="lowpass";
-    f.frequency.setValueAtTime(lp*.3,t);f.frequency.exponentialRampToValueAtTime(lp,t+d*.4);
-    const g=ac.createGain();env(g,t,d*.35,d*.65,v);f.connect(g).connect(bus);
-    freqs.forEach((fr,i)=>{const o=ac.createOscillator();o.type=type;o.frequency.value=fr;o.detune.value=(i%2?7:-7);o.connect(f);o.start(t);o.stop(t+d+.1);});
-  }
-  const SCALE=[220,233.1,261.6,293.7,329.6,349.2,392,440,466.2,523.3];
-  const sfx={
-    key:k=>{if(!ac)return;const n=SCALE[+k%10];thud(90,.4,.45);bell(n,1.8,.1);whoosh(200,900,.35,.05);},
-    clear:()=>{if(!ac)return;whoosh(1800,120,.8,.16);thud(70,.6,.4);},
-    ok:()=>{if(!ac)return;drone([110,164.8,220,261.6],2.8,.09,"sine",1600);bell(880,2.6,.1,.3);bell(1318.5,3,.07,.55);},
-    bad:()=>{if(!ac)return;drone([110,155.6],1.5,.12,"sawtooth",500);thud(60,.8,.6);bell(155.6,1.4,.08,.1);},
-    link:()=>{if(!ac)return;drone([73.4,110,146.8],2.2,.1,"sine",700);whoosh(150,1800,.9,.14);bell(174.6,2.4,.1,.15);thud(70,.6,.45);}
-  };
-
-  /* ---- نمایشگر ---- */
-  function render(state=""){slots.forEach((s,i)=>{s.style.display=code[i]?"flex":"none";s.textContent=code[i]||"";s.className="slot "+state;});}
-  function setLed(c){led.style.background=c;led.style.boxShadow="0 0 14px "+c;led.style.opacity=1;}
-  function reset(){code="";if(ready){render();led.style.opacity=0;}locked=false;}
-  function press(k){
-    initAudio();if(locked)return;
-    if(navigator.vibrate)navigator.vibrate(12);
-    led.style.opacity=0;
-    if(k==="CLEAR"){sfx.clear();code="";render();}
-    else if(k==="ENTER"){
-      if(!code){sfx.key(0);return;}
-      locked=true;
-      if(code===TERMINAL_CODE){
-        sfx.ok();setLed("#2eea5a");render("ok");
-        onTerminalSuccess();
-        setTimeout(reset,2800);
-      }else{
-        sfx.bad();setLed("#ff2a2a");render("bad");term.classList.add("shake");
-        setTimeout(()=>term.classList.remove("shake"),420);setTimeout(reset,1500);
-      }
-    }else{sfx.key(k);if(code.length<6){code+=k;render();}}
-  }
-
-  /* ---- ساخت ترمینال ---- */
-  function build(src){
-    term.innerHTML="";
-    const bg=document.createElement("img");bg.id="bg";bg.alt="";bg.src=src;term.appendChild(bg);
-    term.style.setProperty("--img","url("+src+")");
-    slots=[359,418,474,529,583,637].map(x=>{const d=document.createElement("div");d.className="slot";px(d,x,554,44,66);term.appendChild(d);return d;});
-    led=document.createElement("div");led.id="led";px(led,674,744,44,20);term.appendChild(led);
-
-    const cols=[316,435,552],rows=[704,791,878,967];
-    const labels=["1","2","3","4","5","6","7","8","9","CLEAR","0","ENTER"];
-    labels.forEach((k,i)=>{
-      const b=document.createElement("button");b.className="key";b.setAttribute("aria-label",k);
-      const r=px(b,cols[i%3],rows[Math.floor(i/3)],98,76);
-      b.style.backgroundSize=(W/r.w*100)+"% "+(H/r.h*100)+"%";
-      b.style.backgroundPosition=(r.l/(W-r.w)*100)+"% "+(r.t/(H-r.h)*100)+"%";
-      const up=()=>b.classList.remove("down");
-      b.addEventListener("pointerdown",e=>{e.preventDefault();b.classList.add("down");press(k);});
-      ["pointerup","pointerleave","pointercancel"].forEach(ev=>b.addEventListener(ev,up));
-      term.appendChild(b);btns[k]=b;
-    });
-    [["telegram",1174],["whatsapp",1297],["bale",1420]].forEach(([name,y])=>{
-      const a=document.createElement("a");a.className="link";a.href=TERMINAL_LINKS[name];a.target="_blank";a.rel="noopener noreferrer";
-      a.setAttribute("aria-label",name);px(a,477,y,628,98);
-      a.addEventListener("pointerdown",()=>{initAudio();a.classList.add("down");sfx.link();if(navigator.vibrate)navigator.vibrate(20);});
-      ["pointerup","pointerleave","pointercancel"].forEach(ev=>a.addEventListener(ev,()=>a.classList.remove("down")));
-      term.appendChild(a);
-    });
-    (bg.decode?bg.decode():Promise.resolve()).catch(()=>{}).then(()=>term.classList.add("ready"));
-  }
-
-  document.addEventListener("keydown",e=>{
-    if(!terminalOpen||!ready||e.repeat)return;
-    const k=/^[0-9]$/.test(e.key)?e.key:e.key==="Enter"?"ENTER":e.key==="Backspace"?"CLEAR":null;
-    if(!k||!btns[k])return;
-    btns[k].classList.add("down");press(k);setTimeout(()=>btns[k].classList.remove("down"),110);
-  });
-
-  async function init(){
-    if(ready||initing)return;
-    initing=true;
-    let src=TERMINAL_IMG;
-    if(!src){
-      try{
-        const t=await(await fetch(TERMINAL_IMG_FILE)).text();
-        const m=t.match(/<img id="bg"[^>]*?src="([^"]+)"/);
-        if(m)src=m[1];
-      }catch(e){}
-    }
-    if(!src){showToast("تصویر ترمینال پیدا نشد");initing=false;return;}
-    build(src);ready=true;initing=false;
-  }
-  return{init,reset};
-})();
-
-function openTerminalModal(action){
-  terminalPendingAction=action||null;
-  terminalOpen=true;
-  document.getElementById('terminal-modal').classList.add('open');
-  document.getElementById('terminal-modal').scrollTop=0;
-  document.documentElement.style.overflow='hidden';
-  document.body.style.overflow='hidden';
-  TERM.init();
-}
-function closeTerminalModal(){
-  terminalOpen=false;
-  document.getElementById('terminal-modal').classList.remove('open');
-  document.documentElement.style.overflow='';
-  document.body.style.overflow='';
-  terminalPendingAction=null;
-  TERM.reset();
-}
-function onTerminalSuccess(){
-  setTerminalUnlock();
-  const action=terminalPendingAction;
-  terminalPendingAction=null;
-  unlockAllCards();updateLoginIcon();
-  setTimeout(function(){
-    closeTerminalModal();
-    showToast('✅ کد صحیح بود! بخش‌ها باز شد');
-    if(action)setTimeout(action,300);
-  },1400);
-}
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&terminalOpen)closeTerminalModal();
-});
-
-/* ========== LOGIN ========== */
+/* ========== ACCESS TERMINAL / SUPABASE ========== */
 var pendingCardAction=null;
-function openLoginPopup(a){pendingCardAction=a||null;document.getElementById('loginPopup').classList.add('open');setTimeout(()=>document.getElementById('phoneInput').focus(),400);}
-function closeLoginPopup(){document.getElementById('loginPopup').classList.remove('open');pendingCardAction=null;}
-document.getElementById('loginPopup').addEventListener('click',function(e){if(e.target===this)closeLoginPopup();});
-async function doLogin(){
-  const input=document.getElementById('phoneInput'),errEl=document.getElementById('phoneError'),btn=document.getElementById('btnLogin'),btnText=document.getElementById('loginBtnText');
-  errEl.textContent='';
-  let phone=input.value.trim().replace(/\D/g,'');
-  if(phone.startsWith('0'))phone=phone.slice(1);
-  if(phone.length<10||phone.length>11){errEl.textContent='شماره موبایل معتبر نیست';return;}
-  btn.disabled=true;btnText.textContent='در حال بررسی...';
-  try{
-    const subs=await sbGet('subscriptions',`phone=eq.${phone}&is_active=eq.true`);
-    if(subs&&subs.length>0){
-      setSession({phone,verified:true,ts:Date.now()});
-      await sbInsert('users',{phone});
-      const action=pendingCardAction;
-      closeLoginPopup();showToast('✅ خوش آمدید! دسترسی همه بخش‌ها فعال شد');
-      unlockAllCards();setLearningAccess(true);
-      if(action)setTimeout(()=>action(),150);
-    }else{await sbInsert('users',{phone});errEl.textContent='اشتراک فعال یافت نشد. لطفاً کد اشتراک تهیه کنید.';}
-  }catch(e){errEl.textContent='خطا در اتصال. دوباره تلاش کنید.';}
-  btn.disabled=false;btnText.textContent='ورود';
+const TERMINAL_URL='https://cllo.ir/terminal1.html';
+const USER_TABLE='user';
+
+function openLoginPopup(a){
+  pendingCardAction=a||null;
+  const p=document.getElementById('terminalPopup');
+  const f=document.getElementById('terminalFrame');
+  const err=document.getElementById('terminalError');
+  if(f.src!==TERMINAL_URL)f.src=TERMINAL_URL;
+  err.textContent='';
+  p.classList.add('open');
+  p.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
 }
-document.getElementById('phoneInput').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+function closeLoginPopup(){
+  const p=document.getElementById('terminalPopup');
+  p.classList.remove('open');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+  pendingCardAction=null;
+}
+function showTerminalError(msg){document.getElementById('terminalError').textContent=msg||'';}
+function normalizeCode(v){return String(v||'').replace(/\D/g,'').slice(0,6);}
+
+async function verifySubscriptionCode(code){
+  code=normalizeCode(code);
+  if(code.length!==6)return false;
+  const value=encodeURIComponent(code);
+  const columns=['code','phone','number','mobile'];
+  for(const column of columns){
+    try{
+      const rows=await sbGet(USER_TABLE,`${column}=eq.${value}`);
+      if(Array.isArray(rows)&&rows.length>0)return true;
+    }catch(e){}
+  }
+  return false;
+}
+
+function getTerminalCode(frameDoc){
+  const slots=[...frameDoc.querySelectorAll('.slot')];
+  return normalizeCode(slots.map(x=>x.textContent.trim()).join(''));
+}
+
+function terminalSetState(frameDoc,state){
+  const slots=[...frameDoc.querySelectorAll('.slot')];
+  const led=frameDoc.getElementById('led');
+  slots.forEach(x=>x.classList.remove('ok','bad'));
+  if(state){
+    slots.forEach(x=>x.classList.add(state));
+    if(led){
+      const c=state==='ok'?'#2eea5a':'#ff2a2a';
+      led.style.background=c;led.style.boxShadow='0 0 14px '+c;led.style.opacity=1;
+    }
+  }
+}
+
+async function handleTerminalEnter(e){
+  const frame=e.currentTarget;
+  const doc=frame.contentDocument;
+  const t=e.target.closest&&e.target.closest('button[aria-label="ENTER"]');
+  if(!t||!doc)return;
+  e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+  const code=getTerminalCode(doc);
+  if(code.length!==6){showTerminalError('لطفاً کد ۶ رقمی را کامل وارد کنید.');return;}
+  showTerminalError('');
+  terminalSetState(doc,'');
+  const enter=t;
+  enter.disabled=true;
+  try{
+    const valid=await verifySubscriptionCode(code);
+    if(valid){
+      terminalSetState(doc,'ok');
+      setSession({code,verified:true,ts:Date.now()});
+      unlockAllCards();
+      setLearningAccess(true);
+      showToast('✅ کد اشتراک تأیید شد؛ دسترسی فعال شد',3000);
+      const action=pendingCardAction;
+      setTimeout(()=>{closeLoginPopup();if(action)action();},900);
+    }else{
+      terminalSetState(doc,'bad');
+      showTerminalError('کد اشتراک معتبر نیست یا در جدول user پیدا نشد.');
+      setTimeout(()=>terminalSetState(doc,''),1200);
+    }
+  }catch(err){
+    showTerminalError('خطا در اتصال به سرور. دوباره تلاش کنید.');
+  }finally{
+    setTimeout(()=>{enter.disabled=false;},350);
+  }
+}
+
+function bindTerminal(){
+  const frame=document.getElementById('terminalFrame');
+  document.getElementById('terminalLoading').classList.add('hide');
+  try{
+    frame.contentDocument.addEventListener('pointerdown',handleTerminalEnter,true);
+    frame.contentDocument.addEventListener('keydown',function(e){
+      if(e.key==='Enter')handleTerminalEnter(e);
+    },true);
+  }catch(e){showTerminalError('امکان اتصال به ترمینال وجود ندارد.');}
+}
+
+document.getElementById('terminalFrame').addEventListener('load',bindTerminal);
+document.getElementById('terminalClose').addEventListener('click',closeLoginPopup);
+document.getElementById('terminalPopup').addEventListener('click',function(e){if(e.target===this)closeLoginPopup();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('terminalPopup').classList.contains('open'))closeLoginPopup();});
 
 /* ========== PRICE POPUP ========== */
 function openPricePopup(){document.getElementById('pricePopup').classList.add('open');}
@@ -1219,7 +1112,6 @@ function makeCard(c,imgNum,index){
   return`<div class="card-wrap${locked?' locked':''}" data-index="${index}" data-free="${c.free}"><div class="card"><div class="card-photo"><img src="${BASE}${imgNum}.jpg" alt="${c.title}" loading="${index<4?'eager':'lazy'}" fetchpriority="${index<2?'high':'auto'}" decoding="async" onerror="this.style.background='linear-gradient(135deg,#0f3460,#1e90ff)'"></div><span class="badge">${c.badge}</span><div class="card-body"><div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div><div class="card-footer"><div class="read-time">${c.hours} ساعت</div><button class="btn-read">شروع کن</button></div></div></div></div>`;
 }
 function unlockAllCards(){document.querySelectorAll('.card-wrap.locked').forEach(w=>{w.classList.remove('locked');const o=w.querySelector('.lock-overlay');if(o)o.remove();});}
-function openCardUrl(url){if(url)window.location.href=url;else showToast('✅ در حال بارگذاری...');}
 const r1=document.getElementById('row1');
 row1Cards.forEach((c,i)=>{r1.insertAdjacentHTML('beforeend',makeCard(c,imgs[i%imgs.length],i));});
 r1.addEventListener('click',function(e){
@@ -1228,24 +1120,22 @@ r1.addEventListener('click',function(e){
   const isLocked=wrap.classList.contains('locked');
   const idx=parseInt(wrap.dataset.index,10);
   const url=(row1Cards[idx]&&row1Cards[idx].url||'').trim();
-  if(isFree){openCardUrl(url);return;}
-  /* بخش قفل است → ترمینال کد باز شود؛ بعد از کد صحیح مستقیم وارد همین بخش می‌شود */
-  if(isLocked||!isLoggedIn()){openTerminalModal(function(){openCardUrl(url);});return;}
-  openCardUrl(url);
+  if(isFree){if(url)window.location.href=url;else showToast('✅ در حال بارگذاری...');return;}
+  if(isLocked||!isLoggedIn()){openLoginPopup(null);return;}
+  if(url)window.location.href=url;else showToast('✅ در حال بارگذاری...');
 });
 
 function updateLoginIcon(){const b=document.getElementById('loginIconBtn');if(b)b.classList.toggle('logged-in',!!isLoggedIn());}
 function setLearningAccess(){updateLoginIcon();}
 function onLoginIconClick(){
-  if(isLoggedIn()){if(confirm('می‌خواهید از حساب خود خارج شوید؟')){localStorage.removeItem(SESSION_KEY);localStorage.removeItem(TERMINAL_KEY);location.reload();}}
-  else openTerminalModal(null);
+  if(isLoggedIn()){if(confirm('می‌خواهید از حساب خود خارج شوید؟')){localStorage.removeItem(SESSION_KEY);location.reload();}}
+  else openLoginPopup(null);
 }
 async function verifyCurrentSubscription(){
   const session=getSession();
-  if(!session||!session.phone||!session.verified){updateLoginIcon();return false;}
+  if(!session||!session.code||!session.verified){updateLoginIcon();return false;}
   try{
-    const subs=await sbGet('subscriptions',`phone=eq.${encodeURIComponent(session.phone)}&is_active=eq.true`);
-    const active=Array.isArray(subs)&&subs.length>0;
+    const active=await verifySubscriptionCode(session.code);
     if(!active){localStorage.removeItem(SESSION_KEY);updateLoginIcon();return false;}
     updateLoginIcon();unlockAllCards();return true;
   }catch(e){updateLoginIcon();return false;}
@@ -1320,23 +1210,24 @@ heroStageEl.addEventListener('touchend',function(e){if(!hSwActive)return;hSwActi
 heroStageEl.addEventListener('touchcancel',function(){hSwActive=false;},{passive:true});
 
 /* ========================================================
-   STORY SYSTEM
+   STORY SYSTEM — کامل بازنویسی شده
    ======================================================== */
 var STORY_PROFILE_IMG='http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp';
 var STORY_SEEN_KEY='cllo_stories_v2';
-var IMAGE_STORY_DURATION=3000;
+var IMAGE_STORY_DURATION=3000; // عکس: ۳ ثانیه
 
-var storyList=[];
-var storyCurIdx=0;
-var storyPaused=false;
-var storyTimer=null;
-var storyRafId=null;
-var storyStartTime=0;
-var storyDuration=0;
-var storyElapsedBeforePause=0;
+var storyList=[];         // آرایه داده استوری‌ها
+var storyCurIdx=0;        // ایندکس فعلی
+var storyPaused=false;    // آیا پاز شده؟
+var storyTimer=null;      // setTimeout برای پیشروی خودکار
+var storyRafId=null;      // requestAnimationFrame برای progress bar
+var storyStartTime=0;     // زمان شروع سگمنت جاری
+var storyDuration=0;      // مدت کل سگمنت جاری (ms)
+var storyElapsedBeforePause=0; // زمان سپری شده قبل از پاز
 var storySavedScrollY=0;
-var storyCurrentVideo=null;
+var storyCurrentVideo=null;  // المان ویدیوی فعلی
 
+/* seen map */
 function getSeenMap(){try{var r=localStorage.getItem(STORY_SEEN_KEY);if(!r)return{};var m=JSON.parse(r),now=Date.now(),c={};Object.keys(m).forEach(k=>{if(now-m[k]<86400000)c[k]=m[k];});return c;}catch(e){return{};}}
 function markSeen(idx){try{var m=getSeenMap();m[idx]=Date.now();localStorage.setItem(STORY_SEEN_KEY,JSON.stringify(m));}catch(e){}}
 function isSeen(idx){return Object.prototype.hasOwnProperty.call(getSeenMap(),String(idx));}
@@ -1346,7 +1237,7 @@ function initStories(){
   items.forEach(function(item){
     var idx=parseInt(item.dataset.index,10);
     var seen=isSeen(idx);
-    var type=item.dataset.type||'image';
+    var type=item.dataset.type||'image'; // 'video' or 'image'
     storyList.push({
       el:item,
       type:type,
@@ -1361,6 +1252,7 @@ function initStories(){
     item.addEventListener('click',function(){openStoryModal(idx);});
   });
 
+  /* drag scroll برای stories-scroll */
   var el=document.getElementById('stories-scroll');
   var isDown=false,startX,scrollLeft;
   el.addEventListener('mousedown',function(e){isDown=true;startX=e.pageX-el.offsetLeft;scrollLeft=el.scrollLeft;el.style.cursor='grabbing';});
@@ -1368,10 +1260,12 @@ function initStories(){
   el.addEventListener('mouseup',function(){isDown=false;el.style.cursor='grab';});
   el.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();el.scrollLeft=scrollLeft-(e.pageX-el.offsetLeft-startX)*1.4;});
 
+  /* ناوبری چپ/راست و مکث */
   document.getElementById('story-nav-left').addEventListener('click',function(){storyNavigate(-1);});
   document.getElementById('story-nav-right').addEventListener('click',function(){storyNavigate(1);});
   document.getElementById('story-pause-zone').addEventListener('click',function(){toggleStoryPause();});
 
+  /* swipe روی modal */
   var mc=document.getElementById('story-modal-content');
   var swX=0,swY=0,swA=false;
   mc.addEventListener('touchstart',function(e){if(e.touches.length!==1)return;swX=e.touches[0].clientX;swY=e.touches[0].clientY;swA=true;},{passive:true});
@@ -1420,20 +1314,25 @@ function renderStory(){
   if(storyCurIdx<0||storyCurIdx>=storyList.length){closeStoryModal();return;}
   var s=storyList[storyCurIdx];
 
+  /* mark seen */
   s.seen=true;
   s.el.classList.add('seen');
   markSeen(storyCurIdx);
 
+  /* پاک کردن محتوای قبلی */
   cleanupStoryVideo();
   var cd=document.getElementById('story-modal-content');
   cd.innerHTML='';
 
+  /* ناوبری zones را دوباره اضافه می‌کنیم */
   cd.appendChild(document.getElementById('story-nav-left'));
   cd.appendChild(document.getElementById('story-nav-right'));
   cd.appendChild(document.getElementById('story-pause-zone'));
 
+  /* caption */
   document.getElementById('story-caption').textContent=s.caption;
 
+  /* دکمه */
   var btn=document.getElementById('story-action-btn');
   if(s.btnShow&&s.btnLink){
     btn.textContent=s.btnText||'مشاهده بیشتر';
@@ -1444,8 +1343,10 @@ function renderStory(){
     btn.removeAttribute('href');
   }
 
+  /* progress bar */
   buildProgressBar();
 
+  /* محتوا */
   if(s.type==='video'){
     renderStoryVideo(s,cd);
   }else{
@@ -1481,9 +1382,11 @@ function renderStoryVideo(s,cd){
   storyCurrentVideo=vid;
   cd.insertBefore(vid,cd.firstChild);
 
+  /* پخش بلافاصله */
   var p=vid.play();
   if(p&&p.catch)p.catch(()=>{});
 
+  /* وقتی مدت ویدیو مشخص شد، تایمر رو شروع کن */
   function onGotDuration(){
     if(storyCurrentVideo!==vid)return;
     var dur=vid.duration*1000;
@@ -1496,11 +1399,13 @@ function renderStoryVideo(s,cd){
     onGotDuration();
   }else{
     vid.addEventListener('loadedmetadata',onGotDuration,{once:true});
+    /* fallback اگه metadata نیومد */
     vid.addEventListener('canplay',function(){
       if(storyCurrentVideo===vid&&storyDuration===0)onGotDuration();
     },{once:true});
   }
 
+  /* وقتی ویدیو تموم شد */
   vid.addEventListener('ended',function(){
     if(storyCurrentVideo===vid)storyNavigate(1);
   });
@@ -1604,6 +1509,9 @@ function storyNavigate(dir){
   renderStory();
 }
 
+/* nav zones باید داخل story-container باشند نه story-modal-content */
+// (در HTML آنها را از story-modal-content بیرون آوردیم)
+// اما چون renderStory آنها را به cd append می‌کند، بگذاریم در container باشند
 document.addEventListener('DOMContentLoaded',function(){
   var container=document.querySelector('.story-container');
   var navL=document.getElementById('story-nav-left');
@@ -1615,6 +1523,7 @@ document.addEventListener('DOMContentLoaded',function(){
   initStories();
 });
 
+/* click بیرون modal */
 document.getElementById('story-modal').addEventListener('click',function(e){
   if(e.target===this)closeStoryModal();
 });
