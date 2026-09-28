@@ -551,19 +551,6 @@
 
 /* ===== ACCESS TERMINAL POPUP ===== */
 body.modal-open{overflow:hidden}
-.terminal-popup{z-index:99999;padding:18px;background:rgba(2,7,16,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.terminal-sheet{position:relative;width:min(94vw,620px);max-height:94vh;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:30px;background:linear-gradient(145deg,rgba(18,24,38,.96),rgba(4,8,17,.98));box-shadow:0 30px 100px rgba(0,0,0,.62),0 0 70px rgba(66,124,255,.16);animation:terminalIn .32s cubic-bezier(.2,.8,.2,1)}
-.terminal-sheet:before{content:"";position:absolute;inset:-2px;border-radius:32px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(76,129,255,.15),transparent 55%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:2}
-@keyframes terminalIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
-.terminal-head{display:flex;align-items:center;gap:12px;padding:18px 56px 12px 18px;direction:rtl;text-align:right}
-.terminal-status-dot{width:10px;height:10px;border-radius:50%;background:#2eea5a;box-shadow:0 0 16px rgba(46,234,90,.8);flex:none}
-.terminal-title{font-size:16px;font-weight:900;color:#fff}.terminal-subtitle{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
-.terminal-close{position:absolute;top:13px;right:13px;width:38px;height:38px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.07);color:#fff;font-size:25px;line-height:1;cursor:pointer;z-index:5;transition:.2s}.terminal-close:hover{background:rgba(255,255,255,.14);transform:rotate(90deg)}
-.terminal-frame-wrap{position:relative;margin:0 12px 12px;border-radius:22px;overflow:auto;background:#050403;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);max-height:72vh}
-#terminalFrame{display:block;width:100%;height:min(72vh,780px);min-height:520px;border:0;background:#050403}
-.terminal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:9px;background:#050403;color:#fff;font-size:12px;z-index:3}.terminal-loading.hide{display:none}.terminal-loading span{width:8px;height:8px;border-radius:50%;background:#2eea5a;box-shadow:0 0 12px #2eea5a;animation:termPulse 1s infinite}@keyframes termPulse{50%{opacity:.3;transform:scale(.65)}}
-.terminal-error{min-height:18px;padding:0 20px;color:#ff6670;font-size:11px;text-align:center;direction:rtl}.terminal-purchase{display:flex;justify-content:center;align-items:center;gap:7px;padding:9px 15px 16px;color:rgba(255,255,255,.5);font-size:11px;direction:rtl}.terminal-purchase a{color:#69a0ff;text-decoration:none;font-weight:800}.terminal-purchase a:hover{text-decoration:underline}
-@media(max-width:600px){.terminal-popup{padding:8px}.terminal-sheet{width:100%;max-height:96vh;border-radius:25px}.terminal-head{padding:15px 52px 10px 15px}.terminal-frame-wrap{margin:0 7px 7px;border-radius:18px;max-height:76vh}#terminalFrame{height:76vh;min-height:470px}.terminal-purchase{padding-bottom:11px}}
 </style>
 </head>
 <body>
@@ -891,54 +878,6 @@ body.modal-open{overflow:hidden}
 </div><!-- /.wrap -->
 
 <!-- ===== ACCESS TERMINAL POPUP ===== -->
-<div class="popup-overlay terminal-popup" id="terminalPopup" aria-hidden="true">
-  <div class="terminal-sheet" role="dialog" aria-modal="true" aria-label="ورود با کد اشتراک">
-    <button class="terminal-close" id="terminalClose" type="button" aria-label="بستن">×</button>
-    <div class="terminal-head">
-      <div class="terminal-status-dot"></div>
-      <div>
-        <div class="terminal-title">ورود با کد اشتراک</div>
-        <div class="terminal-subtitle">کد اشتراک ۶ رقمی خود را وارد کنید</div>
-      </div>
-    </div>
-    <div class="terminal-frame-wrap">
-      <iframe id="terminalFrame" src="https://cllo.ir/terminal1.html" title="CLLO Access Terminal" loading="eager" allow="autoplay"></iframe>
-      <div class="terminal-loading" id="terminalLoading"><span></span> در حال آماده‌سازی ترمینال...</div>
-    </div>
-    <div class="terminal-error" id="terminalError"></div>
-    <div class="terminal-purchase">
-      <span>کد اشتراک ندارید؟</span>
-      <a href="https://t.me/planlifeir" target="_blank" rel="noopener">خرید کد اشتراک</a>
-    </div>
-  </div>
-</div>
-
-<!-- ===== PRICE POPUP ===== -->
-<div class="price-overlay" id="pricePopup" onclick="closePriceIfOutside(event)">
-  <div class="price-sheet">
-    <div class="price-header">
-      <div class="price-title">💎 قیمت اشتراک</div>
-      <button class="price-close" onclick="closePricePopup()">✕</button>
-    </div>
-    <div class="plan-row"><div class="plan-name">اشتراک ماهانه</div><div class="plan-prices"><div class="plan-new">۲۸۰,۰۰۰ تومان</div></div></div>
-    <div class="plan-row"><div class="plan-name">اشتراک ۶ ماهه</div><div class="plan-prices"><div class="plan-old">۱,۶۸۰,۰۰۰</div><div class="plan-new">۱,۱۹۰,۰۰۰ تومان</div></div></div>
-    <div class="plan-row"><div class="plan-name">اشتراک سالانه</div><div class="plan-prices"><div class="plan-old">۳,۳۶۰,۰۰۰</div><div class="plan-new">۲,۵۸۰,۰۰۰ تومان</div></div></div>
-    <div class="price-subscribe-btns">
-      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.83.94z"/></svg>
-        خرید از تلگرام
-      </a>
-      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        خرید از بله
-      </a>
-      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.122 1.528 5.855L.057 23.617a.5.5 0 0 0 .611.674l5.99-1.57A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.371l-.36-.214-3.724.977.993-3.633-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
-        خرید از واتس‌اپ
-      </a>
-    </div>
-  </div>
-</div>
 
 <div class="toast" id="toast"></div>
 
@@ -977,113 +916,24 @@ document.addEventListener('click',function(e){
   if(p&&p.classList.contains('open')&&!p.contains(e.target)&&!e.target.closest('#categoriesBtn'))p.classList.remove('open');
 });
 
-/* ========== ACCESS TERMINAL / SUPABASE ========== */
-var pendingCardAction=null;
+/* ========== ACCESS TERMINAL ========== */
 const TERMINAL_URL='https://cllo.ir/terminal1.html';
 const USER_TABLE='user';
-
-function openLoginPopup(a){
-  pendingCardAction=a||null;
-  const p=document.getElementById('terminalPopup');
-  const f=document.getElementById('terminalFrame');
-  const err=document.getElementById('terminalError');
-  if(f.src!==TERMINAL_URL)f.src=TERMINAL_URL;
-  err.textContent='';
-  p.classList.add('open');
-  p.setAttribute('aria-hidden','false');
-  document.body.classList.add('modal-open');
+function openLoginPopup(returnUrl){
+  const target=(returnUrl||'').trim();
+  const url=target?TERMINAL_URL+'?return='+encodeURIComponent(target):TERMINAL_URL+'?return='+encodeURIComponent(location.href);
+  window.location.href=url;
 }
-function closeLoginPopup(){
-  const p=document.getElementById('terminalPopup');
-  p.classList.remove('open');
-  p.setAttribute('aria-hidden','true');
-  document.body.classList.remove('modal-open');
-  pendingCardAction=null;
-}
-function showTerminalError(msg){document.getElementById('terminalError').textContent=msg||'';}
 function normalizeCode(v){return String(v||'').replace(/\D/g,'').slice(0,6);}
-
 async function verifySubscriptionCode(code){
-  code=normalizeCode(code);
-  if(code.length!==6)return false;
+  code=normalizeCode(code);if(code.length!==6)return false;
   const value=encodeURIComponent(code);
-  const columns=['code','phone','number','mobile'];
+  const columns=['code','number','phone','mobile'];
   for(const column of columns){
-    try{
-      const rows=await sbGet(USER_TABLE,`${column}=eq.${value}`);
-      if(Array.isArray(rows)&&rows.length>0)return true;
-    }catch(e){}
+    try{const rows=await sbGet(USER_TABLE,`${column}=eq.${value}`);if(Array.isArray(rows)&&rows.length)return true;}catch(e){}
   }
   return false;
 }
-
-function getTerminalCode(frameDoc){
-  const slots=[...frameDoc.querySelectorAll('.slot')];
-  return normalizeCode(slots.map(x=>x.textContent.trim()).join(''));
-}
-
-function terminalSetState(frameDoc,state){
-  const slots=[...frameDoc.querySelectorAll('.slot')];
-  const led=frameDoc.getElementById('led');
-  slots.forEach(x=>x.classList.remove('ok','bad'));
-  if(state){
-    slots.forEach(x=>x.classList.add(state));
-    if(led){
-      const c=state==='ok'?'#2eea5a':'#ff2a2a';
-      led.style.background=c;led.style.boxShadow='0 0 14px '+c;led.style.opacity=1;
-    }
-  }
-}
-
-async function handleTerminalEnter(e){
-  const frame=e.currentTarget;
-  const doc=frame.contentDocument;
-  const t=e.target.closest&&e.target.closest('button[aria-label="ENTER"]');
-  if(!t||!doc)return;
-  e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
-  const code=getTerminalCode(doc);
-  if(code.length!==6){showTerminalError('لطفاً کد ۶ رقمی را کامل وارد کنید.');return;}
-  showTerminalError('');
-  terminalSetState(doc,'');
-  const enter=t;
-  enter.disabled=true;
-  try{
-    const valid=await verifySubscriptionCode(code);
-    if(valid){
-      terminalSetState(doc,'ok');
-      setSession({code,verified:true,ts:Date.now()});
-      unlockAllCards();
-      setLearningAccess(true);
-      showToast('✅ کد اشتراک تأیید شد؛ دسترسی فعال شد',3000);
-      const action=pendingCardAction;
-      setTimeout(()=>{closeLoginPopup();if(action)action();},900);
-    }else{
-      terminalSetState(doc,'bad');
-      showTerminalError('کد اشتراک معتبر نیست یا در جدول user پیدا نشد.');
-      setTimeout(()=>terminalSetState(doc,''),1200);
-    }
-  }catch(err){
-    showTerminalError('خطا در اتصال به سرور. دوباره تلاش کنید.');
-  }finally{
-    setTimeout(()=>{enter.disabled=false;},350);
-  }
-}
-
-function bindTerminal(){
-  const frame=document.getElementById('terminalFrame');
-  document.getElementById('terminalLoading').classList.add('hide');
-  try{
-    frame.contentDocument.addEventListener('pointerdown',handleTerminalEnter,true);
-    frame.contentDocument.addEventListener('keydown',function(e){
-      if(e.key==='Enter')handleTerminalEnter(e);
-    },true);
-  }catch(e){showTerminalError('امکان اتصال به ترمینال وجود ندارد.');}
-}
-
-document.getElementById('terminalFrame').addEventListener('load',bindTerminal);
-document.getElementById('terminalClose').addEventListener('click',closeLoginPopup);
-document.getElementById('terminalPopup').addEventListener('click',function(e){if(e.target===this)closeLoginPopup();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('terminalPopup').classList.contains('open'))closeLoginPopup();});
 
 /* ========== PRICE POPUP ========== */
 function openPricePopup(){document.getElementById('pricePopup').classList.add('open');}
@@ -1121,7 +971,7 @@ r1.addEventListener('click',function(e){
   const idx=parseInt(wrap.dataset.index,10);
   const url=(row1Cards[idx]&&row1Cards[idx].url||'').trim();
   if(isFree){if(url)window.location.href=url;else showToast('✅ در حال بارگذاری...');return;}
-  if(isLocked||!isLoggedIn()){openLoginPopup(null);return;}
+  if(isLocked||!isLoggedIn()){if(url)openLoginPopup(url);else openLoginPopup('https://cllo.ir/');return;}
   if(url)window.location.href=url;else showToast('✅ در حال بارگذاری...');
 });
 
@@ -1129,7 +979,7 @@ function updateLoginIcon(){const b=document.getElementById('loginIconBtn');if(b)
 function setLearningAccess(){updateLoginIcon();}
 function onLoginIconClick(){
   if(isLoggedIn()){if(confirm('می‌خواهید از حساب خود خارج شوید؟')){localStorage.removeItem(SESSION_KEY);location.reload();}}
-  else openLoginPopup(null);
+  else openLoginPopup(location.href);
 }
 async function verifyCurrentSubscription(){
   const session=getSession();
