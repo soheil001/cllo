@@ -34,8 +34,11 @@
 const SUPABASE_URL='https://hjzzvzxhrqovvducnxha.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
 async function sbGet(t,f){
-  const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}?${f}&limit=1`,{
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}?select=phone&${f}&limit=1`,{
+    headers:{
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+SUPABASE_KEY
+    }
   });
   if(!r.ok)throw new Error('supabase');
   return r.json();
@@ -167,14 +170,25 @@ async function press(k){
 
     try{
       // کد ۶ رقمی مستقیماً از ستون phone جدول user خوانده می‌شود.
-      // چون phone ممکن است عددی یا متنی باشد، مقدار دقیقاً همان ۶ رقم واردشده ارسال می‌شود.
+      // phone ممکن است integer یا text باشد؛ هر دو حالت جداگانه امتحان می‌شوند.
       let rows=[];
-      const value=encodeURIComponent(code);
+
       try{
-        rows=await sbGet('user',`phone=eq.${value}`);
+        // حالت اول: phone از نوع integer / numeric
+        rows=await sbGet('user',`phone=eq.${code}`);
       }catch(e){
         rows=[];
       }
+
+      if(!Array.isArray(rows)||!rows.length){
+        try{
+          // حالت دوم: phone از نوع text / varchar
+          rows=await sbGet('user',`phone=eq.%27${code}%27`);
+        }catch(e){
+          rows=[];
+        }
+      }
+
       if(Array.isArray(rows)&&rows.length){
         sfx.ok();
         setLed("#2eea5a");
