@@ -37,6 +37,7 @@
   }
   .wrap{max-width:var(--max-w);margin:0 auto;min-height:100%;position:relative;z-index:1;}
 
+  /* ===== BROWSER HERO ===== */
   .browser-hero{
     position:relative;width:calc(100% - 24px);margin:14px auto 0;
     border-radius:34px;overflow:hidden;
@@ -79,6 +80,7 @@
   .brand,.header-actions{display:none;}
   .browser-tab-count{font-size:11px;font-weight:800;line-height:1;color:rgba(255,255,255,.9);}
 
+  /* ===== HERO SLIDER ===== */
   .hero-stage{
     position:relative;height:clamp(315px,72vw,475px);
     margin:6px 0 0;overflow:hidden;touch-action:pan-y;
@@ -89,7 +91,6 @@
     filter:blur(20px);pointer-events:none;
   }
   .slides{position:absolute;inset:0;width:100%;height:100%;}
-
   .slide{
     position:absolute;top:50%;left:50%;
     width:min(48%,305px);height:auto;aspect-ratio:9/16;
@@ -133,14 +134,7 @@
     backdrop-filter:none;-webkit-backdrop-filter:none;
   }
   .hero-mini-btn{width:30px;height:30px;flex:0 0 30px;border-radius:50%;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.10);color:#fff;font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-
-  /* کارت ویدیو — کمی بزرگتر از بقیه */
-  .slide.active.slide-video-hero{
-    transform:translate(-50%,-50%) scale(1.10);
-    z-index:5;
-  }
-
-  /* دکمه میوت */
+  .slide.active.slide-video-hero{transform:translate(-50%,-50%) scale(1.10);z-index:5;}
   .mute-btn{
     position:absolute;z-index:10;left:10px;bottom:10px;
     width:34px;height:34px;border-radius:50%;
@@ -153,30 +147,7 @@
   }
   .mute-btn:active{transform:scale(.91);background:rgba(255,255,255,.24);}
 
-  @media (max-width: 599px){
-    :root{--story-ring:76px;}
-    .browser-hero{width:calc(100% - 14px);margin:8px auto 0;border-radius:0;overflow:visible;}
-    .browser-hero > header{width:calc(100% - 12px);height:50px;margin:6px auto 0;padding:5px;border-radius:26px;}
-    .browser-left,.browser-right{gap:3px;}
-    .browser-icon-btn{width:33px;height:33px;flex-basis:33px;}
-    .browser-address{height:35px;padding:0 9px;font-size:10.5px;gap:5px;}
-    .browser-grid{grid-template-columns:repeat(3,3px);grid-template-rows:repeat(3,3px);gap:1.7px;}
-    .browser-grid i{width:3px;height:3px;}
-    .hero-stage{height:clamp(350px,104vw,460px);margin-top:3px;}
-    .slide{width:min(55%,265px);height:auto;aspect-ratio:9/16;border-radius:15px;}
-    .slide.prev{transform:translate(calc(-50% + 54%),-50%) scale(.80);}
-    .slide.next{transform:translate(calc(-50% - 54%),-50%) scale(.80);}
-    .slide.far-prev{transform:translate(calc(-50% + 100%),-50%) scale(.63);}
-    .slide.far-next{transform:translate(calc(-50% - 100%),-50%) scale(.63);}
-    .slide-info{right:7px;left:50px;bottom:7px;padding:7px 9px;border-radius:11px;}
-    .slide-title{font-size:10.5px;}
-    .slide-subtitle{font-size:7px;}
-    .hero-bottom{width:calc(100% - 22px);height:46px;margin:-10px auto 9px;padding:4px 6px;gap:5px;border-radius:27px;}
-    .hero-mini-btn{width:26px;height:26px;flex-basis:26px;font-size:17px;}
-    .hero-dots{bottom:0px;}
-    .mute-btn{width:30px;height:30px;left:8px;bottom:8px;}
-  }
-
+  /* ===== STORIES OUTER ===== */
   .stories-outer{margin:18px 14px 0;padding:0;overflow:visible;position:relative;z-index:10;}
   .stories-wrapper{width:100%;position:relative;padding:16px 8px 13px;border-radius:26px;background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.28);box-shadow:0 15px 40px rgba(0,10,40,.3),inset 0 1px 0 rgba(255,255,255,.32),inset 0 -1px 0 rgba(255,255,255,.08);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);}
   .stories-wrapper::before{content:'';position:absolute;top:0;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);pointer-events:none;}
@@ -193,33 +164,151 @@
   .story-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
   .story-label{font-size:10.5px;font-weight:700;color:#fff;text-align:center;max-width:var(--story-ring);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3;text-shadow:0 1px 6px rgba(0,0,0,.5);}
 
-  #story-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(0,0,0,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+  /* ===== STORY MODAL — FULL SCREEN INSTAGRAM STYLE ===== */
+  #story-modal{
+    position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;
+    background:#000;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+    opacity:0;pointer-events:none;transition:opacity .28s ease;
+  }
   #story-modal.open{opacity:1;pointer-events:auto;}
-  .story-container{width:100%;max-width:375px;aspect-ratio:9/16;background:#000;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.9);}
-  .story-modal-content{position:absolute;inset:0;z-index:1;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .story-modal-content img,.story-modal-content video{width:100%;height:100%;object-fit:cover;display:block;}
-  .story-progress-bar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;gap:3px;direction:ltr;padding:10px 12px 6px;background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent);}
-  .progress-seg{flex:1;height:2.5px;background:rgba(255,255,255,.28);border-radius:3px;overflow:hidden;}
-  .progress-seg-fill{height:100%;background:white;width:0%;border-radius:3px;}
+
+  /* Container کامل عرض صفحه — مثل اینستاگرام */
+  .story-container{
+    width:100%;
+    max-width:430px;
+    height:100%;
+    height:100dvh;
+    background:#000;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .story-modal-content{
+    position:absolute;inset:0;z-index:1;
+    background:#111;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .story-modal-content img,
+  .story-modal-content video{
+    width:100%;height:100%;
+    object-fit:cover;display:block;
+  }
+
+  /* Progress bar — بالای صفحه */
+  .story-progress-bar{
+    position:absolute;top:0;left:0;right:0;z-index:20;
+    display:flex;gap:3px;direction:ltr;
+    padding:env(safe-area-inset-top,12px) 10px 8px;
+    padding-top:calc(env(safe-area-inset-top,0px) + 12px);
+    background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,transparent 100%);
+  }
+  .progress-seg{
+    flex:1;height:2.5px;background:rgba(255,255,255,.32);
+    border-radius:3px;overflow:hidden;
+  }
+  .progress-seg-fill{height:100%;background:white;width:0%;border-radius:3px;transition:none;}
   .progress-seg.done .progress-seg-fill{width:100%;}
-  .progress-seg.active .progress-seg-fill{animation:progress-run 5s linear forwards;}
-  @keyframes progress-run{from{width:0%;}to{width:100%;}}
-  .story-modal-header{position:absolute;top:26px;left:0;right:0;z-index:10;display:flex;align-items:center;gap:8px;padding:8px 12px;direction:rtl;justify-content:space-between;flex-direction:row-reverse;background:linear-gradient(to bottom,rgba(0,0,0,.35),transparent);}
-  .story-logo-section{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
-  .story-logo-img{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);overflow:hidden;}
-  .story-logo-img img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+  .progress-seg.active .progress-seg-fill{animation:none;width:0%;}
+
+  /* Header — پایین progress bar */
+  .story-modal-header{
+    position:absolute;
+    left:0;right:0;z-index:20;
+    display:flex;align-items:center;gap:10px;padding:8px 14px;
+    direction:ltr;
+    background:linear-gradient(to bottom,rgba(0,0,0,.25),transparent);
+    /* top پس از init-story با JS ست می‌شه */
+    top:calc(env(safe-area-inset-top,0px) + 28px);
+  }
+  .story-logo-section{display:flex;align-items:center;gap:8px;flex:1;}
+  .story-logo-img{
+    width:36px;height:36px;border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.55);
+    overflow:hidden;flex-shrink:0;
+  }
+  .story-logo-img img{width:100%;height:100%;object-fit:cover;}
   .story-branding-text{font-size:14px;font-weight:700;color:white;text-shadow:0 1px 6px rgba(0,0,0,.7);}
-  .story-modal-close{font-size:22px;color:white;cursor:pointer;padding:4px 6px;}
-  .story-nav-left,.story-nav-right{position:absolute;top:0;bottom:0;width:40%;cursor:pointer;z-index:9;-webkit-tap-highlight-color:transparent;}
-  .story-nav-right{right:0;}.story-nav-left{left:0;}
-  .story-footer{position:absolute;bottom:0;left:0;right:0;z-index:10;display:flex;flex-direction:column;gap:10px;padding:40px 14px 18px;background:linear-gradient(to top,rgba(0,0,0,.72) 60%,transparent);}
-  .story-caption{font-size:13px;font-weight:500;color:rgba(255,255,255,.95);text-align:center;line-height:1.6;min-height:20px;display:flex;align-items:center;justify-content:center;text-shadow:0 1px 8px rgba(0,0,0,.9);}
-  .story-action-btn{display:none;align-items:center;justify-content:center;width:100%;padding:12px 16px;background:rgba(255,255,255,.13);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1.2px solid rgba(100,180,255,.6);border-radius:20px;color:#7ec8ff;font-family:'IranYekan','Farhang','Estedad',sans-serif;font-size:15px;font-weight:800;text-decoration:none;text-align:center;cursor:pointer;transition:all .2s ease;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);}
-  .story-action-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:glass-shine 2.5s ease-in-out infinite;}
+  .story-time-ago{font-size:11px;color:rgba(255,255,255,.6);margin-right:2px;}
+  .story-modal-close{
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+    color:white;font-size:20px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;
+  }
+  .story-modal-close:active{background:rgba(255,255,255,.22);}
+
+  /* ناوبری — نیمه چپ و راست */
+  .story-nav-zone{
+    position:absolute;top:0;bottom:0;width:38%;z-index:10;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  .story-nav-left{left:0;}
+  .story-nav-right{right:0;}
+
+  /* ناحیه مکث — وسط صفحه */
+  .story-pause-zone{
+    position:absolute;
+    left:38%;right:38%;
+    top:0;bottom:0;
+    z-index:11;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    /* بقیه صفحه که nav نداره هم می‌گیره با بزرگتر کردن */
+    left:30%;right:30%;
+  }
+
+  /* Footer */
+  .story-footer{
+    position:absolute;bottom:0;left:0;right:0;z-index:20;
+    display:flex;flex-direction:column;gap:10px;
+    padding:40px 16px;
+    padding-bottom:calc(env(safe-area-inset-bottom,0px) + 24px);
+    background:linear-gradient(to top,rgba(0,0,0,.72) 60%,transparent);
+  }
+  .story-caption{
+    font-size:13.5px;font-weight:500;color:rgba(255,255,255,.95);
+    text-align:center;line-height:1.6;min-height:20px;
+    display:flex;align-items:center;justify-content:center;
+    text-shadow:0 1px 8px rgba(0,0,0,.9);direction:rtl;
+  }
+  .story-action-btn{
+    display:none;align-items:center;justify-content:center;
+    width:100%;padding:13px 16px;
+    background:rgba(255,255,255,.13);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:1.2px solid rgba(100,180,255,.6);border-radius:20px;
+    color:#7ec8ff;font-family:'IranYekan','Farhang','Estedad',sans-serif;
+    font-size:15px;font-weight:800;text-decoration:none;text-align:center;
+    cursor:pointer;transition:all .2s ease;position:relative;overflow:hidden;
+    box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .story-action-btn::before{
+    content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+    animation:glass-shine 2.5s ease-in-out infinite;
+  }
   @keyframes glass-shine{0%{left:-100%;}50%{left:100%;}100%{left:100%;}}
   .story-action-btn:active{transform:scale(.97);}
   .story-action-btn.show{display:flex;}
 
+  /* آیکون مکث */
+  .story-pause-icon{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    z-index:25;
+    width:64px;height:64px;border-radius:50%;
+    background:rgba(0,0,0,.45);
+    border:2px solid rgba(255,255,255,.5);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .story-pause-icon.visible{opacity:1;}
+  .story-pause-icon svg{width:28px;height:28px;color:#fff;}
+
+  /* ===== MAIN CONTENT ===== */
   .container{padding:4px 16px 60px;}
   .row-label{font-size:14px;font-weight:700;color:rgba(255,255,255,0.9);margin:24px 0 12px 0;padding:0 4px;letter-spacing:-0.2px;}
   .carousel{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px;margin:0 -16px;padding-left:16px;padding-right:16px;}
@@ -240,6 +329,7 @@
   .btn-read:active{opacity:0.85;transform:scale(0.97);}
   .extra-label{margin-top:26px;}
 
+  /* ===== LEARNING CAROUSEL ===== */
   .learning-carousel{display:flex;gap:18px;overflow-x:auto;padding:14px 4px 22px;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
   .learning-carousel::-webkit-scrollbar{display:none}
   .learning-item{position:relative;flex:0 0 var(--learning-w);width:var(--learning-w);scroll-snap-align:start;}
@@ -253,6 +343,7 @@
   .learning-item .learning-enter{z-index:5;}
   .learning-enter:active{transform:scale(.97);opacity:.88;}
 
+  /* ===== MORE SECTION ===== */
   .more-label{margin-top:28px;margin-bottom:12px;}
   .more-carousel{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;padding:5px 0 20px;direction:rtl;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;}
   .more-carousel::-webkit-scrollbar{display:none;}
@@ -261,6 +352,7 @@
   .more-read-btn{width:100px;height:36px;border-radius:14px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:#fff;font-family:'IranYekan','Farhang','Estedad',sans-serif;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.28);transition:.2s;}
   .more-read-btn:active{transform:scale(.95);}
 
+  /* ===== LEADERBOARD ===== */
   .monthly-leaderboard{margin-top:34px;padding:22px 14px 20px;border-radius:30px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 12%,rgba(100,180,255,.16),transparent 28%),linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.20);box-shadow:0 18px 55px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.18);}
   .monthly-leaderboard::before{content:'';position:absolute;width:260px;height:260px;left:50%;top:70px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(100,180,255,.13),transparent 68%);pointer-events:none;}
   .leaderboard-head{position:relative;z-index:2;text-align:center;margin-bottom:24px;}
@@ -294,6 +386,7 @@
   .leaderboard-note{position:relative;z-index:2;margin-top:18px;padding-top:12px;border-top:1px solid rgba(255,255,255,.10);text-align:center;color:rgba(255,255,255,.45);font-size:9.5px;line-height:1.7;}
   .leaderboard-note strong{color:rgba(255,255,255,.68);font-weight:800;}
 
+  /* ===== POPUPS ===== */
   .popup-overlay{position:fixed;inset:0;z-index:10000;background:rgba(5,15,50,0.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
   .popup-overlay.open{opacity:1;pointer-events:auto;}
   .popup-sheet{width:100%;max-width:520px;background:rgba(8,20,55,0.92);border:1px solid rgba(255,255,255,0.18);border-bottom:none;border-radius:28px 28px 0 0;padding:28px 24px 32px;box-shadow:0 -20px 60px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2);transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.2,0.64,1);}
@@ -332,11 +425,11 @@
   .plan-new{font-size:14px;font-weight:800;color:#7ec8ff;direction:ltr;}
   .price-subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:16px;}
 
+  /* ===== TOAST ===== */
   .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,0.95);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.4);opacity:0;transition:all 0.3s ease;pointer-events:none;white-space:nowrap;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-  .modal-close-btn{position:absolute;top:18px;left:18px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.10);color:#fff;font-size:30px;line-height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .2s ease,background .2s ease,border-color .2s ease;}
-  .modal-close-btn:hover{transform:scale(1.06);background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.55);}
 
+  /* ===== CATEGORIES POPUP ===== */
   .categories-popup{
     position:absolute;top:58px;left:9px;z-index:50;width:216px;
     display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,auto);gap:4px;
@@ -355,6 +448,42 @@
   .cat-icon img{width:100%;height:100%;object-fit:cover;display:block;}
   .cat-label{font-size:10px;font-weight:700;color:#fff;white-space:normal;line-height:1.25;}
 
+  /* ===== LOGIN STATUS BTN ===== */
+  .login-status-btn{width:36px;height:36px;flex:0 0 36px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(220,55,75,.18);color:#ff5d72;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s ease;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.20);}
+  .login-status-btn:hover{transform:translateY(-1px);background:rgba(220,55,75,.26);}
+  .login-status-btn:active{transform:scale(.91);}
+  .login-status-btn.logged-in{background:rgba(32,190,112,.18);color:#32d889;border-color:rgba(50,216,137,.32);box-shadow:0 0 18px rgba(50,216,137,.14),inset 0 1px 0 rgba(255,255,255,.20);}
+  .login-status-btn svg{width:18px;height:18px;display:block;}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 599px){
+    :root{--story-ring:76px;}
+    .browser-hero{width:calc(100% - 14px);margin:8px auto 0;border-radius:0;overflow:visible;}
+    .browser-hero > header{width:calc(100% - 12px);height:50px;margin:6px auto 0;padding:5px;border-radius:26px;}
+    .browser-left,.browser-right{gap:3px;}
+    .browser-icon-btn{width:33px;height:33px;flex-basis:33px;}
+    .browser-address{height:35px;padding:0 9px;font-size:10.5px;gap:5px;}
+    .browser-grid{grid-template-columns:repeat(3,3px);grid-template-rows:repeat(3,3px);gap:1.7px;}
+    .browser-grid i{width:3px;height:3px;}
+    .hero-stage{height:clamp(350px,104vw,460px);margin-top:3px;}
+    .slide{width:min(55%,265px);height:auto;aspect-ratio:9/16;border-radius:15px;}
+    .slide.prev{transform:translate(calc(-50% + 54%),-50%) scale(.80);}
+    .slide.next{transform:translate(calc(-50% - 54%),-50%) scale(.80);}
+    .slide.far-prev{transform:translate(calc(-50% + 100%),-50%) scale(.63);}
+    .slide.far-next{transform:translate(calc(-50% - 100%),-50%) scale(.63);}
+    .slide-info{right:7px;left:50px;bottom:7px;padding:7px 9px;border-radius:11px;}
+    .slide-title{font-size:10.5px;}
+    .slide-subtitle{font-size:7px;}
+    .hero-bottom{width:calc(100% - 22px);height:46px;margin:-10px auto 9px;padding:4px 6px;gap:5px;border-radius:27px;}
+    .hero-mini-btn{width:26px;height:26px;flex-basis:26px;font-size:17px;}
+    .hero-dots{bottom:0px;}
+    .mute-btn{width:30px;height:30px;left:8px;bottom:8px;}
+    header{width:calc(100% - 20px);height:56px;margin:10px auto 6px;padding:6px;border-radius:29px;}
+    .browser-icon-btn{width:36px;height:36px;flex-basis:36px;}
+    .browser-address{height:38px;padding:0 11px;font-size:12px;gap:6px;}
+    .browser-grid{grid-template-columns:repeat(3,3.5px);grid-template-rows:repeat(3,3.5px);gap:2px;}
+    .browser-grid i{width:3.5px;height:3.5px;}
+  }
   @media (min-width:600px){
     :root{--max-w:100%;--card-w:210px;--card-h:360px;--story-ring:72px;--learning-w:240px;--learning-h:290px;--more-w:170px;--more-h:300px;}
     .wrap{max-width:100%;padding:0 20px;}
@@ -419,24 +548,12 @@
   @font-face{font-family:'IranYekan';src:url('fonts/iranyekan-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
   @font-face{font-family:'IranYekan';src:url('fonts/iranyekan-bold.woff2') format('woff2');font-weight:700 900;font-style:normal;font-display:swap;}
   html,body,button,input,textarea,select,html,body,body *{font-family:'IranYekan','Farhang','Estedad',sans-serif !important;}
-  @media (max-width:599px){
-    header{width:calc(100% - 20px);height:56px;margin:10px auto 6px;padding:6px;border-radius:29px;}
-    .browser-left,.browser-right{gap:4px;}
-    .browser-icon-btn{width:36px;height:36px;flex-basis:36px;}
-    .browser-address{height:38px;padding:0 11px;font-size:12px;gap:6px;}
-    .browser-grid{grid-template-columns:repeat(3,3.5px);grid-template-rows:repeat(3,3.5px);gap:2px;}
-    .browser-grid i{width:3.5px;height:3.5px;}
-  }
-  .login-status-btn{width:36px;height:36px;flex:0 0 36px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(220,55,75,.18);color:#ff5d72;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s ease;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.20);}
-  .login-status-btn:hover{transform:translateY(-1px);background:rgba(220,55,75,.26);}
-  .login-status-btn:active{transform:scale(.91);}
-  .login-status-btn.logged-in{background:rgba(32,190,112,.18);color:#32d889;border-color:rgba(50,216,137,.32);box-shadow:0 0 18px rgba(50,216,137,.14),inset 0 1px 0 rgba(255,255,255,.20);}
-  .login-status-btn svg{width:18px;height:18px;display:block;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
+  <!-- ===== BROWSER HERO ===== -->
   <section class="browser-hero" id="hero">
     <header aria-label="CLLO browser style header">
     <div class="browser-left">
@@ -489,8 +606,7 @@
     <div class="hero-stage">
       <div class="hero-glow"></div>
       <div class="slides" id="slides">
-
-        <!-- اسلاید ۱ — ویدیو -->
+        <!-- اسلاید ۱ — ویدیو (بی‌صدا) -->
         <div class="slide slide-1 slide-video-hero" data-slide="0" data-type="video">
           <video class="slide-bg" id="heroVideo" preload="auto" playsinline webkit-playsinline muted autoplay fetchpriority="high" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen="false">
             <source src="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4" type="video/mp4">
@@ -503,41 +619,25 @@
             </svg>
           </button>
         </div>
-
         <div class="slide slide-2" data-slide="1">
           <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
-          <div class="slide-info">
-            <div class="slide-title">تمرینات ۴ گزینه‌ای</div>
-            <div class="slide-subtitle">سطحت را مرحله‌به‌مرحله بالاتر ببر</div>
-          </div>
+          <div class="slide-info"><div class="slide-title">تمرینات ۴ گزینه‌ای</div><div class="slide-subtitle">سطحت را مرحله‌به‌مرحله بالاتر ببر</div></div>
         </div>
         <div class="slide slide-3" data-slide="2">
           <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_4991.jpeg" alt="" loading="eager" decoding="async" onerror="this.style.display='none'">
-          <div class="slide-info">
-            <div class="slide-title">هر روز کمی بهتر</div>
-            <div class="slide-subtitle">یادگیری انگلیسی، ساده و جذاب</div>
-          </div>
+          <div class="slide-info"><div class="slide-title">هر روز کمی بهتر</div><div class="slide-subtitle">یادگیری انگلیسی، ساده و جذاب</div></div>
         </div>
         <div class="slide slide-4" data-slide="3">
           <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/4.jpg" alt="" loading="eager" decoding="async" onerror="this.style.display='none'">
-          <div class="slide-info">
-            <div class="slide-title">آموزش با هوش مصنوعی</div>
-            <div class="slide-subtitle">مکالمه هوشمند، هر زمان که بخواهی</div>
-          </div>
+          <div class="slide-info"><div class="slide-title">آموزش با هوش مصنوعی</div><div class="slide-subtitle">مکالمه هوشمند، هر زمان که بخواهی</div></div>
         </div>
         <div class="slide slide-5" data-slide="4">
           <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_5021.jpeg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
-          <div class="slide-info">
-            <div class="slide-title">پادکست‌های آموزشی</div>
-            <div class="slide-subtitle">گوش کن و یاد بگیر در هر لحظه</div>
-          </div>
+          <div class="slide-info"><div class="slide-title">پادکست‌های آموزشی</div><div class="slide-subtitle">گوش کن و یاد بگیر در هر لحظه</div></div>
         </div>
         <div class="slide slide-6" data-slide="5">
           <img class="slide-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/6.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
-          <div class="slide-info">
-            <div class="slide-title">دوره‌های تصویری</div>
-            <div class="slide-subtitle">آموزش قدم‌به‌قدم با ویدیو</div>
-          </div>
+          <div class="slide-info"><div class="slide-title">دوره‌های تصویری</div><div class="slide-subtitle">آموزش قدم‌به‌قدم با ویدیو</div></div>
         </div>
       </div>
     </div>
@@ -556,38 +656,73 @@
     </div>
   </section>
 
+  <!-- ===== STORIES ===== -->
   <div class="stories-outer">
     <div class="stories-wrapper">
       <div class="stories-scroll" id="stories-scroll">
-        <div class="story-item" data-index="0" data-img="http://fs3.centraldnserver.com/~planlife/english/1.mp4" data-caption="پادکست‌ها برای آموزش حرفه ای شمما " data-btn-show="true" data-btn-text="دیدن پادکست ها" data-btn-link="https://cllo.ir/podcast.html">
+        <!-- استوری ۰ — ویدیو -->
+        <div class="story-item" data-index="0"
+          data-type="video"
+          data-img="http://fs3.centraldnserver.com/~planlife/english/1.mp4"
+          data-caption="پادکست‌ها برای آموزش حرفه ای شمما"
+          data-btn-show="true" data-btn-text="دیدن پادکست ها" data-btn-link="https://cllo.ir/podcast.html">
           <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_4991.jpeg" alt="پادکست ها" loading="eager" fetchpriority="high" decoding="async"></div></div>
-          <div class="story-label"> پادکست ها </div>
+          <div class="story-label">پادکست ها</div>
         </div>
-        <div class="story-item" data-index="1" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779278212/IMG_0906_o7pnur.jpg" data-caption="لغت آموز صوتی 🚀" data-btn-show="true" data-btn-text="دیدن آموزش" data-btn-link="https://cllo.ir/podcast.html">
+        <!-- استوری ۱ — عکس -->
+        <div class="story-item" data-index="1"
+          data-type="image"
+          data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779278212/IMG_0906_o7pnur.jpg"
+          data-caption="لغت آموز صوتی 🚀"
+          data-btn-show="true" data-btn-text="دیدن آموزش" data-btn-link="https://cllo.ir/podcast.html">
           <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_5019.jpeg" alt="لغت آموز صوتی" loading="eager" fetchpriority="high" decoding="async"></div></div>
           <div class="story-label">لغت آموز صوتی</div>
         </div>
-        <div class="story-item" data-index="2" data-img="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg" data-caption="ویدیوهای آموزشی cllo.ir " data-btn-show="true" data-btn-text="دیدن ویدیوها" data-btn-link="https://planlife.ir/Pages/Book/index.html">
+        <div class="story-item" data-index="2"
+          data-type="image"
+          data-img="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg"
+          data-caption="ویدیوهای آموزشی cllo.ir"
+          data-btn-show="true" data-btn-text="دیدن ویدیوها" data-btn-link="https://planlife.ir/Pages/Book/index.html">
           <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg" alt="ویدیوهای آموزشی" loading="eager" decoding="async"></div></div>
           <div class="story-label">ویدیوهای آموزشی</div>
         </div>
-        <div class="story-item" data-index="3" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779568027/IMG_1109_xpxghq.png" data-caption="مجله ماورایی — مقالات انگیزشی درباره تغییر افکار 📰" data-btn-show="true" data-btn-text="ورود به مجله" data-btn-link="https://planlife.ir/Pages/Magazine/index.html">
+        <div class="story-item" data-index="3"
+          data-type="image"
+          data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779568027/IMG_1109_xpxghq.png"
+          data-caption="مجله ماورایی — مقالات انگیزشی درباره تغییر افکار 📰"
+          data-btn-show="true" data-btn-text="ورود به مجله" data-btn-link="https://planlife.ir/Pages/Magazine/index.html">
           <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779568027/IMG_1109_xpxghq.png" alt="مجله" loading="lazy" decoding="async"></div></div>
           <div class="story-label">مجله</div>
         </div>
-        <div class="story-item" data-index="4" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg" data-caption="تمرینات مجازی روزانه و آرامش ذهن برای موفقیت 🧘" data-btn-show="true" data-btn-text="شروع تمرین ذهنی" data-btn-link="https://cllo.ir/tamrint.html">
+        <div class="story-item" data-index="4"
+          data-type="image"
+          data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg"
+          data-caption="تمرینات مجازی روزانه و آرامش ذهن برای موفقیت 🧘"
+          data-btn-show="true" data-btn-text="شروع تمرین ذهنی" data-btn-link="https://cllo.ir/tamrint.html">
           <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454914/IMG_0217_fnjv9i.jpg" alt="تمرینات" loading="lazy" decoding="async"></div></div>
           <div class="story-label">تمرینات</div>
         </div>
-        <div class="story-item" data-index="5" data-img="http://fs3.centraldnserver.com/~planlife/pics/IMG_2478.png" data-caption="پاکسازی ذهن و رهایی از افکار منفی 🔥" data-btn-show="true" data-btn-text="شروع پاکسازی ذهن" data-btn-link="https://planlife.ir/Pages/paksazi/index.html">
+        <div class="story-item" data-index="5"
+          data-type="image"
+          data-img="http://fs3.centraldnserver.com/~planlife/pics/IMG_2478.png"
+          data-caption="پاکسازی ذهن و رهایی از افکار منفی 🔥"
+          data-btn-show="true" data-btn-text="شروع پاکسازی ذهن" data-btn-link="https://planlife.ir/Pages/paksazi/index.html">
           <div class="story-ring"><div class="story-avatar"><img src="http://fs3.centraldnserver.com/~planlife/pics/IMG_2478.png" alt="پاکسازی ذهن" loading="lazy" decoding="async"></div></div>
           <div class="story-label">پاکسازی ذهن</div>
         </div>
-        <div class="story-item" data-index="6" data-img="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781592734/IMG_1963_hhf5wp.jpg" data-caption="تابلو آرزوها و ویژوالایزیشن برای تحقق رویاهای قانون جذب 🔖" data-btn-show="true" data-btn-text="ساخت تابلو آرزو" data-btn-link="https://planlife.ir/Pages/visionboard/index.html">
+        <div class="story-item" data-index="6"
+          data-type="image"
+          data-img="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781592734/IMG_1963_hhf5wp.jpg"
+          data-caption="تابلو آرزوها و ویژوالایزیشن برای تحقق رویاهای قانون جذب 🔖"
+          data-btn-show="true" data-btn-text="ساخت تابلو آرزو" data-btn-link="https://planlife.ir/Pages/visionboard/index.html">
           <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dwxaids40/image/upload/q_auto/f_auto/v1781592734/IMG_1963_hhf5wp.jpg" alt="تابلو آرزو" loading="lazy" decoding="async"></div></div>
           <div class="story-label">تابلو آرزو</div>
         </div>
-        <div class="story-item" data-index="7" data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454037/IMG_0213_mrxvu1.png" data-caption="موزیک‌های انگیزشی و مدیتیشن برای آرامش ذهن 🎵" data-btn-show="true" data-btn-text="گوش دادن به موزیک‌ها" data-btn-link="https://planlife.ir/Pages/Music/index.html">
+        <div class="story-item" data-index="7"
+          data-type="image"
+          data-img="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454037/IMG_0213_mrxvu1.png"
+          data-caption="موزیک‌های انگیزشی و مدیتیشن برای آرامش ذهن 🎵"
+          data-btn-show="true" data-btn-text="گوش دادن به موزیک‌ها" data-btn-link="https://planlife.ir/Pages/Music/index.html">
           <div class="story-ring"><div class="story-avatar"><img src="https://res.cloudinary.com/dshielkdt/image/upload/q_auto/f_auto/v1779454037/IMG_0213_mrxvu1.png" alt="موزیک" loading="lazy" decoding="async"></div></div>
           <div class="story-label">موزیک</div>
         </div>
@@ -595,28 +730,54 @@
     </div>
   </div>
 
-  <div id="story-modal">
+  <!-- ===== STORY MODAL ===== -->
+  <div id="story-modal" role="dialog" aria-modal="true" aria-label="استوری">
     <div class="story-container">
+
+      <!-- Progress bar -->
       <div class="story-progress-bar" id="story-progress-bar"></div>
-      <div class="story-modal-header">
-        <button type="button" class="modal-close-btn" aria-label="بستن">×</button>
+
+      <!-- Header -->
+      <div class="story-modal-header" id="story-modal-header">
         <div class="story-logo-section">
-          <div class="story-logo-img"><img src="http://fs3.centraldnserver.com/~planlife/pics/planlife.jpeg" alt="PlanLife"></div>
-          <div class="story-branding-text">cllo.ir</div>
+          <div class="story-logo-img">
+            <img src="http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp" alt="cllo" loading="eager">
+          </div>
+          <div>
+            <div class="story-branding-text">cllo.ir</div>
+          </div>
         </div>
-        <div class="story-modal-close" onclick="closeStoryModal()">✕</div>
+        <div class="story-modal-close" onclick="closeStoryModal()" aria-label="بستن">✕</div>
       </div>
-      <div class="story-modal-content" id="story-modal-content">
-        <div class="story-nav-left" onclick="storyNavigate(-1)"></div>
-        <div class="story-nav-right" onclick="storyNavigate(1)"></div>
+
+      <!-- Content -->
+      <div class="story-modal-content" id="story-modal-content"></div>
+
+      <!-- آیکون مکث/پلی وسط -->
+      <div class="story-pause-icon" id="story-pause-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <rect x="6" y="4" width="4" height="16" rx="1"/>
+          <rect x="14" y="4" width="4" height="16" rx="1"/>
+        </svg>
       </div>
+
+      <!-- ناوبری — چپ / راست -->
+      <div class="story-nav-zone story-nav-left" id="story-nav-left"></div>
+      <div class="story-nav-zone story-nav-right" id="story-nav-right"></div>
+
+      <!-- ناحیه مکث — وسط -->
+      <div class="story-pause-zone" id="story-pause-zone"></div>
+
+      <!-- Footer -->
       <div class="story-footer">
         <div class="story-caption" id="story-caption"></div>
         <a class="story-action-btn" id="story-action-btn" href="#" target="_blank" rel="noopener"></a>
       </div>
+
     </div>
   </div>
 
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="container">
     <div class="row-label">تمرینات ۴ گزینه‌ای</div>
     <div class="carousel" id="row1"></div>
@@ -677,6 +838,7 @@
     </div>
   </div>
 
+  <!-- ===== LEADERBOARD ===== -->
   <section class="monthly-leaderboard" aria-label="برترین‌های ماه پیش">
     <div class="leaderboard-head">
       <div class="leaderboard-kicker">🏆 گزارش ماهانه</div>
@@ -710,9 +872,9 @@
     </div>
   </section>
 
-</div>
+</div><!-- /.wrap -->
 
-<!-- ===== POPUPS ===== -->
+<!-- ===== LOGIN POPUP ===== -->
 <div class="popup-overlay" id="loginPopup">
   <div class="popup-sheet">
     <div class="popup-handle"></div>
@@ -745,6 +907,7 @@
   </div>
 </div>
 
+<!-- ===== PRICE POPUP ===== -->
 <div class="price-overlay" id="pricePopup" onclick="closePriceIfOutside(event)">
   <div class="price-sheet">
     <div class="price-header">
@@ -773,51 +936,48 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- ===== JAVASCRIPT ===== -->
 <script>
-/* ===== SUPABASE ===== */
+/* ========== SUPABASE ========== */
 const SUPABASE_URL='https://hjzzvzxhrqovvducnxha.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
-async function sbGet(table,filter){const url=`${SUPABASE_URL}/rest/v1/${table}?${filter}&limit=1`;const r=await fetch(url,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});return r.json();}
-async function sbInsert(table,body){const r=await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(body)});return r.ok;}
+async function sbGet(t,f){const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}?${f}&limit=1`,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});return r.json();}
+async function sbInsert(t,b){const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(b)});return r.ok;}
 
-/* ===== SESSION ===== */
+/* ========== SESSION ========== */
 const SESSION_KEY='lingua_session_v1';
 function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch(e){return null;}}
-function setSession(data){localStorage.setItem(SESSION_KEY,JSON.stringify(data));}
+function setSession(d){localStorage.setItem(SESSION_KEY,JSON.stringify(d));}
 function isLoggedIn(){const s=getSession();return s&&s.phone&&s.verified;}
 
-/* ===== TOAST ===== */
+/* ========== TOAST ========== */
 function showToast(msg,dur=2800){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
 
-/* ===== SHARE ===== */
+/* ========== SHARE ========== */
 function shareSite(){
-  const url=location.href;const title='CLLO — cllo.ir';
+  const url=location.href,title='CLLO — cllo.ir';
   if(navigator.share){navigator.share({title,url}).catch(()=>{});}
   else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>showToast('لینک سایت کپی شد ✅')).catch(()=>showToast('امکان اشتراک‌گذاری نیست'));}
-  else{showToast('امکان اشتراک‌گذاری نیست');}
+  else showToast('امکان اشتراک‌گذاری نیست');
 }
 
-/* ===== CATEGORIES MENU ===== */
+/* ========== CATEGORIES ========== */
 function toggleCategoriesMenu(e){
   if(e)e.stopPropagation();
   document.getElementById('categoriesPopup').classList.toggle('open');
 }
 document.addEventListener('click',function(e){
   const p=document.getElementById('categoriesPopup');
-  if(p&&p.classList.contains('open')&&!p.contains(e.target)&&!e.target.closest('#categoriesBtn')){p.classList.remove('open');}
+  if(p&&p.classList.contains('open')&&!p.contains(e.target)&&!e.target.closest('#categoriesBtn'))p.classList.remove('open');
 });
 
-/* ===== LOGIN POPUP ===== */
+/* ========== LOGIN ========== */
 var pendingCardAction=null;
-function openLoginPopup(cardAction){pendingCardAction=cardAction||null;document.getElementById('loginPopup').classList.add('open');setTimeout(()=>document.getElementById('phoneInput').focus(),400);}
+function openLoginPopup(a){pendingCardAction=a||null;document.getElementById('loginPopup').classList.add('open');setTimeout(()=>document.getElementById('phoneInput').focus(),400);}
 function closeLoginPopup(){document.getElementById('loginPopup').classList.remove('open');pendingCardAction=null;}
 document.getElementById('loginPopup').addEventListener('click',function(e){if(e.target===this)closeLoginPopup();});
-
 async function doLogin(){
-  const input=document.getElementById('phoneInput');
-  const errEl=document.getElementById('phoneError');
-  const btn=document.getElementById('btnLogin');
-  const btnText=document.getElementById('loginBtnText');
+  const input=document.getElementById('phoneInput'),errEl=document.getElementById('phoneError'),btn=document.getElementById('btnLogin'),btnText=document.getElementById('loginBtnText');
   errEl.textContent='';
   let phone=input.value.trim().replace(/\D/g,'');
   if(phone.startsWith('0'))phone=phone.slice(1);
@@ -838,12 +998,12 @@ async function doLogin(){
 }
 document.getElementById('phoneInput').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
 
-/* ===== PRICE POPUP ===== */
+/* ========== PRICE POPUP ========== */
 function openPricePopup(){document.getElementById('pricePopup').classList.add('open');}
 function closePricePopup(){document.getElementById('pricePopup').classList.remove('open');}
 function closePriceIfOutside(e){if(e.target===document.getElementById('pricePopup'))closePricePopup();}
 
-/* ===== CARDS ===== */
+/* ========== CARDS ========== */
 const BASE='http://fs3.centraldnserver.com/~planlife/pics/english/';
 const imgs=[1,2,3,4,5,6,7];
 const row1Cards=[
@@ -864,7 +1024,7 @@ function makeCard(c,imgNum,index){
   const locked=!c.free&&!isLoggedIn();
   return`<div class="card-wrap${locked?' locked':''}" data-index="${index}" data-free="${c.free}"><div class="card"><div class="card-photo"><img src="${BASE}${imgNum}.jpg" alt="${c.title}" loading="${index<4?'eager':'lazy'}" fetchpriority="${index<2?'high':'auto'}" decoding="async" onerror="this.style.background='linear-gradient(135deg,#0f3460,#1e90ff)'"></div><span class="badge">${c.badge}</span><div class="card-body"><div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div><div class="card-footer"><div class="read-time">${c.hours} ساعت</div><button class="btn-read">شروع کن</button></div></div></div></div>`;
 }
-function unlockAllCards(){document.querySelectorAll('.card-wrap.locked').forEach(wrap=>{wrap.classList.remove('locked');const overlay=wrap.querySelector('.lock-overlay');if(overlay)overlay.remove();});}
+function unlockAllCards(){document.querySelectorAll('.card-wrap.locked').forEach(w=>{w.classList.remove('locked');const o=w.querySelector('.lock-overlay');if(o)o.remove();});}
 const r1=document.getElementById('row1');
 row1Cards.forEach((c,i)=>{r1.insertAdjacentHTML('beforeend',makeCard(c,imgs[i%imgs.length],i));});
 r1.addEventListener('click',function(e){
@@ -882,9 +1042,8 @@ function updateLoginIcon(){const b=document.getElementById('loginIconBtn');if(b)
 function setLearningAccess(){updateLoginIcon();}
 function onLoginIconClick(){
   if(isLoggedIn()){if(confirm('می‌خواهید از حساب خود خارج شوید؟')){localStorage.removeItem(SESSION_KEY);location.reload();}}
-  else{openLoginPopup(null);}
+  else openLoginPopup(null);
 }
-
 async function verifyCurrentSubscription(){
   const session=getSession();
   if(!session||!session.phone||!session.verified){updateLoginIcon();return false;}
@@ -897,7 +1056,7 @@ async function verifyCurrentSubscription(){
 }
 
 const learningCards=Array.from(document.querySelectorAll('.learning-card'));
-function enterLearningCard(card){const url=(card.dataset.url||'').trim();if(url){window.location.href=url;}else{showToast('به‌زودی این بخش فعال می‌شود');}}
+function enterLearningCard(card){const url=(card.dataset.url||'').trim();if(url)window.location.href=url;else showToast('به‌زودی این بخش فعال می‌شود');}
 document.querySelectorAll('.learning-item .learning-enter').forEach(function(btn){
   btn.addEventListener('click',function(e){e.stopPropagation();enterLearningCard(btn.closest('.learning-item').querySelector('.learning-card'));});
 });
@@ -906,194 +1065,383 @@ learningCards.forEach(function(card){card.addEventListener('click',function(){en
 updateLoginIcon();
 verifyCurrentSubscription();
 
-/* ===== HERO SLIDER ===== */
-const slides=Array.from(document.querySelectorAll('.slide'));
-const dots=document.querySelectorAll('.dot');
+/* ========== HERO SLIDER ========== */
+const heroSlides=Array.from(document.querySelectorAll('.slide'));
+const heroDots=document.querySelectorAll('.dot');
 const heroVideo=document.getElementById('heroVideo');
-let cur=0;
-const total=6;
-const AUTOPLAY_MS=4200;        // مدت اسلایدهای تصویری
-let autoAdvanceHandle=null;
-let videoSoundEnabled=false;
+let heroCur=0;
+const heroTotal=6;
+const HERO_AUTOPLAY_MS=4200;
+let heroAutoHandle=null;
+let heroSoundEnabled=false;
 
 const SVG_MUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`;
 const SVG_UNMUTED=`<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>`;
 
-function updateMuteIcon(){
-  const svg=document.getElementById('muteSvg');
-  if(svg)svg.innerHTML=videoSoundEnabled?SVG_UNMUTED:SVG_MUTED;
-}
-
+function updateMuteIcon(){const svg=document.getElementById('muteSvg');if(svg)svg.innerHTML=heroSoundEnabled?SVG_UNMUTED:SVG_MUTED;}
 function toggleMute(e){
   e.stopPropagation();
   if(!heroVideo)return;
-  videoSoundEnabled=!videoSoundEnabled;
-  heroVideo.muted=!videoSoundEnabled;
-  if(videoSoundEnabled)heroVideo.volume=0.35;
+  heroSoundEnabled=!heroSoundEnabled;
+  heroVideo.muted=!heroSoundEnabled;
+  if(heroSoundEnabled)heroVideo.volume=0.35;
   updateMuteIcon();
 }
 
-function relativeClass(i){
-  const d=(i-cur+total)%total;
-  if(d===0)return'active';
-  if(d===1)return'next';
-  if(d===2)return'far-next';
-  if(d===total-1)return'prev';
-  if(d===total-2)return'far-prev';
-  return'';
+function heroRelClass(i){
+  const d=(i-heroCur+heroTotal)%heroTotal;
+  if(d===0)return'active';if(d===1)return'next';if(d===2)return'far-next';
+  if(d===heroTotal-1)return'prev';if(d===heroTotal-2)return'far-prev';return'';
 }
-
-function clearScheduledAdvance(){
-  if(autoAdvanceHandle){clearTimeout(autoAdvanceHandle);autoAdvanceHandle=null;}
-}
-
-/* اسلایدهای تصویری — تایمر معمولی */
-function scheduleImageAdvance(){
-  clearScheduledAdvance();
-  if(cur===0)return;
-  autoAdvanceHandle=setTimeout(()=>{goTo(cur+1);},AUTOPLAY_MS);
-}
-
-function playHeroVideo(){
-  if(!heroVideo)return;
-  try{heroVideo.currentTime=0;}catch(e){}
-  heroVideo.muted=true;
-  heroVideo.volume=0.35;
-  const p=heroVideo.play();
-  if(p&&p.catch)p.catch(()=>{});
-  updateMuteIcon();
-}
-
-function pauseHeroVideo(){
-  if(!heroVideo)return;
-  heroVideo.pause();
-}
-
-/* ویدیو تموم شد → برو اسلاید بعدی */
+function clearHeroAdvance(){if(heroAutoHandle){clearTimeout(heroAutoHandle);heroAutoHandle=null;}}
+function scheduleHeroImageAdvance(){clearHeroAdvance();if(heroCur===0)return;heroAutoHandle=setTimeout(()=>heroGoTo(heroCur+1),HERO_AUTOPLAY_MS);}
+function playHeroVid(){if(!heroVideo)return;try{heroVideo.currentTime=0;}catch(e){}heroVideo.muted=true;heroVideo.volume=0.35;const p=heroVideo.play();if(p&&p.catch)p.catch(()=>{});updateMuteIcon();}
+function pauseHeroVid(){if(!heroVideo)return;heroVideo.pause();}
 if(heroVideo){
-  heroVideo.addEventListener('ended',function(){
-    if(cur===0)goTo(1);
-  });
-  /* اگه ویدیو لود نشد → ۲ ثانیه صبر کن برو بعدی */
-  heroVideo.addEventListener('error',function(){
-    if(cur===0){
-      clearScheduledAdvance();
-      autoAdvanceHandle=setTimeout(()=>{if(cur===0)goTo(1);},2000);
-    }
-  });
+  heroVideo.addEventListener('ended',function(){if(heroCur===0)heroGoTo(1);});
+  heroVideo.addEventListener('error',function(){if(heroCur===0){clearHeroAdvance();heroAutoHandle=setTimeout(()=>{if(heroCur===0)heroGoTo(1);},2000);}});
 }
-
-/* باز کردن صدا با اولین لمس — بعد از اینکه ویدیو در حال پخش بود */
-function unlockAudioOnce(){
-  if(heroVideo&&cur===0&&!heroVideo.paused){
-    heroVideo.muted=false;
-    heroVideo.volume=0.35;
-    videoSoundEnabled=true;
-    updateMuteIcon();
-  }
+function heroGoTo(n){
+  const prev=heroCur;heroCur=(n+heroTotal)%heroTotal;
+  heroSlides.forEach((s,i)=>{s.classList.remove('active','prev','next','far-prev','far-next');const c=heroRelClass(i);if(c)s.classList.add(c);});
+  heroDots.forEach((d,i)=>d.classList.toggle('active',i===heroCur));
+  if(prev===0&&heroCur!==0){pauseHeroVid();clearHeroAdvance();}
+  if(heroCur===0)playHeroVid();
+  const mb=document.getElementById('muteBtn');if(mb)mb.style.display=(heroCur===0)?'flex':'none';
+  if(heroCur!==0)scheduleHeroImageAdvance();
 }
-document.addEventListener('touchstart',unlockAudioOnce,{passive:true,once:true});
-document.addEventListener('click',function onFirstClick(){
-  unlockAudioOnce();
-  document.removeEventListener('click',onFirstClick);
-});
+heroGoTo(0);
+document.getElementById('heroMiniNext').addEventListener('click',()=>heroGoTo(heroCur+1));
+document.getElementById('heroMiniPrev').addEventListener('click',()=>heroGoTo(heroCur-1));
+heroDots.forEach(d=>d.addEventListener('click',()=>heroGoTo(+d.dataset.i)));
 
-function goTo(n){
-  const prevIndex=cur;
-  cur=(n+total)%total;
-  slides.forEach((s,i)=>{
-    s.classList.remove('active','prev','next','far-prev','far-next');
-    const c=relativeClass(i);if(c)s.classList.add(c);
-  });
-  dots.forEach((d,i)=>d.classList.toggle('active',i===cur));
-
-  if(prevIndex===0&&cur!==0){
-    pauseHeroVideo();
-    clearScheduledAdvance();
-  }
-  if(cur===0){
-    playHeroVideo();
-    // تایمر از رویداد 'playing' شروع می‌شه، نه اینجا
-  }
-
-  const muteBtn=document.getElementById('muteBtn');
-  if(muteBtn)muteBtn.style.display=(cur===0)?'flex':'none';
-
-  if(cur!==0)scheduleImageAdvance();
-  // اسلاید ویدیو: پیشروی فقط از رویداد 'ended' انجام می‌شه، نه تایمر
-}
-
-/* شروع اولیه */
-goTo(0);
-
-/* دکمه‌های ناوبری */
-document.getElementById('heroMiniNext').addEventListener('click',()=>goTo(cur+1));
-document.getElementById('heroMiniPrev').addEventListener('click',()=>goTo(cur-1));
-dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
-
-/* سوایپ لمسی */
+// سوایپ هیرو
 const heroStageEl=document.querySelector('.hero-stage');
-let swipeStartX=0,swipeStartY=0,swipeActive=false,swipeLocked=false;
-heroStageEl.addEventListener('touchstart',function(e){
-  if(e.touches.length!==1)return;
-  swipeStartX=e.touches[0].clientX;swipeStartY=e.touches[0].clientY;
-  swipeActive=true;swipeLocked=false;
-},{passive:true});
-heroStageEl.addEventListener('touchmove',function(e){
-  if(!swipeActive||e.touches.length!==1)return;
-  const dx=e.touches[0].clientX-swipeStartX,dy=e.touches[0].clientY-swipeStartY;
-  if(!swipeLocked&&Math.abs(dx)>6&&Math.abs(dx)>Math.abs(dy)){swipeLocked=true;}
-  if(swipeLocked)e.preventDefault();
-},{passive:false});
-heroStageEl.addEventListener('touchend',function(e){
-  if(!swipeActive)return;swipeActive=false;
-  const t=e.changedTouches[0];
-  const dx=t.clientX-swipeStartX,dy=t.clientY-swipeStartY;
-  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2){
-    if(dx<0)goTo(cur-1);else goTo(cur+1);
-  }
-},{passive:true});
-heroStageEl.addEventListener('touchcancel',function(){swipeActive=false;},{passive:true});
+let hSwX=0,hSwY=0,hSwActive=false,hSwLocked=false;
+heroStageEl.addEventListener('touchstart',function(e){if(e.touches.length!==1)return;hSwX=e.touches[0].clientX;hSwY=e.touches[0].clientY;hSwActive=true;hSwLocked=false;},{passive:true});
+heroStageEl.addEventListener('touchmove',function(e){if(!hSwActive||e.touches.length!==1)return;const dx=e.touches[0].clientX-hSwX,dy=e.touches[0].clientY-hSwY;if(!hSwLocked&&Math.abs(dx)>6&&Math.abs(dx)>Math.abs(dy)){hSwLocked=true;}if(hSwLocked)e.preventDefault();},{passive:false});
+heroStageEl.addEventListener('touchend',function(e){if(!hSwActive)return;hSwActive=false;const t=e.changedTouches[0];const dx=t.clientX-hSwX,dy=t.clientY-hSwY;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2){if(dx<0)heroGoTo(heroCur-1);else heroGoTo(heroCur+1);}},{passive:true});
+heroStageEl.addEventListener('touchcancel',function(){hSwActive=false;},{passive:true});
 
-/* ===== STORIES ===== */
-var stories=[],storyIndex=0,storyTimer=null;
-var STORY_SEEN_KEY='planlife_lingua_stories_v1';var DAY_MS=24*60*60*1000;
-function getSeenMap(){try{var raw=localStorage.getItem(STORY_SEEN_KEY);if(!raw)return{};var map=JSON.parse(raw),now=Date.now(),cleaned={};Object.keys(map).forEach(function(k){if(now-map[k]<DAY_MS)cleaned[k]=map[k];});return cleaned;}catch(e){return{};}}
-function markSeen(idx){try{var map=getSeenMap();map[idx]=Date.now();localStorage.setItem(STORY_SEEN_KEY,JSON.stringify(map));}catch(e){}}
-function isSeen(idx){return Object.prototype.hasOwnProperty.call(getSeenMap(),idx);}
+/* ========================================================
+   STORY SYSTEM — کامل بازنویسی شده
+   ======================================================== */
+var STORY_PROFILE_IMG='http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp';
+var STORY_SEEN_KEY='cllo_stories_v2';
+var IMAGE_STORY_DURATION=3000; // عکس: ۳ ثانیه
+
+var storyList=[];         // آرایه داده استوری‌ها
+var storyCurIdx=0;        // ایندکس فعلی
+var storyPaused=false;    // آیا پاز شده؟
+var storyTimer=null;      // setTimeout برای پیشروی خودکار
+var storyRafId=null;      // requestAnimationFrame برای progress bar
+var storyStartTime=0;     // زمان شروع سگمنت جاری
+var storyDuration=0;      // مدت کل سگمنت جاری (ms)
+var storyElapsedBeforePause=0; // زمان سپری شده قبل از پاز
+var storySavedScrollY=0;
+var storyCurrentVideo=null;  // المان ویدیوی فعلی
+
+/* seen map */
+function getSeenMap(){try{var r=localStorage.getItem(STORY_SEEN_KEY);if(!r)return{};var m=JSON.parse(r),now=Date.now(),c={};Object.keys(m).forEach(k=>{if(now-m[k]<86400000)c[k]=m[k];});return c;}catch(e){return{};}}
+function markSeen(idx){try{var m=getSeenMap();m[idx]=Date.now();localStorage.setItem(STORY_SEEN_KEY,JSON.stringify(m));}catch(e){}}
+function isSeen(idx){return Object.prototype.hasOwnProperty.call(getSeenMap(),String(idx));}
+
 function initStories(){
   var items=document.querySelectorAll('.story-item');
   items.forEach(function(item){
-    var idx=parseInt(item.dataset.index,10);var seen=isSeen(idx);
-    stories.push({el:item,img:item.dataset.img||'',caption:item.dataset.caption||'',btnShow:(item.dataset.btnShow||'').toLowerCase()==='true',btnText:item.dataset.btnText||'',btnLink:item.dataset.btnLink||'',seen:seen});
+    var idx=parseInt(item.dataset.index,10);
+    var seen=isSeen(idx);
+    var type=item.dataset.type||'image'; // 'video' or 'image'
+    storyList.push({
+      el:item,
+      type:type,
+      src:item.dataset.img||'',
+      caption:item.dataset.caption||'',
+      btnShow:(item.dataset.btnShow||'').toLowerCase()==='true',
+      btnText:item.dataset.btnText||'',
+      btnLink:item.dataset.btnLink||'',
+      seen:seen
+    });
     if(seen)item.classList.add('seen');
     item.addEventListener('click',function(){openStoryModal(idx);});
   });
+
+  /* drag scroll برای stories-scroll */
   var el=document.getElementById('stories-scroll');
   var isDown=false,startX,scrollLeft;
   el.addEventListener('mousedown',function(e){isDown=true;startX=e.pageX-el.offsetLeft;scrollLeft=el.scrollLeft;el.style.cursor='grabbing';});
   el.addEventListener('mouseleave',function(){isDown=false;el.style.cursor='grab';});
   el.addEventListener('mouseup',function(){isDown=false;el.style.cursor='grab';});
   el.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();el.scrollLeft=scrollLeft-(e.pageX-el.offsetLeft-startX)*1.4;});
-}
-var savedScrollY=0;
-function openStoryModal(idx){storyIndex=idx;savedScrollY=window.scrollY||0;document.body.style.position='fixed';document.body.style.top=(-savedScrollY)+'px';document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%';document.getElementById('story-modal').classList.add('open');renderStoryModal();buildProgressBar();startStoryTimer();}
-function closeStoryModal(){document.getElementById('story-modal').classList.remove('open');clearStoryTimer();var cd=document.getElementById('story-modal-content');var vid=cd.querySelector('video');if(vid){vid.pause();vid.removeAttribute('src');vid.load();vid.remove();}document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.width='';window.scrollTo(0,savedScrollY);}
-function renderStoryModal(){var s=stories[storyIndex];if(!s){closeStoryModal();return;}s.seen=true;s.el.classList.add('seen');markSeen(storyIndex);var cd=document.getElementById('story-modal-content');var oldV=cd.querySelector('video');if(oldV){oldV.pause();oldV.src='';oldV.remove();}var oldI=cd.querySelector('img');if(oldI)oldI.remove();var img=document.createElement('img');img.src=s.img;img.alt='';img.loading='eager';img.decoding='async';img.fetchPriority='high';img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;';cd.appendChild(img);document.getElementById('story-caption').textContent=s.caption;var btn=document.getElementById('story-action-btn');if(s.btnShow&&s.btnLink){btn.textContent=s.btnText||'مشاهده بیشتر';btn.href=s.btnLink;btn.classList.add('show');}else{btn.classList.remove('show');btn.removeAttribute('href');}}
-function buildProgressBar(){var bar=document.getElementById('story-progress-bar');bar.innerHTML='';stories.forEach(function(s,i){var seg=document.createElement('div');seg.className='progress-seg';if(i<storyIndex)seg.classList.add('done');if(i===storyIndex)seg.classList.add('active');var fill=document.createElement('div');fill.className='progress-seg-fill';seg.appendChild(fill);bar.appendChild(seg);});}
-function startStoryTimer(){clearStoryTimer();storyTimer=setTimeout(function(){storyNavigate(1);},5000);}
-function clearStoryTimer(){if(storyTimer){clearTimeout(storyTimer);storyTimer=null;}}
-function storyNavigate(dir){clearStoryTimer();storyIndex+=dir;if(storyIndex<0)storyIndex=0;if(storyIndex>=stories.length){closeStoryModal();return;}renderStoryModal();buildProgressBar();startStoryTimer();}
-document.getElementById('story-modal').addEventListener('click',function(e){if(e.target===this)closeStoryModal();});
-window.addEventListener('load',function(){initStories();});
 
-/* بستن مودال با دکمه X */
-document.addEventListener('click',function(e){
-  if(!e.target.closest('.modal-close-btn'))return;
-  const btn=e.target.closest('.modal-close-btn');
-  const modal=btn.closest('[class*="modal"],[id*="modal"],[class*="popup"],[id*="popup"]');
-  if(modal){modal.style.display='none';modal.classList.remove('show','active','open');modal.setAttribute('aria-hidden','true');}
+  /* ناوبری چپ/راست و مکث */
+  document.getElementById('story-nav-left').addEventListener('click',function(){storyNavigate(-1);});
+  document.getElementById('story-nav-right').addEventListener('click',function(){storyNavigate(1);});
+  document.getElementById('story-pause-zone').addEventListener('click',function(){toggleStoryPause();});
+
+  /* swipe روی modal */
+  var mc=document.getElementById('story-modal-content');
+  var swX=0,swY=0,swA=false;
+  mc.addEventListener('touchstart',function(e){if(e.touches.length!==1)return;swX=e.touches[0].clientX;swY=e.touches[0].clientY;swA=true;},{passive:true});
+  mc.addEventListener('touchend',function(e){
+    if(!swA)return;swA=false;
+    var dx=e.changedTouches[0].clientX-swX,dy=e.changedTouches[0].clientY-swY;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.2){
+      if(dx<0)storyNavigate(1);else storyNavigate(-1);
+    }
+  },{passive:true});
+}
+
+function openStoryModal(idx){
+  storyCurIdx=idx;
+  storySavedScrollY=window.scrollY||0;
+  document.body.style.position='fixed';
+  document.body.style.top=(-storySavedScrollY)+'px';
+  document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%';
+  document.getElementById('story-modal').classList.add('open');
+  storyPaused=false;
+  renderStory();
+}
+
+function closeStoryModal(){
+  document.getElementById('story-modal').classList.remove('open');
+  stopStoryTimer();
+  stopStoryRAF();
+  cleanupStoryVideo();
+  document.body.style.position='';
+  document.body.style.top='';
+  document.body.style.left='';document.body.style.right='';document.body.style.width='';
+  window.scrollTo(0,storySavedScrollY);
+  hidePauseIcon();
+}
+
+function cleanupStoryVideo(){
+  if(storyCurrentVideo){
+    storyCurrentVideo.pause();
+    storyCurrentVideo.src='';
+    storyCurrentVideo.load();
+    storyCurrentVideo=null;
+  }
+}
+
+function renderStory(){
+  if(storyCurIdx<0||storyCurIdx>=storyList.length){closeStoryModal();return;}
+  var s=storyList[storyCurIdx];
+
+  /* mark seen */
+  s.seen=true;
+  s.el.classList.add('seen');
+  markSeen(storyCurIdx);
+
+  /* پاک کردن محتوای قبلی */
+  cleanupStoryVideo();
+  var cd=document.getElementById('story-modal-content');
+  cd.innerHTML='';
+
+  /* ناوبری zones را دوباره اضافه می‌کنیم */
+  cd.appendChild(document.getElementById('story-nav-left'));
+  cd.appendChild(document.getElementById('story-nav-right'));
+  cd.appendChild(document.getElementById('story-pause-zone'));
+
+  /* caption */
+  document.getElementById('story-caption').textContent=s.caption;
+
+  /* دکمه */
+  var btn=document.getElementById('story-action-btn');
+  if(s.btnShow&&s.btnLink){
+    btn.textContent=s.btnText||'مشاهده بیشتر';
+    btn.href=s.btnLink;
+    btn.classList.add('show');
+  }else{
+    btn.classList.remove('show');
+    btn.removeAttribute('href');
+  }
+
+  /* progress bar */
+  buildProgressBar();
+
+  /* محتوا */
+  if(s.type==='video'){
+    renderStoryVideo(s,cd);
+  }else{
+    renderStoryImage(s,cd);
+  }
+
+  storyPaused=false;
+  hidePauseIcon();
+}
+
+function renderStoryImage(s,cd){
+  var img=document.createElement('img');
+  img.src=s.src;
+  img.alt='';
+  img.loading='eager';
+  img.decoding='async';
+  img.fetchPriority='high';
+  img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;';
+  cd.insertBefore(img,cd.firstChild);
+  storyDuration=IMAGE_STORY_DURATION;
+  startStoryProgress(IMAGE_STORY_DURATION);
+}
+
+function renderStoryVideo(s,cd){
+  var vid=document.createElement('video');
+  vid.src=s.src;
+  vid.muted=true;
+  vid.playsInline=true;
+  vid.autoplay=false;
+  vid.preload='auto';
+  vid.setAttribute('webkit-playsinline','');
+  vid.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;';
+  storyCurrentVideo=vid;
+  cd.insertBefore(vid,cd.firstChild);
+
+  /* پخش بلافاصله */
+  var p=vid.play();
+  if(p&&p.catch)p.catch(()=>{});
+
+  /* وقتی مدت ویدیو مشخص شد، تایمر رو شروع کن */
+  function onGotDuration(){
+    if(storyCurrentVideo!==vid)return;
+    var dur=vid.duration*1000;
+    if(!isFinite(dur)||dur<=0)dur=10000;
+    storyDuration=dur;
+    startStoryProgress(dur);
+  }
+
+  if(vid.readyState>=1&&isFinite(vid.duration)&&vid.duration>0){
+    onGotDuration();
+  }else{
+    vid.addEventListener('loadedmetadata',onGotDuration,{once:true});
+    /* fallback اگه metadata نیومد */
+    vid.addEventListener('canplay',function(){
+      if(storyCurrentVideo===vid&&storyDuration===0)onGotDuration();
+    },{once:true});
+  }
+
+  /* وقتی ویدیو تموم شد */
+  vid.addEventListener('ended',function(){
+    if(storyCurrentVideo===vid)storyNavigate(1);
+  });
+}
+
+/* ===== PROGRESS BAR ===== */
+function buildProgressBar(){
+  var bar=document.getElementById('story-progress-bar');
+  bar.innerHTML='';
+  storyList.forEach(function(s,i){
+    var seg=document.createElement('div');
+    seg.className='progress-seg';
+    if(i<storyCurIdx)seg.classList.add('done');
+    var fill=document.createElement('div');
+    fill.className='progress-seg-fill';
+    seg.appendChild(fill);
+    bar.appendChild(seg);
+  });
+}
+
+function getActiveFill(){
+  var segs=document.getElementById('story-progress-bar').querySelectorAll('.progress-seg');
+  var seg=segs[storyCurIdx];
+  return seg?seg.querySelector('.progress-seg-fill'):null;
+}
+
+function startStoryProgress(duration){
+  stopStoryTimer();
+  stopStoryRAF();
+  storyElapsedBeforePause=0;
+  storyStartTime=performance.now();
+  animateProgress(duration);
+}
+
+function animateProgress(duration){
+  var fill=getActiveFill();
+  if(!fill)return;
+  if(storyPaused)return;
+
+  var elapsed=storyElapsedBeforePause+(performance.now()-storyStartTime);
+  var pct=Math.min(elapsed/duration*100,100);
+  fill.style.width=pct+'%';
+
+  if(elapsed>=duration){
+    fill.style.width='100%';
+    stopStoryRAF();
+    storyNavigate(1);
+    return;
+  }
+  storyRafId=requestAnimationFrame(function(){animateProgress(duration);});
+}
+
+function stopStoryRAF(){
+  if(storyRafId){cancelAnimationFrame(storyRafId);storyRafId=null;}
+}
+function stopStoryTimer(){
+  if(storyTimer){clearTimeout(storyTimer);storyTimer=null;}
+}
+
+/* ===== PAUSE / RESUME ===== */
+function toggleStoryPause(){
+  if(storyPaused)resumeStory();
+  else pauseStory();
+}
+
+function pauseStory(){
+  if(storyPaused)return;
+  storyPaused=true;
+  storyElapsedBeforePause+=(performance.now()-storyStartTime);
+  stopStoryRAF();
+  if(storyCurrentVideo&&!storyCurrentVideo.paused)storyCurrentVideo.pause();
+  showPauseIcon();
+}
+
+function resumeStory(){
+  if(!storyPaused)return;
+  storyPaused=false;
+  storyStartTime=performance.now();
+  if(storyCurrentVideo&&storyCurrentVideo.paused){var p=storyCurrentVideo.play();if(p&&p.catch)p.catch(()=>{});}
+  hidePauseIcon();
+  animateProgress(storyDuration);
+}
+
+function showPauseIcon(){
+  var icon=document.getElementById('story-pause-icon');
+  if(icon)icon.classList.add('visible');
+}
+function hidePauseIcon(){
+  var icon=document.getElementById('story-pause-icon');
+  if(icon)icon.classList.remove('visible');
+}
+
+/* ===== NAVIGATE ===== */
+function storyNavigate(dir){
+  stopStoryRAF();
+  stopStoryTimer();
+  storyPaused=false;
+  storyCurIdx+=dir;
+  if(storyCurIdx<0){storyCurIdx=0;closeStoryModal();return;}
+  if(storyCurIdx>=storyList.length){closeStoryModal();return;}
+  renderStory();
+}
+
+/* nav zones باید داخل story-container باشند نه story-modal-content */
+// (در HTML آنها را از story-modal-content بیرون آوردیم)
+// اما چون renderStory آنها را به cd append می‌کند، بگذاریم در container باشند
+document.addEventListener('DOMContentLoaded',function(){
+  var container=document.querySelector('.story-container');
+  var navL=document.getElementById('story-nav-left');
+  var navR=document.getElementById('story-nav-right');
+  var pauseZ=document.getElementById('story-pause-zone');
+  if(navL&&container&&navL.parentElement!==container){container.appendChild(navL);}
+  if(navR&&container&&navR.parentElement!==container){container.appendChild(navR);}
+  if(pauseZ&&container&&pauseZ.parentElement!==container){container.appendChild(pauseZ);}
+  initStories();
 });
+
+/* click بیرون modal */
+document.getElementById('story-modal').addEventListener('click',function(e){
+  if(e.target===this)closeStoryModal();
+});
+
 </script>
 </body>
 </html>
