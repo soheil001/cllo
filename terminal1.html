@@ -65,7 +65,7 @@ function initAudio(){
   const len = ac.sampleRate*2.6, ir = ac.createBuffer(2, len, ac.sampleRate);
   for(let c=0;c<2;c++){ const d = ir.getChannelData(c); for(let i=0;i<len;i++) d[i] = (Math.random()*2-1)*Math.pow(1-i/len, 2.6); }
   const conv = ac.createConvolver(); conv.buffer = ir;
-  const wet = ac.createGain(); wet.gain.value = .75; bus.connect(conv); conv.connect(wet); wet.connect(ac.destination);
+  const wet = ac.createGain(); wet.gain.value = .12; bus.connect(conv); conv.connect(wet); wet.connect(ac.destination);
 }
 function env(g, t, a, d, v){ g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(v, t+a); g.gain.exponentialRampToValueAtTime(.0001, t+a+d); }
 function bell(f, d=1.6, v=.09, delay=0){
@@ -96,12 +96,44 @@ function drone(freqs, d=2.2, v=.07, type="sine", lp=900, delay=0){
     o.connect(f); o.start(t); o.stop(t+d+.1); });
 }
 const SCALE = [220,233.1,261.6,293.7,329.6,349.2,392,440,466.2,523.3];   // مقیاس فریژین تاریک
+function electricKey(){
+  if(!ac) return;
+  const t=ac.currentTime;
+
+  // صدای خشک، کوتاه و مرموزِ کی‌پدهای امنیتی / دستگاه‌های فیلمی
+  const freq = 680 + Math.random()*90;
+  const o=ac.createOscillator(), g=ac.createGain(), f=ac.createBiquadFilter();
+  o.type="square";
+  o.frequency.setValueAtTime(freq,t);
+  o.frequency.exponentialRampToValueAtTime(freq*0.72,t+0.035);
+  f.type="bandpass";
+  f.frequency.value=1450;
+  f.Q.value=7;
+  g.gain.setValueAtTime(.0001,t);
+  g.gain.exponentialRampToValueAtTime(.105,t+.002);
+  g.gain.exponentialRampToValueAtTime(.0001,t+.052);
+  o.connect(f).connect(g).connect(bus);
+  o.start(t); o.stop(t+.058);
+
+  // یک «تیک» فلزی بسیار کوتاه برای حس مکانیکی/امنیتی
+  const n=ac.createBufferSource();
+  const b=ac.createBuffer(1,Math.floor(ac.sampleRate*.018),ac.sampleRate);
+  const d=b.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
+  const nf=ac.createBiquadFilter(); nf.type="highpass"; nf.frequency.value=2600;
+  const ng=ac.createGain();
+  ng.gain.setValueAtTime(.045,t);
+  ng.gain.exponentialRampToValueAtTime(.0001,t+.018);
+  n.connect(nf).connect(ng).connect(bus);
+  n.start(t);
+}
+
 const sfx = {
-  key:(k) => { const n = SCALE[+k % 10]; thud(90,.4,.45); bell(n, 1.8, .1); whoosh(200, 900, .35, .05); },
-  clear:() => { whoosh(1800, 120, .8, .16); thud(70,.6,.4); },
-  ok:()    => { drone([110,164.8,220,261.6], 2.8, .09, "sine", 1600); bell(880, 2.6, .1, .3); bell(1318.5, 3, .07, .55); },
-  bad:()   => { drone([110,155.6], 1.5, .12, "sawtooth", 500); thud(60,.8,.6); bell(155.6, 1.4, .08, .1); },
-  link:()  => { drone([73.4,110,146.8], 2.2, .1, "sine", 700); whoosh(150, 1800, .9, .14); bell(174.6, 2.4, .1, .15); thud(70,.6,.45); }
+  key:() => electricKey(),
+  clear:() => { electricKey(); setTimeout(electricKey,48); },
+  ok:() => { drone([110,164.8,220,261.6],2.8,.09,"sine",1600); bell(880,2.6,.1,.3); bell(1318.5,3,.07,.55); },
+  bad:() => { drone([110,155.6],1.5,.12,"sawtooth",500); thud(60,.8,.6); bell(155.6,1.4,.08,.1); },
+  link:() => { drone([73.4,110,146.8],2.2,.1,"sine",700); whoosh(150,1800,.9,.14); bell(174.6,2.4,.1,.15); thud(70,.6,.45); }
 };
 
 // ================= نمایشگر / چراغ =================
@@ -134,13 +166,23 @@ async function press(k){
     render();
 
     try{
-      const rows=await sbGet('subscriptions',`code=eq.${encodeURIComponent(code)}&is_active=eq.true`);
+      // کد ۶ رقمی مستقیماً از ستون phone جدول user خوانده می‌شود.
+      // چون phone ممکن است عددی یا متنی باشد، مقدار دقیقاً همان ۶ رقم واردشده ارسال می‌شود.
+      let rows=[];
+      const value=encodeURIComponent(code);
+      try{
+        rows=await sbGet('user',`phone=eq.${value}`);
+      }catch(e){
+        rows=[];
+      }
       if(Array.isArray(rows)&&rows.length){
         sfx.ok();
         setLed("#2eea5a");
         render("ok");
-        try{window.parent.postMessage({type:'subscription-verified',code},window.location.origin);}catch(e){}
-        setTimeout(reset,2800);
+        try{localStorage.setItem('lingua_session_v1',JSON.stringify({code,verified:true,ts:Date.now()}));}catch(e){}
+        const params=new URLSearchParams(location.search);
+        const returnUrl=params.get('return')||'https://cllo.ir/';
+        setTimeout(()=>{window.location.href=returnUrl;},900);
       }else{
         sfx.bad();
         setLed("#ff2a2a");
