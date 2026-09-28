@@ -412,23 +412,39 @@
   .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,0.95);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.4);opacity:0;transition:all 0.3s ease;pointer-events:none;white-space:nowrap;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-  /* ===== TERMINAL MODAL (قفل‌گشایی با کد) ===== */
+  /* ===== TERMINAL (داخل صفحه) ===== */
   #terminal-modal{
     position:fixed;inset:0;z-index:12000;background:#050403;
-    display:flex;align-items:stretch;justify-content:center;
     opacity:0;pointer-events:none;transition:opacity .28s ease;
+    overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   }
   #terminal-modal.open{opacity:1;pointer-events:auto;}
-  #terminal-frame{width:100%;height:100%;border:0;display:block;background:#050403;}
+  #terminal-scroll{min-height:100%;display:flex;justify-content:center;align-items:flex-start;}
   #terminal-close{
-    position:absolute;z-index:2;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;
+    position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;
     width:38px;height:38px;border-radius:50%;
     background:rgba(0,0,0,.55);border:1px solid rgba(255,190,90,.45);
     color:#ffa31a;font-size:18px;display:flex;align-items:center;justify-content:center;
     cursor:pointer;-webkit-tap-highlight-color:transparent;
-    box-shadow:0 0 14px rgba(255,140,0,.25);
   }
-  #terminal-close:active{transform:scale(.92);}
+  #term{position:relative;width:100%;max-width:560px;aspect-ratio:941/1672;container-type:inline-size;
+        user-select:none;-webkit-user-select:none;opacity:0;transition:opacity .25s}
+  #term.ready{opacity:1}
+  #term img{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+  #term .key{position:absolute;padding:0;border:0;border-radius:8px;cursor:pointer;background-color:transparent;background-image:var(--img);background-repeat:no-repeat;
+       touch-action:manipulation;-webkit-tap-highlight-color:transparent;outline:0;
+       transition:transform .07s ease-out,filter .07s;box-shadow:0 4px 5px rgba(0,0,0,.55)}
+  #term .key.down{transform:translateY(2px) scale(.94);filter:brightness(.8);box-shadow:0 1px 2px rgba(0,0,0,.6)}
+  #term .link{position:absolute;display:block;border-radius:14px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+        transition:background .1s,box-shadow .1s,transform .1s}
+  #term .link.down{background:rgba(255,190,90,.12);box-shadow:inset 0 0 22px rgba(255,160,40,.35);transform:scale(.985)}
+  #term .slot{position:absolute;display:none;align-items:center;justify-content:center;background:#0a0603;
+        color:#ffa31a;font:700 6.2cqw "Courier New",monospace !important;text-shadow:0 0 8px #ff8c00,0 0 18px #ff6a00;pointer-events:none}
+  #term .slot.bad{color:#ff2a2a;text-shadow:0 0 8px #f00,0 0 18px #c00}
+  #term .slot.ok{color:#2eea5a;text-shadow:0 0 8px #12c93f,0 0 18px #0a9}
+  #term #led{position:absolute;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .15s}
+  @keyframes tshake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  #term.shake{animation:tshake .4s}
 
   /* ===== CATEGORIES POPUP ===== */
   .categories-popup{
@@ -868,10 +884,10 @@
 
 </div><!-- /.wrap -->
 
-<!-- ===== TERMINAL MODAL (ترمینال کد اشتراک) ===== -->
+<!-- ===== TERMINAL (داخل صفحه) ===== -->
 <div id="terminal-modal" role="dialog" aria-modal="true" aria-label="ترمینال ورود کد">
   <button id="terminal-close" type="button" aria-label="بستن" onclick="closeTerminalModal()">✕</button>
-  <iframe id="terminal-frame" title="Access Terminal" allow="autoplay" tabindex="-1"></iframe>
+  <div id="terminal-scroll"><div id="term"></div></div>
 </div>
 
 <!-- ===== LOGIN POPUP ===== -->
@@ -948,7 +964,6 @@ async function sbInsert(t,b){const r=await fetch(`${SUPABASE_URL}/rest/v1/${t}`,
 const SESSION_KEY='lingua_session_v1';
 /* --- قفل‌گشایی با کد ترمینال --- */
 const TERMINAL_KEY='cllo_terminal_unlock_v1';
-const TERMINAL_URL='terminal.html';                 // مسیر فایل ترمینال
 const TERMINAL_TTL=30*24*60*60*1000;                // اعتبار قفل‌گشایی: ۳۰ روز
 function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch(e){return null;}}
 function setSession(d){localStorage.setItem(SESSION_KEY,JSON.stringify(d));}
@@ -977,44 +992,177 @@ document.addEventListener('click',function(e){
   if(p&&p.classList.contains('open')&&!p.contains(e.target)&&!e.target.closest('#categoriesBtn'))p.classList.remove('open');
 });
 
-/* ========== TERMINAL MODAL ========== */
+/* ========== TERMINAL (داخل همین صفحه) ========== */
+const TERMINAL_CODE="123456";               // کد صحیح
+const TERMINAL_IMG="";                      // اگر data:image/webp;base64,... را اینجا بگذاری دیگر به terminal.html نیازی نیست
+const TERMINAL_IMG_FILE="terminal.html";    // در غیر این صورت تصویر از این فایل خوانده می‌شود
+const TERMINAL_LINKS={telegram:"https://t.me/planlifeir",whatsapp:"https://wa.me/905437333582",bale:"https://ble.ir/planlifeir"};
 var terminalPendingAction=null;
+var terminalOpen=false;
+
+const TERM=(function(){
+  const W=941,H=1672;
+  const term=document.getElementById("term");
+  let ready=false,initing=false;
+  let code="",locked=false,slots=[],led=null,btns={};
+  const px=(el,cx,cy,w,h)=>{const l=cx-w/2,t=cy-h/2;Object.assign(el.style,{left:l/W*100+"%",top:t/H*100+"%",width:w/W*100+"%",height:h/H*100+"%"});return{l,t,w,h};};
+
+  /* ---- صدا ---- */
+  let ac,bus;
+  function initAudio(){
+    try{
+      if(ac){if(ac.state==="suspended")ac.resume();return;}
+      ac=new(window.AudioContext||window.webkitAudioContext)();
+      bus=ac.createGain();bus.gain.value=.9;bus.connect(ac.destination);
+      const len=ac.sampleRate*2.6,ir=ac.createBuffer(2,len,ac.sampleRate);
+      for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6);}
+      const conv=ac.createConvolver();conv.buffer=ir;
+      const wet=ac.createGain();wet.gain.value=.75;bus.connect(conv);conv.connect(wet);wet.connect(ac.destination);
+    }catch(e){ac=null;}
+  }
+  function env(g,t,a,d,v){g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+a+d);}
+  function bell(f,d=1.6,v=.09,delay=0){
+    const t=ac.currentTime+delay;
+    [[1,1],[2.01,.5],[2.76,.32],[5.4,.14]].forEach(([m,a])=>{
+      const o=ac.createOscillator(),g=ac.createGain();
+      o.type="sine";o.frequency.value=f*m*(1+(Math.random()-.5)*.004);
+      env(g,t,.006,d/(m**.5),v*a);o.connect(g).connect(bus);o.start(t);o.stop(t+d+.1);
+    });
+  }
+  function thud(f=95,d=.45,v=.5,delay=0){
+    const t=ac.currentTime+delay,o=ac.createOscillator(),g=ac.createGain();
+    o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(34,t+d);
+    env(g,t,.004,d,v);o.connect(g).connect(bus);o.start(t);o.stop(t+d+.05);
+  }
+  function whoosh(from=250,to=1400,d=.6,v=.12,delay=0){
+    const t=ac.currentTime+delay,n=ac.createBufferSource(),b=ac.createBuffer(1,ac.sampleRate*d,ac.sampleRate),x=b.getChannelData(0);
+    for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;
+    n.buffer=b;const f=ac.createBiquadFilter();f.type="bandpass";f.Q.value=5;
+    f.frequency.setValueAtTime(from,t);f.frequency.exponentialRampToValueAtTime(to,t+d);
+    const g=ac.createGain();env(g,t,d*.4,d*.6,v);n.connect(f).connect(g).connect(bus);n.start(t);
+  }
+  function drone(freqs,d=2.2,v=.07,type="sine",lp=900,delay=0){
+    const t=ac.currentTime+delay,f=ac.createBiquadFilter();f.type="lowpass";
+    f.frequency.setValueAtTime(lp*.3,t);f.frequency.exponentialRampToValueAtTime(lp,t+d*.4);
+    const g=ac.createGain();env(g,t,d*.35,d*.65,v);f.connect(g).connect(bus);
+    freqs.forEach((fr,i)=>{const o=ac.createOscillator();o.type=type;o.frequency.value=fr;o.detune.value=(i%2?7:-7);o.connect(f);o.start(t);o.stop(t+d+.1);});
+  }
+  const SCALE=[220,233.1,261.6,293.7,329.6,349.2,392,440,466.2,523.3];
+  const sfx={
+    key:k=>{if(!ac)return;const n=SCALE[+k%10];thud(90,.4,.45);bell(n,1.8,.1);whoosh(200,900,.35,.05);},
+    clear:()=>{if(!ac)return;whoosh(1800,120,.8,.16);thud(70,.6,.4);},
+    ok:()=>{if(!ac)return;drone([110,164.8,220,261.6],2.8,.09,"sine",1600);bell(880,2.6,.1,.3);bell(1318.5,3,.07,.55);},
+    bad:()=>{if(!ac)return;drone([110,155.6],1.5,.12,"sawtooth",500);thud(60,.8,.6);bell(155.6,1.4,.08,.1);},
+    link:()=>{if(!ac)return;drone([73.4,110,146.8],2.2,.1,"sine",700);whoosh(150,1800,.9,.14);bell(174.6,2.4,.1,.15);thud(70,.6,.45);}
+  };
+
+  /* ---- نمایشگر ---- */
+  function render(state=""){slots.forEach((s,i)=>{s.style.display=code[i]?"flex":"none";s.textContent=code[i]||"";s.className="slot "+state;});}
+  function setLed(c){led.style.background=c;led.style.boxShadow="0 0 14px "+c;led.style.opacity=1;}
+  function reset(){code="";if(ready){render();led.style.opacity=0;}locked=false;}
+  function press(k){
+    initAudio();if(locked)return;
+    if(navigator.vibrate)navigator.vibrate(12);
+    led.style.opacity=0;
+    if(k==="CLEAR"){sfx.clear();code="";render();}
+    else if(k==="ENTER"){
+      if(!code){sfx.key(0);return;}
+      locked=true;
+      if(code===TERMINAL_CODE){
+        sfx.ok();setLed("#2eea5a");render("ok");
+        onTerminalSuccess();
+        setTimeout(reset,2800);
+      }else{
+        sfx.bad();setLed("#ff2a2a");render("bad");term.classList.add("shake");
+        setTimeout(()=>term.classList.remove("shake"),420);setTimeout(reset,1500);
+      }
+    }else{sfx.key(k);if(code.length<6){code+=k;render();}}
+  }
+
+  /* ---- ساخت ترمینال ---- */
+  function build(src){
+    term.innerHTML="";
+    const bg=document.createElement("img");bg.id="bg";bg.alt="";bg.src=src;term.appendChild(bg);
+    term.style.setProperty("--img","url("+src+")");
+    slots=[359,418,474,529,583,637].map(x=>{const d=document.createElement("div");d.className="slot";px(d,x,554,44,66);term.appendChild(d);return d;});
+    led=document.createElement("div");led.id="led";px(led,674,744,44,20);term.appendChild(led);
+
+    const cols=[316,435,552],rows=[704,791,878,967];
+    const labels=["1","2","3","4","5","6","7","8","9","CLEAR","0","ENTER"];
+    labels.forEach((k,i)=>{
+      const b=document.createElement("button");b.className="key";b.setAttribute("aria-label",k);
+      const r=px(b,cols[i%3],rows[Math.floor(i/3)],98,76);
+      b.style.backgroundSize=(W/r.w*100)+"% "+(H/r.h*100)+"%";
+      b.style.backgroundPosition=(r.l/(W-r.w)*100)+"% "+(r.t/(H-r.h)*100)+"%";
+      const up=()=>b.classList.remove("down");
+      b.addEventListener("pointerdown",e=>{e.preventDefault();b.classList.add("down");press(k);});
+      ["pointerup","pointerleave","pointercancel"].forEach(ev=>b.addEventListener(ev,up));
+      term.appendChild(b);btns[k]=b;
+    });
+    [["telegram",1174],["whatsapp",1297],["bale",1420]].forEach(([name,y])=>{
+      const a=document.createElement("a");a.className="link";a.href=TERMINAL_LINKS[name];a.target="_blank";a.rel="noopener noreferrer";
+      a.setAttribute("aria-label",name);px(a,477,y,628,98);
+      a.addEventListener("pointerdown",()=>{initAudio();a.classList.add("down");sfx.link();if(navigator.vibrate)navigator.vibrate(20);});
+      ["pointerup","pointerleave","pointercancel"].forEach(ev=>a.addEventListener(ev,()=>a.classList.remove("down")));
+      term.appendChild(a);
+    });
+    (bg.decode?bg.decode():Promise.resolve()).catch(()=>{}).then(()=>term.classList.add("ready"));
+  }
+
+  document.addEventListener("keydown",e=>{
+    if(!terminalOpen||!ready||e.repeat)return;
+    const k=/^[0-9]$/.test(e.key)?e.key:e.key==="Enter"?"ENTER":e.key==="Backspace"?"CLEAR":null;
+    if(!k||!btns[k])return;
+    btns[k].classList.add("down");press(k);setTimeout(()=>btns[k].classList.remove("down"),110);
+  });
+
+  async function init(){
+    if(ready||initing)return;
+    initing=true;
+    let src=TERMINAL_IMG;
+    if(!src){
+      try{
+        const t=await(await fetch(TERMINAL_IMG_FILE)).text();
+        const m=t.match(/<img id="bg"[^>]*?src="([^"]+)"/);
+        if(m)src=m[1];
+      }catch(e){}
+    }
+    if(!src){showToast("تصویر ترمینال پیدا نشد");initing=false;return;}
+    build(src);ready=true;initing=false;
+  }
+  return{init,reset};
+})();
+
 function openTerminalModal(action){
   terminalPendingAction=action||null;
-  const modal=document.getElementById('terminal-modal');
-  const frame=document.getElementById('terminal-frame');
-  /* هر بار تازه لود شود تا وضعیت قبلی نماند */
-  frame.src=TERMINAL_URL;
-  modal.classList.add('open');
+  terminalOpen=true;
+  document.getElementById('terminal-modal').classList.add('open');
+  document.getElementById('terminal-modal').scrollTop=0;
+  document.documentElement.style.overflow='hidden';
   document.body.style.overflow='hidden';
+  TERM.init();
 }
 function closeTerminalModal(){
-  const modal=document.getElementById('terminal-modal');
-  modal.classList.remove('open');
+  terminalOpen=false;
+  document.getElementById('terminal-modal').classList.remove('open');
+  document.documentElement.style.overflow='';
   document.body.style.overflow='';
   terminalPendingAction=null;
-  /* بعد از پایان انیمیشن، iframe خالی شود (صدا/منابع آزاد شود) */
-  setTimeout(()=>{if(!modal.classList.contains('open'))document.getElementById('terminal-frame').src='about:blank';},350);
+  TERM.reset();
 }
 function onTerminalSuccess(){
   setTerminalUnlock();
   const action=terminalPendingAction;
   terminalPendingAction=null;
   unlockAllCards();updateLoginIcon();
-  /* کمی صبر تا کاربر چراغ سبز ترمینال را ببیند */
   setTimeout(function(){
     closeTerminalModal();
     showToast('✅ کد صحیح بود! بخش‌ها باز شد');
     if(action)setTimeout(action,300);
   },1400);
 }
-window.addEventListener('message',function(e){
-  const frame=document.getElementById('terminal-frame');
-  if(!frame||e.source!==frame.contentWindow)return;   /* فقط از iframe ترمینال */
-  if(e.data&&e.data.type==='cllo-terminal-success')onTerminalSuccess();
-});
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&document.getElementById('terminal-modal').classList.contains('open')){closeTerminalModal();}
+  if(e.key==='Escape'&&terminalOpen)closeTerminalModal();
 });
 
 /* ========== LOGIN ========== */
