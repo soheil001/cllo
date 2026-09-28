@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLLO Access Terminal</title>
+<style>
+  html,body{margin:0;background:#000;color:#ddd;font-family:Tahoma,sans-serif}
+  body{display:flex;flex-direction:column;align-items:center;padding:16px;box-sizing:border-box}
+  h2{font-weight:normal;font-size:1.1rem;margin:0 0 12px;text-align:center}
+  #term{position:relative;width:100%;max-width:900px;aspect-ratio:1536/1024;user-select:none}
+  #term img{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .key{position:absolute;background:transparent;border:0;border-radius:8px;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+  .key:active,.key.on{background:rgba(255,160,0,.28)}
+  .slot{position:absolute;display:flex;align-items:center;justify-content:center;background:#0b0602;
+        color:#ffa31a;font:700 clamp(22px,6vw,58px) "Courier New",monospace;text-shadow:0 0 10px #ff8c00,0 0 22px #ff6a00;pointer-events:none}
+  #led{position:absolute;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .2s}
+  #msg{margin-top:12px;min-height:1.5em;text-align:center}
+</style>
+</head>
+<body>
+<h2>کد را وارد کنید</h2>
+<div id="term"><img src="terminal.png" alt="CLLO Access Terminal"></div>
+<div id="msg"></div>
+
+<script>
+const CORRECT_CODE = "123456";   // کد صحیح را اینجا عوض کنید
+const W = 1536, H = 1024;         // ابعاد تصویر اصلی
+const term = document.getElementById("term"), msg = document.getElementById("msg");
+const place = (el, cx, cy, w, h) => {
+  el.style.left = (cx - w/2)/W*100 + "%"; el.style.top = (cy - h/2)/H*100 + "%";
+  el.style.width = w/W*100 + "%"; el.style.height = h/H*100 + "%";
+};
+
+// خانه‌های نمایشگر
+const slots = [594,695,790,881,970,1064].map(x => {
+  const d = document.createElement("div"); d.className = "slot";
+  place(d, x, 237, 74, 96); d.style.display = "none"; term.appendChild(d); return d;
+});
+// چراغ وضعیت
+const led = document.createElement("div"); led.id = "led"; place(led, 1097, 519, 76, 30); term.appendChild(led);
+
+let code = "";
+function render(){
+  slots.forEach((s,i) => { s.style.display = code[i] ? "flex" : "none"; s.textContent = code[i] || ""; });
+}
+function press(k){
+  msg.textContent = ""; led.style.opacity = 0;
+  if (k === "CLEAR") code = "";
+  else if (k === "ENTER") {
+    const ok = code === CORRECT_CODE;
+    led.style.background = ok ? "#2eea5a" : "#ff2a2a";
+    led.style.boxShadow = "0 0 14px " + (ok ? "#2eea5a" : "#ff2a2a");
+    led.style.opacity = 1;
+    msg.textContent = ok ? "✅ دسترسی تأیید شد" : "❌ کد اشتباه است";
+    if (!ok) setTimeout(() => { code = ""; render(); led.style.opacity = 0; }, 1200);
+  }
+  else if (code.length < 6) code += k;
+  render();
+}
+
+// دکمه‌ها
+const cols = [510,695,880], rows = [467,590,712,840];
+const labels = ["1","2","3","4","5","6","7","8","9","CLEAR","0","ENTER"];
+const btns = {};
+labels.forEach((k,i) => {
+  const b = document.createElement("button"); b.className = "key"; b.setAttribute("aria-label", k);
+  place(b, cols[i%3], rows[Math.floor(i/3)], 152, 102);
+  b.addEventListener("click", () => press(k));
+  term.appendChild(b); btns[k] = b;
+});
+
+// پشتیبانی از کیبورد
+addEventListener("keydown", e => {
+  let k = /^[0-9]$/.test(e.key) ? e.key : e.key === "Enter" ? "ENTER" : (e.key === "Backspace" || e.key === "Escape") ? "CLEAR" : null;
+  if (!k) return;
+  press(k); btns[k].classList.add("on"); setTimeout(() => btns[k].classList.remove("on"), 120);
+});
+</script>
+</body>
+</html>
