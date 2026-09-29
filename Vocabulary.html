@@ -316,6 +316,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradi
 </div>
 
 <div class="toast" id="toast"></div>
+<script src="auth.js"></script>
 
 <script>
 const SB_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
@@ -348,11 +349,6 @@ let activeTabId = tabs[0].id;
 
 async function sbGet(table, filter) { const r = await fetch(`${SB_URL}/rest/v1/${table}?${filter}&limit=1`, { headers: SB_H }); return r.json(); }
 async function sbInsert(table, body) { const r = await fetch(`${SB_URL}/rest/v1/${table}`, { method: 'POST', headers: { ...SB_H, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }); return r.ok; }
-
-const SESSION_KEY = 'lingua_vocab_session_v1';
-const getSession  = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch(e) { return null; } };
-const setSession  = d  => localStorage.setItem(SESSION_KEY, JSON.stringify(d));
-const isLoggedIn  = () => { const s = getSession(); return s && s.phone && s.verified; };
 
 function showToast(msg, dur = 2800) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), dur); }
 
