@@ -836,44 +836,99 @@
   <div class="container">
 
     <!-- ===== امکانات سیلو ===== -->
-    <div class="row-label">امکانات سیلو (cllo)</div>
-    <div class="learning-carousel" id="learningCarousel">
-      <div class="learning-item"><div class="learning-card" data-title="ویدیو آموزشی" data-url="https://cllo.ir/videoamozesh.html">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/videoamozesh.jpeg" alt="ویدیو آموزشی" loading="lazy" decoding="async">
-        <div class="learning-overlay"></div>
-        <div class="learning-card-title">ویدیو آموزشی</div>
-      </div><button class="learning-enter" type="button">ورود</button></div>
-
-      <div class="learning-item"><div class="learning-card" data-title="پادکست انگلیسی" data-url="https://cllo.ir/podcast.html">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp" alt="پادکست انگلیسی" loading="lazy" decoding="async">
-        <div class="learning-overlay"></div>
-        <div class="learning-card-title">پادکست انگلیسی</div>
-      </div><button class="learning-enter" type="button">ورود</button></div>
-
-      <div class="learning-item"><div class="learning-card" data-title="ویدیوهای یوتوب" data-url="https://cllo.ir/Vocabulary.html">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg" alt="ویدیوهای یوتوب" loading="lazy" decoding="async">
-        <div class="learning-overlay"></div>
-        <div class="learning-card-title">ویدیوهای یوتوب</div>
-      </div><button class="learning-enter" type="button">ورود</button></div>
-
-      <div class="learning-item"><div class="learning-card" data-title="آموزش لغت ها" data-url="https://cllo.ir/Vocabulary.html">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_5019.jpeg" alt="آموزش لغت ها" loading="lazy" decoding="async">
-        <div class="learning-overlay"></div>
-        <div class="learning-card-title">آموزش لغت ها</div>
-      </div><button class="learning-enter" type="button">ورود</button></div>
-
-      <div class="learning-item"><div class="learning-card" data-title="آموزش با هوش مصنوعی" data-url="">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/aiamozesh.webp" alt="آموزش با هوش مصنوعی" loading="lazy" decoding="async">
-        <div class="learning-overlay"></div>
-        <div class="learning-card-title">آموزش با هوش مصنوعی</div>
-      </div><button class="learning-enter" type="button">ورود</button></div>
-
-      <div class="learning-item"><div class="learning-card" data-title="تمرینات" data-url="">
-        <img class="learning-bg" src="http://fs3.centraldnserver.com/~planlife/pics/english/tamrin.jpg" alt="تمرینات" loading="lazy" decoding="async">
-        <div class="learning-overlay"></div>
-        <div class="learning-card-title">تمرینات</div>
-      </div><button class="learning-enter" type="button">ورود</button></div>
+<!-- ===== امکانات سیلو ===== -->
+<div class="row-label">امکانات سیلو (cllo)</div>
+<section class="dest-glass">
+  <div class="dg-head">
+    <h2>امکانات سیلو</h2>
+    <div>
+      <button onclick="dg(-1)">‹</button>
+      <button onclick="dg(1)">›</button>
     </div>
+  </div>
+  <div class="dg-scroll" id="dgscroll">
+
+    <div class="dg-card">
+      <div class="dg-img">
+        <img src="http://fs3.centraldnserver.com/~planlife/pics/english/videoamozesh.jpeg">
+        <span>★ ویدیویی</span><i>♡</i>
+      </div>
+      <h3>ویدیو آموزشی</h3>
+      <p>یادگیری قدم‌به‌قدم با ویدیو</p>
+      <div class="dg-bottom">
+        <small></small>
+        <button onclick="location.href='https://cllo.ir/videoamozesh.html'">ورود</button>
+      </div>
+    </div>
+
+    <div class="dg-card">
+      <div class="dg-img">
+        <img src="http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp">
+        <span>★ صوتی</span><i>♡</i>
+      </div>
+      <h3>پادکست انگلیسی</h3>
+      <p>گوش کن و یاد بگیر در هر لحظه</p>
+      <div class="dg-bottom">
+        <small></small>
+        <button onclick="location.href='https://cllo.ir/podcast.html'">ورود</button>
+      </div>
+    </div>
+
+    <div class="dg-card">
+      <div class="dg-img">
+        <img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/youtube.jpg">
+        <span>★ یوتوب</span><i>♡</i>
+      </div>
+      <h3>ویدیوهای یوتوب</h3>
+      <p>بهترین محتوای آموزشی یوتوب</p>
+      <div class="dg-bottom">
+        <small></small>
+        <button onclick="location.href='https://cllo.ir/Vocabulary.html'">ورود</button>
+      </div>
+    </div>
+
+    <div class="dg-card">
+      <div class="dg-img">
+        <img src="http://fs3.centraldnserver.com/~planlife/pics/english/story/IMG_5019.jpeg">
+        <span>★ لغت</span><i>♡</i>
+      </div>
+      <h3>آموزش لغت‌ها</h3>
+      <p>یادگیری لغات با روش‌های جدید</p>
+      <div class="dg-bottom">
+        <small></small>
+        <button onclick="location.href='https://cllo.ir/Vocabulary.html'">ورود</button>
+      </div>
+    </div>
+
+    <div class="dg-card">
+      <div class="dg-img">
+        <img src="http://fs3.centraldnserver.com/~planlife/pics/english/aiamozesh.webp">
+        <span>★ AI</span><i>♡</i>
+      </div>
+      <h3>آموزش با هوش مصنوعی</h3>
+      <p>مکالمه هوشمند، هر زمان که بخواهی</p>
+      <div class="dg-bottom">
+        <small></small>
+        <button>ورود</button>
+      </div>
+    </div>
+
+    <div class="dg-card">
+      <div class="dg-img">
+        <img src="http://fs3.centraldnserver.com/~planlife/pics/english/tamrin.jpg">
+        <span>★ تمرین</span><i>♡</i>
+      </div>
+      <h3>تمرینات</h3>
+      <p>مهارت خود را تقویت کن</p>
+      <div class="dg-bottom">
+        <small></small>
+        <button>ورود</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
     <!-- ===== BANNER IMAGE — fade طبیعی بدون خط ===== -->
     <div class="cllo-banner">
