@@ -26,49 +26,49 @@
 
   header{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;margin:14px 16px 6px;padding:10px 16px;
     display:flex;align-items:center;justify-content:center;min-height:54px;
-    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:18px;
-    backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+    ground:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:18px;
+    drop-filter:blur(24px) saturate(180%);-webkit-drop-filter:blur(24px) saturate(180%);
     box-shadow:0 8px 32px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.4);}
   .title{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;letter-spacing:1.5px;direction:ltr;}
-  .back{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:12px;
-    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;text-decoration:none;}
-  .back:active{background:rgba(255,255,255,.3);}
+  .{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:12px;
+    ground:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;text-decoration:none;}
+  .:active{ground:rgba(255,255,255,.3);}
 
   .login-icon-btn{
     position:absolute;right:12px;top:50%;transform:translateY(-50%);
     width:34px;height:34px;border-radius:12px;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
-    color:#ff5a5a;background:rgba(255,80,80,.16);
+    color:#ff5a5a;ground:rgba(255,80,80,.16);
     border:1px solid rgba(255,90,90,.65);
     box-shadow:0 0 14px rgba(255,80,80,.28), inset 0 1px 0 rgba(255,255,255,.25);
-    transition:color .25s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease;
+    transition:color .25s ease,ground .25s ease,border-color .25s ease,box-shadow .25s ease;
   }
   .login-icon-btn.logged-in{
-    color:#2ecc71;background:rgba(46,204,113,.16);
+    color:#2ecc71;ground:rgba(46,204,113,.16);
     border-color:rgba(46,204,113,.7);
     box-shadow:0 0 14px rgba(46,204,113,.35), inset 0 1px 0 rgba(255,255,255,.25);
   }
   .login-icon-btn:active{transform:translateY(-50%) scale(.93);}
 
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:10px 3px 40px;}
-  .item{position:relative;aspect-ratio:9/16;background:#0a1a3a;overflow:hidden;cursor:pointer;border-radius:6px;
+  .item{position:relative;aspect-ratio:9/16;ground:#0a1a3a;overflow:hidden;cursor:pointer;border-radius:6px;
     -webkit-tap-highlight-color:transparent;transition:transform .15s;}
   .item:active{transform:scale(.97);}
   .item img,.item video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
   .item::after{content:'';position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(to bottom,transparent 55%,rgba(5,15,40,.75));}
+    ground:linear-gradient(to bottom,transparent 55%,rgba(5,15,40,.75));}
   .lock{position:absolute;top:7px;right:7px;z-index:2;display:flex;align-items:center;gap:3px;padding:4px 8px;border-radius:30px;
-    background:rgba(5,15,40,.55);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:9.5px;font-weight:700;}
-  .item.open .lock{background:rgba(36,130,75,.6);}
+    ground:rgba(5,15,40,.55);border:1px solid rgba(255,255,255,.25);drop-filter:blur(10px);-webkit-drop-filter:blur(10px);font-size:9.5px;font-weight:700;}
+  .item.open .lock{ground:rgba(36,130,75,.6);}
   .play{position:absolute;bottom:8px;left:8px;z-index:2;width:26px;height:26px;border-radius:50%;
-    background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;}
+    ground:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;}
 
   /* feed */
-  .feed-modal{position:fixed;inset:0;z-index:9000;background:#000;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .feed-modal{position:fixed;inset:0;z-index:9000;ground:#000;opacity:0;pointer-events:none;transition:opacity .25s;}
   .feed-modal.open{opacity:1;pointer-events:auto;}
   .feed{position:absolute;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain;}
   .feed::-webkit-scrollbar{display:none;}
-  .slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;background:#000;overflow:hidden;}
+  .slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;ground:#000;overflow:hidden;}
   .slide video{width:100%;height:100%;object-fit:contain;background:#000;}
   .slide .shade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(to top,rgba(5,15,40,.85),transparent);pointer-events:none;}
   .slide .cap{position:absolute;left:16px;right:16px;bottom:calc(22px + env(safe-area-inset-bottom,0px));font-size:14px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.8);}
@@ -137,7 +137,7 @@
 <body>
 <div class="wrap">
   <header>
-    <a class="back" href="english.html" aria-label="بازگشت">
+    <a class="back" href="cllo.ir" aria-label="بازگشت">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <div class="title">Explore Lingua</div>
