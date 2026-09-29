@@ -1,0 +1,2703 @@
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>IELTS 1 — Advanced English Assessment</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --blue:#2176AE;
+  --blue2:#0D4F8A;
+  --cyan:#56B4E9;
+  --green:#10B981;
+  --red:#EF4444;
+  --yellow:#F59E0B;
+}
+
+html{
+  scroll-behavior:smooth;
+  min-height:100%;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(33,118,174,.18),transparent 30%),
+    radial-gradient(circle at 10% 90%,rgba(13,79,138,.22),transparent 30%),
+    linear-gradient(140deg,#071522 0%,#0D1B2A 45%,#12304F 70%,#071522 100%);
+  min-height:100vh;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+button,
+input{
+  font-family:inherit;
+}
+
+.bg-orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.13;
+  pointer-events:none;
+  z-index:0;
+}
+
+.orb1{
+  width:520px;
+  height:520px;
+  background:#2176AE;
+  top:-180px;
+  right:-140px;
+}
+
+.orb2{
+  width:450px;
+  height:450px;
+  background:#0D4F8A;
+  bottom:-160px;
+  left:-150px;
+}
+
+.orb3{
+  width:300px;
+  height:300px;
+  background:#0E7FC0;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+#app{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 16px;
+}
+
+.card{
+  width:100%;
+  max-width:680px;
+  position:relative;
+  padding:40px;
+  border-radius:28px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.13);
+  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(28px);
+  box-shadow:
+    0 35px 90px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  animation:fadeUp .45s ease both;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin-bottom:28px;
+}
+
+.brand-icon{
+  width:43px;
+  height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  box-shadow:0 7px 22px rgba(33,118,174,.35);
+  font-size:20px;
+}
+
+.brand-name{
+  color:rgba(255,255,255,.5);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.brand-name strong{
+  display:block;
+  color:#fff;
+  font-size:14px;
+}
+
+.level-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 13px;
+  border-radius:99px;
+  color:#90CAF9;
+  background:rgba(33,118,174,.13);
+  border:1px solid rgba(86,180,233,.22);
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.start-icon,
+.access-icon{
+  width:76px;
+  height:76px;
+  border-radius:21px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  box-shadow:0 14px 42px rgba(33,118,174,.4);
+  font-size:35px;
+  margin-bottom:24px;
+}
+
+.start-title{
+  font-size:27px;
+  line-height:1.35;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+.start-description{
+  color:rgba(255,255,255,.58);
+  line-height:1.85;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+.stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-bottom:28px;
+}
+
+.stat{
+  padding:8px 13px;
+  border-radius:99px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.65);
+  font-size:11px;
+  font-weight:700;
+}
+
+.stat span{
+  color:#90CAF9;
+}
+
+.btn-primary{
+  width:100%;
+  padding:16px 22px;
+  border:0;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(33,118,174,.35);
+  transition:.22s;
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 38px rgba(33,118,174,.48);
+}
+
+.btn-primary:active{
+  transform:scale(.98);
+}
+
+.btn-primary:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.btn-secondary{
+  padding:12px 18px;
+  border-radius:12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.13);
+  color:rgba(255,255,255,.7);
+  cursor:pointer;
+  font-weight:700;
+}
+
+.access-title{
+  font-size:23px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.access-subtitle{
+  color:rgba(255,255,255,.5);
+  line-height:1.7;
+  font-size:13px;
+  margin-bottom:28px;
+}
+
+.input-label{
+  display:block;
+  color:rgba(255,255,255,.45);
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.code-input{
+  width:100%;
+  padding:16px;
+  border-radius:14px;
+  border:1.5px solid rgba(255,255,255,.13);
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  outline:none;
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+.code-input:focus{
+  border-color:rgba(86,180,233,.65);
+  box-shadow:0 0 0 4px rgba(33,118,174,.12);
+}
+
+.error{
+  min-height:22px;
+  color:#FCA5A5;
+  font-size:12px;
+  font-weight:700;
+  margin-top:9px;
+}
+
+.get-code{
+  width:100%;
+  margin-top:12px;
+  padding:13px;
+  border-radius:13px;
+  border:1px dashed rgba(86,180,233,.4);
+  background:rgba(255,255,255,.035);
+  color:#90CAF9;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.progress-wrap{
+  margin-bottom:30px;
+}
+
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:9px;
+  font-size:11px;
+  color:rgba(255,255,255,.4);
+}
+
+.progress-top strong{
+  color:rgba(255,255,255,.85);
+}
+
+.progress-bg{
+  height:6px;
+  border-radius:99px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+}
+
+.progress{
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  box-shadow:0 0 12px rgba(86,180,233,.45);
+  transition:.5s;
+}
+
+.question-badge{
+  display:inline-flex;
+  padding:6px 12px;
+  border-radius:99px;
+  background:rgba(33,118,174,.13);
+  border:1px solid rgba(86,180,233,.22);
+  color:#90CAF9;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.question{
+  font-size:18px;
+  line-height:1.7;
+  font-weight:800;
+  margin-bottom:25px;
+}
+
+.options{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.option{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px 16px;
+  min-height:58px;
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  border:1.5px solid rgba(255,255,255,.1);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.option:hover{
+  border-color:rgba(86,180,233,.5);
+  transform:translateX(-2px);
+  background:rgba(33,118,174,.09);
+}
+
+.option.disabled{
+  pointer-events:none;
+}
+
+.option.correct{
+  border-color:var(--green);
+  background:rgba(16,185,129,.13);
+}
+
+.option.wrong{
+  border-color:var(--red);
+  background:rgba(239,68,68,.13);
+}
+
+.letter{
+  width:30px;
+  height:30px;
+  min-width:30px;
+  border:2px solid rgba(255,255,255,.18);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,.5);
+  font-size:11px;
+  font-weight:900;
+}
+
+.correct .letter{
+  border-color:var(--green);
+  background:var(--green);
+  color:#fff;
+}
+
+.wrong .letter{
+  border-color:var(--red);
+  background:var(--red);
+  color:#fff;
+}
+
+.option-text{
+  flex:1;
+  color:rgba(255,255,255,.82);
+  font-size:14px;
+  line-height:1.5;
+  font-weight:600;
+}
+
+.correct .option-text{
+  color:#6EE7B7;
+}
+
+.wrong .option-text{
+  color:#FCA5A5;
+}
+
+.feedback{
+  margin-top:18px;
+  padding:17px;
+  border-radius:17px;
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(255,255,255,.055);
+  animation:feedbackIn .25s ease;
+}
+
+@keyframes feedbackIn{
+  from{
+    opacity:0;
+    transform:translateY(-8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.feedback-title{
+  color:#FCA5A5;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.feedback-text{
+  color:rgba(255,255,255,.67);
+  font-size:12px;
+  line-height:1.8;
+}
+
+.feedback-answer{
+  margin-top:11px;
+  padding:9px;
+  border-radius:9px;
+  color:#6EE7B7;
+  background:rgba(16,185,129,.08);
+  font-size:11px;
+  font-weight:800;
+}
+
+.question-actions{
+  display:flex;
+  gap:10px;
+  margin-top:21px;
+}
+
+.question-actions .btn-primary{
+  margin:0;
+}
+
+.result{
+  text-align:center;
+}
+
+.result-emoji{
+  font-size:70px;
+  display:block;
+  margin-bottom:15px;
+}
+
+.result-label{
+  color:#90CAF9;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.result-title{
+  font-size:27px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.divider{
+  width:55px;
+  height:3px;
+  border-radius:99px;
+  margin:16px auto;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+}
+
+.score{
+  font-size:88px;
+  line-height:1;
+  font-weight:900;
+  margin-top:22px;
+}
+
+.score-total{
+  color:rgba(255,255,255,.35);
+  font-size:14px;
+  font-weight:700;
+  margin-top:6px;
+}
+
+.percentage{
+  display:inline-block;
+  margin-top:13px;
+  padding:8px 20px;
+  border-radius:99px;
+  font-weight:900;
+  background:rgba(33,118,174,.12);
+  border:1px solid rgba(86,180,233,.25);
+  color:#90CAF9;
+}
+
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:20px;
+}
+
+.result-box{
+  padding:14px 8px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.result-number{
+  font-size:18px;
+  font-weight:900;
+}
+
+.result-small{
+  margin-top:4px;
+  color:rgba(255,255,255,.35);
+  font-size:9px;
+  font-weight:700;
+}
+
+.result-message{
+  text-align:left;
+  margin-top:20px;
+  padding:19px;
+  border-radius:17px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.09);
+}
+
+.result-message strong{
+  display:block;
+  color:#90CAF9;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.result-message p{
+  color:rgba(255,255,255,.62);
+  font-size:12px;
+  line-height:1.85;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(7px);
+}
+
+.modal.hidden{
+  display:none;
+}
+
+.modal-box{
+  width:100%;
+  max-width:450px;
+  padding:32px;
+  border-radius:23px;
+  background:linear-gradient(145deg,#0d2033,#162d44);
+  border:1px solid rgba(86,180,233,.25);
+  box-shadow:0 40px 100px rgba(0,0,0,.6);
+}
+
+.modal-title{
+  text-align:center;
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:7px;
+}
+
+.modal-subtitle{
+  text-align:center;
+  color:rgba(255,255,255,.45);
+  font-size:12px;
+  line-height:1.7;
+  margin-bottom:23px;
+}
+
+.modal-input{
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  outline:none;
+}
+
+.modal-actions{
+  display:flex;
+  gap:9px;
+  margin-top:14px;
+}
+
+.modal-actions button{
+  flex:1;
+  padding:13px;
+  border-radius:12px;
+  border:0;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.modal-submit{
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;
+}
+
+.modal-cancel{
+  background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.65);
+}
+
+.code-reveal{
+  padding:22px;
+  text-align:center;
+  border-radius:16px;
+  border:1px solid rgba(16,185,129,.35);
+  background:rgba(16,185,129,.07);
+}
+
+.revealed-code{
+  font-size:40px;
+  font-weight:900;
+  letter-spacing:.2em;
+  margin-top:10px;
+}
+
+@keyframes shake{
+  20%{transform:translateX(-5px)}
+  40%{transform:translateX(5px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}
+
+.shake{
+  animation:shake .35s;
+  border-color:var(--red)!important;
+}
+
+@media(max-width:520px){
+  .card{
+    padding:27px 18px;
+    border-radius:22px;
+  }
+
+  .start-title{
+    font-size:22px;
+  }
+
+  .question{
+    font-size:16px;
+  }
+
+  .option-text{
+    font-size:13px;
+  }
+
+  .score{
+    font-size:70px;
+  }
+
+  .modal-box{
+    padding:25px 19px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<div class="modal hidden" id="subscription-modal">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title">Get Subscription Code</div>
+    <div class="modal-subtitle" id="modal-subtitle">
+      Enter the phone number used to purchase your subscription.
+    </div>
+
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="card" id="card"></div>
+</div>
+
+<script>
+
+/* =========================================================
+   SUPABASE CONFIGURATION
+   ========================================================= */
+
+const SUPABASE_URL =
+  'https://hjzzvzxhrqovvducnxha.supabase.co';
+
+const SUPABASE_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
+
+async function supabaseGet(table, filter){
+
+  const url =
+    `${SUPABASE_URL}/rest/v1/${table}?${filter}&limit=1`;
+
+  const response = await fetch(url,{
+    headers:{
+      apikey:SUPABASE_KEY,
+      Authorization:'Bearer '+SUPABASE_KEY
+    }
+  });
+
+  return response.json();
+}
+
+async function supabasePatch(table,filter,body){
+
+  const url =
+    `${SUPABASE_URL}/rest/v1/${table}?${filter}`;
+
+  const response = await fetch(url,{
+    method:'PATCH',
+    headers:{
+      apikey:SUPABASE_KEY,
+      Authorization:'Bearer '+SUPABASE_KEY,
+      'Content-Type':'application/json',
+      Prefer:'return=minimal'
+    },
+    body:JSON.stringify(body)
+  });
+
+  return response.ok;
+}
+
+function generateCode(){
+  return String(Math.floor(1000+Math.random()*9000));
+}
+
+
+/* =========================================================
+   FOUR-STAGE IELTS SYSTEM
+   ========================================================= */
+
+const LEVELS = [
+
+  {
+    id:1,
+    title:'IELTS 1 — Advanced',
+    subtitle:'Advanced IELTS English',
+    description:
+      'A demanding assessment of advanced grammar, academic vocabulary, complex sentence structures, collocations and high-level English usage.'
+  },
+
+  {
+    id:2,
+    title:'IELTS 2 — Very Advanced',
+    subtitle:'Very Advanced IELTS English',
+    description:
+      'A substantially more demanding level focusing on nuanced grammar, sophisticated vocabulary and complex academic structures.'
+  },
+
+  {
+    id:3,
+    title:'IELTS 3 — Expert',
+    subtitle:'Expert IELTS English',
+    description:
+      'An expert-level assessment designed around highly complex grammatical and lexical distinctions.'
+  },
+
+  {
+    id:4,
+    title:'IELTS 4 — Professional',
+    subtitle:'Professional English',
+    description:
+      'The highest stage, targeting extremely sophisticated academic and professional English.'
+  }
+
+];
+
+const CURRENT_LEVEL = 1;
+
+
+/* =========================================================
+   60 QUESTION IELTS 1 BANK
+   ========================================================= */
+
+const QUESTIONS = [
+
+{
+badge:'Advanced Tense Control',
+question:'By the time the research committee meets next Thursday, the investigators ___ the data for nearly six months.',
+options:[
+'will have been analysing',
+'will analyse',
+'have analysed',
+'are analysing'
+],
+answer:0,
+explanation:'The action continues for a duration up to a specific point in the future, so Future Perfect Continuous is required.'
+},
+
+{
+badge:'Modal Deduction',
+question:'Given the condition of the office when we arrived, someone ___ there for quite some time before leaving abruptly.',
+options:[
+'must have been working',
+'ought to work',
+'could work',
+'would have worked'
+],
+answer:0,
+explanation:'Must have been working expresses a strong deduction about an ongoing past activity.'
+},
+
+{
+badge:'Mixed Conditional',
+question:'If the company had invested in cybersecurity earlier, it ___ dealing with such severe breaches today.',
+options:[
+'would not be',
+'would not have been',
+'will not be',
+'had not been'
+],
+answer:0,
+explanation:'A past unreal condition produces a present consequence, creating a mixed conditional.'
+},
+
+{
+badge:'Inversion',
+question:'Rarely ___ such a significant discrepancy between the preliminary findings and the final report.',
+options:[
+'has the committee encountered',
+'the committee has encountered',
+'did the committee encountered',
+'the committee encountered'
+],
+answer:0,
+explanation:'Rarely at the beginning of a sentence triggers subject–auxiliary inversion.'
+},
+
+{
+badge:'Inversion',
+question:'Not until the independent review had been completed ___ the extent of the problem.',
+options:[
+'did the management fully understand',
+'the management fully understood',
+'understood the management fully',
+'the management had fully understood'
+],
+answer:0,
+explanation:'Not until placed at the beginning requires inversion in the main clause.'
+},
+
+{
+badge:'Advanced Conditional',
+question:'Had the negotiations broken down completely, the two parties ___ forced to reconsider the entire agreement.',
+options:[
+'would have been',
+'will have been',
+'were',
+'would be'
+],
+answer:0,
+explanation:'Had + past participle is an inverted third conditional referring to an unreal past situation.'
+},
+
+{
+badge:'Perfect Infinitive',
+question:'The minister appears ___ the implications of the proposed legislation before making the announcement.',
+options:[
+'to have underestimated',
+'to underestimate',
+'having underestimated',
+'to be underestimated'
+],
+answer:0,
+explanation:'The underestimation occurred before the minister appears to have done so, requiring a perfect infinitive.'
+},
+
+{
+badge:'Passive Reporting',
+question:'The missing documents are believed ___ during the transfer to the new headquarters.',
+options:[
+'to have been misplaced',
+'to be misplacing',
+'having misplaced',
+'that they misplaced'
+],
+answer:0,
+explanation:'The passive reporting structure combines to have been with the past participle for a completed passive event.'
+},
+
+{
+badge:'Causative Structure',
+question:'The director had the legal team ___ the contract before it was sent to the client.',
+options:[
+'review',
+'to review',
+'reviewing',
+'reviewed'
+],
+answer:0,
+explanation:'Have + object + bare infinitive is the standard causative structure.'
+},
+
+{
+badge:'Causative Passive',
+question:'The company had the entire network ___ after the security breach.',
+options:[
+'reconfigured',
+'reconfigure',
+'to reconfigure',
+'reconfiguring'
+],
+answer:0,
+explanation:'Have + object + past participle means arranging for something to be done.'
+},
+
+{
+badge:'Subjunctive',
+question:'The committee recommended that the proposal ___ before the final vote.',
+options:[
+'be amended',
+'is amended',
+'was amended',
+'to be amended'
+],
+answer:0,
+explanation:'Formal English commonly uses the mandative subjunctive after recommend that.'
+},
+
+{
+badge:'Subjunctive',
+question:'It is imperative that every participant ___ the confidentiality agreement.',
+options:[
+'sign',
+'signs',
+'signed',
+'to sign'
+],
+answer:0,
+explanation:'After imperative that, formal English uses the base form of the verb.'
+},
+
+{
+badge:'Cleft Construction',
+question:'What the investigators failed to establish ___ whether the discrepancy was deliberate.',
+options:[
+'was',
+'were',
+'have been',
+'are'
+],
+answer:0,
+explanation:'The subject is the singular noun clause What the investigators failed to establish, so was is appropriate.'
+},
+
+{
+badge:'Cleft Construction',
+question:'It was the unexpected resignation of the chairperson ___ triggered the subsequent dispute.',
+options:[
+'that',
+'what',
+'which',
+'where'
+],
+answer:0,
+explanation:'It was ... that is a cleft structure used to place emphasis on a particular element.'
+},
+
+{
+badge:'Participle Clause',
+question:'___ the available evidence several times, the panel remained unconvinced by the proposed explanation.',
+options:[
+'Having examined',
+'Examining',
+'Examined',
+'To examine'
+],
+answer:0,
+explanation:'Having examined indicates that the examination was completed before the panel reached its conclusion.'
+},
+
+{
+badge:'Participle Clause',
+question:'___ by the scale of the financial losses, investors demanded an immediate explanation.',
+options:[
+'Alarmed',
+'Alarming',
+'Having alarm',
+'To alarming'
+],
+answer:0,
+explanation:'Alarmed is a past participle describing the investors' emotional state.'
+},
+
+{
+badge:'Reduced Relative Clause',
+question:'The candidates ___ for the second stage will be contacted within five working days.',
+options:[
+'shortlisted',
+'shortlisting',
+'were shortlisted',
+'having shortlist'
+],
+answer:0,
+explanation:'Shortlisted is a reduced passive relative clause: candidates who were shortlisted.'
+},
+
+{
+badge:'Reduced Relative Clause',
+question:'The policy ___ last year has significantly altered the way applications are processed.',
+options:[
+'introduced',
+'introducing',
+'was introduced',
+'to introduce'
+],
+answer:0,
+explanation:'Introduced is a reduced passive relative clause equivalent to which was introduced.'
+},
+
+{
+badge:'Advanced Relative Clause',
+question:'The consultant, ___ recommendations were eventually adopted, had previously advised several international organisations.',
+options:[
+'whose',
+'who',
+'whom',
+'which'
+],
+answer:0,
+explanation:'Whose is the possessive relative pronoun linking the consultant with the recommendations.'
+},
+
+{
+badge:'Advanced Relative Clause',
+question:'The report, ___ was released shortly before the hearing, contained several previously undisclosed findings.',
+options:[
+'which',
+'that',
+'what',
+'where'
+],
+answer:0,
+explanation:'Which introduces a non-defining relative clause referring to the report.'
+},
+
+{
+badge:'Relative Preposition',
+question:'The facility in ___ the experiments were conducted has since been closed.',
+options:[
+'which',
+'where',
+'that',
+'what'
+],
+answer:0,
+explanation:'In which is the formal relative construction used after the preposition in.'
+},
+
+{
+badge:'Gerund / Infinitive',
+question:'The committee regrets ___ the announcement before all the relevant parties had been consulted.',
+options:[
+'making',
+'to make',
+'make',
+'to have make'
+],
+answer:0,
+explanation:'Regret + gerund refers to regretting an action that has already happened.'
+},
+
+{
+badge:'Gerund / Infinitive',
+question:'We regret ___ you that your application has not been successful.',
+options:[
+'to inform',
+'informing',
+'to have informed',
+'having inform'
+],
+answer:0,
+explanation:'Regret to inform is used when giving unwelcome information at the moment of speaking.'
+},
+
+{
+badge:'Remember',
+question:'She clearly remembers ___ the final version of the document before leaving the office.',
+options:[
+'signing',
+'to sign',
+'sign',
+'to have sign'
+],
+answer:0,
+explanation:'Remember + gerund refers to recalling an action that actually happened.'
+},
+
+{
+badge:'Mean',
+question:'Accepting the position would mean ___ abroad for at least three years.',
+options:[
+'living',
+'to live',
+'live',
+'to have lived'
+],
+answer:0,
+explanation:'Mean + gerund describes what a particular choice would involve.'
+},
+
+{
+badge:'Try',
+question:'If the software continues to crash, try ___ the latest security update.',
+options:[
+'installing',
+'to install',
+'install',
+'to have installed'
+],
+answer:0,
+explanation:'Try + gerund means experimenting with an action as a possible solution.'
+},
+
+{
+badge:'Advanced Phrasal Verb',
+question:'The researchers had to ___ the original figures before publishing the revised report.',
+options:[
+'go over',
+'bring about',
+'give in',
+'put up'
+],
+answer:0,
+explanation:'Go over means to examine or review something carefully.'
+},
+
+{
+badge:'Advanced Phrasal Verb',
+question:'The latest findings appear to ___ the reliability of the original methodology.',
+options:[
+'call into question',
+'look after',
+'carry on',
+'put up with'
+],
+answer:0,
+explanation:'Call into question means to make the validity or reliability of something doubtful.'
+},
+
+{
+badge:'Advanced Phrasal Verb',
+question:'The negotiations collapsed because neither delegation was prepared to ___.',
+options:[
+'back down',
+'take after',
+'run into',
+'bring up'
+],
+answer:0,
+explanation:'Back down means to withdraw from a position or demand during a disagreement.'
+},
+
+{
+badge:'Academic Collocation',
+question:'The study attempts to ___ light on the underlying causes of the decline.',
+options:[
+'shed',
+'put',
+'make',
+'take'
+],
+answer:0,
+explanation:'Shed light on is a standard academic collocation meaning to clarify or explain something.'
+},
+
+{
+badge:'Academic Collocation',
+question:'The researchers reached a ___ conclusion because several variables could not be controlled.',
+options:[
+'tentative',
+'heavy',
+'sharp',
+'deep'
+],
+answer:0,
+explanation:'Tentative means provisional or not yet completely certain.'
+},
+
+{
+badge:'Academic Collocation',
+question:'Governments must ___ effective measures to address the long-term consequences.',
+options:[
+'take',
+'do',
+'make',
+'give'
+],
+answer:0,
+explanation:'Take measures is the established collocation for adopting actions to achieve a particular purpose.'
+},
+
+{
+badge:'Linking Devices',
+question:'The proposed system is considerably more expensive. ___, its long-term maintenance costs are expected to be lower.',
+options:[
+'Nevertheless',
+'Consequently',
+'Whereas',
+'Unless'
+],
+answer:0,
+explanation:'Nevertheless introduces a contrast with the preceding statement.'
+},
+
+{
+badge:'Linking Devices',
+question:'The evidence was considered insufficient; ___, the investigators postponed the final decision.',
+options:[
+'therefore',
+'although',
+'whereas',
+'despite'
+],
+answer:0,
+explanation:'Therefore introduces a logical result based on the preceding information.'
+},
+
+{
+badge:'Contrast',
+question:'___ the considerable financial risks, the board approved the proposal.',
+options:[
+'Despite',
+'Although',
+'Because',
+'Unless'
+],
+answer:0,
+explanation:'Despite is followed by a noun phrase and expresses contrast.'
+},
+
+{
+badge:'Articles',
+question:'She was appointed ___ director of the research institute after the previous director resigned.',
+options:[
+'—',
+'the',
+'a',
+'an'
+],
+answer:0,
+explanation:'Certain institutional appointment structures use a zero article after appoint.'
+},
+
+{
+badge:'Articles',
+question:'It was ___ exceptionally complicated negotiation involving several international parties.',
+options:[
+'an',
+'a',
+'the',
+'—'
+],
+answer:0,
+explanation:'An is required before exceptionally because it begins with a vowel sound.'
+},
+
+{
+badge:'Uncountable Noun',
+question:'There is very little ___ available to support the claim.',
+options:[
+'evidence',
+'evidences',
+'an evidence',
+'the evidences'
+],
+answer:0,
+explanation:'Evidence is normally uncountable when referring to information supporting a conclusion.'
+},
+
+{
+badge:'Quantifiers',
+question:'Only ___ of the applicants possessed the specialist qualifications required for the position.',
+options:[
+'a handful',
+'a great deal',
+'much',
+'little'
+],
+answer:0,
+explanation:'A handful of refers to a small number of countable people or things.'
+},
+
+{
+badge:'Comparative Structure',
+question:'The revised methodology is considerably ___ than the one used in the original study.',
+options:[
+'more robust',
+'robuster',
+'most robust',
+'the more robust'
+],
+answer:0,
+explanation:'More robust is the correct comparative form for this adjective.'
+},
+
+{
+badge:'Superlative Structure',
+question:'This is by far ___ explanation proposed so far.',
+options:[
+'the most plausible',
+'a most plausible',
+'more plausible',
+'most plausibly'
+],
+answer:0,
+explanation:'By far commonly modifies a superlative, requiring the most plausible.'
+},
+
+{
+badge:'Past Regret',
+question:'I wish I ___ the implications of the agreement before signing it.',
+options:[
+'had understood',
+'understood',
+'would understand',
+'have understood'
+],
+answer:0,
+explanation:'Wish + Past Perfect expresses regret concerning a past situation.'
+},
+
+{
+badge:'Would Rather',
+question:'I would rather the committee ___ the matter until further evidence becomes available.',
+options:[
+'delayed',
+'delay',
+'will delay',
+'had delayed'
+],
+answer:0,
+explanation:'Would rather + subject is normally followed by the past simple for a present or future preference.'
+},
+
+{
+badge:'High Time',
+question:'It is high time the organisation ___ its outdated recruitment procedures.',
+options:[
+'reviewed',
+'reviews',
+'has reviewed',
+'would review'
+],
+answer:0,
+explanation:'It is high time is conventionally followed by a past simple form to indicate that something is overdue.'
+},
+
+{
+badge:'Reported Speech',
+question:'The spokesperson stated that the committee ___ its findings the following week.',
+options:[
+'would publish',
+'will publish',
+'published',
+'has published'
+],
+answer:0,
+explanation:'Will normally backshifts to would in reported speech when the reporting verb is in the past.'
+},
+
+{
+badge:'Reported Question',
+question:'The interviewer asked whether the candidate ___ the revised proposal.',
+options:[
+'had reviewed',
+'has reviewed',
+'reviews',
+'would review'
+],
+answer:0,
+explanation:'The review happened before the past reporting event, so Past Perfect is appropriate.'
+},
+
+{
+badge:'Reporting Verb',
+question:'The supervisor ___ the employees to submit their documentation before the deadline.',
+options:[
+'reminded',
+'suggested',
+'explained',
+'recommended'
+],
+answer:0,
+explanation:'Remind someone to do something is the correct structure for reminding someone about an obligation.'
+},
+
+{
+badge:'Academic Vocabulary',
+question:'The results are broadly ___ with previous studies conducted in comparable environments.',
+options:[
+'consistent',
+'convenient',
+'dependent',
+'accurate'
+],
+answer:0,
+explanation:'Consistent with means in agreement or harmony with something else.'
+},
+
+{
+badge:'Vocabulary in Context',
+question:'The witness provided an ___ account of the incident, making it difficult to determine what had actually occurred.',
+options:[
+'ambiguous',
+'transparent',
+'precise',
+'coherent'
+],
+answer:0,
+explanation:'Ambiguous means open to more than one possible interpretation.'
+},
+
+{
+badge:'Academic Vocabulary',
+question:'The organisation adopted a more ___ structure, allowing regional offices greater decision-making authority.',
+options:[
+'decentralised',
+'fragile',
+'consecutive',
+'reluctant'
+],
+answer:0,
+explanation:'Decentralised describes authority or decision-making distributed away from a central authority.'
+},
+
+{
+badge:'Preposition',
+question:'The analyst is highly proficient ___ statistical modelling and data interpretation.',
+options:[
+'in',
+'at',
+'on',
+'with'
+],
+answer:0,
+explanation:'Proficient in is the standard collocation used to describe skill in a subject or activity.'
+},
+
+{
+badge:'Preposition',
+question:'The final outcome is largely dependent ___ how rapidly the new system can be implemented.',
+options:[
+'on',
+'of',
+'for',
+'to'
+],
+answer:0,
+explanation:'Dependent on is the standard prepositional collocation.'
+},
+
+{
+badge:'Modal Perfect',
+question:'The committee ___ the warning signs earlier; the subsequent failure could probably have been prevented.',
+options:[
+'should have recognised',
+'should recognise',
+'must recognise',
+'would recognise'
+],
+answer:0,
+explanation:'Should have + past participle expresses an action that was advisable but was not done.'
+},
+
+{
+badge:'Modal Perfect',
+question:'They ___ the instructions correctly, otherwise they would not have produced such an accurate result.',
+options:[
+'must have understood',
+'could understand',
+'would understand',
+'need understand'
+],
+answer:0,
+explanation:'Must have understood expresses a strong deduction about a completed past action.'
+},
+
+{
+badge:'Future Perfect',
+question:'By the end of the academic year, the department ___ its entire assessment framework.',
+options:[
+'will have revised',
+'will revise',
+'has revised',
+'is revising'
+],
+answer:0,
+explanation:'Future Perfect describes an action completed before a specified future point.'
+},
+
+{
+badge:'Future Perfect Continuous',
+question:'By December, she ___ at the institution for more than a decade.',
+options:[
+'will have been working',
+'will work',
+'has worked',
+'is working'
+],
+answer:0,
+explanation:'Future Perfect Continuous emphasises duration continuing up to a future point.'
+},
+
+{
+badge:'Advanced Passive',
+question:'The proposal is expected ___ significant changes to the current regulatory framework.',
+options:[
+'to bring about',
+'bringing about',
+'to have bring',
+'that bring'
+],
+answer:0,
+explanation:'Expected to + infinitive is the correct passive reporting structure.'
+},
+
+{
+badge:'Inversion',
+question:'Under no circumstances ___ confidential information to unauthorised individuals.',
+options:[
+'should employees disclose',
+'employees should disclose',
+'should disclose employees',
+'employees disclose should'
+],
+answer:0,
+explanation:'Under no circumstances is a negative restrictive expression that triggers inversion.'
+},
+
+{
+badge:'Inversion',
+question:'Only after the second inspection ___ that the original measurements had been inaccurate.',
+options:[
+'did the engineers realise',
+'the engineers realised',
+'realised the engineers',
+'had the engineers realise'
+],
+answer:0,
+explanation:'Only after at the beginning requires auxiliary inversion in the main clause.'
+},
+
+{
+badge:'Academic Vocabulary',
+question:'The findings remain ___ because the sample size was too small to support a definitive conclusion.',
+options:[
+'inconclusive',
+'unprecedented',
+'mandatory',
+'irrelevant'
+],
+answer:0,
+explanation:'Inconclusive means failing to provide sufficient evidence for a definite conclusion.'
+},
+
+{
+badge:'Academic Vocabulary',
+question:'The new evidence substantially ___ the researchers’ original hypothesis.',
+options:[
+'undermines',
+'undertakes',
+'undergoes',
+'understates'
+],
+answer:0,
+explanation:'Undermine means to weaken the basis, credibility, or effectiveness of something.'
+},
+
+{
+badge:'Collocation',
+question:'The government has pledged to ___ priority to investment in renewable infrastructure.',
+options:[
+'give',
+'make',
+'put',
+'take'
+],
+answer:0,
+explanation:'Give priority to is the standard collocation.'
+},
+
+{
+badge:'Collocation',
+question:'The researchers drew ___ between the two apparently unrelated phenomena.',
+options:[
+'parallels',
+'lines',
+'levels',
+'stages'
+],
+answer:0,
+explanation:'Draw parallels between means to identify similarities between two things.'
+},
+
+{
+badge:'Advanced Vocabulary',
+question:'The policy was introduced with the intention of ___ the adverse effects of rising housing costs.',
+options:[
+'mitigating',
+'augmenting',
+'compounding',
+'facilitating'
+],
+answer:0,
+explanation:'Mitigate means to reduce the severity or harmful impact of something.'
+},
+
+{
+badge:'Advanced Vocabulary',
+question:'The argument is fundamentally ___ because it relies on an assumption that has never been substantiated.',
+options:[
+'flawed',
+'coherent',
+'compelling',
+'conclusive'
+],
+answer:0,
+explanation:'Flawed means containing a defect or weakness that undermines its validity.'
+},
+
+{
+badge:'Academic Grammar',
+question:'Much as the proposal ___ initially attractive, several practical difficulties soon became apparent.',
+options:[
+'may have seemed',
+'may seem',
+'would seem',
+'has seemed'
+],
+answer:0,
+explanation:'Much as introduces concession; the perfect modal refers to how the proposal may have appeared initially.'
+},
+
+{
+badge:'Advanced Concession',
+question:'However carefully the experiment ___, the results remained inconsistent across different laboratories.',
+options:[
+'was conducted',
+'conducted',
+'has conducted',
+'was conducting'
+],
+answer:0,
+explanation:'The passive structure is required because the experiment receives the action.'
+},
+
+{
+badge:'Nominalisation',
+question:'The rapid ___ of the region has placed considerable pressure on existing infrastructure.',
+options:[
+'expansion',
+'expanding',
+'expanded',
+'expand'
+],
+answer:0,
+explanation:'A noun is required after the adjective rapid; expansion is the appropriate nominal form.'
+},
+
+{
+badge:'Academic Vocabulary',
+question:'The study attempts to distinguish between correlation and ___.',
+options:[
+'causation',
+'causative',
+'causing',
+'caused'
+],
+answer:0,
+explanation:'Causation refers to the relationship in which one event or factor produces another.'
+},
+
+{
+badge:'Advanced Grammar',
+question:'Were the government ___ the proposal, significant changes to the funding model would be required.',
+options:[
+'to reject',
+'rejecting',
+'rejected',
+'to have rejected'
+],
+answer:0,
+explanation:'Were + subject + to-infinitive is a formal hypothetical conditional structure.'
+},
+
+{
+badge:'Advanced Grammar',
+question:'Should the negotiations ___ unexpectedly, the organisation has prepared an alternative strategy.',
+options:[
+'fail',
+'failed',
+'to fail',
+'have failed'
+],
+answer:0,
+explanation:'Should + subject + base verb forms a formal conditional meaning if the event happens.'
+}
+
+];
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+const state = {
+  screen:'access',
+  questions:[],
+  current:0,
+  answers:[],
+  score:0
+};
+
+const card = document.getElementById('card');
+const LETTERS = ['A','B','C','D'];
+
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+function shuffle(array){
+
+  const copy=[...array];
+
+  for(let i=copy.length-1;i>0;i--){
+
+    const j=Math.floor(Math.random()*(i+1));
+
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+
+  return copy;
+}
+
+function buildQuiz(){
+
+  return shuffle(
+    QUESTIONS.map((q,index)=>({
+
+      ...q,
+
+      originalIndex:index,
+
+      options:shuffle(q.options)
+
+    }))
+  ).map(q=>{
+
+    const correctText=QUESTIONS[q.originalIndex].options[
+      QUESTIONS[q.originalIndex].answer
+    ];
+
+    return {
+      ...q,
+      answer:q.options.indexOf(correctText)
+    };
+
+  });
+}
+
+function transition(render){
+
+  card.style.opacity='0';
+  card.style.transform='translateX(20px)';
+
+  setTimeout(()=>{
+
+    render();
+
+    requestAnimationFrame(()=>{
+
+      card.style.transition='.35s ease';
+      card.style.opacity='1';
+      card.style.transform='translateX(0)';
+
+    });
+
+  },150);
+}
+
+
+/* =========================================================
+   ACCESS SCREEN
+   ========================================================= */
+
+function renderAccess(){
+
+  card.innerHTML=`
+
+    <div class="brand">
+      <div class="brand-icon">🇬🇧</div>
+      <div class="brand-name">
+        <strong>IELTS English Assessment</strong>
+        Advanced Assessment System
+      </div>
+    </div>
+
+    <div class="level-pill">
+      ✦ IELTS 1 — Advanced
+    </div>
+
+    <div class="access-icon">🔐</div>
+
+    <div class="access-title">
+      Enter Your Access Code
+    </div>
+
+    <div class="access-subtitle">
+      Enter your four-digit subscription code to access the IELTS 1 Advanced assessment.
+    </div>
+
+    <label class="input-label">
+      ACCESS CODE
+    </label>
+
+    <input
+      class="code-input"
+      id="access-code"
+      type="text"
+      inputmode="numeric"
+      maxlength="4"
+      autocomplete="off"
+      placeholder="• • • •"
+      onkeydown="if(event.key==='Enter')checkAccess()"
+    >
+
+    <div class="error" id="access-error"></div>
+
+    <button
+      class="btn-primary"
+      id="access-button"
+      onclick="checkAccess()"
+    >
+      Enter Assessment →
+    </button>
+
+    <button
+      class="get-code"
+      onclick="openSubscriptionModal()"
+    >
+      🎓 Get Subscription Code
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ACCESS CHECK
+   ========================================================= */
+
+async function checkAccess(){
+
+  const input=document.getElementById('access-code');
+  const error=document.getElementById('access-error');
+  const button=document.getElementById('access-button');
+
+  const code=input.value.trim().replace(/\D/g,'');
+
+  if(!/^\d{4}$/.test(code)){
+
+    input.classList.add('shake');
+
+    setTimeout(()=>{
+      input.classList.remove('shake');
+    },400);
+
+    error.textContent='The access code must contain exactly four digits.';
+
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent='Checking...';
+
+  try{
+
+    const rows=await supabaseGet(
+      'subscriptions',
+      `code=eq.${code}&is_active=eq.true`
+    );
+
+    if(Array.isArray(rows)&&rows.length){
+
+      state.screen='start';
+
+      transition(renderStart);
+
+    }else{
+
+      error.textContent=
+        'The access code is invalid or has expired.';
+
+      input.classList.add('shake');
+
+      setTimeout(()=>{
+        input.classList.remove('shake');
+      },400);
+
+      button.disabled=false;
+      button.textContent='Enter Assessment →';
+    }
+
+  }catch(errorObject){
+
+    console.error(errorObject);
+
+    error.textContent=
+      'Unable to connect to the server. Please try again.';
+
+    button.disabled=false;
+    button.textContent='Enter Assessment →';
+  }
+
+}
+
+
+/* =========================================================
+   START SCREEN
+   ========================================================= */
+
+function renderStart(){
+
+  const level=LEVELS[CURRENT_LEVEL-1];
+
+  card.innerHTML=`
+
+    <div class="brand">
+      <div class="brand-icon">🇬🇧</div>
+      <div class="brand-name">
+        <strong>IELTS English Assessment</strong>
+        ${level.subtitle}
+      </div>
+    </div>
+
+    <div class="level-pill">
+      ✦ ${level.title}
+    </div>
+
+    <div class="start-icon">
+      📝
+    </div>
+
+    <div class="start-title">
+      ${level.title}
+    </div>
+
+    <div class="start-description">
+      ${level.description}
+      This assessment contains challenging questions designed to test precision rather than basic recognition.
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        ⏱ <span>Approx. 25 minutes</span>
+      </div>
+
+      <div class="stat">
+        📊 <span>60 questions</span>
+      </div>
+
+      <div class="stat">
+        🎯 <span>Advanced</span>
+      </div>
+
+      <div class="stat">
+        🇬🇧 <span>English only</span>
+      </div>
+
+    </div>
+
+    <button
+      class="btn-primary"
+      onclick="startAssessment()"
+    >
+      Start IELTS 1 Assessment →
+    </button>
+
+  `;
+}
+
+
+/* =========================================================
+   START QUIZ
+   ========================================================= */
+
+function startAssessment(){
+
+  state.questions=buildQuiz();
+  state.current=0;
+  state.answers=[];
+  state.score=0;
+  state.screen='quiz';
+
+  transition(renderQuestion);
+}
+
+
+/* =========================================================
+   QUESTION SCREEN
+   ========================================================= */
+
+function renderQuestion(){
+
+  const q=state.questions[state.current];
+
+  const total=state.questions.length;
+
+  const answered=state.answers[state.current];
+
+  const progress=Math.round(
+    (state.current/total)*100
+  );
+
+  const wrong=
+    answered!==undefined &&
+    answered!==q.answer;
+
+  card.innerHTML=`
+
+    <div class="brand">
+
+      <div
+        class="brand-icon"
+        style="width:35px;height:35px;font-size:16px"
+      >
+        🇬🇧
+      </div>
+
+      <div class="brand-name">
+
+        <strong>IELTS 1 — Advanced</strong>
+
+        English Assessment
+
+      </div>
+
+    </div>
+
+
+    <div class="progress-wrap">
+
+      <div class="progress-top">
+
+        <strong>
+          Question ${state.current+1} of ${total}
+        </strong>
+
+        <span>
+          ${progress}% complete
+        </span>
+
+      </div>
+
+      <div class="progress-bg">
+
+        <div
+          class="progress"
+          style="width:${progress}%"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="question-badge">
+      ✦ ${q.badge}
+    </div>
+
+
+    <div class="question">
+      ${q.question}
+    </div>
+
+
+    <div class="options">
+
+      ${q.options.map((option,index)=>{
+
+        let className='';
+
+        if(answered!==undefined){
+
+          if(index===q.answer){
+            className='correct';
+          }
+
+          if(index===answered&&answered!==q.answer){
+            className='wrong';
+          }
+
+        }
+
+        return `
+
+          <div
+            class="option ${className} ${answered!==undefined?'disabled':''}"
+            onclick="selectAnswer(${index})"
+          >
+
+            <div class="letter">
+              ${LETTERS[index]}
+            </div>
+
+            <div class="option-text">
+              ${option}
+            </div>
+
+          </div>
+
+        `;
+
+      }).join('')}
+
+    </div>
+
+
+    ${wrong?`
+
+      <div class="feedback">
+
+        <div class="feedback-title">
+          ✕ Why this answer is incorrect
+        </div>
+
+        <div class="feedback-text">
+          ${q.explanation}
+        </div>
+
+        <div class="feedback-answer">
+          ✓ Correct answer:
+          ${q.options[q.answer]}
+        </div>
+
+      </div>
+
+    `:''}
+
+
+    <div class="question-actions">
+
+      ${state.current>0?`
+
+        <button
+          class="btn-secondary"
+          onclick="previousQuestion()"
+        >
+          ← Previous
+        </button>
+
+      `:''}
+
+
+      <button
+        class="btn-primary"
+        id="next-button"
+        ${answered===undefined||wrong?'disabled':''}
+        onclick="nextQuestion()"
+      >
+        ${state.current===total-1
+          ?'View Results ✓'
+          :'Next Question →'}
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SELECT ANSWER
+   ========================================================= */
+
+function selectAnswer(index){
+
+  if(state.answers[state.current]!==undefined){
+    return;
+  }
+
+  const q=state.questions[state.current];
+
+  state.answers[state.current]=index;
+
+  if(index===q.answer){
+    state.score++;
+  }
+
+  renderQuestion();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function nextQuestion(){
+
+  if(state.answers[state.current]===undefined){
+    return;
+  }
+
+  const q=state.questions[state.current];
+
+  if(state.answers[state.current]!==q.answer){
+    return;
+  }
+
+  if(state.current<state.questions.length-1){
+
+    state.current++;
+
+    transition(renderQuestion);
+
+  }else{
+
+    state.screen='result';
+
+    transition(renderResult);
+
+  }
+
+}
+
+function previousQuestion(){
+
+  if(state.current>0){
+
+    state.current--;
+
+    transition(renderQuestion);
+
+  }
+
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+function renderResult(){
+
+  const total=state.questions.length;
+
+  const percentage=Math.round(
+    state.score/total*100
+  );
+
+  let title;
+  let emoji;
+  let message;
+
+  if(percentage<40){
+
+    emoji='🌱';
+
+    title='Keep Building Your Advanced English';
+
+    message=
+      'Your result indicates that several advanced structures still require focused practice. Review complex grammar, academic vocabulary, conditionals, inversion and collocations before attempting the next level.';
+
+  }else if(percentage<60){
+
+    emoji='📚';
+
+    title='Developing Advanced Proficiency';
+
+    message=
+      'You demonstrated knowledge of many advanced structures, but some distinctions remain inconsistent. Continued practice with precision, academic vocabulary and complex sentence patterns will strengthen your performance.';
+
+  }else if(percentage<75){
+
+    emoji='🚀';
+
+    title='Strong Advanced Performance';
+
+    message=
+      'You handled a substantial range of advanced English structures successfully. Continue working on subtle grammatical distinctions, lexical precision and academic usage.';
+
+  }else if(percentage<90){
+
+    emoji='🏆';
+
+    title='Very Strong IELTS 1 Performance';
+
+    message=
+      'Your result shows strong command of advanced English. You appear comfortable with complex grammatical structures, academic vocabulary and nuanced language choices.';
+
+  }else{
+
+    emoji='🔥';
+
+    title='Exceptional IELTS 1 Performance';
+
+    message=
+      'You demonstrated exceptionally strong control of the language tested in this level. The next stage introduces substantially more demanding distinctions and professional-level English.';
+
+  }
+
+  card.innerHTML=`
+
+    <div class="result">
+
+      <div class="brand">
+
+        <div class="brand-icon">🇬🇧</div>
+
+        <div class="brand-name">
+
+          <strong>IELTS English Assessment</strong>
+
+          IELTS 1 — Advanced
+
+        </div>
+
+      </div>
+
+
+      <span class="result-emoji">
+        ${emoji}
+      </span>
+
+
+      <div class="result-label">
+        IELTS 1 — Advanced Result
+      </div>
+
+
+      <div class="result-title">
+        ${title}
+      </div>
+
+
+      <div class="divider"></div>
+
+
+      <div class="score">
+        ${state.score}
+      </div>
+
+
+      <div class="score-total">
+        out of ${total} questions
+      </div>
+
+
+      <div class="percentage">
+        ${percentage}% correct
+      </div>
+
+
+      <div class="result-grid">
+
+        <div class="result-box">
+
+          <div
+            class="result-number"
+            style="color:#6EE7B7"
+          >
+            ${state.score}
+          </div>
+
+          <div class="result-small">
+            CORRECT
+          </div>
+
+        </div>
+
+
+        <div class="result-box">
+
+          <div
+            class="result-number"
+            style="color:#FCA5A5"
+          >
+            ${total-state.score}
+          </div>
+
+          <div class="result-small">
+            INCORRECT
+          </div>
+
+        </div>
+
+
+        <div class="result-box">
+
+          <div
+            class="result-number"
+            style="color:#90CAF9"
+          >
+            ${percentage}%
+          </div>
+
+          <div class="result-small">
+            ACCURACY
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="result-message">
+
+        <strong>
+          Assessment Feedback
+        </strong>
+
+        <p>
+          ${message}
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn-primary"
+        style="margin-top:20px"
+        onclick="startAssessment()"
+      >
+        Take IELTS 1 Again ↻
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SUBSCRIPTION MODAL
+   ========================================================= */
+
+function openSubscriptionModal(){
+
+  const modal=
+    document.getElementById('subscription-modal');
+
+  const content=
+    document.getElementById('modal-content');
+
+  modal.classList.remove('hidden');
+
+  content.innerHTML=`
+
+    <label class="input-label">
+      PHONE NUMBER
+    </label>
+
+    <input
+      class="modal-input"
+      id="phone-input"
+      type="tel"
+      inputmode="numeric"
+      maxlength="15"
+      placeholder="Enter your registered phone number"
+    >
+
+    <div
+      id="modal-error"
+      class="error"
+    ></div>
+
+    <div class="modal-actions">
+
+      <button
+        class="modal-submit"
+        onclick="retrieveCode()"
+      >
+        Get Code
+      </button>
+
+      <button
+        class="modal-cancel"
+        onclick="closeSubscriptionModal()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  `;
+
+  setTimeout(()=>{
+    document.getElementById('phone-input')?.focus();
+  },100);
+
+}
+
+function closeSubscriptionModal(){
+
+  document
+    .getElementById('subscription-modal')
+    .classList.add('hidden');
+
+}
+
+async function retrieveCode(){
+
+  const input=document.getElementById('phone-input');
+
+  const error=document.getElementById('modal-error');
+
+  let phone=input.value.trim().replace(/\D/g,'');
+
+  if(phone.startsWith('0')){
+    phone=phone.slice(1);
+  }
+
+  if(phone.length<10){
+
+    error.textContent=
+      'Please enter a valid phone number.';
+
+    return;
+
+  }
+
+  error.textContent='Checking...';
+
+  try{
+
+    const rows=await supabaseGet(
+      'subscriptions',
+      `phone=eq.${phone}&is_active=eq.true`
+    );
+
+    if(!Array.isArray(rows)||!rows.length){
+
+      error.textContent=
+        'No active subscription was found for this phone number.';
+
+      return;
+
+    }
+
+    const subscription=rows[0];
+
+    let code=(subscription.code||'').trim();
+
+    if(!code){
+
+      code=generateCode();
+
+      await supabasePatch(
+        'subscriptions',
+        `id=eq.${subscription.id}`,
+        {code}
+      );
+
+    }
+
+    document.getElementById('modal-title').textContent=
+      'Your Subscription Code';
+
+    document.getElementById('modal-subtitle').textContent=
+      'Use this four-digit code to access IELTS 1.';
+
+    document.getElementById('modal-content').innerHTML=`
+
+      <div class="code-reveal">
+
+        <div
+          style="
+            color:#6EE7B7;
+            font-size:11px;
+            font-weight:800;
+          "
+        >
+          YOUR ASSESSMENT CODE
+        </div>
+
+        <div class="revealed-code">
+          ${code}
+        </div>
+
+      </div>
+
+      <button
+        class="btn-primary"
+        style="margin-top:18px"
+        onclick="closeSubscriptionModal()"
+      >
+        Done ✓
+      </button>
+
+    `;
+
+  }catch(errorObject){
+
+    console.error(errorObject);
+
+    error.textContent=
+      'A server error occurred. Please try again.';
+
+  }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+renderAccess();
+
+</script>
+
+</body>
+</html>
+```
