@@ -494,10 +494,7 @@ async function sbInsert(table, body) {
   return r.ok;
 }
 
-const SESSION_KEY = 'lingua_session_v1';
-const getSession  = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch(e) { return null; } };
-const setSession  = d  => localStorage.setItem(SESSION_KEY, JSON.stringify(d));
-const isLoggedIn  = () => { const s = getSession(); return s && s.phone && s.verified; };
+
 
 function showToast(msg, dur = 2800) {
   const t = document.getElementById('toast');
