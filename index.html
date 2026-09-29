@@ -279,20 +279,55 @@
   .learning-item .learning-enter{z-index:5;}
   .learning-enter:active{transform:scale(.97);opacity:.88;}
 
-  /* ===== BANNER IMAGE (بین امکانات سیلو و ۴ گزینه ای) ===== */
+  /* ===== BANNER IMAGE — بدون خط، fade کاملاً طبیعی ===== */
   .cllo-banner{
-    width:calc(100% + 32px);margin:24px -16px 0;
-    position:relative;overflow:hidden;
-    border-radius:0;
+    width:calc(100% + 32px);
+    margin:28px -16px 0;
+    position:relative;
+    overflow:hidden;
   }
   .cllo-banner img{
-    width:100%;display:block;
-    object-fit:cover;object-position:center;
+    width:100%;
+    display:block;
+    object-fit:cover;
+    object-position:center;
+    /* حذف هر border یا outline احتمالی */
+    border:none;
+    outline:none;
   }
-  .cllo-banner::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(to bottom,rgba(5,15,40,.08) 0%,transparent 30%,transparent 70%,rgba(5,15,40,.15) 100%);
+  /* fade بالا: از رنگ دقیق بک‌گراند به شفاف */
+  .cllo-banner::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:22%;
+    z-index:2;
     pointer-events:none;
+    background:linear-gradient(
+      to bottom,
+      #0f3460 0%,
+      rgba(15,52,96,0.92) 15%,
+      rgba(15,52,96,0.7) 35%,
+      rgba(15,52,96,0.3) 65%,
+      transparent 100%
+    );
+  }
+  /* fade پایین: از شفاف به رنگ بک‌گراند */
+  .cllo-banner::after{
+    content:'';
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:22%;
+    z-index:2;
+    pointer-events:none;
+    background:linear-gradient(
+      to top,
+      #0f3460 0%,
+      rgba(15,52,96,0.92) 15%,
+      rgba(15,52,96,0.7) 35%,
+      rgba(15,52,96,0.3) 65%,
+      transparent 100%
+    );
   }
 
   /* ===== MORE SECTION ===== */
@@ -307,7 +342,6 @@
     scroll-snap-align:start;
     position:relative;
   }
-  /* فریم شیشه‌ای گلس دور آیتم */
   .more-item-inner{
     width:var(--more-w);
     border-radius:20px;
@@ -329,7 +363,6 @@
     border-color:rgba(255,255,255,0.44);
     box-shadow:0 14px 44px rgba(0,0,0,0.42), 0 0 28px rgba(80,160,255,0.12), inset 0 1px 0 rgba(255,255,255,0.38);
   }
-  /* شیمر بالایی گلس */
   .more-item-inner::before{
     content:'';position:absolute;top:0;left:0;right:0;height:1px;z-index:10;
     background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent);
@@ -339,13 +372,11 @@
     width:100%;height:var(--more-h);
     object-fit:cover;object-position:center;display:block;
   }
-  /* overlay تیره پایین تصویر */
   .more-item-inner::after{
     content:'';position:absolute;bottom:0;left:0;right:0;height:60px;z-index:1;
     background:linear-gradient(to top,rgba(5,15,40,0.65),transparent);
     pointer-events:none;
   }
-  /* دکمه خواندن روی فریم */
   .more-read-btn{
     position:relative;z-index:2;
     width:calc(100% - 20px);
@@ -472,7 +503,6 @@
   @media (max-width: 599px){
     :root{
       --story-ring:76px;
-      /* کارت‌های امکانات سیلو ۲۰px کوچک‌تر در موبایل */
       --learning-w:208px;
       --learning-h:260px;
     }
@@ -500,8 +530,28 @@
     .browser-address{height:38px;padding:0 11px;font-size:12px;gap:6px;}
     .browser-grid{grid-template-columns:repeat(3,3.5px);grid-template-rows:repeat(3,3.5px);gap:2px;}
     .browser-grid i{width:3.5px;height:3.5px;}
-    /* بنر تمام عرض در موبایل */
-    .cllo-banner{width:calc(100% + 32px);margin-left:-16px;margin-right:-16px;}
+    /* بنر موبایل: تمام عرض، fade رنگ بک‌گراند موبایل */
+    .cllo-banner{width:calc(100% + 32px);margin-left:-16px;margin-right:-16px;margin-top:24px;}
+    .cllo-banner::before{
+      background:linear-gradient(
+        to bottom,
+        #0f3460 0%,
+        rgba(15,52,96,0.9) 12%,
+        rgba(15,52,96,0.6) 30%,
+        rgba(15,52,96,0.2) 60%,
+        transparent 100%
+      );
+    }
+    .cllo-banner::after{
+      background:linear-gradient(
+        to top,
+        #0f3460 0%,
+        rgba(15,52,96,0.9) 12%,
+        rgba(15,52,96,0.6) 30%,
+        rgba(15,52,96,0.2) 60%,
+        transparent 100%
+      );
+    }
   }
   @media (min-width:600px){
     :root{--max-w:100%;--card-w:210px;--card-h:360px;--story-ring:72px;--learning-w:240px;--learning-h:290px;--more-w:170px;--more-h:300px;}
@@ -536,9 +586,10 @@
     .podium-number{font-size:46px;}.rank-1 .podium-number{font-size:62px;}.rank-4 .podium-number{font-size:30px;}
     .rank-1 .podium-block{height:165px;}.rank-2 .podium-block{height:124px;}.rank-3 .podium-block{height:92px;}.rank-4 .podium-block{height:70px;}
     .popup-sheet{max-width:560px;}.price-sheet{max-width:440px;}
-    /* بنر در دسکتاپ */
+    /* بنر دسکتاپ */
     .cllo-banner{width:100%;margin-left:0;margin-right:0;border-radius:20px;overflow:hidden;}
     .cllo-banner img{border-radius:20px;}
+    .cllo-banner::before,.cllo-banner::after{border-radius:20px;}
   }
   @media (min-width:768px){
     :root{--card-w:224px;--card-h:376px;--story-ring:76px;--learning-w:256px;--learning-h:300px;--more-w:182px;--more-h:320px;}
@@ -784,7 +835,7 @@
   <!-- ===== MAIN CONTENT ===== -->
   <div class="container">
 
-    <!-- ===== امکانات سیلو (بالا) ===== -->
+    <!-- ===== امکانات سیلو ===== -->
     <div class="row-label">امکانات سیلو (cllo)</div>
     <div class="learning-carousel" id="learningCarousel">
       <div class="learning-item"><div class="learning-card" data-title="ویدیو آموزشی" data-url="https://cllo.ir/videoamozesh.html">
@@ -824,12 +875,12 @@
       </div><button class="learning-enter" type="button">ورود</button></div>
     </div>
 
-    <!-- ===== BANNER IMAGE تمام عرض ===== -->
+    <!-- ===== BANNER IMAGE — fade طبیعی بدون خط ===== -->
     <div class="cllo-banner">
       <img src="http://fs3.centraldnserver.com/~planlife/pics/english/piccllo.webp" alt="CLLO" loading="lazy" decoding="async">
     </div>
 
-    <!-- ===== تمرینات ۴ گزینه‌ای (پایین) ===== -->
+    <!-- ===== تمرینات ۴ گزینه‌ای ===== -->
     <div class="row-label extra-label">تمرینات ۴ گزینه‌ای</div>
     <div class="carousel" id="row1"></div>
 
