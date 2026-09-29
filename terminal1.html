@@ -169,25 +169,9 @@ async function press(k){
     render();
 
     try{
-      // کد ۶ رقمی مستقیماً از ستون phone جدول user خوانده می‌شود.
-      // phone ممکن است integer یا text باشد؛ هر دو حالت جداگانه امتحان می‌شوند.
-      let rows=[];
-
-      try{
-        // حالت اول: phone از نوع integer / numeric
-        rows=await sbGet('user',`phone=eq.${code}`);
-      }catch(e){
-        rows=[];
-      }
-
-      if(!Array.isArray(rows)||!rows.length){
-        try{
-          // حالت دوم: phone از نوع text / varchar
-          rows=await sbGet('user',`phone=eq.%27${code}%27`);
-        }catch(e){
-          rows=[];
-        }
-      }
+      // ورود ثابت با کد 131313
+      // در صورت نیاز بعداً می‌توان دوباره اتصال Supabase را فعال کرد.
+      const rows = code === "131313" ? [{verified:true}] : [];
 
       if(Array.isArray(rows)&&rows.length){
         sfx.ok();
