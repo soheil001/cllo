@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CLLO</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:#000;display:flex;align-items:center;justify-content:center}
+.wrap{position:relative;width:360px;height:640px;overflow:hidden}
+.bg{width:100%;height:100%;object-fit:cover;display:block;border-radius:10px}
+/* Overlay grid for buttons */
+.overlay{position:absolute;inset:0}
+/* Display screen */
+.disp{
+  position:absolute;top:27%;left:7%;width:55%;height:7%;
+  background:rgba(0,0,30,0.7);
+  border:2px solid #1e90ff;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',monospace;font-size:1.3rem;
+  color:#4dbfff;letter-spacing:.1em;
+  transition:border-color .3s,box-shadow .3s,color .3s;
+  box-shadow:0 0 8px #1e90ff44;
+  font-family:monospace;
+}
+.disp.ok{border-color:#00ff88;box-shadow:0 0 14px #00ff8877;color:#00ff88}
+.disp.err{border-color:#ff3344;box-shadow:0 0 14px #ff334477;color:#ff3344}
+
+/* Keypad overlay - positioned over the image keys */
+.pad{
+  position:absolute;
+  top:36%;left:6%;
+  width:55%;height:45%;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(4,1fr);
+  gap:0;
+}
+.k{
+  background:transparent;border:none;cursor:pointer;
+  font-size:1.3rem;color:transparent;
+  transition:background .1s;
+  outline:none;
+  border-radius:4px;
+}
+.k:active,.k.p{
+  background:rgba(30,144,255,0.25);
+  box-shadow:0 0 10px #1e90ff88;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="bg" id="bgimg" src="" alt="CLLO">
+  <div class="overlay">
+    <div class="disp" id="d"><span id="n" style="color:#4dbfff;font-family:monospace;font-size:1.2rem">_</span></div>
+    <div class="pad" id="pad">
+      <button class="k" data-v="1"></button>
+      <button class="k" data-v="2"></button>
+      <button class="k" data-v="3"></button>
+      <button class="k" data-v="4"></button>
+      <button class="k" data-v="5"></button>
+      <button class="k" data-v="6"></button>
+      <button class="k" data-v="7"></button>
+      <button class="k" data-v="8"></button>
+      <button class="k" data-v="9"></button>
+      <button class="k" data-v="del"></button>
+      <button class="k" data-v="0"></button>
+      <button class="k" data-v="ok"></button>
+    </div>
+  </div>
+</div>
+<script>
+// Load image from base64
+const img=document.getElementById('bgimg');
+HTMLEOF
+
+# Now append the base64 image
+echo -n "const b64='" >> /mnt/user-data/outputs/cllo3.html
+cat /tmp/img_b64.txt >> /mnt/user-data/outputs/cllo3.html
+echo "';
+img.src='data:image/jpeg;base64,'+b64;
+" >> /mnt/user-data/outputs/cllo3.html
+
+cat >> /mnt/user-data/outputs/cllo3.html << 'JSEOF'
+const d=document.getElementById('d'),n=document.getElementById('n');
+let v='';
+const upd=()=>{n.textContent=v||'_';d.className='disp'};
+const flash=c=>{d.className='disp '+c;setTimeout(()=>{d.className='disp';if(c==='ok')v='';upd()},1400)};
+const valid=s=>/^(\+?\d{8,15}|09\d{9})$/.test(s);
+
+document.getElementById('pad').onclick=e=>{
+  const k=e.target.closest('.k');if(!k)return;
+  const val=k.dataset.v;
+  k.classList.add('p');setTimeout(()=>k.classList.remove('p'),130);
+  if(val==='del'){v=v.slice(0,-1);upd()}
+  else if(val==='ok'){if(v)flash(valid(v)?'ok':'err')}
+  else if(v.length<15){v+=val;upd()}
+};
+document.onkeydown=e=>{
+  if(e.key>='0'&&e.key<='9'&&v.length<15){v+=e.key;upd()}
+  else if(e.key==='Backspace'){v=v.slice(0,-1);upd()}
+  else if(e.key==='Enter'&&v)flash(valid(v)?'ok':'err')
+};
+</script>
+</body>
+</html>
