@@ -287,7 +287,7 @@
     overflow:hidden;
   }
   .cllo-banner img{
-    width:120%;
+    width:110%;
     display:block;
     object-fit:cover;
     object-position:center;
@@ -311,24 +311,6 @@
       rgba(15,52,96,0.3) 65%,
       transparent 100%
     );
-  }
-  /* fade پایین: از شفاف به رنگ بک‌گراند */
-  .cllo-banner::after{
-    content:'';
-    position:absolute;
-    bottom:0;left:0;right:0;
-    height:22%;
-    z-index:2;
-    pointer-events:none;
-    background:linear-gradient(
-      to top,
-      #0f3460 0%,
-      rgba(15,52,96,0.92) 15%,
-      rgba(15,52,96,0.7) 35%,
-      rgba(15,52,96,0.3) 65%,
-      transparent 100%
-    );
-  }
 
   /* ===== MORE SECTION ===== */
   .more-label{margin-top:28px;margin-bottom:12px;}
