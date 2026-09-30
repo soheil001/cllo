@@ -2,115 +2,51 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CllO | ورود کد</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CllO</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:22px 14px;background:radial-gradient(circle at 50% 12%,#26364f,#0c121c 48%,#05080d);font-family:Arial,sans-serif}
-.wrap{width:min(430px,100%);display:flex;flex-direction:column;align-items:center;gap:18px}
-.device{position:relative;width:100%;max-width:410px;line-height:0;filter:drop-shadow(0 25px 35px rgba(0,0,0,.48))}
-.device img{display:block;width:100%;height:auto;border-radius:28px}
-#slots{position:absolute;left:23.5%;top:27.8%;width:53%;height:6%;display:flex;direction:ltr;gap:5px;justify-content:center;align-items:center;pointer-events:none}
-.slot{width:clamp(13px,3.5vw,19px);height:clamp(13px,3.5vw,19px);border:1px solid rgba(100,160,230,.62);border-radius:4px;background:rgba(6,18,35,.28);box-shadow:inset 0 0 7px rgba(0,0,0,.45);transition:.18s}
-.slot.filled{background:linear-gradient(145deg,#8fe8ff,#3b9dff);border-color:#b9ecff;box-shadow:0 0 9px rgba(50,170,255,.65)}
-.slot.correct{background:#35e879;border-color:#9affbd;box-shadow:0 0 10px rgba(53,232,121,.8)}
-.slot.wrong{background:#ff3e52;border-color:#ff9ca7;box-shadow:0 0 10px rgba(255,62,82,.85)}
-#display{position:absolute;left:17%;top:21%;width:66%;height:5%;text-align:center;direction:ltr;color:#dff4ff;font-size:clamp(11px,3vw,17px);font-weight:700;letter-spacing:5px;text-shadow:0 0 10px #55bfff;pointer-events:none}
-.keys{width:min(360px,92%);display:grid;grid-template-columns:repeat(3,1fr);gap:10px;direction:ltr}
-.key{height:58px;border:1px solid rgba(120,180,255,.18);border-radius:17px;background:linear-gradient(145deg,#232b3a,#080c14);color:#eef7ff;font-size:21px;font-weight:600;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 7px 18px rgba(0,0,0,.28);transition:.13s}
-.key:active{transform:translateY(2px) scale(.98)}
-.key.action{font-size:14px;color:#9fd7ff}.key.enter{color:#bce7ff;border-color:rgba(50,160,255,.42)}
-.status{min-height:20px;font-size:12px;color:#9aabc0;direction:rtl;text-align:center}
-@media(max-width:420px){.keys{gap:8px}.key{height:54px;border-radius:15px}#slots{gap:4px}}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;display:flex;justify-content:center;align-items:center;background:#05080d;padding:16px;font-family:system-ui,sans-serif}
+.w{width:min(380px,100%);position:relative}
+.d{position:relative;line-height:0}
+.d img{width:100%;display:block;border-radius:22px;filter:drop-shadow(0 20px 35px #0008)}
+#s{position:absolute;left:23.2%;top:23.6%;width:53.6%;height:2.5%;display:flex;direction:ltr;gap:3px;justify-content:center;pointer-events:none}
+.o{flex:1;max-width:17px;aspect-ratio:1;border:1.5px solid #649fe68c;border-radius:3px;background:#0612234d;transition:.15s}
+.o.f{background:linear-gradient(145deg,#8fe8ff,#3b9dff);border-color:#b9ecff;box-shadow:0 0 8px #32aaffa6}
+.o.c{background:#35e879;border-color:#9affbd;box-shadow:0 0 10px #35e879cc}
+.o.w{background:#ff3e52;border-color:#ff9ca7;box-shadow:0 0 10px #ff3e52d9}
+.k{position:absolute;left:19.5%;top:46.2%;width:61%;height:43%;display:grid;grid:repeat(4,1fr)/repeat(3,1fr);gap:2.5% 3.5%;direction:ltr}
+.b{background:0;border:0;border-radius:13px;cursor:pointer;transition:.1s}
+.b:active{transform:scale(.9);filter:brightness(.4)}
+#t{text-align:center;margin-top:12px;font-size:13px;color:#8a9bb0;min-height:18px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="device">
-    <img src="https://cllo.ir/login123/IMG_5168.png" alt="CllO">
-    <div id="display"></div>
-    <div id="slots"></div>
-  </div>
-
-  <div class="keys">
-    <button class="key" data-key="1">1</button><button class="key" data-key="2">2</button><button class="key" data-key="3">3</button>
-    <button class="key" data-key="4">4</button><button class="key" data-key="5">5</button><button class="key" data-key="6">6</button>
-    <button class="key" data-key="7">7</button><button class="key" data-key="8">8</button><button class="key" data-key="9">9</button>
-    <button class="key action" id="backspace">پاک کردن</button><button class="key" data-key="0">0</button><button class="key enter" id="enter">ورود</button>
-  </div>
-  <div class="status" id="status"></div>
+<div class="w">
+<div class="d">
+<img src="https://cllo.ir/login123/IMG_5168.png" alt="CllO">
+<div id="s"></div>
+<div class="k">
+<button class="b" data-k="1"></button><button class="b" data-k="2"></button><button class="b" data-k="3"></button>
+<button class="b" data-k="4"></button><button class="b" data-k="5"></button><button class="b" data-k="6"></button>
+<button class="b" data-k="7"></button><button class="b" data-k="8"></button><button class="b" data-k="9"></button>
+<button class="b" data-k="x"></button><button class="b" data-k="0"></button><button class="b" data-k="e"></button>
 </div>
-
+</div>
+<div id="t"></div>
+</div>
 <script>
-/* کد صحیح را اینجا قرار بده */
-const CORRECT_CODE="1234567890";
-
-let code="";
-const slots=document.getElementById("slots");
-const display=document.getElementById("display");
-const status=document.getElementById("status");
-
-for(let i=0;i<10;i++){
-  const s=document.createElement("div");
-  s.className="slot";
-  slots.appendChild(s);
-}
-const boxes=[...document.querySelectorAll(".slot")];
-
-function render(){
-  display.textContent=code;
-  boxes.forEach((box,i)=>{
-    box.className="slot";
-    if(i<code.length) box.classList.add("filled");
-  });
-}
-
-function add(n){
-  if(code.length<10){code+=n;status.textContent="";}
-  render();
-}
-
-function clearCode(){
-  code="";
-  status.textContent="";
-  render();
-}
-
-function check(){
-  if(code.length!==10){
-    status.textContent="کد باید دقیقاً ۱۰ رقم باشد";
-    return;
-  }
-
-  const ok=code===CORRECT_CODE;
-
-  boxes.forEach((box,i)=>{
-    box.className="slot "+(ok ? "correct" : "wrong");
-  });
-
-  if(ok){
-    status.textContent="کد صحیح است ✓";
-    /* بعد از ورود موفق، مقصد سایت را اینجا قرار بده:
-       window.location.href="YOUR-PAGE.html";
-    */
-  }else{
-    status.textContent="کد اشتباه است ✕";
-  }
-}
-
-document.querySelectorAll("[data-key]").forEach(btn=>{
-  btn.addEventListener("click",()=>add(btn.dataset.key));
-});
-document.getElementById("backspace").onclick=clearCode;
-document.getElementById("enter").onclick=check;
-
-document.addEventListener("keydown",e=>{
-  if(/^[0-9]$/.test(e.key)) add(e.key);
-  else if(e.key==="Backspace") clearCode();
-  else if(e.key==="Enter") check();
-});
-
-render();
+const C="1234567890";let c="";
+const S=document.getElementById("s"),T=document.getElementById("t");
+for(let i=0;i<10;i++)S.innerHTML+='<div class="o"></div>';
+const B=[...S.children];
+const R=()=>B.forEach((b,i)=>b.className="o"+(i<c.length?" f":""));
+const A=n=>{if(c.length<10){c+=n;T.textContent="";R()}};
+const X=()=>{c=c.slice(0,-1);T.textContent="";R()};
+const E=()=>{if(c.length!=10){T.textContent="کد باید ۱۰ رقم باشد";return}const ok=c===C;B.forEach(b=>b.className="o "+(ok?"c":"w"));T.textContent=ok?"کد صحیح است ✓":"کد اشتباه است ✕"};
+document.querySelectorAll(".b").forEach(b=>b.onclick=()=>{const k=b.dataset.k;k=="x"?X():k=="e"?E():A(k)});
+onkeydown=e=>/^[0-9]$/.test(e.key)?A(e.key):e.key=="Backspace"?X():e.key=="Enter"?E():0;
+R();
 </script>
 </body>
 </html>
