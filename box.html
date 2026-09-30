@@ -112,10 +112,6 @@ button:disabled{background:var(--accent-dis);cursor:default}
 <body>
 <div class="card">
   <h2>📨 ارسال پیام به تلگرام</h2>
-  <p class="subtitle">از طریق Claude به عنوان proxy</p>
-
-  <label>توکن ربات (Bot Token)</label>
-  <input type="text" id="token" placeholder="123456:ABC-DEF..." autocomplete="off"/>
 
   <label>شناسه چت (Chat ID)</label>
   <input type="text" id="chat_id" placeholder="مثلاً: 8884022816" value="8884022816"/>
@@ -131,13 +127,12 @@ button:disabled{background:var(--accent-dis);cursor:default}
 
 <script>
 async function sendMessage() {
-  const token   = document.getElementById("token").value.trim();
+  const token   = "8762829572:AAEirHKKYNUL6lDiAEUhdQz7XGTQTnPsfUc";
   const chat_id = document.getElementById("chat_id").value.trim();
   const message = document.getElementById("message").value.trim();
   const result  = document.getElementById("result");
   const btn     = document.getElementById("sendBtn");
 
-  if (!token)   { result.innerHTML = "⚠ لطفاً توکن ربات را وارد کنید"; return; }
   if (!chat_id) { result.innerHTML = "⚠ لطفاً Chat ID را وارد کنید"; return; }
   if (!message) { result.innerHTML = "⚠ پیام خالی است"; return; }
 
