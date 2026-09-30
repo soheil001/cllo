@@ -1,0 +1,14 @@
+const code = '12345'; // ← اینجا کد ۵ رقمی واقعی که توی جدول گذاشتی رو بنویس
+
+fetch(`https://hjzzvzxhrqovvducnxha.supabase.co/rest/v1/users?phone=eq.${code}&limit=1`, {
+  headers: {
+    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ',
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ'
+  }
+})
+.then(r => r.json())
+.then(data => {
+  console.log('نتیجه:', data);
+  console.log('تعداد رکورد:', data.length);
+})
+.catch(err => console.error('خطا:', err));
