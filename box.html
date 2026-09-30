@@ -2,40 +2,24 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ارسال پیام تلگرام</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0b1220;
-  --card:#182235;
-  --input:#0f1c30;
-  --border:#2a3a55;
-  --accent:#229ed9;
-  --accent-hover:#1a8abf;
-  --accent-dis:#2a4a5e;
-  --text:#fff;
-  --muted:#aaa;
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bot:env(safe-area-inset-bottom,0px);
-}
-html,body{height:100%}
 body{
-  min-height:100%;
+  min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:var(--bg);
+  background:#0b1220;
   font-family:tahoma,sans-serif;
-  color:var(--text);
+  color:#fff;
   padding:20px 16px;
-  padding-top:calc(var(--safe-top) + 20px);
-  padding-bottom:calc(var(--safe-bot) + 20px);
 }
 .card{
   width:100%;
   max-width:400px;
-  background:var(--card);
+  background:#182235;
   padding:28px 24px;
   border-radius:25px;
   box-shadow:0 10px 40px #0005;
@@ -43,30 +27,24 @@ body{
 h2{
   text-align:center;
   font-size:20px;
-  margin-bottom:4px;
-}
-.subtitle{
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:4px;
+  margin-bottom:20px;
 }
 label{
   display:block;
   font-size:13px;
-  color:var(--muted);
+  color:#aaa;
   margin-bottom:6px;
   margin-top:16px;
 }
 input,textarea{
   width:100%;
-  border:1.5px solid var(--border);
+  border:1.5px solid #2a3a55;
   outline:none;
   border-radius:12px;
   padding:12px 15px;
   font-size:15px;
-  background:var(--input);
-  color:var(--text);
+  background:#0f1c30;
+  color:#fff;
   font-family:tahoma,sans-serif;
   direction:ltr;
   transition:border-color .2s;
@@ -76,22 +54,22 @@ textarea{
   resize:none;
   direction:rtl;
 }
-input:focus,textarea:focus{border-color:var(--accent)}
+input:focus,textarea:focus{border-color:#229ed9}
 button{
   width:100%;
   margin-top:20px;
   height:48px;
   border:0;
   border-radius:14px;
-  background:var(--accent);
+  background:#229ed9;
   color:#fff;
   font-size:16px;
   font-family:tahoma,sans-serif;
   cursor:pointer;
-  transition:background .2s,opacity .2s;
+  transition:background .2s;
 }
-button:hover:not(:disabled){background:var(--accent-hover)}
-button:disabled{background:var(--accent-dis);cursor:default}
+button:hover:not(:disabled){background:#1a8abf}
+button:disabled{background:#2a4a5e;cursor:default}
 #result{
   margin-top:14px;
   text-align:center;
@@ -99,13 +77,6 @@ button:disabled{background:var(--accent-dis);cursor:default}
   min-height:22px;
   word-break:break-word;
   line-height:1.6;
-}
-.note{
-  margin-top:16px;
-  font-size:12px;
-  color:var(--muted);
-  text-align:center;
-  line-height:1.7;
 }
 </style>
 </head>
@@ -120,14 +91,13 @@ button:disabled{background:var(--accent-dis);cursor:default}
   <textarea id="message" placeholder="پیام خود را بنویسید..."></textarea>
 
   <button id="sendBtn" onclick="sendMessage()">ارسال پیام</button>
-
   <div id="result"></div>
-  <p class="note">⚡ پیام از طریق Claude ارسال می‌شود تا مشکل CORS برطرف شود</p>
 </div>
 
 <script>
+const BOT_TOKEN = "8762829572:AAEirHKKYNUL6lDiAEUhdQz7XGTQTnPsfUc";
+
 async function sendMessage() {
-  const token   = "8762829572:AAEirHKKYNUL6lDiAEUhdQz7XGTQTnPsfUc";
   const chat_id = document.getElementById("chat_id").value.trim();
   const message = document.getElementById("message").value.trim();
   const result  = document.getElementById("result");
@@ -139,71 +109,18 @@ async function sendMessage() {
   btn.disabled = true;
   result.innerHTML = "⏳ در حال ارسال...";
 
+  // استفاده از corsproxy.io برای دور زدن مشکل CORS
+  const apiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(apiUrl);
+
   try {
-    const sample = await window.claude.use("sample");
-    if (!sample) {
-      result.innerHTML = "❌ قابلیت ارسال در دسترس نیست";
-      btn.disabled = false;
-      return;
-    }
-
-    const prompt = `You are an API caller. Call the Telegram Bot API to send a message.
-
-Make a POST request to: https://api.telegram.org/bot${token}/sendMessage
-
-With JSON body:
-{
-  "chat_id": "${chat_id}",
-  "text": ${JSON.stringify(message)}
-}
-
-Use your web_search or fetch capability to actually call this URL.
-Then return ONLY a JSON object like:
-{"ok": true, "message_id": 123}
-or
-{"ok": false, "description": "error reason"}
-
-Do not add any explanation. Return ONLY the JSON object.`;
-
-    const response = await sample(prompt, {
-      modelTier: "quick",
-      tools: [{
-        name: "send_telegram",
-        description: "Send a message via Telegram Bot API",
-        inputSchema: {
-          type: "object",
-          properties: {
-            ok: { type: "boolean" },
-            description: { type: "string" }
-          }
-        },
-        execute: async (input) => {
-          // Actual fetch from Claude's server side
-          const url = `https://api.telegram.org/bot${token}/sendMessage`;
-          const res = await fetch(url, {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({chat_id, text: message})
-          });
-          const data = await res.json();
-          return data;
-        }
-      }]
+    const response = await fetch(proxyUrl, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id, text: message})
     });
 
-    // Try to parse result
-    let data;
-    try {
-      const clean = response.text.replace(/```json|```/g,"").trim();
-      data = JSON.parse(clean);
-    } catch(e) {
-      // If JSON parse fails, check text for success/fail indicators
-      if (response.text.includes('"ok":true') || response.text.includes('"ok": true')) {
-        data = {ok: true};
-      } else {
-        data = {ok: false, description: response.text};
-      }
-    }
+    const data = await response.json();
 
     if (data.ok) {
       result.innerHTML = "✅ پیام با موفقیت ارسال شد!";
@@ -211,15 +128,8 @@ Do not add any explanation. Return ONLY the JSON object.`;
     } else {
       result.innerHTML = "❌ خطا: " + (data.description || "نامشخص");
     }
-
   } catch (err) {
-    if (err.code === "not_granted") {
-      result.innerHTML = "⚠ دسترسی رد شد. لطفاً دوباره تلاش کنید";
-    } else if (err.code === "rate_limited") {
-      result.innerHTML = "⚠ محدودیت نرخ. لطفاً چند ثانیه صبر کنید";
-    } else {
-      result.innerHTML = "❌ خطا: " + (err.message || err.code || "نامشخص");
-    }
+    result.innerHTML = "❌ خطای اتصال: " + err.message;
   } finally {
     btn.disabled = false;
   }
