@@ -1110,34 +1110,63 @@ function clloAdd(n){if(clloCode.length<5){clloCode+=n;if(clloStatusEl)clloStatus
 function clloDelOne(){clloCode=clloCode.slice(0,-1);if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}
 function clloClear(){clloCode="";if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}
 async function clloCheck(){
-  if(clloCode.length!==5){if(clloStatusEl)clloStatusEl.textContent="کد باید ۵ رقم باشد";return}
-  if(clloStatusEl)clloStatusEl.textContent="در حال بررسی...";
+  if(clloCode.length !== 5){
+    if(clloStatusEl) clloStatusEl.textContent = "کد باید ۵ رقم باشد";
+    return;
+  }
+  if(clloStatusEl) clloStatusEl.textContent = "در حال بررسی...";
+
   try{
-    // فقط با کد ۵ رقمی جستجو می‌کنیم (ستون phone)
-    const rows=await sbGet("users",`phone=eq.${encodeURIComponent(clloCode)}`);
-    if(rows&&rows.length>0){
-      const u=rows[0];
-      const codeVal=u.phone||clloCode;
-      setSession({phone:codeVal,verified:true,ts:Date.now(),code:codeVal});
-      clloBoxes.forEach((b,i)=>{b.className="cllo-slot c";b.textContent=clloCode[i]||""});
-      if(clloStatusEl)clloStatusEl.textContent="کد صحیح است ✓";
+    // جستجو در جدول subscriptions بر اساس کد ۵ رقمی
+    const rows = await sbGet(
+      "subscriptions",
+      `code=eq.${encodeURIComponent(clloCode)}&is_active=eq.true`
+    );
+
+    if(rows && rows.length > 0){
+      const u = rows[0];
+      const codeVal = u.code || clloCode;
+
+      setSession({
+        phone: u.phone || codeVal,   // شماره واقعی یا خود کد
+        verified: true,
+        ts: Date.now(),
+        code: codeVal
+      });
+
+      clloBoxes.forEach((b,i)=>{
+        b.className = "cllo-slot c";
+        b.textContent = clloCode[i] || "";
+      });
+
+      if(clloStatusEl) clloStatusEl.textContent = "کد صحیح است ✓";
       clloBeep();
-      const action=pendingCardAction;
+
+      const action = pendingCardAction;
       setTimeout(()=>{
         closeLoginPopup();
         showToast("✅ خوش آمدید! دسترسی همه بخش‌ها فعال شد");
         unlockAllCards();
         setLearningAccess(true);
-        if(action)setTimeout(()=>action(),150);
-      },600);
-    }else{
-      clloBoxes.forEach((b,i)=>{b.className="cllo-slot w";b.textContent=clloCode[i]||""});
-      if(clloStatusEl)clloStatusEl.textContent="کد یافت نشد ✕";
-      clloBeep();clloVib([80,40,80,40,120]);
-      setTimeout(()=>{clloCode="";clloRender();if(clloStatusEl)clloStatusEl.textContent=""},1200);
+        if(action) setTimeout(()=>action(), 150);
+      }, 600);
+
+    } else {
+      clloBoxes.forEach((b,i)=>{
+        b.className = "cllo-slot w";
+        b.textContent = clloCode[i] || "";
+      });
+      if(clloStatusEl) clloStatusEl.textContent = "کد یافت نشد ✕";
+      clloBeep();
+      clloVib([80,40,80,40,120]);
+      setTimeout(()=>{
+        clloCode = "";
+        clloRender();
+        if(clloStatusEl) clloStatusEl.textContent = "";
+      }, 1200);
     }
-  }catch(e){
-    if(clloStatusEl)clloStatusEl.textContent="خطا در اتصال. دوباره تلاش کنید.";
+  } catch(e){
+    if(clloStatusEl) clloStatusEl.textContent = "خطا در اتصال. دوباره تلاش کنید.";
     console.error(e);
   }
 }
