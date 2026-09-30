@@ -312,6 +312,24 @@
       transparent 100%
     );
 
+  }
+  /* fade پایین: از شفاف به رنگ بک‌گراند */
+  .cllo-banner::after{
+    content:'';
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:22%;
+    z-index:2;
+    pointer-events:none;
+    background:linear-gradient(
+      to top,
+      #0f3460 0%,
+      rgba(15,52,96,0.92) 15%,
+      rgba(15,52,96,0.7) 35%,
+      rgba(15,52,96,0.3) 65%,
+      transparent 100%
+    );
+  }
   /* ===== MORE SECTION ===== */
   .more-label{margin-top:28px;margin-bottom:12px;}
   .more-carousel{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;padding:5px 0 20px;direction:rtl;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;}
