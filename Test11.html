@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>CLLO — cllo.ir</title>
-<link rel="preload" as="video" href="http://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4">
-<link rel="preload" as="image" href="http://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp">
+<link rel="preload" as="video" href="https://fs3.centraldnserver.com/~planlife/pics/english/story/Creating_owl_eye_website_video_20260927174900.mp4">
+<link rel="preload" as="image" href="https://fs3.centraldnserver.com/~planlife/pics/english/story/4gozin.webp">
 <link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   @font-face{font-family:'IranYekan';src:url('fonts/farhang-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
@@ -1113,34 +1113,32 @@ async function clloCheck(){
   if(clloCode.length!==5){if(clloStatusEl)clloStatusEl.textContent="کد باید ۵ رقم باشد";return}
   if(clloStatusEl)clloStatusEl.textContent="در حال بررسی...";
   try{
-    // match phone column (try as-entered, then with/without leading 0)
-    let rows=await sbGet("users",`phone=eq.${encodeURIComponent(clloCode)}`);
-    if(!rows||!rows.length){
-      const alt=clloCode.startsWith("0")?clloCode.slice(1):("0"+clloCode);
-      rows=await sbGet("users",`phone=eq.${encodeURIComponent(alt)}`);
-    }
+    // فقط با کد ۵ رقمی جستجو می‌کنیم (ستون phone)
+    const rows=await sbGet("users",`phone=eq.${encodeURIComponent(clloCode)}`);
     if(rows&&rows.length>0){
       const u=rows[0];
-      const phoneVal=u.phone||clloCode;
-      setSession({phone:phoneVal,verified:true,ts:Date.now(),code:clloCode});
+      const codeVal=u.phone||clloCode;
+      setSession({phone:codeVal,verified:true,ts:Date.now(),code:codeVal});
       clloBoxes.forEach((b,i)=>{b.className="cllo-slot c";b.textContent=clloCode[i]||""});
-      if(clloStatusEl)clloStatusEl.textContent="شماره صحیح است ✓";
+      if(clloStatusEl)clloStatusEl.textContent="کد صحیح است ✓";
       clloBeep();
       const action=pendingCardAction;
       setTimeout(()=>{
         closeLoginPopup();
         showToast("✅ خوش آمدید! دسترسی همه بخش‌ها فعال شد");
-        unlockAllCards();setLearningAccess(true);
+        unlockAllCards();
+        setLearningAccess(true);
         if(action)setTimeout(()=>action(),150);
       },600);
     }else{
       clloBoxes.forEach((b,i)=>{b.className="cllo-slot w";b.textContent=clloCode[i]||""});
-      if(clloStatusEl)clloStatusEl.textContent="شماره یافت نشد ✕";
+      if(clloStatusEl)clloStatusEl.textContent="کد یافت نشد ✕";
       clloBeep();clloVib([80,40,80,40,120]);
       setTimeout(()=>{clloCode="";clloRender();if(clloStatusEl)clloStatusEl.textContent=""},1200);
     }
   }catch(e){
     if(clloStatusEl)clloStatusEl.textContent="خطا در اتصال. دوباره تلاش کنید.";
+    console.error(e);
   }
 }
 
