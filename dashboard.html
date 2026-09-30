@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>داشبورد من — CLLO</title>
+<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'IranYekan';src:url('fonts/farhang-regular.woff2') format('woff2');font-weight:400;font-display:swap;}
+@font-face{font-family:'IranYekan';src:url('fonts/farhang-bold.woff2') format('woff2');font-weight:700 900;font-display:swap;}
+:root{
+  --max-w:520px;
+  --glass:rgba(255,255,255,0.12);
+  --glass-brd:rgba(255,255,255,0.22);
+  --glass-strong:rgba(255,255,255,0.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'IranYekan','Estedad',sans-serif;}
+body{
+  min-height:100%;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 20px);
+  background:linear-gradient(150deg,#0d1b3e 0%,#0f3460 35%,#1a5276 65%,#0a2540 100%);
+  background-attachment:fixed;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,100,220,0.18),transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 80%,rgba(0,40,140,0.15),transparent 60%);
+}
+.wrap{max-width:var(--max-w);margin:0 auto;position:relative;z-index:1;padding:0 16px 40px;}
+
+/* ===== HEADER ===== */
+.top-bar{
+  display:flex;align-items:center;gap:10px;direction:ltr;
+  width:calc(100% + 0px);margin:0 -0px;
+  padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px;
+  background:linear-gradient(to bottom,rgba(10,25,70,0.9),transparent);
+  position:sticky;top:0;z-index:100;
+  margin-left:-16px;margin-right:-16px;width:calc(100% + 32px);
+}
+.back-btn{
+  width:38px;height:38px;border-radius:50%;flex:0 0 38px;
+  background:var(--glass);border:1px solid var(--glass-brd);
+  color:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;text-decoration:none;transition:.18s;
+}
+.back-btn:active{transform:scale(.91);}
+.top-title{flex:1;text-align:center;color:#fff;font-size:16px;font-weight:800;}
+.top-settings{
+  width:38px;height:38px;border-radius:50%;flex:0 0 38px;
+  background:var(--glass);border:1px solid var(--glass-brd);
+  color:rgba(255,255,255,0.75);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+
+/* ===== PROFILE CARD ===== */
+.profile-card{
+  margin:20px 0 0;padding:22px 18px 18px;
+  border-radius:28px;
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.07));
+  border:1px solid var(--glass-brd);
+  box-shadow:0 18px 50px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.28);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  position:relative;overflow:hidden;
+}
+.profile-card::before{
+  content:'';position:absolute;top:0;left:15%;right:15%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
+}
+.profile-top{display:flex;align-items:center;gap:14px;direction:rtl;}
+.avatar-wrap{
+  width:66px;height:66px;border-radius:50%;flex:0 0 66px;
+  background:linear-gradient(135deg,#1e90ff,#0f3460);
+  border:2.5px solid rgba(255,255,255,.55);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:900;color:#fff;
+  box-shadow:0 6px 20px rgba(0,80,200,.35);
+  position:relative;cursor:pointer;overflow:hidden;
+}
+.avatar-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.avatar-edit{
+  position:absolute;bottom:0;left:0;right:0;height:22px;
+  background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:rgba(255,255,255,.85);font-weight:700;
+}
+.profile-info{flex:1;direction:rtl;}
+.profile-name{font-size:18px;font-weight:900;color:#fff;margin-bottom:3px;}
+.profile-phone{font-size:12px;color:rgba(255,255,255,.55);direction:ltr;text-align:right;}
+.profile-badge{
+  display:inline-flex;align-items:center;gap:5px;margin-top:7px;
+  padding:4px 10px;border-radius:50px;
+  background:rgba(50,220,140,.12);border:1px solid rgba(50,220,140,.28);
+  font-size:10.5px;font-weight:700;color:#32dc8c;
+}
+.profile-badge.inactive{background:rgba(255,90,90,.10);border-color:rgba(255,90,90,.25);color:#ff7575;}
+.dot-live{width:6px;height:6px;border-radius:50%;background:#32dc8c;animation:pulse-dot 1.8s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.45;transform:scale(.75);}}
+
+/* ===== SUBSCRIPTION WIDGET ===== */
+.sub-widget{
+  margin-top:16px;padding:16px;border-radius:18px;
+  background:rgba(30,144,255,.10);border:1px solid rgba(30,144,255,.22);
+  position:relative;overflow:hidden;
+}
+.sub-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:10px;direction:rtl;}
+.sub-timer-row{display:flex;align-items:flex-end;gap:8px;direction:rtl;margin-bottom:12px;}
+.sub-days-big{font-size:42px;font-weight:900;color:#fff;line-height:1;}
+.sub-days-label{font-size:12px;color:rgba(255,255,255,.55);font-weight:600;padding-bottom:5px;}
+.sub-end-date{font-size:11px;color:rgba(255,255,255,.4);direction:rtl;}
+.progress-bar-wrap{margin-top:8px;}
+.progress-track{width:100%;height:6px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;}
+.progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#1e90ff,#00d4aa);transition:width 1s ease;}
+.progress-pct{text-align:left;font-size:10px;color:rgba(255,255,255,.4);margin-top:4px;direction:ltr;}
+.sub-expired-msg{font-size:13px;font-weight:700;color:#ff7575;direction:rtl;text-align:center;padding:8px 0;}
+.btn-renew{
+  width:100%;height:40px;margin-top:10px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,#1e90ff,#0055cc);
+  color:#fff;font-family:'IranYekan','Estedad',sans-serif;
+  font-size:13px;font-weight:800;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,80,200,.3);transition:.15s;
+  display:none;
+}
+.btn-renew.show{display:block;}
+.btn-renew:active{transform:scale(.97);}
+
+/* ===== SECTION LABEL ===== */
+.sec-label{font-size:14px;font-weight:800;color:rgba(255,255,255,.88);margin:26px 0 12px;padding:0 2px;}
+
+/* ===== STATS ROW ===== */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.stat-card{
+  padding:14px 10px;border-radius:18px;text-align:center;
+  background:var(--glass);border:1px solid var(--glass-brd);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.stat-num{font-size:26px;font-weight:900;color:#fff;line-height:1;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;}
+
+/* ===== COURSES ===== */
+.courses-list{display:flex;flex-direction:column;gap:10px;}
+.course-item{
+  display:flex;align-items:center;gap:12px;direction:rtl;
+  padding:13px 14px;border-radius:18px;
+  background:var(--glass);border:1px solid var(--glass-brd);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  cursor:pointer;transition:.18s;
+}
+.course-item:active{transform:scale(.98);}
+.course-icon{
+  width:44px;height:44px;border-radius:13px;flex:0 0 44px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:rgba(30,144,255,.15);border:1px solid rgba(30,144,255,.2);
+}
+.course-info{flex:1;}
+.course-name{font-size:13.5px;font-weight:800;color:#fff;margin-bottom:3px;}
+.course-sub{font-size:11px;color:rgba(255,255,255,.5);}
+.course-progress-mini{margin-top:6px;height:3px;border-radius:2px;background:rgba(255,255,255,.1);}
+.course-progress-mini-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#1e90ff,#00d4aa);}
+.course-tag{
+  padding:3px 9px;border-radius:50px;font-size:10px;font-weight:700;
+  background:rgba(30,144,255,.15);border:1px solid rgba(30,144,255,.25);color:#7ec8ff;
+  flex:0 0 auto;
+}
+.course-tag.free{background:rgba(50,220,140,.12);border-color:rgba(50,220,140,.25);color:#32dc8c;}
+.empty-state{
+  text-align:center;padding:28px 16px;
+  background:var(--glass);border:1px solid var(--glass-brd);
+  border-radius:18px;color:rgba(255,255,255,.45);font-size:13px;font-weight:600;
+}
+.empty-state-icon{font-size:32px;margin-bottom:10px;}
+
+/* ===== FAVORITES ===== */
+.favs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.fav-card{
+  border-radius:18px;overflow:hidden;position:relative;
+  aspect-ratio:1.2;cursor:pointer;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+.fav-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.fav-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(5,15,40,.8) 0%,transparent 55%);
+}
+.fav-label{
+  position:absolute;bottom:0;right:0;left:0;z-index:2;
+  padding:8px 10px;font-size:11.5px;font-weight:800;color:#fff;
+  direction:rtl;text-align:right;
+}
+.fav-remove{
+  position:absolute;top:7px;left:7px;z-index:3;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.75);font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+.fav-remove:active{transform:scale(.9);}
+.add-fav-card{
+  border-radius:18px;aspect-ratio:1.2;
+  background:var(--glass);border:2px dashed rgba(255,255,255,.2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  cursor:pointer;color:rgba(255,255,255,.4);font-size:11px;font-weight:700;
+  transition:.18s;
+}
+.add-fav-card:active{background:rgba(255,255,255,.08);}
+.add-fav-icon{font-size:24px;opacity:.5;}
+
+/* ===== ACTIVITY ===== */
+.activity-list{display:flex;flex-direction:column;gap:8px;}
+.act-item{
+  display:flex;align-items:center;gap:10px;direction:rtl;
+  padding:11px 13px;border-radius:14px;
+  background:var(--glass);border:1px solid var(--glass-brd);
+}
+.act-dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px;}
+.act-dot.blue{background:#1e90ff;}
+.act-dot.green{background:#32dc8c;}
+.act-dot.amber{background:#ffb020;}
+.act-text{flex:1;font-size:12px;color:rgba(255,255,255,.78);font-weight:600;direction:rtl;}
+.act-time{font-size:10.5px;color:rgba(255,255,255,.35);white-space:nowrap;}
+
+/* ===== LOGOUT ===== */
+.logout-btn{
+  width:100%;height:46px;margin-top:28px;border-radius:14px;border:1px solid rgba(255,90,90,.28);
+  background:rgba(255,90,90,.08);color:#ff7575;
+  font-family:'IranYekan','Estedad',sans-serif;
+  font-size:14px;font-weight:800;cursor:pointer;transition:.18s;
+}
+.logout-btn:active{transform:scale(.97);}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:9999;background:rgba(8,20,55,.95);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ===== NO-ACCESS STATE ===== */
+.no-access{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 24px;text-align:center;
+}
+.no-access-icon{font-size:54px;margin-bottom:16px;opacity:.7;}
+.no-access-title{font-size:20px;font-weight:900;color:#fff;margin-bottom:8px;}
+.no-access-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:24px;}
+.btn-go-login{
+  padding:14px 32px;border-radius:16px;border:none;
+  background:linear-gradient(135deg,#0f3460,#1e90ff);
+  color:#fff;font-family:'IranYekan','Estedad',sans-serif;
+  font-size:15px;font-weight:800;cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,80,200,.35);
+}
+.btn-go-login:active{transform:scale(.97);}
+
+@media (max-width:380px){
+  .stats-row{gap:7px;}
+  .stat-num{font-size:22px;}
+  .favs-grid{gap:8px;}
+}
+</style>
+</head>
+<body>
+<div id="no-access" class="no-access" style="display:none;">
+  <div class="no-access-icon">🔐</div>
+  <div class="no-access-title">ابتدا وارد شوید</div>
+  <div class="no-access-sub">برای دیدن داشبورد باید با شماره موبایل خود وارد سایت شوید و اشتراک فعال داشته باشید.</div>
+  <button class="btn-go-login" onclick="location.href='index.html'">برو به صفحه اصلی</button>
+</div>
+
+<div id="main-dash" style="display:none;">
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="index.html" class="back-btn" aria-label="بازگشت">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+    <div class="top-title">داشبورد من</div>
+    <div class="top-settings" onclick="showToast('به‌زودی تنظیمات اضافه می‌شود')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <div class="profile-top">
+      <div class="avatar-wrap" id="avatarWrap" onclick="showToast('قابلیت آپلود عکس به‌زودی')">
+        <span id="avatarInitials">؟</span>
+        <div class="avatar-edit">عکس</div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">در حال بارگذاری...</div>
+        <div class="profile-phone" id="profilePhone">—</div>
+        <div class="profile-badge" id="subBadge">
+          <span class="dot-live"></span>
+          <span id="badgeText">اشتراک فعال</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTION TIMER -->
+    <div class="sub-widget" id="subWidget">
+      <div class="sub-label">اشتراک شما</div>
+      <div id="subContent">
+        <div class="sub-timer-row">
+          <div class="sub-days-big" id="daysLeft">—</div>
+          <div class="sub-days-label">روز مانده</div>
+        </div>
+        <div class="sub-end-date" id="subEndDate"></div>
+        <div class="progress-bar-wrap">
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+          </div>
+          <div class="progress-pct" id="progressPct"></div>
+        </div>
+      </div>
+      <button class="btn-renew" id="btnRenew" onclick="location.href='https://t.me/planlifeir'">تمدید اشتراک</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="sec-label">آمار من</div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="statDays">—</div>
+      <div class="stat-lbl">روز عضویت</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statCourses">—</div>
+      <div class="stat-lbl">دوره خریداری</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statFavs">—</div>
+      <div class="stat-lbl">علاقه‌مندی</div>
+    </div>
+  </div>
+
+  <!-- MY COURSES -->
+  <div class="sec-label">دوره‌های من</div>
+  <div class="courses-list" id="coursesList"></div>
+
+  <!-- FAVORITES -->
+  <div class="sec-label">علاقه‌مندی‌های من</div>
+  <div class="favs-grid" id="favsGrid"></div>
+
+  <!-- ACTIVITY -->
+  <div class="sec-label">آخرین فعالیت‌ها</div>
+  <div class="activity-list" id="activityList"></div>
+
+  <!-- LOGOUT -->
+  <button class="logout-btn" onclick="doLogout()">خروج از حساب</button>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ CONFIG ============ */
+const SUPABASE_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
+const SESSION_KEY = 'lingua_session_v1';
+const FAVS_KEY = 'cllo_favs_v1';
+
+/* ============ SESSION ============ */
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch(e){return null;}}
+function isLoggedIn(){const s=getSession();return s&&s.phone&&s.verified;}
+
+/* ============ SUPABASE ============ */
+async function sbGet(table, filter){
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`, {
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  });
+  return r.json();
+}
+
+/* ============ TOAST ============ */
+function showToast(msg,dur=2800){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+/* ============ FAVORITES ============ */
+const DEFAULT_FAVS = [
+  {id:'podcast',title:'پادکست انگلیسی',img:'http://fs3.centraldnserver.com/~planlife/pics/english/podcastamozesh.webp',url:'https://cllo.ir/podcast.html'},
+  {id:'video',title:'ویدیو آموزشی',img:'http://fs3.centraldnserver.com/~planlife/pics/english/videoamozesh.jpeg',url:'https://cllo.ir/videoamozesh.html'},
+];
+function getFavs(){
+  try{return JSON.parse(localStorage.getItem(FAVS_KEY)||'null')||DEFAULT_FAVS;}
+  catch(e){return DEFAULT_FAVS;}
+}
+function saveFavs(f){localStorage.setItem(FAVS_KEY,JSON.stringify(f));}
+function removeFav(id){
+  const favs=getFavs().filter(f=>f.id!==id);
+  saveFavs(favs);renderFavs(favs);
+  document.getElementById('statFavs').textContent=favs.length;
+}
+function renderFavs(favs){
+  const grid=document.getElementById('favsGrid');
+  grid.innerHTML='';
+  favs.forEach(f=>{
+    const d=document.createElement('div');
+    d.className='fav-card';
+    d.innerHTML=`<img src="${f.img}" alt="${f.title}" loading="lazy"><div class="fav-label">${f.title}</div><div class="fav-remove" onclick="event.stopPropagation();removeFav('${f.id}')">✕</div>`;
+    d.addEventListener('click',()=>{ if(f.url)window.location.href=f.url; });
+    grid.appendChild(d);
+  });
+  // Add button
+  const add=document.createElement('div');
+  add.className='add-fav-card';
+  add.innerHTML='<div class="add-fav-icon">＋</div><span>افزودن</span>';
+  add.addEventListener('click',()=>showToast('برای افزودن علاقه‌مندی، روی ❤ در صفحات کلیک کنید'));
+  grid.appendChild(add);
+}
+
+/* ============ COURSES ============ */
+const FREE_COURSES = [
+  {id:'mobtadi',name:'سوالات مبتدی',icon:'📘',progress:0,tag:'رایگان',url:'https://cllo.ir/azmon/azmon-mobtadi.html',free:true},
+];
+function renderCourses(hasSub){
+  const list=document.getElementById('coursesList');
+  list.innerHTML='';
+  const paid = hasSub ? [
+    {id:'moghadamati',name:'سوالات مقدماتی',icon:'📗',progress:35,tag:'اشتراک',url:'https://cllo.ir/azmon/azmon-moghadamati.html'},
+    {id:'pish1',name:'سوالات پیشرفته ۱',icon:'📙',progress:10,tag:'اشتراک',url:'https://cllo.ir/azmon/azmon-pish1.html'},
+    {id:'podcast',name:'پادکست انگلیسی',icon:'🎙️',progress:60,tag:'اشتراک',url:'https://cllo.ir/podcast.html'},
+  ] : [];
+  const all=[...FREE_COURSES,...paid];
+  if(all.length===0){
+    list.innerHTML=`<div class="empty-state"><div class="empty-state-icon">📦</div>هنوز دوره‌ای خریداری نشده</div>`;
+    document.getElementById('statCourses').textContent='۰';
+    return;
+  }
+  all.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='course-item';
+    d.innerHTML=`
+      <div class="course-icon">${c.icon}</div>
+      <div class="course-info">
+        <div class="course-name">${c.name}</div>
+        <div class="course-sub">${c.progress||0}٪ پیشرفت</div>
+        <div class="course-progress-mini"><div class="course-progress-mini-fill" style="width:${c.progress||0}%"></div></div>
+      </div>
+      <div class="course-tag${c.free?' free':''}">${c.tag}</div>
+    `;
+    d.addEventListener('click',()=>{if(c.url)window.location.href=c.url;});
+    list.appendChild(d);
+  });
+  document.getElementById('statCourses').textContent=toFarsiNum(paid.length);
+}
+
+/* ============ ACTIVITY ============ */
+function renderActivity(phone){
+  const list=document.getElementById('activityList');
+  const items=[
+    {color:'green',text:'ورود موفق به سایت',time:'همین الان'},
+    {color:'blue',text:'مشاهده پادکست انگلیسی',time:'دیروز'},
+    {color:'amber',text:'تمرین سوالات مبتدی',time:'۲ روز پیش'},
+  ];
+  list.innerHTML='';
+  items.forEach(a=>{
+    const d=document.createElement('div');
+    d.className='act-item';
+    d.innerHTML=`<div class="act-dot ${a.color}"></div><div class="act-text">${a.text}</div><div class="act-time">${a.time}</div>`;
+    list.appendChild(d);
+  });
+}
+
+/* ============ HELPERS ============ */
+function toFarsiNum(n){
+  return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+function persianDate(dateStr){
+  if(!dateStr)return '';
+  try{
+    const d=new Date(dateStr);
+    return d.toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'});
+  }catch(e){return dateStr;}
+}
+function formatPhone(p){
+  if(!p)return '';
+  const clean=p.replace(/\D/g,'');
+  if(clean.length===10)return '0'+clean.slice(0,3)+' '+clean.slice(3,6)+' '+clean.slice(6);
+  return '0'+clean;
+}
+function getInitials(phone){
+  if(!phone)return '؟';
+  const n=phone.replace(/\D/g,'');
+  return n.slice(-2);
+}
+
+/* ============ SUBSCRIPTION WIDGET ============ */
+function renderSubWidget(sub){
+  const widget=document.getElementById('subWidget');
+  const badge=document.getElementById('subBadge');
+  const badgeText=document.getElementById('badgeText');
+  const daysLeftEl=document.getElementById('daysLeft');
+  const endDateEl=document.getElementById('subEndDate');
+  const fillEl=document.getElementById('progressFill');
+  const pctEl=document.getElementById('progressPct');
+  const renewBtn=document.getElementById('btnRenew');
+
+  if(!sub||!sub.end_date){
+    badge.className='profile-badge inactive';
+    badgeText.textContent='اشتراک ندارید';
+    widget.style.background='rgba(255,90,90,.07)';
+    widget.style.borderColor='rgba(255,90,90,.2)';
+    daysLeftEl.textContent='—';
+    endDateEl.textContent='';
+    fillEl.style.width='0%';
+    pctEl.textContent='';
+    renewBtn.classList.add('show');
+    return;
+  }
+
+  const now=new Date();
+  const end=new Date(sub.end_date);
+  const start=sub.start_date?new Date(sub.start_date):new Date(now.getTime()-30*24*60*60*1000);
+  const totalMs=end-start;
+  const remainMs=end-now;
+  const daysLeft=Math.max(0,Math.ceil(remainMs/(1000*60*60*24)));
+  const pct=Math.max(0,Math.min(100,Math.round((remainMs/totalMs)*100)));
+
+  daysLeftEl.textContent=toFarsiNum(daysLeft);
+  endDateEl.textContent='پایان اشتراک: '+persianDate(sub.end_date);
+  setTimeout(()=>{fillEl.style.width=pct+'%';},200);
+  pctEl.textContent=toFarsiNum(pct)+'٪ باقی‌مانده';
+
+  if(daysLeft<=0){
+    badge.className='profile-badge inactive';
+    badgeText.textContent='اشتراک منقضی شده';
+    widget.style.background='rgba(255,90,90,.07)';
+    widget.style.borderColor='rgba(255,90,90,.2)';
+    daysLeftEl.textContent='۰';
+    renewBtn.classList.add('show');
+  }else if(daysLeft<=7){
+    badge.className='profile-badge inactive';
+    badgeText.textContent='اشتراک رو به اتمام';
+    renewBtn.classList.add('show');
+  }else{
+    badge.className='profile-badge';
+    badgeText.textContent='اشتراک فعال';
+  }
+}
+
+/* ============ INIT ============ */
+async function init(){
+  if(!isLoggedIn()){
+    document.getElementById('no-access').style.display='flex';
+    return;
+  }
+  document.getElementById('main-dash').style.display='block';
+
+  const session=getSession();
+  const phone=session.phone;
+
+  // Profile
+  document.getElementById('profileName').textContent=phone?formatPhone(phone):'کاربر';
+  document.getElementById('profilePhone').textContent=phone?'+98 '+phone:'—';
+  document.getElementById('avatarInitials').textContent=getInitials(phone);
+
+  // Days as member (from session timestamp)
+  const joined=session.ts?new Date(session.ts):new Date();
+  const daysMember=Math.max(1,Math.ceil((Date.now()-joined.getTime())/(1000*60*60*24)));
+  document.getElementById('statDays').textContent=toFarsiNum(daysMember);
+
+  // Favs
+  const favs=getFavs();
+  renderFavs(favs);
+  document.getElementById('statFavs').textContent=toFarsiNum(favs.length);
+
+  // Activity
+  renderActivity(phone);
+
+  // Load subscription from Supabase
+  try{
+    const subs=await sbGet('subscriptions',`phone=eq.${encodeURIComponent(phone)}&is_active=eq.true&order=end_date.desc&limit=1`);
+    const sub=(Array.isArray(subs)&&subs.length>0)?subs[0]:null;
+    renderSubWidget(sub);
+    renderCourses(!!sub);
+  }catch(e){
+    renderSubWidget(null);
+    renderCourses(false);
+    showToast('خطا در دریافت اطلاعات اشتراک');
+  }
+}
+
+/* ============ LOGOUT ============ */
+function doLogout(){
+  if(confirm('مطمئنی می‌خوای خارج بشی؟')){
+    localStorage.removeItem(SESSION_KEY);
+    location.href='index.html';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
