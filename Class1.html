@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>cllo.ir - کلاس امروز</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: Vazirmatn, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #e8f5e9;
+      color: #1a1a1a;
+      padding-bottom: 85px;
+      line-height: 1.6;
+      direction: rtl;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2e7d32;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .streak {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #fff3e0;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e65100;
+    }
+
+    .bell {
+      font-size: 22px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .bell::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      background: #e53935;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Today's Class Card */
+    .today-card {
+      background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .today-card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1b5e20;
+      margin-bottom: 4px;
+    }
+
+    .today-card .subtitle {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .today-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .progress-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: conic-gradient(#2e7d32 0% 45%, #c8e6c9 45% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .progress-circle::before {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: #f1f8e9;
+      border-radius: 50%;
+    }
+
+    .progress-text {
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      font-weight: 700;
+      color: #2e7d32;
+    }
+
+    .time-remaining {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #555;
+      margin: 10px 0 14px;
+    }
+
+    .continue-btn {
+      width: 100%;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Sessions */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 10px;
+    }
+
+    .section-header h3 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .sessions {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+      margin-bottom: 16px;
+      flex-direction: row-reverse; /* برای RTL بهتر */
+    }
+
+    .sessions::-webkit-scrollbar { display: none; }
+
+    .session-chip {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      background: white;
+      border: 1px solid #ddd;
+      color: #555;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .session-chip.active {
+      background: #2e7d32;
+      color: white;
+      border-color: #2e7d32;
+    }
+
+    /* Lesson Content */
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .lesson-card {
+      background: white;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      cursor: pointer;
+    }
+
+    .lesson-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .lesson-card .icon-row {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .lesson-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .lesson-card p {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .video-thumb {
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(135deg, #a5d6a7, #81c784);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .play-btn {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #2e7d32;
+    }
+
+    .vocab-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .vocab-tag {
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+
+    /* Progress */
+    .session-progress {
+      background: white;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .session-progress .top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 45%;
+      background: #2e7d32;
+      border-radius: 4px;
+    }
+
+    /* Teacher */
+    .teacher-card {
+      background: white;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .teacher-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #ce93d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .teacher-info {
+      flex: 1;
+    }
+
+    .teacher-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .teacher-info p {
+      font-size: 12px;
+      color: #555;
+      margin: 4px 0 8px;
+    }
+
+    .reply-btn {
+      background: #7b1fa2;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Live + Achievements */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .live-card, .achievements-card {
+      background: white;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .live-card h4, .achievements-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .live-badge {
+      display: inline-block;
+      background: #e53935;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-left: 4px;
+    }
+
+    .join-live-btn {
+      margin-top: 8px;
+      width: 100%;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .badges {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* Quick Tools */
+    .quick-tools {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .tool {
+      background: white;
+      border-radius: 14px;
+      padding: 12px 6px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      cursor: pointer;
+    }
+
+    .tool-icon {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .tool-label {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Daily Goal */
+    .daily-goal {
+      background: white;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+    }
+
+    .goal-icon {
+      font-size: 24px;
+    }
+
+    .goal-info {
+      flex: 1;
+    }
+
+    .goal-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .goal-info p {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .goal-check {
+      width: 28px;
+      height: 28px;
+      background: #2e7d32;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 16px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .nav-item.active {
+      color: #2e7d32;
+    }
+
+    .nav-item span {
+      font-size: 22px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+      font-family: Vazirmatn, sans-serif;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">cllo.ir 🍃</div>
+    <div class="header-left">
+      <div class="streak">🔥 ۱۲ روز</div>
+      <div class="bell" onclick="showToast()">🔔</div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Today's Class -->
+    <div class="today-card">
+      <div class="today-top">
+        <div>
+          <h2 id="today-title">کلاس امروز – جلسه ۷</h2>
+          <div class="subtitle" id="today-subtitle">انگیزه‌ات رو حفظ کن</div>
+        </div>
+        <div class="progress-circle">
+          <div class="progress-text">۴۵٪</div>
+        </div>
+      </div>
+      <div class="time-remaining">⏱ زمان باقی‌مانده: ۳۲ دقیقه</div>
+      <button class="continue-btn" onclick="showToast()">ادامه یادگیری ←</button>
+    </div>
+
+    <!-- Sessions -->
+    <div class="section-header">
+      <h3>جلسات ۱ تا ۲۰</h3>
+    </div>
+    <div class="sessions" id="sessions"></div>
+
+    <!-- Lesson Content -->
+    <div class="section-header">
+      <h3>📚 محتوای درس</h3>
+      <span style="font-size:13px;color:#2e7d32" id="session-label">جلسه ۷ ‹</span>
+    </div>
+
+    <div class="lesson-grid" id="lesson-content">
+      <!-- محتوا با جاوااسکریپت پر می‌شود -->
+    </div>
+
+    <!-- Session Progress -->
+    <div class="session-progress">
+      <div class="top">
+        <span id="progress-label">پیشرفت جلسه ۷</span>
+        <span>۴۵٪</span>
+      </div>
+      <div class="bar">
+        <div class="bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Teacher -->
+    <div class="teacher-card">
+      <div class="teacher-avatar">👩‍🏫</div>
+      <div class="teacher-info">
+        <h4>معلم شما • خانم النا کارتر</h4>
+        <p>آفرین بابت دیروز! آماده‌ای برای جلسه ۷؟ داری عالی پیش می‌ری.</p>
+        <button class="reply-btn" onclick="showToast()">پاسخ دادن</button>
+      </div>
+    </div>
+
+    <!-- Live + Achievements -->
+    <div class="two-col">
+      <div class="live-card">
+        <h4><span class="live-badge">زنده</span> کلاس زنده بعدی</h4>
+        <p style="font-size:12px;color:#555;margin-bottom:4px">باشگاه مکالمه زنده</p>
+        <p style="font-size:12px;color:#555">امروز ساعت ۲۰:۰۰</p>
+        <button class="join-live-btn" onclick="showToast()">ورود به کلاس زنده</button>
+      </div>
+      <div class="achievements-card">
+        <h4>دستاوردها</h4>
+        <div class="badges">
+          <div class="badge" style="background:#ffcdd2">🔥</div>
+          <div class="badge" style="background:#c8e6c9">📘</div>
+          <div class="badge" style="background:#fff9c4">💯</div>
+        </div>
+        <p style="font-size:11px;color:#2e7d32;margin-top:8px;cursor:pointer" onclick="showToast()">مشاهده همه ‹</p>
+      </div>
+    </div>
+
+    <!-- Quick Tools -->
+    <div class="section-header">
+      <h3>ابزارهای سریع</h3>
+    </div>
+    <div class="quick-tools">
+      <div class="tool" onclick="showToast()">
+        <div class="tool-icon">📝</div>
+        <div class="tool-label">یادداشت</div>
+      </div>
+      <div class="tool" onclick="showToast()">
+        <div class="tool-icon">📁</div>
+        <div class="tool-label">دانلودها</div>
+      </div>
+      <div class="tool" onclick="showToast()">
+        <div class="tool-icon">✏️</div>
+        <div class="tool-label">تمرین</div>
+      </div>
+      <div class="tool" onclick="showToast()">
+        <div class="tool-icon">💬</div>
+        <div class="tool-label">هم‌کلاسی‌ها</div>
+      </div>
+    </div>
+
+    <!-- Daily Goal -->
+    <div class="daily-goal">
+      <div class="goal-icon">🎯</div>
+      <div class="goal-info">
+        <h4>هدف روزانه</h4>
+        <p>یک جلسه کامل رو امروز تموم کن</p>
+      </div>
+      <div class="goal-check">✓</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="showToast()">
+      <span>🏠</span>
+      خانه
+    </div>
+    <div class="nav-item active">
+      <span>📚</span>
+      کلاس‌های من
+    </div>
+    <div class="nav-item" onclick="showToast()">
+      <span>📡</span>
+      زنده
+    </div>
+    <div class="nav-item" onclick="showToast()">
+      <span>📝</span>
+      یادداشت
+    </div>
+    <div class="nav-item" onclick="showToast()">
+      <span>👤</span>
+      پروفایل
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">این بخش به زودی فعال خواهد شد</div>
+
+  <script>
+    // داده‌های جلسات
+    const sessionData = {
+      // جلسات ۱ تا ۴ ← فارسی
+      1: {
+        title: "کلاس امروز – جلسه ۱",
+        subtitle: "شروع قوی داشته باش",
+        label: "جلسه ۱ ‹",
+        progress: "پیشرفت جلسه ۱",
+        content: [
+          { full: true, icon: "▶", title: "تماشای ویدیو درس", desc: "مقدمه و نکات کلیدی • ۱۸ دقیقه" },
+          { icon: "🎧", title: "تمرین شنیداری", desc: "گوش بده و تکرار کن" },
+          { icon: "📖", title: "واژگان", desc: "۵۰ کلمه جدید", tags: ["سلام", "خداحافظ", "+۴۷"] },
+          { icon: "✏️", title: "تمرکز گرامر", desc: "زمان حال ساده" },
+          { icon: "🎤", title: "تمرین مکالمه", desc: "پاسخت رو ضبط کن" },
+          { icon: "❓", title: "آزمون کوتاه", desc: "۵ سؤال • خودت رو تست کن" }
+        ]
+      },
+      2: {
+        title: "کلاس امروز – جلسه ۲",
+        subtitle: "ادامه مسیر یادگیری",
+        label: "جلسه ۲ ‹",
+        progress: "پیشرفت جلسه ۲",
+        content: [
+          { full: true, icon: "▶", title: "تماشای ویدیو درس", desc: "مکالمات روزمره • ۱۶ دقیقه" },
+          { icon: "🎧", title: "تمرین شنیداری", desc: "تلفظ صحیح" },
+          { icon: "📖", title: "واژگان", desc: "کلمات خانواده", tags: ["پدر", "مادر", "+۴۵"] },
+          { icon: "✏️", title: "تمرکز گرامر", desc: "ضمایر شخصی" },
+          { icon: "🎤", title: "تمرین مکالمه", desc: "معرفی خودت" },
+          { icon: "❓", title: "آزمون کوتاه", desc: "۵ سؤال" }
+        ]
+      },
+      3: {
+        title: "کلاس امروز – جلسه ۳",
+        subtitle: "پیشرفت خوبی داری",
+        label: "جلسه ۳ ‹",
+        progress: "پیشرفت جلسه ۳",
+        content: [
+          { full: true, icon: "▶", title: "تماشای ویدیو درس", desc: "اعداد و زمان • ۱۵ دقیقه" },
+          { icon: "🎧", title: "تمرین شنیداری", desc: "گوش دادن فعال" },
+          { icon: "📖", title: "واژگان", desc: "اعداد و ساعت", tags: ["یک", "دو", "+۴۸"] },
+          { icon: "✏️", title: "تمرکز گرامر", desc: "حروف اضافه مکان" },
+          { icon: "🎤", title: "تمرین مکالمه", desc: "پرسیدن ساعت" },
+          { icon: "❓", title: "آزمون کوتاه", desc: "۵ سؤال" }
+        ]
+      },
+      4: {
+        title: "کلاس امروز – جلسه ۴",
+        subtitle: "داری عالی پیش می‌ری",
+        label: "جلسه ۴ ‹",
+        progress: "پیشرفت جلسه ۴",
+        content: [
+          { full: true, icon: "▶", title: "تماشای ویدیو درس", desc: "غذا و رستوران • ۱۷ دقیقه" },
+          { icon: "🎧", title: "تمرین شنیداری", desc: "دیالوگ رستوران" },
+          { icon: "📖", title: "واژگان", desc: "اسامی غذاها", tags: ["نان", "برنج", "+۴۶"] },
+          { icon: "✏️", title: "تمرکز گرامر", desc: "افعال کمکی" },
+          { icon: "🎤", title: "تمرین مکالمه", desc: "سفارش غذا" },
+          { icon: "❓", title: "آزمون کوتاه", desc: "۵ سؤال" }
+        ]
+      }
+    };
+
+    // برای جلسات ۵ به بعد (انگلیسی)
+    function getEnglishContent(num) {
+      return {
+        title: `Today's Class – Session ${num}`,
+        subtitle: "Keep your momentum going",
+        label: `Session ${num} ‹`,
+        progress: `Session ${num} Progress`,
+        content: [
+          { full: true, icon: "▶", title: "Watch Lesson Video", desc: "Introduction & key points • 18 min" },
+          { icon: "🎧", title: "Audio Practice", desc: "Listen & repeat" },
+          { icon: "📖", title: "Vocabulary", desc: "50 new words", tags: ["Eloquent", "Resilient", "+47"] },
+          { icon: "✏️", title: "Grammar Focus", desc: "Past Perfect Tense" },
+          { icon: "🎤", title: "Speaking Exercise", desc: "Record your response" },
+          { icon: "❓", title: "Mini Quiz", desc: "5 questions • Test yourself" }
+        ]
+      };
+    }
+
+    // ساخت چیپ‌های جلسه
+    const sessionsContainer = document.getElementById('sessions');
+    for (let i = 1; i <= 20; i++) {
+      const chip = document.createElement('div');
+      chip.className = 'session-chip' + (i === 7 ? ' active' : '');
+      chip.textContent = i <= 4 ? `جلسه ${i}` : `Session ${i}`;
+      chip.onclick = () => selectSession(i);
+      sessionsContainer.appendChild(chip);
+    }
+
+    function selectSession(num) {
+      // فعال کردن چیپ
+      document.querySelectorAll('.session-chip').forEach((chip, index) => {
+        chip.classList.toggle('active', index + 1 === num);
+      });
+
+      // انتخاب داده
+      const data = num <= 4 ? sessionData[num] : getEnglishContent(num);
+
+      // آپدیت عنوان‌ها
+      document.getElementById('today-title').textContent = data.title;
+      document.getElementById('today-subtitle').textContent = data.subtitle;
+      document.getElementById('session-label').textContent = data.label;
+      document.getElementById('progress-label').textContent = data.progress;
+
+      // ساخت محتوا
+      const container = document.getElementById('lesson-content');
+      container.innerHTML = '';
+
+      data.content.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'lesson-card' + (item.full ? ' full' : '');
+        card.onclick = showToast;
+
+        let html = '';
+        if (item.full) {
+          html += `<div class="video-thumb"><div class="play-btn">${item.icon}</div></div>`;
+        } else {
+          html += `<div class="icon-row">${item.icon}</div>`;
+        }
+        html += `<h4>${item.title}</h4><p>${item.desc}</p>`;
+        if (item.tags) {
+          html += `<div class="vocab-tags">${item.tags.map(t => `<span class="vocab-tag">${t}</span>`).join('')}</div>`;
+        }
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+    }
+
+    // بارگذاری اولیه (جلسه ۷)
+    selectSession(7);
+
+    // Toast
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+  </script>
+</body>
+</html>
