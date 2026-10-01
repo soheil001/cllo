@@ -564,7 +564,7 @@ async function checkCode(){
     .replace(/\D/g,'');
   inp.value = val;
 
-  if(!/^\d{4}$/.test(val)){
+  if(!/^\d{5}$/.test(val)){
     inp.classList.add('shake');
     setTimeout(()=>inp.classList.remove('shake'),400);
     errText.textContent='کد باید یک عدد ۴ رقمی باشد.';
