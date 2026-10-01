@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>English Podcast — PlanLife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;background:#020813;font-family:Inter,Arial,sans-serif;color:#fff;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 20% 15%,rgba(40,104,255,.22),transparent 28%),radial-gradient(circle at 80% 20%,rgba(124,69,255,.18),transparent 30%),radial-gradient(circle at 50% 90%,rgba(0,150,255,.10),transparent 35%),#020813}
+body::after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(2,8,19,.10),rgba(2,8,19,.75))}
+.app{width:100%;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:30px}
+.phone{width:390px;min-height:820px;max-height:920px;position:relative;overflow:hidden;border-radius:44px;background:linear-gradient(180deg,rgba(4,22,43,.95),rgba(1,10,21,.98));border:1px solid rgba(138,186,255,.55);box-shadow:0 30px 100px rgba(0,0,0,.65),inset 0 0 40px rgba(65,130,255,.06)}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .35s ease,transform .35s ease,visibility .35s ease;z-index:2;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.active{opacity:1;visibility:visible;transform:translateX(0)}
+.header{position:absolute;top:0;left:0;right:0;z-index:10;padding:28px 22px 12px;background:linear-gradient(180deg,rgba(2,8,19,.85) 0%,rgba(2,8,19,.4) 70%,transparent 100%)}
+.top-row{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px}
+.sound-logo{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:radial-gradient(circle,rgba(110,96,255,.25),transparent 70%)}
+.sound-bars{display:flex;gap:3px;align-items:center;height:28px}
+.sound-bars span{width:4px;border-radius:5px;background:linear-gradient(180deg,#9b7dff,#387eff)}
+.sound-bars span:nth-child(1){height:10px}.sound-bars span:nth-child(2){height:19px}.sound-bars span:nth-child(3){height:25px}.sound-bars span:nth-child(4){height:15px}.sound-bars span:nth-child(5){height:21px}.sound-bars span:nth-child(6){height:11px}
+.brand-text h1{font-size:26px;line-height:1.1;font-weight:700;letter-spacing:-1px}
+.brand-text p{margin-top:3px;color:#7e9abd;font-size:13px}
+.login-icon-btn{width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#ff5a5a;background:rgba(255,80,80,.16);border:1px solid rgba(255,90,90,.65);box-shadow:0 0 14px rgba(255,80,80,.28),inset 0 1px 0 rgba(255,255,255,.25);transition:all .25s ease}
+.login-icon-btn.logged-in{color:#2ecc71;background:rgba(46,204,113,.16);border-color:rgba(46,204,113,.7);box-shadow:0 0 14px rgba(46,204,113,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.login-icon-btn:active{transform:scale(.93)}
+.hero{position:relative;height:220px;background-image:linear-gradient(180deg,rgba(2,8,19,.15) 0%,rgba(2,8,19,.05) 30%,rgba(2,8,19,.55) 65%,rgba(2,8,19,.98) 100%),url("http://fs3.centraldnserver.com/~planlife/pics/english/podcast/slide.jpeg");background-size:cover;background-position:center top;background-repeat:no-repeat}
+.hero-text{position:absolute;z-index:2;left:22px;bottom:20px}
+.hero-text p{color:#89b4e7;font-size:14px;letter-spacing:.2px}
+.hero-text strong{display:block;margin-top:4px;font-size:16px;font-weight:600}
+.search-button{width:40px;height:40px;position:absolute;right:20px;bottom:18px;border-radius:50%;background:rgba(2,13,28,.55);border:1px solid rgba(150,190,255,.2);color:#fff;font-size:19px;cursor:pointer;z-index:4}
+.source-tabs-wrap{padding:16px 16px 0;overflow-x:auto;scrollbar-width:none}
+.source-tabs-wrap::-webkit-scrollbar{display:none}
+.source-tabs{display:flex;gap:10px;padding-bottom:4px;width:fit-content;min-width:100%}
+.source-tab{position:relative;white-space:nowrap;padding:10px 18px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.3px;cursor:pointer;color:rgba(180,210,255,.65);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 16px rgba(0,0,0,.25);transition:all .25s ease;overflow:hidden}
+.source-tab::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);opacity:0;transition:opacity .25s}
+.source-tab:hover::before{opacity:1}
+.source-tab:hover{color:rgba(220,235,255,.9);border-color:rgba(255,255,255,.2)}
+.source-tab.active{color:#fff;background:rgba(86,106,255,.25);border-color:rgba(130,160,255,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 24px rgba(70,90,255,.35),0 0 0 1px rgba(100,130,255,.2)}
+.source-tab.active::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:30px;height:2px;border-radius:2px;background:linear-gradient(90deg,#6c88ff,#a57bff)}
+.categories{display:flex;gap:9px;overflow-x:auto;padding:12px 16px 11px;scrollbar-width:none}
+.categories::-webkit-scrollbar{display:none}
+.category{white-space:nowrap;border:1px solid rgba(109,159,229,.22);background:rgba(8,29,52,.72);color:#b8cce5;padding:7px 14px;border-radius:30px;font-size:12px;cursor:pointer;transition:.25s}
+.category.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,#586aff,#765eff);box-shadow:0 5px 20px rgba(79,86,255,.35)}
+.list{padding:3px 16px 40px}
+.podcast-card{position:relative;display:flex;gap:13px;padding:11px;margin-bottom:11px;border-radius:22px;background:linear-gradient(135deg,rgba(9,34,59,.92),rgba(3,19,35,.92));border:1px solid rgba(94,150,213,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);cursor:pointer;min-height:116px;align-items:flex-start;transition:transform .2s,border-color .2s,box-shadow .2s}
+.podcast-card:hover{transform:translateY(-2px);border-color:rgba(102,135,255,.45);box-shadow:0 12px 30px rgba(0,0,0,.25),0 0 25px rgba(69,92,255,.08)}
+.podcast-card.locked{cursor:default}
+.podcast-card.locked .play-small{background:rgba(30,50,80,.7);box-shadow:none}
+.lock-overlay{position:absolute;inset:0;border-radius:22px;z-index:8;background:rgba(2,10,25,.5);display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding:14px;pointer-events:none}
+.lock-icon{font-size:20px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.cover{width:110px;height:110px;flex:none;border-radius:16px;overflow:hidden;border:1px solid rgba(135,182,255,.25);position:relative;align-self:center}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.72))}
+.cover-title{position:absolute;left:7px;bottom:7px;right:7px;z-index:2;font-family:Georgia,serif;font-size:11px;line-height:1.1;color:#fff;text-shadow:0 2px 5px #000}
+.card-content{min-width:0;flex:1;padding-top:4px;padding-right:48px}
+.card-content h3{font-size:14px;line-height:1.25;font-weight:700;color:#f4f8ff;margin-bottom:4px}
+.card-description{color:#8da7c4;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}
+.card-meta{display:flex;gap:8px;color:#b4c8df;font-size:10px;margin-bottom:7px;flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:20px;font-size:9px;background:rgba(47,110,204,.22);color:#6fb5ff}
+.level{display:flex;align-items:center;gap:5px;font-size:10px;color:#8eabca;margin-top:5px}
+.level-bars{display:flex;gap:2px;align-items:flex-end}
+.level-bars span{width:3px;border-radius:3px;background:#3b9eff}
+.level-bars span:nth-child(1){height:5px}.level-bars span:nth-child(2){height:9px}.level-bars span:nth-child(3){height:13px}.level-bars span:nth-child(4){height:8px}
+.play-small{position:absolute;right:11px;bottom:13px;width:42px;height:42px;border-radius:14px;border:none;background:linear-gradient(135deg,#626cff,#7862ff);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(92,91,255,.35);cursor:pointer}
+.card-actions{position:absolute;right:11px;top:12px;display:flex;gap:6px}
+.icon-button{border:0;background:none;color:#7f9bbd;font-size:18px;cursor:pointer}
+.player-page{padding:28px 25px 40px}
+.player-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px}
+.circle-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(120,160,210,.18);background:rgba(8,28,49,.75);color:#fff;font-size:20px;cursor:pointer}
+.player-top-actions{display:flex;gap:10px}
+.player-cover{width:100%;aspect-ratio:1/1;max-width:270px;margin:0 auto 25px;border-radius:27px;overflow:hidden;border:1px solid rgba(125,177,255,.45);box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 35px rgba(52,100,255,.13)}
+.player-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.player-info{text-align:left;margin-bottom:18px}
+.player-info h2{font-size:22px;line-height:1.2;margin-bottom:8px}
+.player-info p{color:#87a1c0;font-size:13px}
+.player-meta{display:flex;gap:15px;margin-top:13px;color:#9bb1ca;font-size:11px}
+.player-tag{display:inline-block;padding:6px 12px;border-radius:20px;background:#5665df;color:#fff;font-size:10px;margin-bottom:8px}
+.progress-container{margin-top:15px}
+.progress-bar{position:relative;width:100%;height:5px;background:#253e5c;border-radius:10px;cursor:pointer}
+.progress-fill{position:absolute;left:0;top:0;height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,#506eff,#8c5fff)}
+.progress-dot{position:absolute;width:12px;height:12px;top:50%;transform:translate(-50%,-50%);left:0%;border-radius:50%;background:#fff;box-shadow:0 0 12px #6c74ff}
+.time-row{display:flex;justify-content:space-between;margin-top:9px;font-size:11px;color:#8da2bd}
+.player-controls{display:flex;justify-content:center;align-items:center;gap:35px;margin:17px 0}
+.skip{width:42px;height:42px;border:0;background:none;color:#fff;font-size:20px;cursor:pointer}
+.skip small{font-size:10px}
+.big-play{width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#526bff,#845fff);border:3px solid rgba(125,147,255,.8);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 25px rgba(92,90,255,.55),inset 0 0 15px rgba(255,255,255,.08)}
+.waveform{height:50px;display:flex;align-items:center;justify-content:center;gap:3px;margin:10px 0 18px}
+.wave{width:3px;border-radius:10px;background:linear-gradient(180deg,#4b83ff,#8c63ff);animation:wave 1s ease-in-out infinite alternate}
+.wave:nth-child(2n){animation-delay:.1s}.wave:nth-child(3n){animation-delay:.2s}.wave:nth-child(4n){animation-delay:.3s}
+@keyframes wave{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+.wave.paused{animation-play-state:paused}
+.controls-row{display:flex;gap:10px}
+.speed-box{flex:1;display:flex;align-items:center;justify-content:space-around;padding:10px;border-radius:24px;background:rgba(7,29,52,.75);border:1px solid rgba(105,151,207,.18);color:#91a7c2;font-size:10px;min-width:0}
+.speed{cursor:pointer}
+.speed.active{padding:7px 13px;color:#fff;border-radius:20px;background:#5a69ff;box-shadow:0 0 15px rgba(89,94,255,.35)}
+.volume-box{width:130px;min-width:130px;max-width:130px;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:24px;background:rgba(7,29,52,.75);border:1px solid rgba(105,151,207,.18);overflow:hidden}
+.volume-icon{font-size:15px;flex:none}
+.volume-slider{flex:1;min-width:0;width:100%;accent-color:#6c71ff;cursor:pointer;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:#253e5c;outline:none}
+.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#6c71ff;cursor:pointer;box-shadow:0 0 6px rgba(108,113,255,.6)}
+.volume-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#6c71ff;cursor:pointer;border:none}
+.lesson-tabs{display:flex;margin-top:18px;padding:6px;border-radius:24px;background:#071b31}
+.lesson-tab{flex:1;text-align:center;padding:10px 5px;color:#8b9db7;font-size:12px;border-radius:20px;cursor:pointer}
+.lesson-tab.active{background:linear-gradient(135deg,#596cff,#755fff);color:#fff;box-shadow:0 5px 15px rgba(86,92,255,.3)}
+.transcript-box{margin-top:10px;padding:16px;border-radius:23px;background:linear-gradient(135deg,rgba(8,35,68,.96),rgba(3,20,38,.96));border:1px solid rgba(105,157,220,.16)}
+.transcript-loading{text-align:center;color:#6c8aaa;font-size:12px;padding:20px 0}
+.transcript-plain{white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;color:#eef4ff;font-size:13px;line-height:2;text-align:left;direction:ltr;padding:4px 2px}
+.transcript-plain::selection{background:rgba(100,110,255,.35)}
+.vocabulary{margin-top:10px;padding:13px;border-radius:20px;background:#06182c;border:1px solid rgba(102,153,219,.13)}
+.vocab-header{display:flex;justify-content:space-between;margin-bottom:10px;font-size:12px}
+.vocab-header span{color:#5eb1ff;font-size:10px}
+.vocab-list{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.vocab-list::-webkit-scrollbar{display:none}
+.vocab-item{min-width:88px;padding:10px;border-radius:14px;background:#0a2748;font-size:10px}
+.vocab-item strong{display:block;font-size:10px;margin-bottom:4px}
+.vocab-item small{color:#92a7c1;font-size:9px}
+.notes-box{margin-top:10px;padding:10px;border-radius:23px;background:linear-gradient(135deg,rgba(8,35,68,.96),rgba(3,20,38,.96));border:1px solid rgba(105,157,220,.16)}
+.notes-textarea{width:100%;min-height:130px;background:transparent;border:none;outline:none;color:#c8ddf5;font-size:17px;line-height:1.8;resize:none;font-family:Inter,Arial,sans-serif;padding:8px;direction:auto}
+.notes-textarea::placeholder{color:#4a6580}
+.repeat-button{width:100%;display:flex;align-items:center;gap:13px;margin-top:10px;padding:13px;border-radius:20px;border:1px solid rgba(94,149,214,.16);background:#06182c;color:#fff;cursor:pointer;text-align:left}
+.repeat-icon{font-size:22px;color:#50b7ff}
+.repeat-text strong{display:block;font-size:12px}
+.repeat-text small{color:#8298b4;font-size:9px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,.95);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== CLLO-style login popup (matches main site) ===== */
+.popup-overlay{position:fixed;inset:0;z-index:10000;background:rgba(5,10,25,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;padding:8px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.popup-overlay.open{opacity:1;pointer-events:auto}
+.cllo-sheet{width:min(420px,98vw);display:flex;flex-direction:column;align-items:center;gap:0;transform:scale(.92);opacity:0;transition:transform .35s cubic-bezier(.34,1.2,.64,1),opacity .3s;position:relative;margin:auto;background:rgba(8,16,40,.72);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:0;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.18);backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(6px) saturate(150%)}
+.popup-overlay.open .cllo-sheet{transform:scale(1);opacity:1}
+.cllo-prompt{width:100%;text-align:center;font-family:Inter,Arial,sans-serif;font-size:15px;font-weight:800;color:#b8e0ff;letter-spacing:-0.2px;text-shadow:0 0 12px rgba(80,170,255,.55),0 2px 8px rgba(0,0,0,.4);margin:14px 0 2px;direction:rtl;order:0;padding:0 12px}
+.cllo-device{position:relative;width:100%;max-width:100%;line-height:0;margin:0;order:1;border-radius:0}
+.cllo-device img{width:100%;display:block;border-radius:0;filter:none;pointer-events:none}
+#clloSlots{position:absolute;left:18%;top:29.5%;width:64%;height:5.5%;display:flex;direction:ltr;gap:8px;justify-content:center;pointer-events:none}
+.cllo-slot{flex:1;max-width:36px;aspect-ratio:1;border:1.8px solid rgba(100,160,230,.55);border-radius:6px;background:rgba(6,18,35,.3);display:flex;align-items:center;justify-content:center;font:700 18px/1 'Courier New',Courier,monospace;color:transparent;text-shadow:0 0 6px #5cf;letter-spacing:-1px;transition:.15s;-webkit-user-select:none;user-select:none}
+.cllo-slot.f{background:linear-gradient(145deg,#0a2a4a,#061830);border-color:#8fe8ff;color:#b8f0ff;box-shadow:0 0 8px rgba(50,170,255,.65),inset 0 0 6px rgba(0,170,255,.2)}
+.cllo-slot.c{background:#0a3a20;border-color:#9affbd;color:#9affbd;box-shadow:0 0 10px rgba(53,232,121,.8)}
+.cllo-slot.w{background:#3a0a12;border-color:#ff9ca7;color:#ff9ca7;box-shadow:0 0 10px rgba(255,62,82,.85)}
+.cllo-keys{position:absolute;left:19%;top:48.2%;width:62%;height:40.5%;display:grid;grid:repeat(4,1fr)/repeat(3,1fr);gap:3.2% 4%;direction:ltr}
+.cllo-btn{background:transparent;border:0;border-radius:13px;cursor:pointer;transition:.1s;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.cllo-btn:active{transform:scale(.9);filter:brightness(.4)}
+.cllo-status{min-height:14px;font-size:12px;color:#9aabc0;text-align:center;margin:4px 0 2px;order:2;line-height:1.2;padding:0 10px}
+.cllo-actions{width:100%;display:flex;flex-direction:column;gap:10px;margin:0;order:3;padding:10px 16px 18px;box-sizing:border-box}
+.cllo-actions .btn-sub{width:100%;height:46px;border-radius:16px;font-size:13.5px;padding:0 16px;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cllo-actions .btn-sub.telegram{background:linear-gradient(180deg,#2568d0 0%,#1a4fa8 50%,#143d85 100%);border-color:rgba(130,180,255,.55)}
+.cllo-actions .btn-sub.bale{background:linear-gradient(180deg,#1ea058 0%,#147a42 50%,#0e5c32 100%);border-color:rgba(130,230,170,.5)}
+.cllo-actions .btn-sub.whatsapp{background:linear-gradient(180deg,#128a5e 0%,#0c6847 50%,#094a33 100%);border-color:rgba(110,220,180,.5)}
+.cllo-close{position:absolute;top:8px;left:8px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(20,30,50,.85);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.cllo-close:active{transform:scale(.92)}
+#loginPopup,#loginPopup *{touch-action:manipulation}
+.subscribe-divider{text-align:center;font-size:11px;color:rgba(255,255,255,0.35);margin:4px 0}
+.btn-sub{width:100%;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:6px;font-family:Inter,Arial,sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;transition:transform 0.15s,opacity 0.15s,box-shadow .15s;text-decoration:none;border:1.5px solid rgba(120,160,200,.35);background:linear-gradient(180deg,#2a3548 0%,#1a2233 40%,#121820 100%);color:#d0e4f8;box-shadow:0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
+.btn-sub:active{transform:scale(0.97);opacity:0.9}
+.btn-sub.telegram{background:linear-gradient(180deg,#1e4a7a 0%,#153560 40%,#0e2440 100%);border-color:rgba(80,160,255,.5);color:#fff;box-shadow:0 4px 16px rgba(20,80,180,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.25)}
+.btn-sub.bale{background:linear-gradient(180deg,#1a5c35 0%,#0f3d22 40%,#0a2a18 100%);border-color:rgba(80,220,140,.45);color:#fff;box-shadow:0 4px 16px rgba(20,140,70,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.25)}
+.btn-sub.whatsapp{background:linear-gradient(180deg,#1a6b48 0%,#0f4a32 40%,#0a3222 100%);border-color:rgba(60,200,140,.45);color:#fff;box-shadow:0 4px 16px rgba(20,130,90,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.25)}
+.btn-sub.price{background:linear-gradient(180deg,#2a3548 0%,#1a2233 40%,#121820 100%);border:1.5px solid rgba(140,190,255,.32);color:rgba(200,230,255,.9);font-size:13.5px;box-shadow:0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
+.input-error{font-size:11px;color:#6bb8ff;text-align:center;margin-top:-8px;margin-bottom:8px;min-height:16px}
+/* ===== end CLLO login popup styles ===== */
+
+.price-overlay{position:fixed;inset:0;z-index:11000;background:rgba(5,10,30,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.price-overlay.open{opacity:1;pointer-events:auto}
+.price-sheet{width:100%;max-width:400px;background:rgba(8,18,50,.96);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:28px 22px 24px;box-shadow:0 24px 80px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.2);transform:scale(.9);transition:transform .35s cubic-bezier(.34,1.3,.64,1)}
+.price-overlay.open .price-sheet{transform:scale(1)}
+.price-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.price-title{font-size:17px;font-weight:800;color:#fff}
+.price-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.plan-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.plan-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.9)}
+.plan-old{font-size:11px;color:rgba(255,100,100,.7);text-decoration:line-through;direction:ltr}
+.plan-new{font-size:14px;font-weight:800;color:#7ec8ff;direction:ltr}
+.price-subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+@media(max-width:600px){.app{padding:0}.phone{width:100%;min-height:100vh;max-height:none;border-radius:0;border:none}}
+@media(min-width:601px){.phone{height:900px}}
+</style>
+</head>
+<body>
+<div class="app"><div class="phone">
+
+<section class="screen active" id="homeScreen">
+  <header class="header">
+    <div class="top-row">
+      <div class="brand">
+        <div class="sound-logo">
+          <div class="sound-bars"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="brand-text"><h1>English</h1><p>Podcast</p></div>
+      </div>
+      <button class="login-icon-btn" id="loginIconBtn" type="button" onclick="onLoginIconClick()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <div class="hero">
+    <button class="search-button">⌕</button>
+    <div class="hero-text"><p>Better English</p><strong>Brighter Future</strong></div>
+  </div>
+  <div class="source-tabs-wrap">
+    <div class="source-tabs" id="sourceTabs"></div>
+  </div>
+  <div class="categories" id="categoryPills"></div>
+  <div class="list" id="podcastList"></div>
+</section>
+
+<section class="screen" id="playerScreen">
+  <div class="player-page">
+    <div class="player-top">
+      <button class="circle-btn" onclick="goHome()">‹</button>
+      <div class="player-top-actions">
+        <button class="circle-btn" onclick="togglePlayerFavorite()" id="playerFavorite">♡</button>
+        <button class="circle-btn">···</button>
+      </div>
+    </div>
+    <div class="player-cover"><img id="playerImage" src="" alt=""></div>
+    <div class="player-info">
+      <span class="player-tag" id="playerTag">Intermediate</span>
+      <h2 id="playerTitle">Podcast Title</h2>
+      <p id="playerDescription">Description</p>
+      <div class="player-meta">
+        <span id="playerEpisodes">🎧 Episodes</span>
+        <span id="playerDurEl">◷ Duration</span>
+      </div>
+    </div>
+    <audio id="audioPlayer" preload="metadata"></audio>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-dot" id="progressDot"></div>
+      </div>
+      <div class="time-row"><span id="currentTime">00:00</span><span id="audioDuration">00:00</span></div>
+    </div>
+    <div class="player-controls">
+      <button class="skip" onclick="skip(-15)">↶<small>15</small></button>
+      <button class="big-play" id="mainPlay" onclick="togglePlay()">▶</button>
+      <button class="skip" onclick="skip(15)"><small>15</small>↷</button>
+    </div>
+    <div class="waveform" id="waveform"></div>
+    <div class="controls-row">
+      <div class="speed-box">
+        <span class="speed" data-speed=".75">0.75x</span>
+        <span class="speed active" data-speed="1">1x</span>
+        <span class="speed" data-speed="1.25">1.25x</span>
+        <span class="speed" data-speed="1.5">1.5x</span>
+      </div>
+      <div class="volume-box">
+        <span class="volume-icon">🔊</span>
+        <input class="volume-slider" type="range" min="0" max="1" step=".01" value="1" id="volumeSlider">
+      </div>
+    </div>
+    <div class="lesson-tabs">
+      <div class="lesson-tab active" onclick="switchTab(this,'transcript')">Transcript</div>
+      <div class="lesson-tab" onclick="switchTab(this,'vocab')">Vocabulary</div>
+      <div class="lesson-tab" onclick="switchTab(this,'notes')">Notes</div>
+    </div>
+    <div class="transcript-box" id="transcriptContent">
+      <div class="transcript-loading" id="transcriptLoading">Loading transcript...</div>
+      <div id="transcriptLines"></div>
+    </div>
+    <div class="vocabulary" id="vocabContent" style="display:none">
+      <div class="vocab-header"><strong>📖 Vocabulary</strong><span>See All ›</span></div>
+      <div class="vocab-list" id="vocabList"></div>
+    </div>
+    <div class="notes-box" id="notesContent" style="display:none">
+      <textarea class="notes-textarea" placeholder="Write your notes here... یادداشت‌هات رو اینجا بنویس…"></textarea>
+    </div>
+    <button class="repeat-button" onclick="repeatSentence()">
+      <div class="repeat-icon">↻</div>
+      <div class="repeat-text"><strong>Repeat this sentence</strong><small>تکرار این جمله</small></div>
+      <div style="margin-left:auto">›</div>
+    </button>
+  </div>
+</section>
+
+</div></div>
+
+<!-- ===== CLLO-style login popup (matches main site exactly) ===== -->
+<div class="popup-overlay" id="loginPopup">
+  <div class="cllo-sheet">
+    <button class="cllo-close" onclick="closeLoginPopup()" type="button" aria-label="بستن">×</button>
+    <div class="cllo-prompt">کد ۵ رقمی خود را وارد کنید</div>
+    <div class="cllo-device">
+      <img src="https://cllo.ir/login123/IMG_5175.png" alt="CllO">
+      <div id="clloSlots"></div>
+      <div class="cllo-keys">
+        <button class="cllo-btn" data-k="1" type="button"></button>
+        <button class="cllo-btn" data-k="2" type="button"></button>
+        <button class="cllo-btn" data-k="3" type="button"></button>
+        <button class="cllo-btn" data-k="4" type="button"></button>
+        <button class="cllo-btn" data-k="5" type="button"></button>
+        <button class="cllo-btn" data-k="6" type="button"></button>
+        <button class="cllo-btn" data-k="7" type="button"></button>
+        <button class="cllo-btn" data-k="8" type="button"></button>
+        <button class="cllo-btn" data-k="9" type="button"></button>
+        <button class="cllo-btn" data-k="x" id="clloDel" type="button"></button>
+        <button class="cllo-btn" data-k="0" type="button"></button>
+        <button class="cllo-btn" data-k="e" type="button"></button>
+      </div>
+    </div>
+    <div class="cllo-status" id="clloStatus"></div>
+    <div class="cllo-actions">
+      <button class="btn-sub price" onclick="openPricePopup()" type="button">💎 قیمت اشتراک</button>
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.83.94z"/></svg>تهیه کد اشتراک — تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>تهیه کد اشتراک — بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank" rel="noopener">تهیه کد اشتراک — واتس‌اپ</a>
+    </div>
+  </div>
+</div>
+<!-- ===== end CLLO login popup ===== -->
+
+<div class="price-overlay" id="pricePopup" onclick="closePriceIfOutside(event)">
+  <div class="price-sheet">
+    <div class="price-header">
+      <div class="price-title">💎 قیمت اشتراک</div>
+      <button class="price-close" onclick="closePricePopup()">✕</button>
+    </div>
+    <div class="plan-row"><div class="plan-name">اشتراک ماهانه</div><div class="plan-prices"><div class="plan-new">۲۸۰,۰۰۰ تومان</div></div></div>
+    <div class="plan-row"><div class="plan-name">اشتراک ۶ ماهه</div><div class="plan-prices"><div class="plan-old">۱,۶۸۰,۰۰۰</div><div class="plan-new">۱,۱۹۰,۰۰۰ تومان</div></div></div>
+    <div class="plan-row"><div class="plan-name">اشتراک سالانه</div><div class="plan-prices"><div class="plan-old">۳,۳۶۰,۰۰۰</div><div class="plan-new">۲,۵۸۰,۰۰۰ تومان</div></div></div>
+    <div class="price-subscribe-btns">
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank">خرید از تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank">خرید از بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank">خرید از واتس‌اپ</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const SB_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
+const SB_H   = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+
+/* ===== Session (shared format with main site) ===== */
+const SESSION_KEY='lingua_session_v1';
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch(e){return null}}
+function setSession(d){localStorage.setItem(SESSION_KEY,JSON.stringify(d))}
+function isLoggedIn(){const s=getSession();return s&&s.phone&&s.verified}
+
+const sources = [
+  {
+    id: 'my pocast',
+    label: 'my podcast',
+    categories: ['All', 'Daily English', 'Conversation', 'Vocabulary', 'Business', 'Grammar', 'Pronunciation'],
+    podcasts: [
+      {id:'1-mypodcast',free:true,title:'The small Blue Box',description:'my podcast',tag:'Daily English',level:'Intermediate',episodes:'1 Episodes',dur:'7:12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/1-podcast.m4a'},
+      {id:'2-mypodcast',free:false,title:'Small Talk Skills',description:'Break the ice with confidence.',tag:'Conversation',level:'Beginner',episodes:'10 Episodes',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/2-podcast.m4a'},
+      {id:'3-mypodcast',free:false,title:'Advanced Vocabulary',description:'Expand your word power',tag:'Vocabulary',level:'Advanced',episodes:'15 Episodes',dur:'10-18 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/3-podcast.m4a'},
+      {id:'4-mypodcast',free:false,title:'Travel English',description:'Speak English anywhere in the world.',tag:'Conversation',level:'Intermediate',episodes:'8 Episodes',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/4-podcast.m4a'},
+      {id:'5-mypodcast',free:false,title:'English for Work',description:'Meetings, emails and presentations.',tag:'Business',level:'Advanced',episodes:'10 Episodes',dur:'12-18 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/5-podcast.m4a'},
+      {id:'6-mypodcast',free:false,title:'Grammar in Use',description:'Master tricky grammar points.',tag:'Grammar',level:'Intermediate',episodes:'14 Episodes',dur:'8-12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/6-podcast.m4a'},
+      {id:'7-mypodcast',free:false,title:'Pronunciation Power',description:'Sound like a native speaker.',tag:'Pronunciation',level:'Beginner',episodes:'9 Episodes',dur:'8-10 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/7-podcast.m4a'},
+      {id:'8-mypodcast',free:false,title:'Everyday Idioms',description:'Common expressions made easy.',tag:'Vocabulary',level:'Intermediate',episodes:'11 Episodes',dur:'10-14 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/8-podcast.m4a'},
+      {id:'9-mypodcast',free:false,title:'News English',description:'Understand global news in English.',tag:'Daily English',level:'Advanced',episodes:'20 Episodes',dur:'12-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/9-podcast.m4a'},
+      {id:'10-mypodcast',free:false,title:'Story Time',description:'Short stories for better listening.',tag:'Conversation',level:'Beginner',episodes:'6 Episodes',dur:'15-25 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/10-podcast.m4a'},
+    ]
+  },
+  {
+    id: 'american-english-file',
+    label: 'American English File',
+    categories: ['Lesson 1', 'Lesson 2', 'Lesson 3', 'Lesson 4', 'Lesson 5', 'Lesson 6', 'Lesson 7', 'Lesson 8', 'Lesson 9', 'Lesson 10', 'Lesson 11', 'Lesson 12'],
+    podcasts: [
+    // Lesson 1
+      {id:'aef-1-2',free:true,title:'Track 2',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 2',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track02.mp3'},
+      {id:'aef-1-3',free:false,title:'Track 3',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 3',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track03.mp3'},
+      {id:'aef-1-4',free:false,title:'Track 4',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 4',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track04.mp3'},
+      {id:'aef-1-5',free:false,title:'Track 5',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 5',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track05.mp3'},
+      {id:'aef-1-6',free:false,title:'Track 6',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 6',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track06.mp3'},
+      {id:'aef-1-7',free:false,title:'Track 7',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 7',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track07.mp3'},
+      {id:'aef-1-8',free:false,title:'Track 8',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 8',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track08.mp3'},
+      {id:'aef-1-9',free:false,title:'Track 9',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 9',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track09.mp3'},
+      {id:'aef-1-10',free:false,title:'Track 10',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 10',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track10.mp3'},
+      {id:'aef-1-11',free:false,title:'Track 11',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 11',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track11.mp3'},
+      {id:'aef-1-12',free:false,title:'Track 12',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 12',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track12.mp3'},
+      {id:'aef-1-13',free:false,title:'Track 13',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 13',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track13.mp3'},
+      {id:'aef-1-14',free:false,title:'Track 14',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 14',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track14.mp3'},
+      {id:'aef-1-15',free:false,title:'Track 15',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 15',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track15.mp3'},
+      {id:'aef-1-16',free:false,title:'Track 16',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 16',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track16.mp3'},
+      {id:'aef-1-17',free:false,title:'Track 17',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 17',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track17.mp3'},
+      {id:'aef-1-18',free:false,title:'Track 18',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 18',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track18.mp3'},
+      {id:'aef-1-19',free:false,title:'Track 19',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 19',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track19.mp3'},
+      {id:'aef-1-20',free:false,title:'Track 20',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 20',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track20.mp3'},
+      {id:'aef-1-21',free:false,title:'Track 21',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 21',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track21.mp3'},
+      {id:'aef-1-22',free:false,title:'Track 22',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 22',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track22.mp3'},
+      {id:'aef-1-23',free:false,title:'Track 23',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 23',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track23.mp3'},
+      {id:'aef-1-24',free:false,title:'Track 24',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 24',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track24.mp3'},
+      {id:'aef-1-25',free:false,title:'Track 25',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 25',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track25.mp3'},
+      {id:'aef-1-26',free:false,title:'Track 26',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 26',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track26.mp3'},
+      {id:'aef-1-27',free:false,title:'Track 27',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 27',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track27.mp3'},
+      {id:'aef-1-28',free:false,title:'Track 28',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 28',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track28.mp3'},
+      {id:'aef-1-29',free:false,title:'Track 29',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 29',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track29.mp3'},
+      {id:'aef-1-30',free:false,title:'Track 30',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 30',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track30.mp3'},
+      {id:'aef-1-31',free:false,title:'Track 31',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 31',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track31.mp3'},
+      {id:'aef-1-32',free:false,title:'Track 32',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 32',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track32.mp3'},
+      {id:'aef-1-33',free:false,title:'Track 33',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 33',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track33.mp3'},
+      {id:'aef-1-34',free:false,title:'Track 34',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 34',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track34.mp3'},
+      {id:'aef-1-35',free:false,title:'Track 35',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 35',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track35.mp3'},
+      {id:'aef-1-36',free:false,title:'Track 36',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 36',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track36.mp3'},
+      {id:'aef-1-37',free:false,title:'Track 37',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 37',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track37.mp3'},
+      {id:'aef-1-38',free:false,title:'Track 38',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 38',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track38.mp3'},
+      {id:'aef-1-39',free:false,title:'Track 39',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 39',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track39.mp3'},
+      {id:'aef-1-40',free:false,title:'Track 40',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 40',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track40.mp3'},
+      {id:'aef-1-41',free:false,title:'Track 41',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 41',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track41.mp3'},
+      {id:'aef-1-42',free:false,title:'Track 42',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 42',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track42.mp3'},
+      {id:'aef-1-43',free:false,title:'Track 43',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 43',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track43.mp3'},
+      {id:'aef-1-44',free:false,title:'Track 44',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 44',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track44.mp3'},
+      {id:'aef-1-45',free:false,title:'Track 45',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 45',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track45.mp3'},
+      {id:'aef-1-46',free:false,title:'Track 46',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 46',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track46.mp3'},
+      {id:'aef-1-47',free:false,title:'Track 47',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 47',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track47.mp3'},
+      {id:'aef-1-48',free:false,title:'Track 48',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 48',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track48.mp3'},
+      {id:'aef-1-49',free:false,title:'Track 49',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 49',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track49.mp3'},
+      {id:'aef-1-50',free:false,title:'Track 50',description:'American English File — Lesson 1',tag:'Lesson 1',level:'Intermediate',episodes:'Track 50',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track50.mp3'},
+    // Lesson 2
+      {id:'aef-2-51',free:true,title:'Track 51',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 51',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track51.mp3'},
+      {id:'aef-2-52',free:false,title:'Track 52',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 52',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track52.mp3'},
+      {id:'aef-2-53',free:false,title:'Track 53',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 53',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track53.mp3'},
+      {id:'aef-2-54',free:false,title:'Track 54',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 54',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track54.mp3'},
+      {id:'aef-2-55',free:false,title:'Track 55',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 55',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track55.mp3'},
+      {id:'aef-2-56',free:false,title:'Track 56',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 56',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track56.mp3'},
+      {id:'aef-2-57',free:false,title:'Track 57',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 57',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track57.mp3'},
+      {id:'aef-2-58',free:false,title:'Track 58',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 58',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track58.mp3'},
+      {id:'aef-2-59',free:false,title:'Track 59',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 59',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track59.mp3'},
+      {id:'aef-2-60',free:false,title:'Track 60',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 60',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track60.mp3'},
+      {id:'aef-2-61',free:false,title:'Track 61',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 61',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track61.mp3'},
+      {id:'aef-2-62',free:false,title:'Track 62',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 62',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track62.mp3'},
+      {id:'aef-2-63',free:false,title:'Track 63',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 63',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track63.mp3'},
+      {id:'aef-2-64',free:false,title:'Track 64',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 64',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track64.mp3'},
+      {id:'aef-2-65',free:false,title:'Track 65',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 65',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track65.mp3'},
+      {id:'aef-2-66',free:false,title:'Track 66',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 66',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track66.mp3'},
+      {id:'aef-2-67',free:false,title:'Track 67',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 67',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track67.mp3'},
+      {id:'aef-2-68',free:false,title:'Track 68',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 68',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track68.mp3'},
+      {id:'aef-2-69',free:false,title:'Track 69',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 69',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track69.mp3'},
+      {id:'aef-2-70',free:false,title:'Track 70',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 70',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track70.mp3'},
+      {id:'aef-2-71',free:false,title:'Track 71',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 71',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track71.mp3'},
+      {id:'aef-2-72',free:false,title:'Track 72',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 72',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track72.mp3'},
+      {id:'aef-2-73',free:false,title:'Track 73',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 73',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track73.mp3'},
+      {id:'aef-2-74',free:false,title:'Track 74',description:'American English File — Lesson 2',tag:'Lesson 2',level:'Intermediate',episodes:'Track 74',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars2/SB1_cd01track74.mp3'},
+    // Lesson 3
+      {id:'aef-3-1',free:true,title:'Track 1',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 1',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/01%20Track%201.mp3'},
+      {id:'aef-3-2',free:false,title:'Track 2',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 2',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/02%20Track%202.mp3'},
+      {id:'aef-3-3',free:false,title:'Track 3',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 3',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/03%20Track%203.mp3'},
+      {id:'aef-3-4',free:false,title:'Track 4',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 4',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/04%20Track%204.mp3'},
+      {id:'aef-3-5',free:false,title:'Track 5',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 5',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/05%20Track%205.mp3'},
+      {id:'aef-3-6',free:false,title:'Track 6',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 6',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/06%20Track%206.mp3'},
+      {id:'aef-3-7',free:false,title:'Track 7',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 7',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/07%20Track%207.mp3'},
+      {id:'aef-3-8',free:false,title:'Track 8',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 8',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/08%20Track%208.mp3'},
+      {id:'aef-3-9',free:false,title:'Track 9',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 9',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/09%20Track%209.mp3'},
+      {id:'aef-3-10',free:false,title:'Track 10',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 10',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/10%20Track%2010.mp3'},
+      {id:'aef-3-11',free:false,title:'Track 11',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 11',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/11%20Track%2011.mp3'},
+      {id:'aef-3-12',free:false,title:'Track 12',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 12',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/12%20Track%2012.mp3'},
+      {id:'aef-3-13',free:false,title:'Track 13',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 13',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/13%20Track%2013.mp3'},
+      {id:'aef-3-14',free:false,title:'Track 14',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 14',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/14%20Track%2014.mp3'},
+      {id:'aef-3-15',free:false,title:'Track 15',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 15',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/15%20Track%2015.mp3'},
+      {id:'aef-3-16',free:false,title:'Track 16',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 16',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/16%20Track%2016.mp3'},
+      {id:'aef-3-17',free:false,title:'Track 17',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 17',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/17%20Track%2017.mp3'},
+      {id:'aef-3-18',free:false,title:'Track 18',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 18',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/18%20Track%2018.mp3'},
+      {id:'aef-3-19',free:false,title:'Track 19',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 19',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/19%20Track%2019.mp3'},
+      {id:'aef-3-20',free:false,title:'Track 20',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 20',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/20%20Track%2020.mp3'},
+      {id:'aef-3-21',free:false,title:'Track 21',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 21',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/21%20Track%2021.mp3'},
+      {id:'aef-3-22',free:false,title:'Track 22',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 22',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/22%20Track%2022.mp3'},
+      {id:'aef-3-23',free:false,title:'Track 23',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 23',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/23%20Track%2023.mp3'},
+      {id:'aef-3-24',free:false,title:'Track 24',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 24',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/24%20Track%2024.mp3'},
+      {id:'aef-3-25',free:false,title:'Track 25',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 25',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/25%20Track%2025.mp3'},
+      {id:'aef-3-26',free:false,title:'Track 26',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 26',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/26%20Track%2026.mp3'},
+      {id:'aef-3-27',free:false,title:'Track 27',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 27',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/27%20Track%2027.mp3'},
+      {id:'aef-3-28',free:false,title:'Track 28',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 28',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/28%20Track%2028.mp3'},
+      {id:'aef-3-29',free:false,title:'Track 29',description:'American English File — Lesson 3',tag:'Lesson 3',level:'Intermediate',episodes:'Track 29',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars3/29%20Track%2029.mp3'},
+    // Lesson 4
+      {id:'aef-4-30',free:true,title:'Track 30',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 30',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/30%20Track%2030.mp3'},
+      {id:'aef-4-31',free:false,title:'Track 31',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 31',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/31%20Track%2031.mp3'},
+      {id:'aef-4-32',free:false,title:'Track 32',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 32',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/32%20Track%2032.mp3'},
+      {id:'aef-4-33',free:false,title:'Track 33',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 33',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/33%20Track%2033.mp3'},
+      {id:'aef-4-34',free:false,title:'Track 34',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 34',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/34%20Track%2034.mp3'},
+      {id:'aef-4-35',free:false,title:'Track 35',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 35',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/35%20Track%2035.mp3'},
+      {id:'aef-4-36',free:false,title:'Track 36',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 36',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/36%20Track%2036.mp3'},
+      {id:'aef-4-37',free:false,title:'Track 37',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 37',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/37%20Track%2037.mp3'},
+      {id:'aef-4-38',free:false,title:'Track 38',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 38',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/38%20Track%2038.mp3'},
+      {id:'aef-4-39',free:false,title:'Track 39',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 39',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/39%20Track%2039.mp3'},
+      {id:'aef-4-40',free:false,title:'Track 40',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 40',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/40%20Track%2040.mp3'},
+      {id:'aef-4-41',free:false,title:'Track 41',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 41',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/41%20Track%2041.mp3'},
+      {id:'aef-4-42',free:false,title:'Track 42',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 42',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/42%20Track%2042.mp3'},
+      {id:'aef-4-43',free:false,title:'Track 43',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 43',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/43%20Track%2043.mp3'},
+      {id:'aef-4-44',free:false,title:'Track 44',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 44',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/44%20Track%2044.mp3'},
+      {id:'aef-4-45',free:false,title:'Track 45',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 45',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/45%20Track%2045.mp3'},
+      {id:'aef-4-46',free:false,title:'Track 46',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 46',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/46%20Track%2046.mp3'},
+      {id:'aef-4-47',free:false,title:'Track 47',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 47',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/47%20Track%2047.mp3'},
+      {id:'aef-4-48',free:false,title:'Track 48',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 48',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/48%20Track%2048.mp3'},
+      {id:'aef-4-49',free:false,title:'Track 49',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 49',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/49%20Track%2049.mp3'},
+      {id:'aef-4-50',free:false,title:'Track 50',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 50',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/50%20Track%2050.mp3'},
+      {id:'aef-4-51',free:false,title:'Track 51',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 51',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/51%20Track%2051.mp3'},
+      {id:'aef-4-52',free:false,title:'Track 52',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 52',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/52%20Track%2052.mp3'},
+      {id:'aef-4-53',free:false,title:'Track 54',description:'American English File — Lesson 4',tag:'Lesson 4',level:'Intermediate',episodes:'Track 54',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars4/53%20Track%2054.mp3'},
+    // Lesson 5
+      {id:'aef-5-1',free:true,title:'Track 1',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 1',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/01%20Track%201.mp3'},
+      {id:'aef-5-2',free:false,title:'Track 2',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 2',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/02%20Track%202.mp3'},
+      {id:'aef-5-3',free:false,title:'Track 3',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 3',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/03%20Track%203.mp3'},
+      {id:'aef-5-4',free:false,title:'Track 4',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 4',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/04%20Track%204.mp3'},
+      {id:'aef-5-5',free:false,title:'Track 5',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 5',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/05%20Track%205.mp3'},
+      {id:'aef-5-6',free:false,title:'Track 6',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 6',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/06%20Track%206.mp3'},
+      {id:'aef-5-7',free:false,title:'Track 7',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 7',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/07%20Track%207.mp3'},
+      {id:'aef-5-8',free:false,title:'Track 8',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 8',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/08%20Track%208.mp3'},
+      {id:'aef-5-9',free:false,title:'Track 9',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 9',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/09%20Track%209.mp3'},
+      {id:'aef-5-10',free:false,title:'Track 10',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 10',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/10%20Track%2010.mp3'},
+      {id:'aef-5-11',free:false,title:'Track 11',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 11',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/11%20Track%2011.mp3'},
+      {id:'aef-5-12',free:false,title:'Track 12',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 12',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/12%20Track%2012.mp3'},
+      {id:'aef-5-13',free:false,title:'Track 13',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 13',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/13%20Track%2013.mp3'},
+      {id:'aef-5-14',free:false,title:'Track 14',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 14',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/14%20Track%2014.mp3'},
+      {id:'aef-5-15',free:false,title:'Track 15',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 15',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/15%20Track%2015.mp3'},
+      {id:'aef-5-16',free:false,title:'Track 16',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 16',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/16%20Track%2016.mp3'},
+      {id:'aef-5-17',free:false,title:'Track 17',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 17',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/17%20Track%2017.mp3'},
+      {id:'aef-5-18',free:false,title:'Track 18',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 18',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/18%20Track%2018.mp3'},
+      {id:'aef-5-19',free:false,title:'Track 19',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 19',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/19%20Track%2019.mp3'},
+      {id:'aef-5-20',free:false,title:'Track 20',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 20',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/20%20Track%2020.mp3'},
+      {id:'aef-5-21',free:false,title:'Track 21',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 21',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/21%20Track%2021.mp3'},
+      {id:'aef-5-22',free:false,title:'Track 22',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 22',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/22%20Track%2022.mp3'},
+      {id:'aef-5-23',free:false,title:'Track 23',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 23',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/23%20Track%2023.mp3'},
+      {id:'aef-5-24',free:false,title:'Track 24',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 24',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/24%20Track%2024.mp3'},
+      {id:'aef-5-25',free:false,title:'Track 25',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 25',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/25%20Track%2025.mp3'},
+      {id:'aef-5-26',free:false,title:'Track 26',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 26',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/26%20Track%2026.mp3'},
+      {id:'aef-5-27',free:false,title:'Track 27',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 27',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/27%20Track%2027.mp3'},
+      {id:'aef-5-28',free:false,title:'Track 28',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 28',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/28%20Track%2028.mp3'},
+      {id:'aef-5-29',free:false,title:'Track 29',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 29',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/29%20Track%2029.mp3'},
+      {id:'aef-5-30',free:false,title:'Track 30',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 30',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/30%20Track%2030.mp3'},
+      {id:'aef-5-31',free:false,title:'Track 31',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 31',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/31%20Track%2031.mp3'},
+      {id:'aef-5-32',free:false,title:'Track 32',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 32',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/32%20Track%2032.mp3'},
+      {id:'aef-5-33',free:false,title:'Track 33',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 33',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/33%20Track%2033.mp3'},
+      {id:'aef-5-34',free:false,title:'Track 34',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 34',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/34%20Track%2034.mp3'},
+      {id:'aef-5-35',free:false,title:'Track 35',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 35',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/35%20Track%2035.mp3'},
+      {id:'aef-5-36',free:false,title:'Track 36',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 36',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/36%20Track%2036.mp3'},
+      {id:'aef-5-37',free:false,title:'Track 37',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 37',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/37%20Track%2037.mp3'},
+      {id:'aef-5-38',free:false,title:'Track 38',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 38',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/38%20Track%2038.mp3'},
+      {id:'aef-5-39',free:false,title:'Track 39',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 39',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/39%20Track%2039.mp3'},
+      {id:'aef-5-40',free:false,title:'Track 40',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 40',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/40%20Track%2040.mp3'},
+      {id:'aef-5-41',free:false,title:'Track 41',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 41',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/41%20Track%2041.mp3'},
+      {id:'aef-5-42',free:false,title:'Track 42',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 42',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/42%20Track%2042.mp3'},
+      {id:'aef-5-43',free:false,title:'Track 43',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 43',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/43%20Track%2043.mp3'},
+      {id:'aef-5-44',free:false,title:'Track 44',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 44',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/44%20Track%2044.mp3'},
+      {id:'aef-5-45',free:false,title:'Track 45',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 45',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/45%20Track%2045.mp3'},
+      {id:'aef-5-46',free:false,title:'Track 46',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 46',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/46%20Track%2046.mp3'},
+      {id:'aef-5-47',free:false,title:'Track 47',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 47',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/47%20Track%2047.mp3'},
+      {id:'aef-5-48',free:false,title:'Track 48',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 48',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/48%20Track%2048.mp3'},
+      {id:'aef-5-49',free:false,title:'Track 49',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 49',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/49%20Track%2049.mp3'},
+      {id:'aef-5-50',free:false,title:'Track 50',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 50',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/50%20Track%2050.mp3'},
+      {id:'aef-5-51',free:false,title:'Track 51',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 51',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/51%20Track%2051.mp3'},
+      {id:'aef-5-52',free:false,title:'Track 52',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 52',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/52%20Track%2052.mp3'},
+      {id:'aef-5-53',free:false,title:'Track 53',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 53',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/53%20Track%2053.mp3'},
+      {id:'aef-5-54',free:false,title:'Track 54',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 54',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/54%20Track%2054.mp3'},
+      {id:'aef-5-55',free:false,title:'Track 55',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 55',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/55%20Track%2055.mp3'},
+      {id:'aef-5-56',free:false,title:'Track 56',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 56',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/56%20Track%2056.mp3'},
+      {id:'aef-5-57',free:false,title:'Track 57',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 57',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/57%20Track%2057.mp3'},
+      {id:'aef-5-58',free:false,title:'Track 58',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 58',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/58%20Track%2058.mp3'},
+      {id:'aef-5-59',free:false,title:'Track 59',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 59',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/59%20Track%2059.mp3'},
+      {id:'aef-5-60',free:false,title:'Track 60',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 60',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/60%20Track%2060.mp3'},
+      {id:'aef-5-61',free:false,title:'Track 61',description:'American English File — Lesson 5',tag:'Lesson 5',level:'Intermediate',episodes:'Track 61',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars5/61%20Track%2061.mp3'},
+    // Lesson 6
+      {id:'aef-6-21',free:true,title:'Track 21',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 21',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/21%20Track%2021.mp3'},
+      {id:'aef-6-22',free:false,title:'Track 22',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 22',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/22%20Track%2022.mp3'},
+      {id:'aef-6-23',free:false,title:'Track 23',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 23',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/23%20Track%2023.mp3'},
+      {id:'aef-6-24',free:false,title:'Track 24',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 24',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/24%20Track%2024.mp3'},
+      {id:'aef-6-25',free:false,title:'Track 25',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 25',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/25%20Track%2025.mp3'},
+      {id:'aef-6-26',free:false,title:'Track 26',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 26',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/26%20Track%2026.mp3'},
+      {id:'aef-6-27',free:false,title:'Track 27',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 27',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/27%20Track%2027.mp3'},
+      {id:'aef-6-28',free:false,title:'Track 28',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 28',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/28%20Track%2028.mp3'},
+      {id:'aef-6-29',free:false,title:'Track 29',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 29',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/29%20Track%2029.mp3'},
+      {id:'aef-6-30',free:false,title:'Track 30',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 30',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/30%20Track%2030.mp3'},
+      {id:'aef-6-31',free:false,title:'Track 31',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 31',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/31%20Track%2031.mp3'},
+      {id:'aef-6-32',free:false,title:'Track 32',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 32',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/32%20Track%2032.mp3'},
+      {id:'aef-6-33',free:false,title:'Track 33',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 33',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/33%20Track%2033.mp3'},
+      {id:'aef-6-34',free:false,title:'Track 34',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 34',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/34%20Track%2034.mp3'},
+      {id:'aef-6-35',free:false,title:'Track 35',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 35',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/35%20Track%2035.mp3'},
+      {id:'aef-6-36',free:false,title:'Track 36',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 36',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/36%20Track%2036.mp3'},
+      {id:'aef-6-37',free:false,title:'Track 37',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 37',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/37%20Track%2037.mp3'},
+      {id:'aef-6-38',free:false,title:'Track 38',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 38',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/38%20Track%2038.mp3'},
+      {id:'aef-6-39',free:false,title:'Track 39',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 39',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/39%20Track%2039.mp3'},
+      {id:'aef-6-40',free:false,title:'Track 40',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 40',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/40%20Track%2040.mp3'},
+      {id:'aef-6-41',free:false,title:'Track 41',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 41',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/41%20Track%2041.mp3'},
+      {id:'aef-6-42',free:false,title:'Track 42',description:'American English File — Lesson 6',tag:'Lesson 6',level:'Intermediate',episodes:'Track 42',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars6/42%20Track%2042.mp3'},
+    // Lesson 7
+      {id:'aef-7-43',free:true,title:'Track 43',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 43',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/43%20Track%2043.mp3'},
+      {id:'aef-7-44',free:false,title:'Track 44',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 44',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/44%20Track%2044.mp3'},
+      {id:'aef-7-45',free:false,title:'Track 45',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 45',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/45%20Track%2045.mp3'},
+      {id:'aef-7-46',free:false,title:'Track 46',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 46',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/46%20Track%2046.mp3'},
+      {id:'aef-7-47',free:false,title:'Track 47',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 47',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/47%20Track%2047.mp3'},
+      {id:'aef-7-48',free:false,title:'Track 48',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 48',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/48%20Track%2048.mp3'},
+      {id:'aef-7-49',free:false,title:'Track 49',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 49',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/49%20Track%2049.mp3'},
+      {id:'aef-7-50',free:false,title:'Track 50',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 50',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/50%20Track%2050.mp3'},
+      {id:'aef-7-51',free:false,title:'Track 51',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 51',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/51%20Track%2051.mp3'},
+      {id:'aef-7-52',free:false,title:'Track 52',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 52',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/52%20Track%2052.mp3'},
+      {id:'aef-7-53',free:false,title:'Track 53',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 53',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/53%20Track%2053.mp3'},
+      {id:'aef-7-54',free:false,title:'Track 54',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 54',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/54%20Track%2054.mp3'},
+      {id:'aef-7-55',free:false,title:'Track 55',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 55',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/55%20Track%2055.mp3'},
+      {id:'aef-7-56',free:false,title:'Track 56',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 56',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/56%20Track%2056.mp3'},
+      {id:'aef-7-57',free:false,title:'Track 57',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 57',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/57%20Track%2057.mp3'},
+      {id:'aef-7-58',free:false,title:'Track 58',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 58',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/58%20Track%2058.mp3'},
+      {id:'aef-7-59',free:false,title:'Track 59',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 59',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/59%20Track%2059.mp3'},
+      {id:'aef-7-60',free:false,title:'Track 60',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 60',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/60%20Track%2060.mp3'},
+      {id:'aef-7-61',free:false,title:'Track 61',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 61',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/61%20Track%2061.mp3'},
+      {id:'aef-7-62',free:false,title:'Track 62',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 62',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/62%20Track%2062.mp3'},
+      {id:'aef-7-63',free:false,title:'Track 63',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 63',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/63%20Track%2063.mp3'},
+      {id:'aef-7-64',free:false,title:'Track 64',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 64',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/64%20Track%2064.mp3'},
+      {id:'aef-7-65',free:false,title:'Track 65',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 65',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/65%20Track%2065.mp3'},
+      {id:'aef-7-66',free:false,title:'Track 66',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 66',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/66%20Track%2066.mp3'},
+      {id:'aef-7-67',free:false,title:'Track 67',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 67',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/67%20Track%2067.mp3'},
+      {id:'aef-7-68',free:false,title:'Track 68',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 68',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/68%20Track%2068.mp3'},
+      {id:'aef-7-69',free:false,title:'Track 69',description:'American English File — Lesson 7',tag:'Lesson 7',level:'Intermediate',episodes:'Track 69',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars7/69%20Track%2069.mp3'},
+    // Lesson 8
+      {id:'aef-8-1',free:true,title:'Track 1',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 1',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/01%20Track%201.mp3'},
+      {id:'aef-8-2',free:false,title:'Track 2',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 2',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/02%20Track%202.mp3'},
+      {id:'aef-8-3',free:false,title:'Track 3',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 3',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/03%20Track%203.mp3'},
+      {id:'aef-8-4',free:false,title:'Track 4',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 4',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/04%20Track%204.mp3'},
+      {id:'aef-8-5',free:false,title:'Track 5',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 5',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/05%20Track%205.mp3'},
+      {id:'aef-8-6',free:false,title:'Track 6',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 6',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/06%20Track%206.mp3'},
+      {id:'aef-8-7',free:false,title:'Track 7',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 7',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/07%20Track%207.mp3'},
+      {id:'aef-8-8',free:false,title:'Track 8',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 8',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/08%20Track%208.mp3'},
+      {id:'aef-8-9',free:false,title:'Track 9',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 9',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/09%20Track%209.mp3'},
+      {id:'aef-8-10',free:false,title:'Track 10',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 10',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/10%20Track%2010.mp3'},
+      {id:'aef-8-11',free:false,title:'Track 11',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 11',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/11%20Track%2011.mp3'},
+      {id:'aef-8-12',free:false,title:'Track 12',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 12',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/12%20Track%2012.mp3'},
+      {id:'aef-8-13',free:false,title:'Track 13',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 13',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/13%20Track%2013.mp3'},
+      {id:'aef-8-14',free:false,title:'Track 14',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 14',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/14%20Track%2014.mp3'},
+      {id:'aef-8-15',free:false,title:'Track 15',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 15',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/15%20Track%2015.mp3'},
+      {id:'aef-8-16',free:false,title:'Track 16',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 16',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/16%20Track%2016.mp3'},
+      {id:'aef-8-17',free:false,title:'Track 17',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 17',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/17%20Track%2017.mp3'},
+      {id:'aef-8-18',free:false,title:'Track 18',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 18',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/18%20Track%2018.mp3'},
+      {id:'aef-8-19',free:false,title:'Track 19',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 19',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/19%20Track%2019.mp3'},
+      {id:'aef-8-20',free:false,title:'Track 20',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 20',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/20%20Track%2020.mp3'},
+      {id:'aef-8-21',free:false,title:'Track 21',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 21',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/21%20Track%2021.mp3'},
+      {id:'aef-8-22',free:false,title:'Track 22',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 22',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/22%20Track%2022.mp3'},
+      {id:'aef-8-23',free:false,title:'Track 23',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 23',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/23%20Track%2023.mp3'},
+      {id:'aef-8-24',free:false,title:'Track 24',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 24',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/24%20Track%2024.mp3'},
+      {id:'aef-8-25',free:false,title:'Track 25',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 25',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/25%20Track%2025.mp3'},
+      {id:'aef-8-26',free:false,title:'Track 26',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 26',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/26%20Track%2026.mp3'},
+      {id:'aef-8-27',free:false,title:'Track 27',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 27',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/27%20Track%2027.mp3'},
+      {id:'aef-8-28',free:false,title:'Track 28',description:'American English File — Lesson 8',tag:'Lesson 8',level:'Intermediate',episodes:'Track 28',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars8/28%20Track%2028.mp3'},
+    // Lesson 9
+      {id:'aef-9-29',free:true,title:'Track 29',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 29',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/29%20Track%2029.mp3'},
+      {id:'aef-9-30',free:false,title:'Track 30',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 30',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/30%20Track%2030.mp3'},
+      {id:'aef-9-31',free:false,title:'Track 31',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 31',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/31%20Track%2031.mp3'},
+      {id:'aef-9-32',free:false,title:'Track 32',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 32',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/32%20Track%2032.mp3'},
+      {id:'aef-9-33',free:false,title:'Track 33',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 33',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/33%20Track%2033.mp3'},
+      {id:'aef-9-34',free:false,title:'Track 34',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 34',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/34%20Track%2034.mp3'},
+      {id:'aef-9-35',free:false,title:'Track 35',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 35',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/35%20Track%2035.mp3'},
+      {id:'aef-9-36',free:false,title:'Track 36',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 36',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/36%20Track%2036.mp3'},
+      {id:'aef-9-37',free:false,title:'Track 37',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 37',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/37%20Track%2037.mp3'},
+      {id:'aef-9-38',free:false,title:'Track 38',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 38',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/38%20Track%2038.mp3'},
+      {id:'aef-9-39',free:false,title:'Track 39',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 39',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/39%20Track%2039.mp3'},
+      {id:'aef-9-40',free:false,title:'Track 40',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 40',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/40%20Track%2040.mp3'},
+      {id:'aef-9-41',free:false,title:'Track 41',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 41',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/41%20Track%2041.mp3'},
+      {id:'aef-9-42',free:false,title:'Track 42',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 42',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/42%20Track%2042.mp3'},
+      {id:'aef-9-43',free:false,title:'Track 43',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 43',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/43%20Track%2043.mp3'},
+      {id:'aef-9-44',free:false,title:'Track 44',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 44',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/44%20Track%2044.mp3'},
+      {id:'aef-9-45',free:false,title:'Track 45',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 45',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/45%20Track%2045.mp3'},
+      {id:'aef-9-46',free:false,title:'Track 46',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 46',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/46%20Track%2046.mp3'},
+      {id:'aef-9-47',free:false,title:'Track 47',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 47',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/47%20Track%2047.mp3'},
+      {id:'aef-9-48',free:false,title:'Track 48',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 48',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/48%20Track%2048.mp3'},
+      {id:'aef-9-49',free:false,title:'Track 49',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 49',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/49%20Track%2049.mp3'},
+      {id:'aef-9-50',free:false,title:'Track 50',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 50',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/50%20Track%2050.mp3'},
+      {id:'aef-9-51',free:false,title:'Track 51',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 51',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/51%20Track%2051.mp3'},
+      {id:'aef-9-52',free:false,title:'Track 52',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 52',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/52%20Track%2052.mp3'},
+      {id:'aef-9-53',free:false,title:'Track 53',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 53',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/53%20Track%2053.mp3'},
+      {id:'aef-9-54',free:false,title:'Track 54',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 54',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/54%20Track%2054.mp3'},
+      {id:'aef-9-55',free:false,title:'Track 55',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 55',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/55%20Track%2055.mp3'},
+      {id:'aef-9-56',free:false,title:'Track 56',description:'American English File — Lesson 9',tag:'Lesson 9',level:'Intermediate',episodes:'Track 56',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars9/56%20Track%2056.mp3'},
+    // Lesson 10
+      {id:'aef-10-1',free:true,title:'Track 1',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 1',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/01%20Track%201.mp3'},
+      {id:'aef-10-2',free:false,title:'Track 2',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 2',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/02%20Track%202.mp3'},
+      {id:'aef-10-3',free:false,title:'Track 3',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 3',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/03%20Track%203.mp3'},
+      {id:'aef-10-4',free:false,title:'Track 4',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 4',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/04%20Track%204.mp3'},
+      {id:'aef-10-5',free:false,title:'Track 5',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 5',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/05%20Track%205.mp3'},
+      {id:'aef-10-6',free:false,title:'Track 6',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 6',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/06%20Track%206.mp3'},
+      {id:'aef-10-7',free:false,title:'Track 7',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 7',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/07%20Track%207.mp3'},
+      {id:'aef-10-8',free:false,title:'Track 8',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 8',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/08%20Track%208.mp3'},
+      {id:'aef-10-9',free:false,title:'Track 9',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 9',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/09%20Track%209.mp3'},
+      {id:'aef-10-10',free:false,title:'Track 10',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 10',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/10%20Track%2010.mp3'},
+      {id:'aef-10-11',free:false,title:'Track 11',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 11',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/11%20Track%2011.mp3'},
+      {id:'aef-10-12',free:false,title:'Track 12',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 12',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/12%20Track%2012.mp3'},
+      {id:'aef-10-13',free:false,title:'Track 13',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 13',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/13%20Track%2013.mp3'},
+      {id:'aef-10-14',free:false,title:'Track 14',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 14',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/14%20Track%2014.mp3'},
+      {id:'aef-10-15',free:false,title:'Track 15',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 15',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/15%20Track%2015.mp3'},
+      {id:'aef-10-16',free:false,title:'Track 16',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 16',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/16%20Track%2016.mp3'},
+      {id:'aef-10-17',free:false,title:'Track 17',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 17',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/17%20Track%2017.mp3'},
+      {id:'aef-10-18',free:false,title:'Track 18',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 18',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/18%20Track%2018.mp3'},
+      {id:'aef-10-19',free:false,title:'Track 19',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 19',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/19%20Track%2019.mp3'},
+      {id:'aef-10-20',free:false,title:'Track 20',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 20',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/20%20Track%2020.mp3'},
+      {id:'aef-10-21',free:false,title:'Track 21',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 21',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/21%20Track%2021.mp3'},
+      {id:'aef-10-22',free:false,title:'Track 22',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 22',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/22%20Track%2022.mp3'},
+      {id:'aef-10-23',free:false,title:'Track 23',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 23',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/23%20Track%2023.mp3'},
+      {id:'aef-10-24',free:false,title:'Track 24',description:'American English File — Lesson 10',tag:'Lesson 10',level:'Intermediate',episodes:'Track 24',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars10/24%20Track%2024.mp3'},
+    // Lesson 11
+      {id:'aef-11-25',free:true,title:'Track 25',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 25',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/25%20Track%2025.mp3'},
+      {id:'aef-11-26',free:false,title:'Track 26',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 26',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/26%20Track%2026.mp3'},
+      {id:'aef-11-27',free:false,title:'Track 27',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 27',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/27%20Track%2027.mp3'},
+      {id:'aef-11-28',free:false,title:'Track 28',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 28',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/28%20Track%2028.mp3'},
+      {id:'aef-11-29',free:false,title:'Track 29',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 29',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/29%20Track%2029.mp3'},
+      {id:'aef-11-30',free:false,title:'Track 30',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 30',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/30%20Track%2030.mp3'},
+      {id:'aef-11-31',free:false,title:'Track 31',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 31',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/31%20Track%2031.mp3'},
+      {id:'aef-11-32',free:false,title:'Track 32',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 32',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/32%20Track%2032.mp3'},
+      {id:'aef-11-33',free:false,title:'Track 33',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 33',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/33%20Track%2033.mp3'},
+      {id:'aef-11-34',free:false,title:'Track 34',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 34',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/34%20Track%2034.mp3'},
+      {id:'aef-11-35',free:false,title:'Track 35',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 35',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/35%20Track%2035.mp3'},
+      {id:'aef-11-36',free:false,title:'Track 36',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 36',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/36%20Track%2036.mp3'},
+      {id:'aef-11-37',free:false,title:'Track 37',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 37',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/37%20Track%2037.mp3'},
+      {id:'aef-11-38',free:false,title:'Track 38',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 38',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/38%20Track%2038.mp3'},
+      {id:'aef-11-39',free:false,title:'Track 39',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 39',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/39%20Track%2039.mp3'},
+      {id:'aef-11-40',free:false,title:'Track 40',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 40',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/40%20Track%2040.mp3'},
+      {id:'aef-11-41',free:false,title:'Track 41',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 41',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/41%20Track%2041.mp3'},
+      {id:'aef-11-42',free:false,title:'Track 42',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 42',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/42%20Track%2042.mp3'},
+      {id:'aef-11-43',free:false,title:'Track 43',description:'American English File — Lesson 11',tag:'Lesson 11',level:'Intermediate',episodes:'Track 43',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars11/43%20Track%2043.mp3'},
+    // Lesson 12
+      {id:'aef-12-44',free:true,title:'Track 44',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 44',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/44%20Track%2044.mp3'},
+      {id:'aef-12-45',free:false,title:'Track 45',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 45',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/45%20Track%2045.mp3'},
+      {id:'aef-12-46',free:false,title:'Track 46',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 46',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/46%20Track%2046.mp3'},
+      {id:'aef-12-47',free:false,title:'Track 47',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 47',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/47%20Track%2047.mp3'},
+      {id:'aef-12-48',free:false,title:'Track 48',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 48',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/48%20Track%2048.mp3'},
+      {id:'aef-12-49',free:false,title:'Track 49',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 49',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/49%20Track%2049.mp3'},
+      {id:'aef-12-50',free:false,title:'Track 50',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 50',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/50%20Track%2050.mp3'},
+      {id:'aef-12-51',free:false,title:'Track 51',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 51',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/51%20Track%2051.mp3'},
+      {id:'aef-12-52',free:false,title:'Track 52',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 52',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/52%20Track%2052.mp3'},
+      {id:'aef-12-53',free:false,title:'Track 53',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 53',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/53%20Track%2053.mp3'},
+      {id:'aef-12-54',free:false,title:'Track 54',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 54',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/54%20Track%2054.mp3'},
+      {id:'aef-12-55',free:false,title:'Track 55',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 55',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/55%20Track%2055.mp3'},
+      {id:'aef-12-56',free:false,title:'Track 56',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 56',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/56%20Track%2056.mp3'},
+      {id:'aef-12-57',free:false,title:'Track 57',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 57',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/57%20Track%2057.mp3'},
+      {id:'aef-12-58',free:false,title:'Track 58',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 58',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/58%20Track%2058.mp3'}
+    ]
+  },
+{
+  id: 'bbc-learn-english',
+  label: 'BBC Learn English',
+  categories: ['All', 'podcast', 'Business', 'Vocabulary', 'Conversation', 'Grammar'],
+  podcasts: [
+    {id:'1-bbcpodcast',free:true,title:'The decline of the apostrophe',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'1 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The-decline-of-the-apostrophe.mp3'},
+    {id:'2-bbcpodcast',free:false,title:'Could you give up booze for a month',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'2 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20booze%20for%20a%20month.mp3'},
+    {id:'3-bbcpodcast',free:false,title:'Why does seeing someone yawn make you yawn',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'3 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why%20does%20seeing%20someone%20yawn%20make%20you%20yawn.mp3'},
+    {id:'4-bbcpodcast',free:false,title:'The benefits of low emission zones',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'4 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20benefits%20of%20low%20emission%20zones.mp3'},
+    {id:'5-bbcpodcast',free:false,title:'Is it good to disagree ?',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'5 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Is%20it%20good%20to%20disagree.mp3'},
+    {id:'6-bbcpodcast',free:false,title:'How resilient are you',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'6 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/How%20resilient%20are%20you.mp3'},
+    {id:'7-bbcpodcast',free:false,title:'Could you give up fast fashion',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'7 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20fast%20fashion.mp3'},
+    {id:'8-bbcpodcast',free:false,title:'Eating pond scum',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'8 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Eating%20pond%20scum.mp3'},
+    {id:'9-bbcpodcast',free:false,title:'The circular economy',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'9 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20circular%20economy.mp3'},
+    {id:'10-bbcpodcast',free:false,title:'A future without doctors',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'10 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20future%20without%20doctors.mp3'}
+  ]
+    },
+  {
+    id: 'learnenglish britishcouncil',
+    label: 'learnenglish britishcouncil',
+    categories: ['All', 'Podcasts series 1', 'Grammar', 'Vocabulary', 'Conversation', 'Business', 'Pronunciation'],
+    podcasts: [
+      {id:'1-british',free:true,title:'Episode 01',description:'Clear American English for learners.',tag:'Daily English',level:'Beginner',episodes:'20 Episodes',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'2-british',free:false,title:'Everyday Grammar',description:'Grammar explained in simple English.',tag:'Grammar',level:'Beginner',episodes:'15 Episodes',dur:'5-10 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e02.mp3'},
+      {id:'3-british',free:false,title:'Health & Science English',description:'Medical and science vocabulary.',tag:'Vocabulary',level:'Intermediate',episodes:'12 Episodes',dur:'8-12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e03.mp3'},
+      {id:'4-british',free:false,title:'American Stories',description:'Classic stories in simple English.',tag:'Conversation',level:'Intermediate',episodes:'10 Episodes',dur:'15-20 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e04.mp3'},
+      {id:'5-british',free:false,title:'Economics in English',description:'Understand global economics.',tag:'Business',level:'Advanced',episodes:'8 Episodes',dur:'12-16 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e05.mp3'},
+      {id:'6-british',free:false,title:'Words and Their Stories',description:'The history behind English words.',tag:'Vocabulary',level:'Intermediate',episodes:'14 Episodes',dur:'5-8 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e06.mp3'},
+      {id:'7-british',free:false,title:'American Culture',description:'Life and culture in the USA.',tag:'Daily English',level:'Beginner',episodes:'9 Episodes',dur:'10-14 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e07.mp3'},
+      {id:'8-british',free:false,title:'Tech Talk',description:'Technology news in plain English.',tag:'Business',level:'Intermediate',episodes:'11 Episodes',dur:'8-12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e08.mp3'},
+      {id:'9-british',free:false,title:'Pronunciation Tips',description:'Master American English sounds.',tag:'Pronunciation',level:'Beginner',episodes:'10 Episodes',dur:'5-8 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e09.mp3'},
+      {id:'10-british',free:false,title:'Advanced News English',description:'Full-speed news for advanced learners.',tag:'Daily English',level:'Advanced',episodes:'18 Episodes',dur:'12-18 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e10.mp3'},
+    ]
+  },
+  {
+    id: 'my-podcasts',
+    label: 'My Podcasts',
+    categories: ['All', 'Daily English', 'Conversation', 'Vocabulary', 'Business'],
+    podcasts: [
+      {id:'my-ep-01',free:true,title:'Episode 1 — Introduction',description:'Welcome to our podcast series.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-02',free:false,title:'Episode 2 — Greetings',description:'How to greet people naturally.',tag:'Conversation',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-03',free:false,title:'Episode 3 — Numbers',description:'Numbers and counting in English.',tag:'Vocabulary',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-04',free:false,title:'Episode 4 — Food & Drink',description:'Ordering food like a native.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-05',free:false,title:'Episode 5 — Directions',description:'Asking and giving directions.',tag:'Conversation',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-06',free:false,title:'Episode 6 — Shopping',description:'English for shops and markets.',tag:'Daily English',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-07',free:false,title:'Episode 7 — Weather',description:'Talking about the weather.',tag:'Conversation',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-08',free:false,title:'Episode 8 — At the Doctor',description:'Medical English made simple.',tag:'Vocabulary',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-09',free:false,title:'Episode 9 — Job Interview',description:'Ace your English job interview.',tag:'Business',level:'Advanced',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+      {id:'my-ep-10',free:false,title:'Episode 10 — Wrap Up',description:'Review and what comes next.',tag:'Daily English',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
+    ]
+  },
+];
+
+let activeSourceId = sources[0].id;
+let activeCategory = 'All';
+
+async function sbGet(table, filter) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${filter}&limit=1`, { headers: SB_H });
+  return r.json();
+}
+async function sbGetAll(table, filter) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${filter}`, { headers: SB_H });
+  return r.json();
+}
+async function sbInsert(table, body) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: { ...SB_H, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+    body: JSON.stringify(body),
+  });
+  return r.ok;
+}
+
+function showToast(msg, dur = 2800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+function updateLoginIcon() {
+  const b = document.getElementById('loginIconBtn');
+  if (b) b.classList.toggle('logged-in', !!isLoggedIn());
+}
+function onLoginIconClick() {
+  if (isLoggedIn()) {
+    if (confirm('می‌خواهید از حساب خود خارج شوید؟')) { localStorage.removeItem(SESSION_KEY); location.reload(); }
+  } else { openLoginPopup(); }
+}
+
+/* ===== CLLO keypad login (identical logic to main site) ===== */
+let pendingCardAction=null, clloCode="", clloHold=null;
+const clloSlotsEl=document.getElementById("clloSlots");
+const clloStatusEl=document.getElementById("clloStatus");
+if(clloSlotsEl){for(let i=0;i<5;i++)clloSlotsEl.innerHTML+='<div class="cllo-slot"></div>'}
+const clloBoxes=clloSlotsEl?[...clloSlotsEl.children]:[];
+function clloRender(){clloBoxes.forEach((b,i)=>{b.className="cllo-slot"+(i<clloCode.length?" f":"");b.textContent=i<clloCode.length?clloCode[i]:""})}
+function clloBeep(){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;o.type="square";g.gain.setValueAtTime(.08,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.08);o.start();o.stop(a.currentTime+.08)}catch(e){}}
+function clloVib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+function clloAdd(n){if(clloCode.length<5){clloCode+=n;if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}}
+function clloDelOne(){clloCode=clloCode.slice(0,-1);if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}
+function clloClear(){clloCode="";if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}
+async function clloCheck(){
+  if(clloCode.length!==5){if(clloStatusEl)clloStatusEl.textContent="کد باید ۵ رقم باشد";return}
+  if(clloStatusEl)clloStatusEl.textContent="در حال بررسی...";
+  try{
+    const rows=await sbGet("subscriptions",`code=eq.${encodeURIComponent(clloCode)}&is_active=eq.true`);
+    if(rows&&rows.length>0){
+      const u=rows[0];
+      const codeVal=u.code||clloCode;
+      setSession({phone:u.phone||codeVal,verified:true,ts:Date.now(),code:codeVal});
+      clloBoxes.forEach((b,i)=>{b.className="cllo-slot c";b.textContent=clloCode[i]||""});
+      if(clloStatusEl)clloStatusEl.textContent="کد صحیح است ✓";
+      clloBeep();
+      const action=pendingCardAction;
+      setTimeout(()=>{
+        closeLoginPopup();
+        showToast("✅ خوش آمدید! دسترسی همه پادکست‌ها فعال شد");
+        updateLoginIcon();
+        renderAll();
+        if(action)setTimeout(()=>action(),150)
+      },600)
+    }else{
+      clloBoxes.forEach((b,i)=>{b.className="cllo-slot w";b.textContent=clloCode[i]||""});
+      if(clloStatusEl)clloStatusEl.textContent="کد یافت نشد ✕";
+      clloBeep();clloVib([80,40,80,40,120]);
+      setTimeout(()=>{clloCode="";clloRender();if(clloStatusEl)clloStatusEl.textContent=""},1200)
+    }
+  }catch(e){
+    if(clloStatusEl)clloStatusEl.textContent="خطا در اتصال. دوباره تلاش کنید.";
+    console.error(e)
+  }
+}
+document.querySelectorAll(".cllo-btn").forEach(btn=>{
+  const k=btn.dataset.k;
+  if(k==="x"){
+    const start=()=>{clloDelOne();clloHold=setTimeout(clloClear,450)};
+    const stop=()=>clearTimeout(clloHold);
+    btn.addEventListener("mousedown",start);
+    btn.addEventListener("mouseup",stop);
+    btn.addEventListener("mouseleave",stop);
+    btn.addEventListener("touchstart",e=>{e.preventDefault();start()},{passive:false});
+    btn.addEventListener("touchend",stop);
+    btn.addEventListener("touchcancel",stop)
+  }else{
+    btn.addEventListener("click",()=>k==="e"?clloCheck():clloAdd(k))
+  }
+});
+function openLoginPopup(a){
+  pendingCardAction=a||null;
+  clloCode="";clloRender();
+  if(clloStatusEl)clloStatusEl.textContent="";
+  document.getElementById("loginPopup").classList.add("open")
+}
+function closeLoginPopup(){
+  document.getElementById("loginPopup").classList.remove("open");
+  pendingCardAction=null;clloCode="";clloRender()
+}
+document.getElementById("loginPopup").addEventListener("click",function(e){if(e.target===this)closeLoginPopup()});
+document.addEventListener("keydown",function(e){
+  if(!document.getElementById("loginPopup").classList.contains("open"))return;
+  if(/^[0-9]$/.test(e.key))clloAdd(e.key);
+  else if(e.key==="Backspace"){e.preventDefault();clloDelOne()}
+  else if(e.key==="Enter")clloCheck();
+  else if(e.key==="Escape")closeLoginPopup()
+});
+/* ===== end CLLO keypad login ===== */
+
+function openPricePopup()       { document.getElementById('pricePopup').classList.add('open'); }
+function closePricePopup()      { document.getElementById('pricePopup').classList.remove('open'); }
+function closePriceIfOutside(e) { if (e.target === document.getElementById('pricePopup')) closePricePopup(); }
+
+async function verifyCurrentSubscription() {
+  const session = getSession();
+  if (!session || !session.phone || !session.verified) { updateLoginIcon(); return false; }
+  try {
+    const subs   = await sbGet('subscriptions', `phone=eq.${encodeURIComponent(session.phone)}&is_active=eq.true`);
+    const active = Array.isArray(subs) && subs.length > 0;
+    if (!active) { localStorage.removeItem(SESSION_KEY); updateLoginIcon(); renderAll(); return false; }
+    updateLoginIcon(); return true;
+  } catch(e) { updateLoginIcon(); return false; }
+}
+
+function renderSourceTabs() {
+  const wrap = document.getElementById('sourceTabs');
+  wrap.innerHTML = '';
+  sources.forEach(src => {
+    const btn = document.createElement('button');
+    btn.className   = 'source-tab' + (src.id === activeSourceId ? ' active' : '');
+    btn.textContent = src.label;
+    btn.onclick = () => {
+      activeSourceId = src.id;
+      activeCategory = 'All';
+      renderSourceTabs();
+      renderCategoryPills();
+      renderPodcastList();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+function renderCategoryPills() {
+  const wrap = document.getElementById('categoryPills');
+  wrap.innerHTML = '';
+  const source = sources.find(s => s.id === activeSourceId);
+  if (!source) return;
+  source.categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className   = 'category' + (cat === activeCategory ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => {
+      activeCategory = cat;
+      renderCategoryPills();
+      renderPodcastList();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+function levelBars(n) {
+  let b = '';
+  for (let i = 0; i < n; i++) b += '<span></span>';
+  return b;
+}
+
+function renderPodcastList() {
+  const loggedIn = isLoggedIn();
+  const list     = document.getElementById('podcastList');
+  list.innerHTML = '';
+  const source = sources.find(s => s.id === activeSourceId);
+  if (!source) return;
+  const filtered = activeCategory === 'All'
+    ? source.podcasts
+    : source.podcasts.filter(p => p.tag === activeCategory);
+  if (filtered.length === 0) {
+    list.innerHTML = '<p style="text-align:center;color:#5a7a9a;font-size:13px;padding:30px 0">پادکستی در این دسته‌بندی وجود ندارد.</p>';
+    return;
+  }
+  filtered.forEach(p => {
+    const locked = !p.free && !loggedIn;
+    const bars   = p.level === 'Beginner' ? 3 : 4;
+    const card   = document.createElement('article');
+    card.className = 'podcast-card' + (locked ? ' locked' : '');
+    card.innerHTML = `
+      <div class="cover">
+        <img src="${p.image}" alt="${p.title}" loading="lazy">
+        <div class="cover-title">${p.title.split(' ').slice(0,2).join('<br>')}</div>
+      </div>
+      <div class="card-content">
+        <h3>${p.title}</h3>
+        <p class="card-description">${p.description}</p>
+        <div class="card-meta"><span>🎧 ${p.episodes}</span><span>◷ ${p.dur}</span></div>
+        <div class="tag">${p.tag}</div>
+        <div class="level"><div class="level-bars">${levelBars(bars)}</div>${p.level}</div>
+      </div>
+      <div class="card-actions">
+        <button class="icon-button" onclick="event.stopPropagation();toggleFavorite(this)">♡</button>
+        <button class="icon-button" onclick="event.stopPropagation()">···</button>
+      </div>
+      ${locked
+        ? `<div class="lock-overlay"><span class="lock-icon">🔒</span></div>
+           <button class="play-small" onclick="event.stopPropagation();openLoginPopup()">🔒</button>`
+        : `<button class="play-small">▶</button>`
+      }`;
+    card.addEventListener('click', () => locked ? openLoginPopup() : openPlayer(p));
+    list.appendChild(card);
+  });
+}
+
+function renderAll() {
+  renderSourceTabs();
+  renderCategoryPills();
+  renderPodcastList();
+}
+
+const waveform = document.getElementById('waveform');
+for (let i = 0; i < 48; i++) {
+  const bar = document.createElement('div');
+  bar.className    = 'wave paused';
+  bar.style.height = (Math.floor(Math.random() * 34) + 8) + 'px';
+  waveform.appendChild(bar);
+}
+
+const homeScreen   = document.getElementById('homeScreen');
+const playerScreen = document.getElementById('playerScreen');
+const audio        = document.getElementById('audioPlayer');
+const mainPlay     = document.getElementById('mainPlay');
+
+async function openPlayer(p) {
+  document.getElementById('playerTitle').textContent       = p.title;
+  document.getElementById('playerDescription').textContent = p.description;
+  document.getElementById('playerTag').textContent         = p.level;
+  document.getElementById('playerImage').src               = p.image;
+  document.getElementById('playerEpisodes').innerHTML      = '🎧 ' + p.episodes;
+  document.getElementById('playerDurEl').innerHTML         = '◷ '  + p.dur;
+  audio.src = p.audio; audio.load();
+  homeScreen.classList.remove('active');
+  playerScreen.classList.add('active');
+  playerScreen.scrollTop = 0;
+  mainPlay.textContent = '▶'; setWave(false);
+  document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.lesson-tab')[0].classList.add('active');
+  document.getElementById('transcriptContent').style.display = 'block';
+  document.getElementById('vocabContent').style.display      = 'none';
+  document.getElementById('notesContent').style.display      = 'none';
+  loadTranscript(p.id);
+  loadVocab(p.id);
+}
+
+async function loadTranscript(podcastId) {
+  const loading = document.getElementById('transcriptLoading');
+  const lines   = document.getElementById('transcriptLines');
+  lines.innerHTML = '';
+  loading.style.display = 'block';
+  loading.textContent   = '⏳ در حال بارگذاری Transcript...';
+  try {
+    const rows = await sbGet('transcripts', `podcast_id=eq.${podcastId}&order=sort_order.asc`);
+    if (!rows || rows.length === 0) { loading.textContent = 'No transcript available yet.'; return; }
+    loading.style.display = 'none';
+    const div = document.createElement('div');
+    div.className   = 'transcript-plain';
+    div.textContent = rows[0].content;
+    lines.appendChild(div);
+  } catch(e) { loading.textContent = '⚠️ Transcript بارگذاری نشد.'; }
+}
+
+async function loadVocab(podcastId) {
+  const vocabList = document.getElementById('vocabList');
+  vocabList.innerHTML = '<div style="color:#6c8aaa;font-size:11px;padding:8px">در حال بارگذاری...</div>';
+  try {
+    const rows = await sbGetAll('vocabulary', `podcast_id=eq.${podcastId}&order=sort_order.asc`);
+    vocabList.innerHTML = '';
+    if (!rows || rows.length === 0) {
+      vocabList.innerHTML = '<div style="color:#6c8aaa;font-size:11px;padding:8px">کلمه‌ای ثبت نشده.</div>';
+      return;
+    }
+    rows.forEach(v => {
+      const item = document.createElement('div');
+      item.className = 'vocab-item';
+      item.innerHTML = `<strong>${v.word}</strong><small>${v.translation_fa}</small>`;
+      if (v.example) item.title = v.example;
+      vocabList.appendChild(item);
+    });
+  } catch(e) {
+    vocabList.innerHTML = '<div style="color:#f66;font-size:11px;padding:8px">⚠️ خطا در بارگذاری</div>';
+  }
+}
+
+function goHome() { audio.pause(); playerScreen.classList.remove('active'); homeScreen.classList.add('active'); }
+
+function scrollToTranscript() {
+  setTimeout(() => {
+    const screen = document.getElementById('playerScreen');
+    if (!screen) return;
+    const start    = screen.scrollTop;
+    const distance = 650;
+    const duration = 900;
+    let startTime  = null;
+
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed  = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      screen.scrollTop = start + distance * easeInOutQuad(progress);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }, 600);
+}
+
+function togglePlay() {
+  if (audio.paused) {
+    audio.play().then(() => {
+      mainPlay.textContent = 'Ⅱ';
+      setWave(true);
+      scrollToTranscript();
+    }).catch(e => console.log(e));
+  } else {
+    audio.pause();
+    mainPlay.textContent = '▶';
+    setWave(false);
+  }
+}
+
+audio.addEventListener('play',  () => { mainPlay.textContent = 'Ⅱ'; setWave(true);  });
+audio.addEventListener('pause', () => { mainPlay.textContent = '▶'; setWave(false); });
+audio.addEventListener('ended', () => { mainPlay.textContent = '▶'; setWave(false); });
+function setWave(on) { document.querySelectorAll('.wave').forEach(b => b.classList.toggle('paused', !on)); }
+function skip(sec)   { if (audio.duration) audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + sec)); }
+function repeatSentence() { if (audio.duration) { audio.currentTime = Math.max(0, audio.currentTime - 5); audio.play(); } }
+
+function formatTime(s) {
+  if (!isFinite(s)) return '00:00';
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+audio.addEventListener('loadedmetadata', () => { document.getElementById('audioDuration').textContent = formatTime(audio.duration); });
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressDot').style.left   = pct + '%';
+  document.getElementById('currentTime').textContent  = formatTime(audio.currentTime);
+});
+document.getElementById('progressBar').addEventListener('click', e => {
+  if (!audio.duration) return;
+  const rect = document.getElementById('progressBar').getBoundingClientRect();
+  audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+});
+
+document.getElementById('volumeSlider').addEventListener('input', function() { audio.volume = parseFloat(this.value); });
+document.querySelectorAll('.speed').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.speed').forEach(s => s.classList.remove('active'));
+    this.classList.add('active');
+    audio.playbackRate = Number(this.dataset.speed);
+  });
+});
+
+function toggleFavorite(btn) {
+  if (btn.textContent.trim() === '♡') { btn.textContent = '♥'; btn.style.color = '#ff6f9f'; }
+  else                                 { btn.textContent = '♡'; btn.style.color = ''; }
+}
+function togglePlayerFavorite() { toggleFavorite(document.getElementById('playerFavorite')); }
+function switchTab(el, tab) {
+  document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('transcriptContent').style.display = tab === 'transcript' ? 'block' : 'none';
+  document.getElementById('vocabContent').style.display      = tab === 'vocab'       ? 'block' : 'none';
+  document.getElementById('notesContent').style.display      = tab === 'notes'       ? 'block' : 'none';
+}
+
+document.addEventListener('keydown', e => {
+  if (!playerScreen.classList.contains('active')) return;
+  const inTextarea = document.activeElement && document.activeElement.tagName === 'TEXTAREA';
+  if (inTextarea) return;
+  if (e.code === 'Space')  { e.preventDefault(); togglePlay(); }
+  if (e.code === 'Escape') { goHome(); }
+});
+
+updateLoginIcon();
+renderAll();
+verifyCurrentSubscription();
+</script>
+</body>
+</html>
+‌
