@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>English Podcast — PlanLife</title>
+<title>Audio Classes — PlanLife</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -345,23 +345,6 @@ function setSession(d){localStorage.setItem(SESSION_KEY,JSON.stringify(d))}
 function isLoggedIn(){const s=getSession();return s&&s.phone&&s.verified}
 
 const sources = [
-  {
-    id: 'my pocast',
-    label: 'my podcast',
-    categories: ['All', 'Daily English', 'Conversation', 'Vocabulary', 'Business', 'Grammar', 'Pronunciation'],
-    podcasts: [
-      {id:'1-mypodcast',free:true,title:'The small Blue Box',description:'my podcast',tag:'Daily English',level:'Intermediate',episodes:'1 Episodes',dur:'7:12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/1-podcast.m4a'},
-      {id:'2-mypodcast',free:false,title:'Small Talk Skills',description:'Break the ice with confidence.',tag:'Conversation',level:'Beginner',episodes:'10 Episodes',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/2-podcast.m4a'},
-      {id:'3-mypodcast',free:false,title:'Advanced Vocabulary',description:'Expand your word power',tag:'Vocabulary',level:'Advanced',episodes:'15 Episodes',dur:'10-18 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/3-podcast.m4a'},
-      {id:'4-mypodcast',free:false,title:'Travel English',description:'Speak English anywhere in the world.',tag:'Conversation',level:'Intermediate',episodes:'8 Episodes',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/4-podcast.m4a'},
-      {id:'5-mypodcast',free:false,title:'English for Work',description:'Meetings, emails and presentations.',tag:'Business',level:'Advanced',episodes:'10 Episodes',dur:'12-18 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/5-podcast.m4a'},
-      {id:'6-mypodcast',free:false,title:'Grammar in Use',description:'Master tricky grammar points.',tag:'Grammar',level:'Intermediate',episodes:'14 Episodes',dur:'8-12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/6-podcast.m4a'},
-      {id:'7-mypodcast',free:false,title:'Pronunciation Power',description:'Sound like a native speaker.',tag:'Pronunciation',level:'Beginner',episodes:'9 Episodes',dur:'8-10 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/7-podcast.m4a'},
-      {id:'8-mypodcast',free:false,title:'Everyday Idioms',description:'Common expressions made easy.',tag:'Vocabulary',level:'Intermediate',episodes:'11 Episodes',dur:'10-14 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/8-podcast.m4a'},
-      {id:'9-mypodcast',free:false,title:'News English',description:'Understand global news in English.',tag:'Daily English',level:'Advanced',episodes:'20 Episodes',dur:'12-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/9-podcast.m4a'},
-      {id:'10-mypodcast',free:false,title:'Story Time',description:'Short stories for better listening.',tag:'Conversation',level:'Beginner',episodes:'6 Episodes',dur:'15-25 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/me/10-podcast.m4a'},
-    ]
-  },
   {
     id: 'american-english-file',
     label: 'American English File',
@@ -730,58 +713,7 @@ const sources = [
       {id:'aef-12-57',free:false,title:'Track 57',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 57',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/57%20Track%2057.mp3'},
       {id:'aef-12-58',free:false,title:'Track 58',description:'American English File — Lesson 12',tag:'Lesson 12',level:'Intermediate',episodes:'Track 58',dur:'Audio',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/radiocllo.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars12/58%20Track%2058.mp3'}
     ]
-  },
-{
-  id: 'bbc-learn-english',
-  label: 'BBC Learn English',
-  categories: ['All', 'podcast', 'Business', 'Vocabulary', 'Conversation', 'Grammar'],
-  podcasts: [
-    {id:'1-bbcpodcast',free:true,title:'The decline of the apostrophe',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'1 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The-decline-of-the-apostrophe.mp3'},
-    {id:'2-bbcpodcast',free:false,title:'Could you give up booze for a month',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'2 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20booze%20for%20a%20month.mp3'},
-    {id:'3-bbcpodcast',free:false,title:'Why does seeing someone yawn make you yawn',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'3 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why%20does%20seeing%20someone%20yawn%20make%20you%20yawn.mp3'},
-    {id:'4-bbcpodcast',free:false,title:'The benefits of low emission zones',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'4 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20benefits%20of%20low%20emission%20zones.mp3'},
-    {id:'5-bbcpodcast',free:false,title:'Is it good to disagree ?',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'5 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Is%20it%20good%20to%20disagree.mp3'},
-    {id:'6-bbcpodcast',free:false,title:'How resilient are you',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'6 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/How%20resilient%20are%20you.mp3'},
-    {id:'7-bbcpodcast',free:false,title:'Could you give up fast fashion',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'7 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20fast%20fashion.mp3'},
-    {id:'8-bbcpodcast',free:false,title:'Eating pond scum',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'8 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Eating%20pond%20scum.mp3'},
-    {id:'9-bbcpodcast',free:false,title:'The circular economy',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'9 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20circular%20economy.mp3'},
-    {id:'10-bbcpodcast',free:false,title:'A future without doctors',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'10 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20future%20without%20doctors.mp3'}
-  ]
-    },
-  {
-    id: 'learnenglish britishcouncil',
-    label: 'learnenglish britishcouncil',
-    categories: ['All', 'Podcasts series 1', 'Grammar', 'Vocabulary', 'Conversation', 'Business', 'Pronunciation'],
-    podcasts: [
-      {id:'1-british',free:true,title:'Episode 01',description:'Clear American English for learners.',tag:'Daily English',level:'Beginner',episodes:'20 Episodes',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'2-british',free:false,title:'Everyday Grammar',description:'Grammar explained in simple English.',tag:'Grammar',level:'Beginner',episodes:'15 Episodes',dur:'5-10 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e02.mp3'},
-      {id:'3-british',free:false,title:'Health & Science English',description:'Medical and science vocabulary.',tag:'Vocabulary',level:'Intermediate',episodes:'12 Episodes',dur:'8-12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e03.mp3'},
-      {id:'4-british',free:false,title:'American Stories',description:'Classic stories in simple English.',tag:'Conversation',level:'Intermediate',episodes:'10 Episodes',dur:'15-20 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e04.mp3'},
-      {id:'5-british',free:false,title:'Economics in English',description:'Understand global economics.',tag:'Business',level:'Advanced',episodes:'8 Episodes',dur:'12-16 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e05.mp3'},
-      {id:'6-british',free:false,title:'Words and Their Stories',description:'The history behind English words.',tag:'Vocabulary',level:'Intermediate',episodes:'14 Episodes',dur:'5-8 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e06.mp3'},
-      {id:'7-british',free:false,title:'American Culture',description:'Life and culture in the USA.',tag:'Daily English',level:'Beginner',episodes:'9 Episodes',dur:'10-14 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e07.mp3'},
-      {id:'8-british',free:false,title:'Tech Talk',description:'Technology news in plain English.',tag:'Business',level:'Intermediate',episodes:'11 Episodes',dur:'8-12 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e08.mp3'},
-      {id:'9-british',free:false,title:'Pronunciation Tips',description:'Master American English sounds.',tag:'Pronunciation',level:'Beginner',episodes:'10 Episodes',dur:'5-8 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e09.mp3'},
-      {id:'10-british',free:false,title:'Advanced News English',description:'Full-speed news for advanced learners.',tag:'Daily English',level:'Advanced',episodes:'18 Episodes',dur:'12-18 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/britishcouncil.webp',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e10.mp3'},
-    ]
-  },
-  {
-    id: 'my-podcasts',
-    label: 'My Podcasts',
-    categories: ['All', 'Daily English', 'Conversation', 'Vocabulary', 'Business'],
-    podcasts: [
-      {id:'my-ep-01',free:true,title:'Episode 1 — Introduction',description:'Welcome to our podcast series.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-02',free:false,title:'Episode 2 — Greetings',description:'How to greet people naturally.',tag:'Conversation',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-03',free:false,title:'Episode 3 — Numbers',description:'Numbers and counting in English.',tag:'Vocabulary',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-04',free:false,title:'Episode 4 — Food & Drink',description:'Ordering food like a native.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-05',free:false,title:'Episode 5 — Directions',description:'Asking and giving directions.',tag:'Conversation',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-06',free:false,title:'Episode 6 — Shopping',description:'English for shops and markets.',tag:'Daily English',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-07',free:false,title:'Episode 7 — Weather',description:'Talking about the weather.',tag:'Conversation',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-08',free:false,title:'Episode 8 — At the Doctor',description:'Medical English made simple.',tag:'Vocabulary',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-09',free:false,title:'Episode 9 — Job Interview',description:'Ace your English job interview.',tag:'Business',level:'Advanced',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-      {id:'my-ep-10',free:false,title:'Episode 10 — Wrap Up',description:'Review and what comes next.',tag:'Daily English',level:'Intermediate',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/5.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
-    ]
-  },
+  }
 ];
 
 let activeSourceId = sources[0].id;
