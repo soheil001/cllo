@@ -128,29 +128,42 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradi
 .repeat-text small{color:#8298b4;font-size:9px}
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);z-index:99999;background:rgba(8,20,55,.95);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.popup-overlay{position:fixed;inset:0;z-index:10000;background:rgba(5,15,50,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease}
+
+/* ===== CLLO-style login popup (matches main site) ===== */
+.popup-overlay{position:fixed;inset:0;z-index:10000;background:rgba(5,10,25,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;padding:8px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .popup-overlay.open{opacity:1;pointer-events:auto}
-.popup-sheet{width:100%;max-width:520px;background:rgba(8,20,55,.92);border:1px solid rgba(255,255,255,.18);border-bottom:none;border-radius:28px 28px 0 0;padding:28px 24px 32px;box-shadow:0 -20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.2);transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.2,.64,1)}
-.popup-overlay.open .popup-sheet{transform:translateY(0)}
-.popup-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);margin:0 auto 20px}
-.popup-title{font-size:17px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px}
-.popup-sub{font-size:12px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:22px;line-height:1.6}
-.phone-row{display:flex;gap:10px;margin-bottom:14px;direction:ltr}
-.prefix-box{flex-shrink:0;width:64px;height:52px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.5px}
-.phone-input{flex:1;height:52px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;padding:0 16px;font-size:15px;font-weight:600;color:#fff;font-family:Inter,sans-serif;direction:ltr;text-align:left;outline:none;transition:border-color .2s,background .2s}
-.phone-input:focus{border-color:rgba(0,150,255,.7);background:rgba(255,255,255,.15)}
-.phone-input::placeholder{color:rgba(255,255,255,.3)}
+.cllo-sheet{width:min(420px,98vw);display:flex;flex-direction:column;align-items:center;gap:0;transform:scale(.92);opacity:0;transition:transform .35s cubic-bezier(.34,1.2,.64,1),opacity .3s;position:relative;margin:auto;background:rgba(8,16,40,.72);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:0;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.18);backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(6px) saturate(150%)}
+.popup-overlay.open .cllo-sheet{transform:scale(1);opacity:1}
+.cllo-prompt{width:100%;text-align:center;font-family:Inter,Arial,sans-serif;font-size:15px;font-weight:800;color:#b8e0ff;letter-spacing:-0.2px;text-shadow:0 0 12px rgba(80,170,255,.55),0 2px 8px rgba(0,0,0,.4);margin:14px 0 2px;direction:rtl;order:0;padding:0 12px}
+.cllo-device{position:relative;width:100%;max-width:100%;line-height:0;margin:0;order:1;border-radius:0}
+.cllo-device img{width:100%;display:block;border-radius:0;filter:none;pointer-events:none}
+#clloSlots{position:absolute;left:18%;top:29.5%;width:64%;height:5.5%;display:flex;direction:ltr;gap:8px;justify-content:center;pointer-events:none}
+.cllo-slot{flex:1;max-width:36px;aspect-ratio:1;border:1.8px solid rgba(100,160,230,.55);border-radius:6px;background:rgba(6,18,35,.3);display:flex;align-items:center;justify-content:center;font:700 18px/1 'Courier New',Courier,monospace;color:transparent;text-shadow:0 0 6px #5cf;letter-spacing:-1px;transition:.15s;-webkit-user-select:none;user-select:none}
+.cllo-slot.f{background:linear-gradient(145deg,#0a2a4a,#061830);border-color:#8fe8ff;color:#b8f0ff;box-shadow:0 0 8px rgba(50,170,255,.65),inset 0 0 6px rgba(0,170,255,.2)}
+.cllo-slot.c{background:#0a3a20;border-color:#9affbd;color:#9affbd;box-shadow:0 0 10px rgba(53,232,121,.8)}
+.cllo-slot.w{background:#3a0a12;border-color:#ff9ca7;color:#ff9ca7;box-shadow:0 0 10px rgba(255,62,82,.85)}
+.cllo-keys{position:absolute;left:19%;top:48.2%;width:62%;height:40.5%;display:grid;grid:repeat(4,1fr)/repeat(3,1fr);gap:3.2% 4%;direction:ltr}
+.cllo-btn{background:transparent;border:0;border-radius:13px;cursor:pointer;transition:.1s;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.cllo-btn:active{transform:scale(.9);filter:brightness(.4)}
+.cllo-status{min-height:14px;font-size:12px;color:#9aabc0;text-align:center;margin:4px 0 2px;order:2;line-height:1.2;padding:0 10px}
+.cllo-actions{width:100%;display:flex;flex-direction:column;gap:10px;margin:0;order:3;padding:10px 16px 18px;box-sizing:border-box}
+.cllo-actions .btn-sub{width:100%;height:46px;border-radius:16px;font-size:13.5px;padding:0 16px;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cllo-actions .btn-sub.telegram{background:linear-gradient(180deg,#2568d0 0%,#1a4fa8 50%,#143d85 100%);border-color:rgba(130,180,255,.55)}
+.cllo-actions .btn-sub.bale{background:linear-gradient(180deg,#1ea058 0%,#147a42 50%,#0e5c32 100%);border-color:rgba(130,230,170,.5)}
+.cllo-actions .btn-sub.whatsapp{background:linear-gradient(180deg,#128a5e 0%,#0c6847 50%,#094a33 100%);border-color:rgba(110,220,180,.5)}
+.cllo-close{position:absolute;top:8px;left:8px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(20,30,50,.85);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.cllo-close:active{transform:scale(.92)}
+#loginPopup,#loginPopup *{touch-action:manipulation}
+.subscribe-divider{text-align:center;font-size:11px;color:rgba(255,255,255,0.35);margin:4px 0}
+.btn-sub{width:100%;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:6px;font-family:Inter,Arial,sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;transition:transform 0.15s,opacity 0.15s,box-shadow .15s;text-decoration:none;border:1.5px solid rgba(120,160,200,.35);background:linear-gradient(180deg,#2a3548 0%,#1a2233 40%,#121820 100%);color:#d0e4f8;box-shadow:0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
+.btn-sub:active{transform:scale(0.97);opacity:0.9}
+.btn-sub.telegram{background:linear-gradient(180deg,#1e4a7a 0%,#153560 40%,#0e2440 100%);border-color:rgba(80,160,255,.5);color:#fff;box-shadow:0 4px 16px rgba(20,80,180,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.25)}
+.btn-sub.bale{background:linear-gradient(180deg,#1a5c35 0%,#0f3d22 40%,#0a2a18 100%);border-color:rgba(80,220,140,.45);color:#fff;box-shadow:0 4px 16px rgba(20,140,70,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.25)}
+.btn-sub.whatsapp{background:linear-gradient(180deg,#1a6b48 0%,#0f4a32 40%,#0a3222 100%);border-color:rgba(60,200,140,.45);color:#fff;box-shadow:0 4px 16px rgba(20,130,90,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.25)}
+.btn-sub.price{background:linear-gradient(180deg,#2a3548 0%,#1a2233 40%,#121820 100%);border:1.5px solid rgba(140,190,255,.32);color:rgba(200,230,255,.9);font-size:13.5px;box-shadow:0 4px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
 .input-error{font-size:11px;color:#6bb8ff;text-align:center;margin-top:-8px;margin-bottom:8px;min-height:16px}
-.btn-login{width:100%;height:50px;border-radius:16px;border:none;background:linear-gradient(135deg,#0f3460,#1a5276,#1e90ff);color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,80,200,.4);transition:transform .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-login:active{transform:scale(.97);opacity:.9}
-.btn-login:disabled{opacity:.5;cursor:not-allowed}
-.subscribe-divider{text-align:center;font-size:11px;color:rgba(255,255,255,.35);margin:4px 0}
-.subscribe-btns{display:flex;flex-direction:column;gap:9px;margin-top:4px}
-.btn-sub{width:100%;height:46px;border-radius:14px;border:none;display:flex;align-items:center;justify-content:center;gap:8px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:transform .15s,opacity .15s;text-decoration:none}
-.btn-sub:active{transform:scale(.97);opacity:.88}
-.btn-sub.telegram{background:linear-gradient(135deg,#1e88e5,#0d47a1);color:#fff}
-.btn-sub.bale{background:linear-gradient(135deg,#00c853,#1b5e20);color:#fff}
-.btn-sub.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff}
+/* ===== end CLLO login popup styles ===== */
+
 .price-overlay{position:fixed;inset:0;z-index:11000;background:rgba(5,10,30,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
 .price-overlay.open{opacity:1;pointer-events:auto}
 .price-sheet{width:100%;max-width:400px;background:rgba(8,18,50,.96);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:28px 22px 24px;box-shadow:0 24px 80px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.2);transform:scale(.9);transition:transform .35s cubic-bezier(.34,1.3,.64,1)}
@@ -268,26 +281,39 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradi
 
 </div></div>
 
+<!-- ===== CLLO-style login popup (matches main site exactly) ===== -->
 <div class="popup-overlay" id="loginPopup">
-  <div class="popup-sheet">
-    <div class="popup-handle"></div>
-    <div class="popup-title">🔐 ورود به Podcast</div>
-    <div class="popup-sub">برای پخش پادکست‌ها، شماره موبایل خود را وارد کنید</div>
-    <div class="phone-row">
-      <div class="prefix-box">+98</div>
-      <input class="phone-input" id="phoneInput" type="tel" inputmode="numeric" placeholder="9123456789" maxlength="11">
+  <div class="cllo-sheet">
+    <button class="cllo-close" onclick="closeLoginPopup()" type="button" aria-label="بستن">×</button>
+    <div class="cllo-prompt">کد ۵ رقمی خود را وارد کنید</div>
+    <div class="cllo-device">
+      <img src="https://cllo.ir/login123/IMG_5175.png" alt="CllO">
+      <div id="clloSlots"></div>
+      <div class="cllo-keys">
+        <button class="cllo-btn" data-k="1" type="button"></button>
+        <button class="cllo-btn" data-k="2" type="button"></button>
+        <button class="cllo-btn" data-k="3" type="button"></button>
+        <button class="cllo-btn" data-k="4" type="button"></button>
+        <button class="cllo-btn" data-k="5" type="button"></button>
+        <button class="cllo-btn" data-k="6" type="button"></button>
+        <button class="cllo-btn" data-k="7" type="button"></button>
+        <button class="cllo-btn" data-k="8" type="button"></button>
+        <button class="cllo-btn" data-k="9" type="button"></button>
+        <button class="cllo-btn" data-k="x" id="clloDel" type="button"></button>
+        <button class="cllo-btn" data-k="0" type="button"></button>
+        <button class="cllo-btn" data-k="e" type="button"></button>
+      </div>
     </div>
-    <div class="input-error" id="phoneError"></div>
-    <button class="btn-login" id="btnLogin" onclick="doLogin()"><span id="loginBtnText">ورود</span></button>
-    <div class="subscribe-divider">— یا —</div>
-    <div class="subscribe-btns">
-      <button class="btn-sub" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);font-size:12px" onclick="openPricePopup()">💎 قیمت اشتراک</button>
-      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank">تهیه کد اشتراک — تلگرام</a>
-      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank">تهیه کد اشتراک — بله</a>
-      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank">تهیه کد اشتراک — واتس‌اپ</a>
+    <div class="cllo-status" id="clloStatus"></div>
+    <div class="cllo-actions">
+      <button class="btn-sub price" onclick="openPricePopup()" type="button">💎 قیمت اشتراک</button>
+      <a class="btn-sub telegram" href="https://t.me/planlifeir" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.83.94z"/></svg>تهیه کد اشتراک — تلگرام</a>
+      <a class="btn-sub bale" href="https://ble.ir/planlifeir" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>تهیه کد اشتراک — بله</a>
+      <a class="btn-sub whatsapp" href="https://wa.me/00905437333582" target="_blank" rel="noopener">تهیه کد اشتراک — واتس‌اپ</a>
     </div>
   </div>
 </div>
+<!-- ===== end CLLO login popup ===== -->
 
 <div class="price-overlay" id="pricePopup" onclick="closePriceIfOutside(event)">
   <div class="price-sheet">
@@ -307,11 +333,16 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradi
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="auth.js"></script>
 <script>
 const SB_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjPJZV-D21UfCL_1SeoQ';
 const SB_H   = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+
+/* ===== Session (shared format with main site) ===== */
+const SESSION_KEY='lingua_session_v1';
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch(e){return null}}
+function setSession(d){localStorage.setItem(SESSION_KEY,JSON.stringify(d))}
+function isLoggedIn(){const s=getSession();return s&&s.phone&&s.verified}
 
 const sources = [
   {
@@ -345,97 +376,7 @@ const sources = [
     {id:'7-bbcpodcast',free:false,title:'Could you give up fast fashion',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'7 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Could%20you%20give%20up%20fast%20fashion.mp3'},
     {id:'8-bbcpodcast',free:false,title:'Eating pond scum',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'8 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Eating%20pond%20scum.mp3'},
     {id:'9-bbcpodcast',free:false,title:'The circular economy',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'9 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The%20circular%20economy.mp3'},
-    {id:'10-bbcpodcast',free:false,title:'A future without doctors',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'10 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20future%20without%20doctors.mp3'},
-    {id:'11-bbcpodcast',free:false,title:'A quieter world',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'11 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20quieter%20world.mp3'},
-    {id:'12-bbcpodcast',free:false,title:'Women in politics',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'12 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Women%20in%20politics.mp3'},
-    {id:'13-bbcpodcast',free:false,title:'Angela merkel',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'13 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Angela%20merkel.mp3'},
-    {id:'14-bbcpodcast',free:false,title:'Too much stuff',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'14 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/too_much_stuff.mp3'},
-    {id:'15-bbcpodcast',free:false,title:'Are humans a messy species',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'15 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Are%20humans%20a%20messy%20species.mp3'},
-    {id:'16-bbcpodcast',free:false,title:'Why we forget the things we learn',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'16 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why%20we%20forget%20the%20things%20we%20learn.mp3'},
-    {id:'17-bbcpodcast',free:false,title:'What makes a good story?',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'17 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/What%20makes%20a%20good%20story.mp3'},
-    {id:'18-bbcpodcast',free:false,title:"What's the key to happiness",description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'18 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/What%E2%80%99s%20the%20key%20to%20happiness.mp3'},
-    {id:'19-bbcpodcast',free:false,title:'When males are not needed',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'19 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/When%20males%20are%20not%20needed.mp3'},
-    {id:'20-bbcpodcast',free:false,title:'Where do your tips go',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'20 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'https://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Where%20do%20your%20tips%20go.mp3'},
-    {id:'21-bbcpodcast',free:false,title:'Why are people collecting NFTs',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'21 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why are people collecting NFTs.mp3'},
-    {id:'22-bbcpodcast',free:false,title:'Why is Super Mario so popular',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'22 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Why is Super Mario so popular.mp3'},
-    {id:'23-bbcpodcast',free:false,title:'Working for yourself',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'23 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Working for yourself.mp3'},
-    {id:'24-bbcpodcast',free:false,title:'Bats Friend or foe',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'24 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Bats Friend or foe.mp3'},
-    {id:'25-bbcpodcast',free:false,title:'Astronauts on strike',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'25 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Astronauts on strike.mp3'},
-    {id:'26-bbcpodcast',free:false,title:'Will humans become extinct',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'26 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Will humans become extinct.mp3'},
-    {id:'27-bbcpodcast',free:false,title:'How resilient are you (2)',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'27 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/How resilient are you (2).mp3'},
-    {id:'28-bbcpodcast',free:false,title:'Meditation and the brain',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'28 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Meditation and the brain.mp3'},
-    {id:'29-bbcpodcast',free:false,title:'Training artificial intelligence',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'29 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Training artificial intelligence.mp3'},
-    {id:'30-bbcpodcast',free:false,title:'Touring bands and climate change',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'30 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Touring bands and climate change.mp3'},
-    {id:'31-bbcpodcast',free:false,title:'Is the pasty really Cornish',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'31 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Is the pasty really Cornish.mp3'},
-    {id:'32-bbcpodcast',free:false,title:'Are bucket lists always a good thing',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'32 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Are bucket lists always a good thing.mp3'},
-    {id:'33-bbcpodcast',free:false,title:'The power of crying',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'33 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The power of crying.mp3'},
-    {id:'34-bbcpodcast',free:false,title:'Tips for parents coping with kids at home',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'34 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Tips for parents coping with kids at home.mp3'},
-    {id:'35-bbcpodcast',free:false,title:'The importance of handwashing',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'35 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/The importance of handwashing.mp3'},
-    {id:'36-bbcpodcast',free:false,title:'Shocking facts about electricity',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'36 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/Shocking facts about electricity.mp3'},
-    {id:'37-bbcpodcast',free:false,title:'astronaut_training',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'37 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/astronaut_training.mp3'},
-    {id:'38-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'38 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'39-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'39 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'40-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'40 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'41-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'41 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'42-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'42 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'43-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'43 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'44-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'44 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'45-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'45 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'46-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'46 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'47-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'47 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'48-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'48 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'49-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'49 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'50-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'50 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'51-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'51 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'52-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'52 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'53-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'53 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'54-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'54 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'55-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'55 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'56-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'56 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'57-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'57 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'58-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'58 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'59-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'59 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'60-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'60 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'61-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'61 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'62-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'62 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'63-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'63 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'64-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'64 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'65-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'65 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'66-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'66 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'67-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'67 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'68-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'68 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'69-bbcpodcst',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'69 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'70-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'70 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'71-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'71 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'72-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'72 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'73-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'73 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'74-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'74 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'75-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'75 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'76-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'76 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'77-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'77 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'78-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'78 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'79-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'79 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'80-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'80 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'81-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'81 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'82-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'82 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'83-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'83 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'84-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'84 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'85-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'85 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'86-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'86 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'87-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'87 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'88-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'88 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'89-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'89 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'90-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'90 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'91-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'91 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'92-bbcpodcst',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'92 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'93-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'93 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'94-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'94 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'95-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'95 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'96-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'96 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'97-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'97 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'98-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'98 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'99-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'99 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'},
-    {id:'100-bbcpodcast',free:false,title:'',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'100 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/'}
+    {id:'10-bbcpodcast',free:false,title:'A future without doctors',description:'#6_Minute_English #BBC',tag:'podcast',level:'Intermediate',episodes:'10 Episodes',dur:'6 min',image:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/picbbc.webp',audio:'http://fs3.centraldnserver.com/~planlife/english/podcasts/bbclearn/A%20future%20without%20doctors.mp3'}
   ]
     },
   {
@@ -460,7 +401,7 @@ const sources = [
     label: 'My Podcasts',
     categories: ['All', 'Daily English', 'Conversation', 'Vocabulary', 'Business'],
     podcasts: [
-      {id:'my-ep-01',free:true,title:'Episode 1 — Introduction',description:'Welcome to our podcast series.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'fs3.centraldnserver.com/~planlife/english/podcasts/American_English_File/Dars1/SB1_cd01track02.mp3'},
+      {id:'my-ep-01',free:true,title:'Episode 1 — Introduction',description:'Welcome to our podcast series.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/1.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
       {id:'my-ep-02',free:false,title:'Episode 2 — Greetings',description:'How to greet people naturally.',tag:'Conversation',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/2.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
       {id:'my-ep-03',free:false,title:'Episode 3 — Numbers',description:'Numbers and counting in English.',tag:'Vocabulary',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/3.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
       {id:'my-ep-04',free:false,title:'Episode 4 — Food & Drink',description:'Ordering food like a native.',tag:'Daily English',level:'Beginner',episodes:'1 Episode',dur:'10-15 min',image:'http://fs3.centraldnserver.com/~planlife/pics/english/podcast/4.jpeg',audio:'https://learnenglish.britishcouncil.org/sites/podcasts/files/podcast/elementary-podcasts-s01-e01.mp3'},
@@ -494,8 +435,6 @@ async function sbInsert(table, body) {
   return r.ok;
 }
 
-
-
 function showToast(msg, dur = 2800) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -512,40 +451,84 @@ function onLoginIconClick() {
     if (confirm('می‌خواهید از حساب خود خارج شوید؟')) { localStorage.removeItem(SESSION_KEY); location.reload(); }
   } else { openLoginPopup(); }
 }
-function openLoginPopup() {
-  document.getElementById('loginPopup').classList.add('open');
-  setTimeout(() => document.getElementById('phoneInput').focus(), 400);
-}
-function closeLoginPopup() { document.getElementById('loginPopup').classList.remove('open'); }
-document.getElementById('loginPopup').addEventListener('click', function(e) { if (e.target === this) closeLoginPopup(); });
 
-async function doLogin() {
-  const input   = document.getElementById('phoneInput');
-  const errEl   = document.getElementById('phoneError');
-  const btn     = document.getElementById('btnLogin');
-  const btnText = document.getElementById('loginBtnText');
-  errEl.textContent = '';
-  let phone = input.value.trim().replace(/\D/g, '');
-  if (phone.startsWith('0')) phone = phone.slice(1);
-  if (phone.length < 10 || phone.length > 11) { errEl.textContent = 'شماره موبایل معتبر نیست'; return; }
-  btn.disabled = true; btnText.textContent = 'در حال بررسی...';
-  try {
-    const subs = await sbGet('subscriptions', `phone=eq.${phone}&is_active=eq.true`);
-    if (subs && subs.length > 0) {
-      setSession({ phone, verified: true, ts: Date.now() });
-      await sbInsert('users', { phone });
-      closeLoginPopup();
-      showToast('✅ خوش آمدید! دسترسی همه پادکست‌ها فعال شد');
-      updateLoginIcon();
-      renderAll();
-    } else {
-      await sbInsert('users', { phone });
-      errEl.textContent = 'اشتراک فعال یافت نشد. لطفاً کد اشتراک تهیه کنید.';
+/* ===== CLLO keypad login (identical logic to main site) ===== */
+let pendingCardAction=null, clloCode="", clloHold=null;
+const clloSlotsEl=document.getElementById("clloSlots");
+const clloStatusEl=document.getElementById("clloStatus");
+if(clloSlotsEl){for(let i=0;i<5;i++)clloSlotsEl.innerHTML+='<div class="cllo-slot"></div>'}
+const clloBoxes=clloSlotsEl?[...clloSlotsEl.children]:[];
+function clloRender(){clloBoxes.forEach((b,i)=>{b.className="cllo-slot"+(i<clloCode.length?" f":"");b.textContent=i<clloCode.length?clloCode[i]:""})}
+function clloBeep(){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;o.type="square";g.gain.setValueAtTime(.08,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.08);o.start();o.stop(a.currentTime+.08)}catch(e){}}
+function clloVib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+function clloAdd(n){if(clloCode.length<5){clloCode+=n;if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}}
+function clloDelOne(){clloCode=clloCode.slice(0,-1);if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}
+function clloClear(){clloCode="";if(clloStatusEl)clloStatusEl.textContent="";clloRender();clloBeep()}
+async function clloCheck(){
+  if(clloCode.length!==5){if(clloStatusEl)clloStatusEl.textContent="کد باید ۵ رقم باشد";return}
+  if(clloStatusEl)clloStatusEl.textContent="در حال بررسی...";
+  try{
+    const rows=await sbGet("subscriptions",`code=eq.${encodeURIComponent(clloCode)}&is_active=eq.true`);
+    if(rows&&rows.length>0){
+      const u=rows[0];
+      const codeVal=u.code||clloCode;
+      setSession({phone:u.phone||codeVal,verified:true,ts:Date.now(),code:codeVal});
+      clloBoxes.forEach((b,i)=>{b.className="cllo-slot c";b.textContent=clloCode[i]||""});
+      if(clloStatusEl)clloStatusEl.textContent="کد صحیح است ✓";
+      clloBeep();
+      const action=pendingCardAction;
+      setTimeout(()=>{
+        closeLoginPopup();
+        showToast("✅ خوش آمدید! دسترسی همه پادکست‌ها فعال شد");
+        updateLoginIcon();
+        renderAll();
+        if(action)setTimeout(()=>action(),150)
+      },600)
+    }else{
+      clloBoxes.forEach((b,i)=>{b.className="cllo-slot w";b.textContent=clloCode[i]||""});
+      if(clloStatusEl)clloStatusEl.textContent="کد یافت نشد ✕";
+      clloBeep();clloVib([80,40,80,40,120]);
+      setTimeout(()=>{clloCode="";clloRender();if(clloStatusEl)clloStatusEl.textContent=""},1200)
     }
-  } catch(e) { errEl.textContent = 'خطا در اتصال. دوباره تلاش کنید.'; }
-  btn.disabled = false; btnText.textContent = 'ورود';
+  }catch(e){
+    if(clloStatusEl)clloStatusEl.textContent="خطا در اتصال. دوباره تلاش کنید.";
+    console.error(e)
+  }
 }
-document.getElementById('phoneInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.querySelectorAll(".cllo-btn").forEach(btn=>{
+  const k=btn.dataset.k;
+  if(k==="x"){
+    const start=()=>{clloDelOne();clloHold=setTimeout(clloClear,450)};
+    const stop=()=>clearTimeout(clloHold);
+    btn.addEventListener("mousedown",start);
+    btn.addEventListener("mouseup",stop);
+    btn.addEventListener("mouseleave",stop);
+    btn.addEventListener("touchstart",e=>{e.preventDefault();start()},{passive:false});
+    btn.addEventListener("touchend",stop);
+    btn.addEventListener("touchcancel",stop)
+  }else{
+    btn.addEventListener("click",()=>k==="e"?clloCheck():clloAdd(k))
+  }
+});
+function openLoginPopup(a){
+  pendingCardAction=a||null;
+  clloCode="";clloRender();
+  if(clloStatusEl)clloStatusEl.textContent="";
+  document.getElementById("loginPopup").classList.add("open")
+}
+function closeLoginPopup(){
+  document.getElementById("loginPopup").classList.remove("open");
+  pendingCardAction=null;clloCode="";clloRender()
+}
+document.getElementById("loginPopup").addEventListener("click",function(e){if(e.target===this)closeLoginPopup()});
+document.addEventListener("keydown",function(e){
+  if(!document.getElementById("loginPopup").classList.contains("open"))return;
+  if(/^[0-9]$/.test(e.key))clloAdd(e.key);
+  else if(e.key==="Backspace"){e.preventDefault();clloDelOne()}
+  else if(e.key==="Enter")clloCheck();
+  else if(e.key==="Escape")closeLoginPopup()
+});
+/* ===== end CLLO keypad login ===== */
 
 function openPricePopup()       { document.getElementById('pricePopup').classList.add('open'); }
 function closePricePopup()      { document.getElementById('pricePopup').classList.remove('open'); }
@@ -729,9 +712,6 @@ async function loadVocab(podcastId) {
 
 function goHome() { audio.pause(); playerScreen.classList.remove('active'); homeScreen.classList.add('active'); }
 
-/* =============================================
-   اسکرول آرام و نرم به سمت Transcript — 650px
-============================================= */
 function scrollToTranscript() {
   setTimeout(() => {
     const screen = document.getElementById('playerScreen');
@@ -762,7 +742,7 @@ function togglePlay() {
     audio.play().then(() => {
       mainPlay.textContent = 'Ⅱ';
       setWave(true);
-      scrollToTranscript(); // اسکرول نرم 650px بعد از پلی
+      scrollToTranscript();
     }).catch(e => console.log(e));
   } else {
     audio.pause();
@@ -832,3 +812,4 @@ verifyCurrentSubscription();
 </script>
 </body>
 </html>
+‌
