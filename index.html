@@ -495,7 +495,42 @@ function updateLoginIcon(){const b=document.getElementById('loginIconBtn');if(b)
 function setLearningAccess(){updateLoginIcon()}
 function onLoginIconClick(e){if(e)e.stopPropagation();if(isLoggedIn()){document.getElementById('userMenu').classList.toggle('open')}else{openLoginPopup(null)}}
 function doLogout(){localStorage.removeItem(SESSION_KEY);document.getElementById('userMenu').classList.remove('open');location.reload()}
-async function verifyCurrentSubscription(){const session=getSession();if(!session||!session.phone||!session.verified){updateLoginIcon();return false}try{const subs=await sbGet('subscriptions',`phone=eq.${encodeURIComponent(session.phone)}&is_active=eq.true`);const active=Array.isArray(subs)&&subs.length>0;if(!active){localStorage.removeItem(SESSION_KEY);updateLoginIcon();return false}updateLoginIcon();unlockAllCards();return true}catch(e){updateLoginIcon();return false}}
+
+// ─── FIX: تابع اصلاح‌شده - لاگین رو بعد از رفرش حفظ می‌کنه ───
+async function verifyCurrentSubscription(){
+  const session = getSession();
+  // اگه session نداشت اصلاً چیزی نکن
+  if(!session || !session.phone || !session.verified){
+    updateLoginIcon();
+    return false;
+  }
+  // فوری آیکون و کارت‌ها رو از روی localStorage آپدیت کن
+  updateLoginIcon();
+  unlockAllCards();
+  // بعد در پس‌زمینه verify کن
+  try{
+    const subs = await sbGet('subscriptions',`phone=eq.${encodeURIComponent(session.phone)}&is_active=eq.true`);
+    const active = Array.isArray(subs) && subs.length > 0;
+    if(!active){
+      // فقط اگه Supabase صریحاً گفت «اشتراک نیست» logout کن
+      localStorage.removeItem(SESSION_KEY);
+      updateLoginIcon();
+      document.querySelectorAll('.card-wrap').forEach(w=>{
+        const idx = parseInt(w.dataset.index,10);
+        if(row1Cards[idx] && !row1Cards[idx].free) w.classList.add('locked');
+      });
+      showToast('اشتراک شما منقضی شده است');
+      return false;
+    }
+    return true;
+  } catch(e){
+    // اگه اینترنت نبود یا خطا داشت، session رو حذف نکن - لاگین رو حفظ کن
+    console.warn('Verify failed, keeping session:', e);
+    return true;
+  }
+}
+// ─── پایان FIX ───
+
 const learningCards=Array.from(document.querySelectorAll('.learning-card'));
 function enterLearningCard(card){const url=(card.dataset.url||'').trim();if(url)window.location.href=url;else showToast('به‌زودی این بخش فعال می‌شود')}
 document.querySelectorAll('.learning-item .learning-enter').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();enterLearningCard(btn.closest('.learning-item').querySelector('.learning-card'))})});
