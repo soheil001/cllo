@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>آزمون زبان انگلیسی — پیشرفته ۱</title>
+<title>آزمون زبان انگلیسی — پیشرفته ۲</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -280,169 +280,117 @@ async function sbPatch(table, filter, body) {
 }
 
 function genCode() {
-  return String(Math.floor(1000 + Math.random() * 9000));
+  return String(Math.floor(10000 + Math.random() * 90000));
 }
 
 const state = { screen:'access', currentQ:0, answers:[], score:0, shuffled:[] };
 
-// ─── بانک ۵۰ سوال — سطح پیشرفته ۱ (B1 ابتدایی) ─────────────────────────────
+// ─── بانک ۵۰ سوال — سطح پیشرفته ۲ (B1 متوسط) ──────────────────────────────
 const QUESTIONS_BANK = [
-  // Present Perfect
-  { badge:'Present Perfect', text:'کدام جمله صحیح است؟', options:['I have seen that movie yesterday.','I saw that movie yesterday.','I have see that movie yesterday.','I was seen that movie yesterday.'], correct:1 },
-  { badge:'Present Perfect', text:'جای خالی را پر کنید: She ___ never ___ sushi before.', options:['has / eaten','have / eaten','has / ate','have / ate'], correct:0 },
-  { badge:'Present Perfect', text:'"Have you ever been to London?" — کدام پاسخ درست است؟', options:["Yes, I have been.","Yes, I went.","Yes, I have went.","Yes, I did."], correct:0 },
-  { badge:'Present Perfect', text:'جای خالی را پر کنید: They ___ just ___ their exam.', options:['have / finished','has / finished','have / finish','did / finished'], correct:0 },
-  { badge:'Present Perfect', text:'کدام جمله با "since" درست است؟', options:["She has worked here since three years.","She has worked here since 2020.","She worked here since 2020.","She is working here since 2020."], correct:1 },
-
-  // Past Continuous
-  { badge:'گذشته استمراری', text:'جای خالی را پر کنید: When I called him, he ___ a shower.', options:['was taking','took','is taking','takes'], correct:0 },
-  { badge:'گذشته استمراری', text:'کدام جمله صحیح است؟', options:['They were watched TV when I arrived.','They was watching TV when I arrived.','They were watching TV when I arrived.','They watching TV when I arrived.'], correct:2 },
-  { badge:'گذشته استمراری', text:'کدام گزینه جمله را کامل می‌کند: "It ___ when we left the house."', options:['rained','was raining','is raining','rains'], correct:1 },
-
-  // Future — will / going to
-  { badge:'آینده — will', text:'برای یک تصمیم لحظه‌ای کدام درست است؟', options:["I'm going to help you.","I will help you.","I am helping you.","I help you."], correct:1 },
-  { badge:'آینده — going to', text:'جای خالی را پر کنید: Look at those clouds! It ___ rain.', options:["will","is going to","is","going to"], correct:1 },
-  { badge:'آینده — will', text:'کدام جمله صحیح است؟', options:["She won't comes to the party.","She won't come to the party.","She doesn't will come to the party.","She will not comes to the party."], correct:1 },
-
-  // Passive Voice
-  { badge:'مجهول (Passive)', text:'کدام جمله مجهول درست است؟', options:['The car was repaired by the mechanic.','The car was repair by the mechanic.','The car repaired by the mechanic.','The car is been repaired by the mechanic.'], correct:0 },
-  { badge:'مجهول (Passive)', text:'جمله "They built this bridge in 1990." را به مجهول تبدیل کنید.', options:['This bridge was built in 1990.','This bridge built in 1990.','This bridge has built in 1990.','This bridge is built in 1990.'], correct:0 },
-  { badge:'مجهول (Passive)', text:'کدام جمله مجهول حال است؟', options:['The letters were written.','The letters are written every week.','The letters have been written.','The letters wrote every week.'], correct:1 },
-
-  // Conditional Type 1
-  { badge:'شرطی نوع ۱', text:'کدام جمله شرطی نوع ۱ صحیح است؟', options:['If it rains, we stay inside.','If it rains, we will stay inside.','If it will rain, we stay inside.','If it rained, we will stay inside.'], correct:1 },
-  { badge:'شرطی نوع ۱', text:'جای خالی را پر کنید: If you study hard, you ___ the test.', options:['passed','will pass','would pass','pass'], correct:1 },
-  { badge:'شرطی نوع ۱', text:'کدام جمله شرطی نوع ۱ است؟', options:['If I were rich, I would travel.','If she studies, she will succeed.','If he had known, he would have called.','If they go, I went too.'], correct:1 },
-
-  // Conditional Type 2
-  { badge:'شرطی نوع ۲', text:'کدام جمله شرطی نوع ۲ صحیح است؟', options:['If I have more time, I will read more.','If I had more time, I would read more.','If I had more time, I will read more.','If I would have more time, I read more.'], correct:1 },
-  { badge:'شرطی نوع ۲', text:'جای خالی: If she ___ the answer, she ___ tell us.', options:['knows / would','knew / would','knew / will','know / would'], correct:1 },
-
-  // Modals — must / should / might
-  { badge:'Modal Verbs', text:'برای ابراز احتمال از کدام استفاده می‌کنیم؟', options:["He must be at home — he might be at home.","He might be at home.","He should be at home.","He can be at home."], correct:1 },
-  { badge:'Modal Verbs', text:'کدام جمله برای توصیه پزشکی مناسب‌تر است؟', options:['You must stop smoking.','You should stop smoking.','You might stop smoking.','You can stop smoking.'], correct:1 },
-  { badge:'Modal Verbs', text:'"You ___ forget your passport." — الزام قوی:', options:['should','might','mustn\'t','couldn\'t'], correct:2 },
-
-  // Phrasal Verbs
-  { badge:'Phrasal Verbs', text:'"Give up" به چه معناست؟', options:['تحویل دادن','تسلیم شدن / دست کشیدن','بالا رفتن','هدیه دادن'], correct:1 },
-  { badge:'Phrasal Verbs', text:'"Look forward to" یعنی چه؟', options:['به جلو نگاه کردن','مراقب بودن','مشتاقانه انتظار داشتن','فراموش کردن'], correct:2 },
-  { badge:'Phrasal Verbs', text:'"Could you turn down the music?" یعنی چه؟', options:['موزیک را قطع کن','موزیک را بلندتر کن','موزیک را آرام‌تر کن','موزیک را عوض کن'], correct:2 },
-  { badge:'Phrasal Verbs', text:'"Run out of" یعنی چه؟', options:['فرار کردن','تمام شدن (یک چیز)','خارج شدن با دویدن','رد شدن'], correct:1 },
-
-  // Vocabulary — Advanced 1
-  { badge:'واژگان پیشرفته', text:'معنی "Ambitious" چیست؟', options:['تنبل','بلندپرواز / جاه‌طلب','آرام','بی‌تجربه'], correct:1 },
-  { badge:'واژگان پیشرفته', text:'معنی "Efficient" چیست؟', options:['ناکارآمد','پرهزینه','کارآمد / مؤثر','کند'], correct:2 },
-  { badge:'واژگان پیشرفته', text:'متضاد "Generous" چیست؟', options:['Kind','Stingy','Honest','Brave'], correct:1 },
-  { badge:'واژگان پیشرفته', text:'معنی "Fluent" در "She speaks fluent English" چیست؟', options:['آهسته','روان و بدون مکث','با لهجه','مبتدی'], correct:1 },
-  { badge:'واژگان پیشرفته', text:'معنی "Postpone" چیست؟', options:['لغو کردن','به تأخیر انداختن','تسریع کردن','فراموش کردن'], correct:1 },
-
-  // Relative Clauses
-  { badge:'جمله وصفی', text:'کدام جمله وصفی صحیح است؟', options:['The man who he lives next door is a doctor.','The man who lives next door is a doctor.','The man which lives next door is a doctor.','The man lives next door is a doctor.'], correct:1 },
-  { badge:'جمله وصفی', text:'جای خالی: "The book ___ I bought yesterday is great."', options:['who','whom','which','what'], correct:2 },
-  { badge:'جمله وصفی', text:'کدام صحیح است؟ (اشاره به مکان)', options:['The city which I grew up is beautiful.','The city where I grew up is beautiful.','The city who I grew up is beautiful.','The city what I grew up is beautiful.'], correct:1 },
-
-  // Reported Speech
-  { badge:'نقل قول غیرمستقیم', text:'"I am tired." → گزارش نقل قول:', options:['She said that she is tired.','She said that she was tired.','She said that she were tired.','She told she was tired.'], correct:1 },
-  { badge:'نقل قول غیرمستقیم', text:'"Where do you live?" → نقل قول غیرمستقیم:', options:['He asked where do I live.','He asked where I live.','He asked where I lived.','He asked where did I live.'], correct:2 },
-
-  // Prepositions — Advanced
-  { badge:'حروف اضافه پیشرفته', text:'کدام صحیح است؟', options:['I\'ve been waiting since two hours.','I\'ve been waiting for two hours.','I\'ve been waiting during two hours.','I\'ve been waiting from two hours.'], correct:1 },
-  { badge:'حروف اضافه پیشرفته', text:'کدام جمله درست است؟', options:['She is interested about history.','She is interested in history.','She is interested on history.','She is interested at history.'], correct:1 },
-  { badge:'حروف اضافه پیشرفته', text:'کدام صحیح است؟', options:['He apologized for being late.','He apologized about being late.','He apologized of being late.','He apologized to being late.'], correct:0 },
-
-  // Gerund vs Infinitive
-  { badge:'Gerund / Infinitive', text:'کدام صحیح است؟', options:['She enjoys to swim.','She enjoys swimming.','She enjoys swim.','She enjoys swam.'], correct:1 },
-  { badge:'Gerund / Infinitive', text:'کدام صحیح است؟', options:['He decided staying home.','He decided to stay home.','He decided stayed home.','He decided stay home.'], correct:1 },
-  { badge:'Gerund / Infinitive', text:'"Avoid" بعد از آن چه می‌آید؟', options:['infinitive (to + verb)','base verb','gerund (verb+ing)','past participle'], correct:2 },
-
-  // Articles — Advanced
-  { badge:'حروف تعریف پیشرفته', text:'کدام صحیح است؟', options:['She plays a piano every evening.','She plays the piano every evening.','She plays piano every evening.','She plays an piano every evening.'], correct:1 },
-  { badge:'حروف تعریف پیشرفته', text:'کدام درست است؟', options:['He is a best student in class.','He is best student in class.','He is the best student in class.','He is an best student in class.'], correct:2 },
-
-  // Vocabulary in Context
-  { badge:'واژگان در متن', text:'"The meeting was ___ because the manager was sick." کدام صحیح است؟', options:['cancelled','delayed','postponed','both B and C'], correct:3 },
-  { badge:'واژگان در متن', text:'"He ___ his job last month and is now looking for a new one."', options:['lost','lose','has lose','losing'], correct:0 },
-  { badge:'واژگان در متن', text:'معنی "deadline" چیست؟', options:['خط پایان مسابقه','مهلت / آخرین فرصت','بن‌بست','تاریخ شروع'], correct:1 },
-
-  // Question Tags
-  { badge:'Question Tags', text:`کدام question tag صحیح است؟ "You're coming to the party, ___?"`, options:["aren't you","isn't you","don't you","weren't you"], correct:0 },
-  { badge:'Question Tags', text:`"She doesn't like coffee, ___?"`, options:["doesn't she","does she","isn't she","did she"], correct:1 },
-
-  // Comparatives / Superlatives Advanced
-  { badge:'مقایسه پیشرفته', text:'کدام صحیح است؟', options:['This is the more interesting book I\'ve read.','This is the most interesting book I\'ve ever read.','This is the interestingest book I\'ve read.','This is more interesting book I\'ve ever read.'], correct:1 },
-  { badge:'مقایسه پیشرفته', text:'کدام صحیح است؟', options:['The sooner you start, the better.','The sooner you start, the more better.','The more soon you start, the better.','Sooner you start, better it is.'], correct:0 },
+  { badge:"Present Perfect vs Past Simple", text:"کدام جمله صحیح است؟", options:["I have finished my homework an hour ago.", "I finished my homework an hour ago.", "I had finished my homework an hour ago.", "I finish my homework an hour ago."], correct:1 },
+  { badge:"Present Perfect Continuous", text:"جای خالی را پر کنید: She ___ for two hours, so she needs a break.", options:["has studied", "has been studying", "studied", "is studying"], correct:1 },
+  { badge:"Present Perfect", text:"کدام جمله از Present Perfect به‌درستی استفاده می‌کند؟", options:["I have visited Paris last summer.", "I have never tried sushi.", "I have saw that film.", "I am never trying sushi."], correct:1 },
+  { badge:"Past Perfect", text:"When we arrived at the station, the train ___.", options:["already left", "has already left", "had already left", "was already leave"], correct:2 },
+  { badge:"Past Perfect", text:"کدام جمله درست است؟", options:["She had finished dinner before the guests arrived.", "She has finished dinner before the guests arrived.", "She finished dinner before the guests had arrive.", "She had finish dinner before the guests arrived."], correct:0 },
+  { badge:"Past Continuous / Past Simple", text:"While I ___ home, I ___ an old friend.", options:["walked / was seeing", "was walking / saw", "was walking / was seeing", "walk / saw"], correct:1 },
+  { badge:"Past Perfect", text:"By the time I called, he ___ to bed.", options:["went", "has gone", "had gone", "was going"], correct:2 },
+  { badge:"Future forms", text:"Look at those dark clouds. It ___.", options:["will rain", "is going to rain", "rains", "has rained"], correct:1 },
+  { badge:"Future forms", text:"The phone is ringing. I ___ it.", options:["am going to answer", "will answer", "answered", "have answered"], correct:1 },
+  { badge:"Future Continuous", text:"This time tomorrow, we ___ on the beach.", options:["will relax", "will be relaxing", "are relaxed", "have relaxed"], correct:1 },
+  { badge:"Passive Voice", text:"The new bridge ___ next year.", options:["will complete", "will be completed", "is completing", "has completed"], correct:1 },
+  { badge:"Passive Voice", text:"People speak English in many countries. کدام مجهول درست است؟", options:["English is spoken in many countries.", "English was spoken in many countries.", "English speaks in many countries.", "English is speaking in many countries."], correct:0 },
+  { badge:"Passive Voice", text:"The documents ___ before the meeting started.", options:["had been prepared", "have prepared", "were prepare", "had prepared"], correct:0 },
+  { badge:"Conditional Type 1", text:"If you don't hurry, you ___ the bus.", options:["missed", "would miss", "will miss", "are missing"], correct:2 },
+  { badge:"Conditional Type 2", text:"If I ___ more free time, I would learn Spanish.", options:["have", "had", "will have", "am having"], correct:1 },
+  { badge:"Conditionals", text:"If she studied harder, she ___ better results.", options:["gets", "will get", "would get", "got"], correct:2 },
+  { badge:"Modal Verbs", text:"You ___ have a passport to travel internationally. It is necessary.", options:["might", "must", "could", "would"], correct:1 },
+  { badge:"Modal Verbs", text:"He isn't answering. He ___ be asleep.", options:["must", "might", "shouldn't", "has to"], correct:1 },
+  { badge:"Modal Verbs", text:"You ___ park here; this area is for staff only.", options:["don't have to", "mustn't", "might not", "couldn't"], correct:1 },
+  { badge:"Modal Verbs", text:"You look tired. You ___ take a short break.", options:["should", "mustn't", "can't", "wouldn't"], correct:0 },
+  { badge:"Phrasal Verbs", text:"We need to ___ the meeting until Monday.", options:["put off", "look after", "turn up", "run into"], correct:0 },
+  { badge:"Phrasal Verbs", text:"I ___ an old friend at the supermarket yesterday.", options:["ran into", "gave up", "looked after", "put off"], correct:0 },
+  { badge:"Phrasal Verbs", text:"Please ___ your shoes before entering.", options:["take off", "find out", "give up", "look forward"], correct:0 },
+  { badge:"Phrasal Verbs", text:"I'm really ___ to seeing you next week.", options:["looking forward", "looking after", "running out", "turning down"], correct:0 },
+  { badge:"Vocabulary", text:"If something is 'reliable', it is ___.", options:["easy to break", "dependable", "very expensive", "difficult to understand"], correct:1 },
+  { badge:"Vocabulary", text:"'Improve' means ___.", options:["to make something better", "to make something smaller", "to forget something", "to stop something"], correct:0 },
+  { badge:"Vocabulary in Context", text:"She was ___ after working for ten hours without a break.", options:["exhausted", "ordinary", "available", "patient"], correct:0 },
+  { badge:"Vocabulary in Context", text:"We need to ___ a decision before Friday.", options:["do", "make", "take", "have"], correct:1 },
+  { badge:"Vocabulary", text:"The opposite of 'increase' is ___.", options:["improve", "reduce", "develop", "replace"], correct:1 },
+  { badge:"Relative Clauses", text:"The woman ___ lives next door is a doctor.", options:["which", "where", "who", "what"], correct:2 },
+  { badge:"Relative Clauses", text:"This is the restaurant ___ we had dinner last night.", options:["who", "where", "whose", "what"], correct:1 },
+  { badge:"Relative Clauses", text:"The laptop ___ I bought yesterday is already broken.", options:["who", "where", "which", "whose"], correct:2 },
+  { badge:"Reported Speech", text:"Tom said, “I can't come tonight.” کدام گزارش درست است؟", options:["Tom said that he couldn't come that night.", "Tom said that I couldn't come tonight.", "Tom said that he can't came that night.", "Tom said that he couldn't came tonight."], correct:0 },
+  { badge:"Reported Speech", text:"Sara asked me, “Do you like coffee?”", options:["Sara asked me if I liked coffee.", "Sara asked me did I like coffee.", "Sara asked me if do I like coffee.", "Sara asked me whether I like coffee?."], correct:0 },
+  { badge:"Prepositions", text:"She is responsible ___ organizing the event.", options:["to", "for", "at", "on"], correct:1 },
+  { badge:"Prepositions", text:"I'm interested ___ learning another language.", options:["on", "at", "in", "for"], correct:2 },
+  { badge:"Gerund / Infinitive", text:"He suggested ___ earlier.", options:["to leave", "leaving", "leave", "left"], correct:1 },
+  { badge:"Gerund / Infinitive", text:"They agreed ___ us with the project.", options:["helping", "help", "to help", "helped"], correct:2 },
+  { badge:"Gerund / Infinitive", text:"I don't mind ___ here for a few minutes.", options:["wait", "to wait", "waiting", "waited"], correct:2 },
+  { badge:"Articles", text:"She wants to become ___ engineer.", options:["a", "an", "the", "—"], correct:1 },
+  { badge:"Articles", text:"I visited ___ United States last year.", options:["a", "an", "the", "—"], correct:2 },
+  { badge:"Comparatives", text:"This exercise is ___ than the previous one.", options:["more difficult", "most difficult", "difficultest", "the more difficult"], correct:0 },
+  { badge:"Comparatives", text:"My new phone is not ___ my old one.", options:["as expensive as", "more expensive as", "as expensive than", "so expensive than"], correct:0 },
+  { badge:"Quantifiers", text:"There isn't ___ milk left, so we need to buy some.", options:["many", "much", "a few", "several"], correct:1 },
+  { badge:"Quantifiers", text:"Only ___ students understood the difficult question.", options:["a little", "much", "a few", "any"], correct:2 },
+  { badge:"Used to", text:"I ___ play football every weekend when I was a child.", options:["used to", "use to", "was used to", "am used to"], correct:0 },
+  { badge:"Wish", text:"I wish I ___ more time to travel.", options:["have", "had", "will have", "am having"], correct:1 },
+  { badge:"Question Tags", text:"You've finished the report, ___?", options:["haven't you", "didn't you", "aren't you", "don't you"], correct:0 },
+  { badge:"Linking Words", text:"I was tired, ___ I finished the work before leaving.", options:["because", "but", "so that", "unless"], correct:1 },
+  { badge:"Adverbs", text:"She speaks English ___ than she did last year.", options:["more confidently", "more confident", "most confidently", "confident"], correct:0 }
 ];
 
 // ─── توضیحات پاپ‌آپ — ۵۰ سوال ──────────────────────────────────────────────
 const EXPLANATIONS = [
-  // 0 - Present Perfect
-  'در Present Perfect از <span class="en">yesterday</span> استفاده نمی‌شود. این قید با زمان گذشته ساده به کار می‌رود. جمله با <span class="en">yesterday</span> باید <span class="en">I saw that movie yesterday</span> باشد.',
-  'با Present Perfect در جمله منفی ساختار <span class="en">has/have + never + past participle</span> درست است: <span class="en">She has never eaten sushi</span>.',
-  'جواب به <span class="en">Have you ever...?</span> با <span class="en">Yes, I have.</span> داده می‌شود. از <span class="en">went</span> اینجا استفاده نمی‌شود چون زمان Present Perfect است.',
-  'با <span class="en">They</span> از <span class="en">have</span> و با قید <span class="en">just</span> از <span class="en">past participle</span> استفاده می‌شود: <span class="en">They have just finished</span>.',
-  '<span class="en">Since</span> قبل از نقطه‌ای مشخص در زمان می‌آید (مثل سال یا تاریخ)، نه قبل از یک مدت زمان. برای مدت زمان از <span class="en">for</span> استفاده می‌شود.',
-  // 5 - Past Continuous
-  'وقتی یک کار در حال انجام بود و کار دیگری قطعش کرد، از Past Continuous برای کار در حال انجام استفاده می‌شود: <span class="en">was taking</span>.',
-  'ساختار Past Continuous: <span class="en">was/were + verb-ing</span>. با <span class="en">They</span> باید <span class="en">were watching</span> باشد.',
-  'وقتی یک فعل پس‌زمینه در گذشته داریم، Past Continuous به کار می‌رود: <span class="en">It was raining when we left</span>.',
-  // 8 - Future
-  'برای تصمیم‌های لحظه‌ای و پیش‌بینی‌های کلی از <span class="en">will</span> استفاده می‌شود. اما باید توجه داشت در این سوال، گزینه <span class="en">I will help you</span> برای تصمیم لحظه‌ای صحیح است.',
-  'وقتی شواهدی برای اتفاق آینده در دست باشد (مثل ابرهای تیره)، از <span class="en">be going to</span> استفاده می‌شود: <span class="en">It is going to rain</span>.',
-  'شکل منفی <span class="en">will</span> عبارت است از <span class="en">won\'t + base verb</span>: <span class="en">She won\'t come</span>.',
-  // 11 - Passive
-  'در مجهول گذشته ساده ساختار <span class="en">was/were + past participle + by + agent</span> درست است.',
-  'برای تبدیل به مجهول، فاعل جمله معلوم (object) تبدیل به فاعل مجهول می‌شود: <span class="en">This bridge was built in 1990</span>.',
-  'مجهول حال ساده با ساختار <span class="en">is/are + past participle</span> ساخته می‌شود: <span class="en">The letters are written every week</span>.',
-  // 14 - Conditional 1
-  'در شرطی نوع ۱، جمله شرط با <span class="en">Simple Present</span> و نتیجه با <span class="en">will + base verb</span> می‌آید: <span class="en">If it rains, we will stay inside</span>.',
-  'در نتیجه شرطی نوع ۱ از <span class="en">will + base verb</span> استفاده می‌شود: <span class="en">you will pass</span>.',
-  'شرطی نوع ۱ درباره موقعیت‌های ممکن در آینده است. ساختار: <span class="en">If + present simple, will + base verb</span>.',
-  // 17 - Conditional 2
-  'شرطی نوع ۲ برای موقعیت‌های فرضی است. ساختار: <span class="en">If + past simple, would + base verb</span>: <span class="en">If I had more time, I would read more</span>.',
-  'در شرطی نوع ۲، در قسمت شرط از <span class="en">past simple</span> و در نتیجه از <span class="en">would + base verb</span> استفاده می‌شود: <span class="en">If she knew, she would tell us</span>.',
-  // 19 - Modals
-  'برای ابراز احتمال (شاید) از <span class="en">might</span> استفاده می‌شود: <span class="en">He might be at home</span> یعنی «شاید خانه باشد».',
-  'برای توصیه سبک‌تر و مشورت از <span class="en">should</span> استفاده می‌شود. <span class="en">must</span> الزام قوی‌تری دارد و برای توصیه پزشکی معمولاً <span class="en">should</span> طبیعی‌تر است.',
-  '<span class="en">Mustn\'t</span> یعنی «نباید / ممنوع است». برای ممانعت قوی از انجام کاری استفاده می‌شود.',
-  // 22 - Phrasal Verbs
-  '"<span class="en">Give up</span>" یعنی دست کشیدن از چیزی یا تسلیم شدن. مثال: <span class="en">Don\'t give up on your dreams!</span>',
-  '"<span class="en">Look forward to</span>" یعنی با اشتیاق منتظر چیزی بودن. بعد از آن <span class="en">gerund (verb+ing)</span> می‌آید: <span class="en">I look forward to meeting you</span>.',
-  '"<span class="en">Turn down</span>" یعنی کم کردن صدا (یا رد کردن). اینجا یعنی «موزیک را آرام‌تر کن».',
-  '"<span class="en">Run out of</span>" یعنی تمام شدن یا خالی شدن چیزی. مثال: <span class="en">We ran out of milk</span> یعنی «شیرمان تمام شد».',
-  // 26 - Vocabulary
-  '"<span class="en">Ambitious</span>" یعنی «بلندپرواز» — کسی که اهداف و آرزوهای بزرگ دارد.',
-  '"<span class="en">Efficient</span>" یعنی «کارآمد» — کسی یا چیزی که با کمترین اتلاف وقت و انرژی بهترین نتیجه را می‌دهد.',
-  'متضاد <span class="en">Generous</span> (بخشنده) کلمه <span class="en">Stingy</span> است که یعنی «خسیس».',
-  '"<span class="en">Fluent</span>" یعنی «روان» — توانایی صحبت کردن بدون مکث و با اطمینان.',
-  '"<span class="en">Postpone</span>" یعنی «به تأخیر انداختن» — جابجا کردن به زمانی دیرتر.',
-  // 31 - Relative Clauses
-  'در جمله وصفی برای اشاره به شخص از <span class="en">who</span> استفاده می‌شود. ضمیر اضافه (<span class="en">he</span>) حذف می‌شود: <span class="en">The man who lives next door</span>.',
-  'برای اشاره به اشیاء در جمله وصفی از <span class="en">which</span> یا <span class="en">that</span> استفاده می‌شود: <span class="en">The book which/that I bought</span>.',
-  'برای اشاره به مکان در جمله وصفی از <span class="en">where</span> استفاده می‌شود: <span class="en">The city where I grew up</span>.',
-  // 34 - Reported Speech
-  'در نقل قول غیرمستقیم، فعل یک زمان به عقب می‌رود: <span class="en">am → was</span>. پس جمله می‌شود: <span class="en">She said that she was tired</span>.',
-  'در نقل قول سوالی، ترتیب جمله خبری می‌شود (نه سوالی): <span class="en">He asked where I lived</span>.',
-  // 36 - Prepositions
-  'برای مدت زمان از <span class="en">for</span> استفاده می‌شود: <span class="en">for two hours</span>. از <span class="en">since</span> برای نقطه شروع استفاده می‌شود.',
-  'ترکیب ثابت: <span class="en">interested in</span>. مثال: <span class="en">She is interested in history</span>.',
-  'ترکیب ثابت: <span class="en">apologize for</span>. مثال: <span class="en">He apologized for being late</span>.',
-  // 39 - Gerund / Infinitive
-  'فعل <span class="en">enjoy</span> بعد از خود <span class="en">gerund (verb+ing)</span> می‌گیرد: <span class="en">She enjoys swimming</span>.',
-  'فعل <span class="en">decide</span> بعد از خود <span class="en">infinitive (to + verb)</span> می‌گیرد: <span class="en">He decided to stay home</span>.',
-  'فعل <span class="en">avoid</span> بعد از خود <span class="en">gerund (verb+ing)</span> می‌گیرد. مثال: <span class="en">Avoid making mistakes</span>.',
-  // 42 - Articles
-  'قبل از آلات موسیقی به طور کلی از <span class="en">the</span> استفاده می‌شود: <span class="en">play the piano / the guitar</span>.',
-  'قبل از صفت عالی (superlative) همیشه از <span class="en">the</span> استفاده می‌شود: <span class="en">the best student</span>.',
-  // 44 - Vocabulary in Context
-  'هم <span class="en">delayed</span> (به تأخیر افتاد) و هم <span class="en">postponed</span> (به وقت دیگری موکول شد) می‌توانند درست باشند، پس گزینه "B و C هر دو" صحیح است.',
-  '<span class="en">Lost his job</span> یعنی «شغلش را از دست داد». زمان مناسب گذشته ساده است چون <span class="en">last month</span> داریم.',
-  '"<span class="en">Deadline</span>" یعنی «مهلت» — آخرین فرصتی که برای انجام کاری داریم.',
-  // 47 - Question Tags
-  'با <span class="en">You are</span> جمله مثبت، تگ سوالی منفی می‌شود: <span class="en">aren\'t you</span>.',
-  'با <span class="en">doesn\'t</span> در جمله، تگ سوالی <span class="en">does she</span> می‌شود (بدون not).',
-  // 49 - Comparatives
-  'قبل از صفت چندسیلابی در عالی از <span class="en">the most</span> استفاده می‌شود: <span class="en">the most interesting</span>.',
-  'ساختار <span class="en">The + comparative, the + comparative</span> یک ساختار ثابت است: <span class="en">The sooner... the better</span>.',
+  "با عبارت زمانی «an hour ago» از گذشته ساده استفاده می‌کنیم، پس «I finished my homework an hour ago» درست است.",
+  "برای کاری که از گذشته شروع شده و تا الان ادامه داشته و روی زمان حال اثر دارد، Present Perfect Continuous یعنی has/have been + verb-ing مناسب است.",
+  "در «have never tried» زمان مشخص گذشته نداریم و تجربه تا زمان حال را بیان می‌کنیم؛ ساختار has/have + past participle درست است.",
+  "وقتی یک اتفاق قبل از اتفاق دیگری در گذشته رخ داده، برای اتفاق زودتر از Past Perfect استفاده می‌کنیم: had already left.",
+  "در جمله، تمام شدن شام قبل از رسیدن مهمان‌ها اتفاق افتاده است؛ بنابراین Past Perfect یعنی had finished مناسب است.",
+  "کار در حال انجام با Past Continuous و اتفاقی که در میان آن رخ می‌دهد با Past Simple می‌آید: was walking / saw.",
+  "رفتن او به رختخواب قبل از تماس من اتفاق افتاده، بنابراین Past Perfect یعنی had gone استفاده می‌شود.",
+  "وقتی برای یک اتفاق آینده نشانه و شواهد مشخص داریم، از be going to استفاده می‌کنیم؛ ابرهای تیره نشانه باران هستند.",
+  "برای تصمیمی که همین لحظه هنگام شنیدن تلفن می‌گیریم، will طبیعی است: I will answer it.",
+  "برای کاری که در زمان مشخصی در آینده در حال انجام خواهد بود از Future Continuous یعنی will be + verb-ing استفاده می‌کنیم.",
+  "مجهول آینده با will be + past participle ساخته می‌شود: will be completed.",
+  "در مجهول حال ساده، ساختار is/are + past participle است؛ بنابراین English is spoken درست است.",
+  "کاری که قبل از یک نقطه مشخص در گذشته کامل شده، با Past Perfect Passive یعنی had been + past participle بیان می‌شود.",
+  "در شرطی نوع اول، بعد از if از حال ساده و در نتیجه معمولاً از will + base verb استفاده می‌کنیم: will miss.",
+  "شرطی نوع دوم برای موقعیت فرضی است و ساختار آن if + past simple, would + base verb است؛ پس had / would get.",
+  "در شرطی نوع دوم، نتیجه با would + base verb می‌آید: would get.",
+  "برای بیان الزام و ضرورت قوی از must استفاده می‌کنیم؛ داشتن گذرنامه در این جمله یک ضرورت است.",
+  "وقتی فقط احتمال می‌دهیم او خواب باشد و مطمئن نیستیم، might مناسب است.",
+  "برای بیان ممنوعیت از mustn't استفاده می‌کنیم؛ اینجا پارک کردن برای فرد موردنظر ممنوع است.",
+  "برای توصیه و پیشنهاد، should مناسب است: You should take a short break.",
+  "put off یعنی به تعویق انداختن؛ بنابراین جلسه را تا دوشنبه عقب می‌اندازیم.",
+  "run into یعنی به‌طور اتفاقی با کسی روبه‌رو شدن؛ بنابراین برای دیدن دوست قدیمی مناسب است.",
+  "take off در اینجا یعنی درآوردن؛ بنابراین قبل از ورود باید کفش‌ها را درآورد.",
+  "look forward to یعنی مشتاقانه منتظر چیزی بودن و بعد از آن معمولاً اسم یا gerund می‌آید.",
+  "reliable یعنی قابل اعتماد یا dependable؛ چیزی که بتوان به آن اعتماد کرد.",
+  "improve یعنی بهتر کردن یا بهتر شدن؛ بنابراین گزینه make something better درست است.",
+  "exhausted یعنی بسیار خسته؛ کار کردن ده ساعت بدون استراحت چنین حالتی ایجاد می‌کند.",
+  "ترکیب ثابت انگلیسی make a decision است، بنابراین make گزینه درست است.",
+  "reduce یعنی کاهش دادن و متضاد increase یعنی افزایش دادن است.",
+  "برای انسان در جمله وصفی از who استفاده می‌کنیم: The woman who lives next door.",
+  "برای اشاره به مکان در جمله وصفی از where استفاده می‌شود.",
+  "برای یک شیء مانند laptop می‌توان از which استفاده کرد: the laptop which I bought.",
+  "در نقل قول غیرمستقیم، can't معمولاً به couldn't و tonight به that night تبدیل می‌شود.",
+  "برای گزارش سؤال بله/خیر از if یا whether استفاده می‌کنیم و ترتیب جمله خبری می‌شود؛ liked با backshift مناسب است.",
+  "ترکیب ثابت responsible for است، پس بعد از آن for می‌آید.",
+  "ترکیب ثابت interested in است؛ بنابراین in گزینه درست است.",
+  "بعد از suggest وقتی فعل می‌آید، gerund رایج است: suggested leaving.",
+  "بعد از agree معمولاً infinitive با to می‌آید: agreed to help.",
+  "بعد از mind برای بیان انجام یک کار از gerund استفاده می‌کنیم: mind waiting.",
+  "قبل از engineer که با صدای واکه شروع می‌شود از an استفاده می‌کنیم.",
+  "نام United States با the می‌آید: the United States.",
+  "برای صفت چندسیلابی در مقایسه از more + adjective استفاده می‌کنیم: more difficult.",
+  "ساختار مقایسه برابری به صورت as + adjective + as است؛ بنابراین as expensive as درست است.",
+  "milk اسم غیرقابل‌شمارش است و در جمله منفی برای مقدار از much استفاده می‌کنیم.",
+  "students قابل‌شمارش و جمع است؛ برای تعداد کم از a few استفاده می‌کنیم.",
+  "برای عادت یا وضعیت تکرارشونده در گذشته که دیگر ادامه ندارد از used to + base verb استفاده می‌کنیم.",
+  "بعد از wish برای بیان یک وضعیت غیرواقعی یا متفاوت در زمان حال، معمولاً از past simple استفاده می‌کنیم: I wish I had.",
+  "در question tag، جمله مثبت «You've finished» با تگ منفی «haven't you?» دنبال می‌شود.",
+  "با وجود خستگی، کار را تمام کردم؛ but برای نشان دادن تضاد مناسب است.",
+  "برای توصیف نحوه صحبت کردن از قید استفاده می‌کنیم و مقایسه آن more confidently است."
 ];
 
 function getExplanation(qIdx, q) {
@@ -562,7 +510,7 @@ async function submitPhone(){
       <div class="code-reveal-box">
         <div class="code-reveal-label">✦ کد اختصاصی آزمون شما</div>
         <div class="code-reveal-number">${code}</div>
-        <div class="code-reveal-msg">کد را یادداشت کنید.<br>برای ورود به آزمون پیشرفته ۱ همین کد را وارد کنید.</div>
+        <div class="code-reveal-msg">کد را یادداشت کنید.<br>برای ورود به آزمون پیشرفته ۲ همین کد را وارد کنید.</div>
       </div>
       <button class="modal-btn-submit" onclick="closeModal()" style="margin-top:20px;width:100%">متوجه شدم ✓</button>
     `;
@@ -581,11 +529,11 @@ function renderAccess(){
   card.innerHTML=`
     <div class="brand" style="justify-content:center;margin-bottom:24px">
       <div class="brand-icon">🇬🇧</div>
-      <div class="brand-name"><span>آزمون زبان انگلیسی</span>پیشرفته ۱</div>
+      <div class="brand-name"><span>آزمون زبان انگلیسی</span>پیشرفته ۲</div>
     </div>
     <div class="access-icon">🔐</div>
     <div class="access-title">کد اشتراک را وارد کنید</div>
-    <div class="access-subtitle">برای دسترسی به آزمون پیشرفته ۱، کد اختصاصی اشتراک خود را وارد کنید.</div>
+    <div class="access-subtitle">برای دسترسی به آزمون پیشرفته ۲، کد اختصاصی اشتراک خود را وارد کنید.</div>
     <label class="code-input-label" for="code-field">کد دسترسی</label>
     <input class="code-input" id="code-field" type="text" inputmode="numeric" maxlength="5"
       placeholder="• • • • •" autocomplete="off" spellcheck="false"
@@ -657,10 +605,10 @@ function renderStart(){
   card.innerHTML=`
     <div class="brand">
       <div class="brand-icon">🇬🇧</div>
-      <div class="brand-name"><span>آزمون زبان انگلیسی</span>سطح پیشرفته ۱</div>
+      <div class="brand-name"><span>آزمون زبان انگلیسی</span>سطح پیشرفته ۲</div>
     </div>
     <div class="start-icon">📝</div>
-    <div class="start-title">آزمون ارزیابی سطح پیشرفته ۱</div>
+    <div class="start-title">آزمون ارزیابی سطح پیشرفته ۲</div>
     <div class="start-desc">این آزمون سطح B1 ابتدایی را می‌سنجد. سوال‌ها شامل زمان‌های پیچیده‌تر مثل Present Perfect، گذشته استمراری، مجهول، شرطی، Phrasal Verbs، جمله وصفی، نقل قول غیرمستقیم و لغات پیشرفته‌تر است.</div>
     <div class="start-stats">
       <div class="stat-chip">⏱️ <span>حدود ۱۵ دقیقه</span></div>
@@ -682,7 +630,7 @@ function renderQuestion(){
   card.innerHTML=`
     <div class="brand" style="margin-bottom:18px">
       <div class="brand-icon" style="width:32px;height:32px;font-size:15px;border-radius:8px">🇬🇧</div>
-      <div class="brand-name" style="font-size:11px"><span style="font-size:13px">آزمون زبان انگلیسی</span>پیشرفته ۱</div>
+      <div class="brand-name" style="font-size:11px"><span style="font-size:13px">آزمون زبان انگلیسی</span>پیشرفته ۲</div>
     </div>
     <div class="progress-wrap">
       <div class="progress-meta">
@@ -778,19 +726,19 @@ function renderResult(){
     pctBadgeClass='background:rgba(239,68,68,0.15);border:1.5px solid rgba(239,68,68,0.4);color:#FCA5A5;';
     message=`<div class="result-message-title">💡 راهنمای پیشرفت</div><div class="result-message-text">سوال‌های این سطح نیاز به تسلط کامل بر گرامر پایه دارند. پیشنهاد می‌شود ابتدا مفاهیم Present Perfect، گذشته استمراری و ساختارهای Passive را مرور کنید.<br><br>با تمرین منظم به این سطح خواهید رسید! 💪</div>`;
   } else if(pct<=70){
-    emoji='📖'; levelTitle='سطح متوسط B1'; scoreColor='#FBBF24';
+    emoji='📖'; levelTitle='سطح B1 متوسط'; scoreColor='#FBBF24';
     pctBadgeClass='background:rgba(245,158,11,0.15);border:1.5px solid rgba(245,158,11,0.4);color:#FCD34D;';
-    message=`<div class="result-message-title">🚀 در مسیر درست هستید!</div><div class="result-message-text">درک خوبی از مفاهیم پیشرفته ابتدایی دارید. تمرین بیشتر روی Conditional، Phrasal Verbs و Reported Speech شما را به سطح بالاتری می‌رساند.<br><br>ادامه دهید! ⭐</div>`;
+    message=`<div class="result-message-title">🚀 در مسیر درست هستید!</div><div class="result-message-text">درک خوبی از مفاهیم سطح پیشرفته ۲ دارید. تمرین بیشتر روی Conditional، Phrasal Verbs و Reported Speech شما را به سطح بالاتری می‌رساند.<br><br>ادامه دهید! ⭐</div>`;
   } else {
-    emoji='🏆'; levelTitle='سطح B1 قوی'; scoreColor='#34D399';
+    emoji='🏆'; levelTitle='سطح B1 رو به بالا'; scoreColor='#34D399';
     pctBadgeClass='background:rgba(16,185,129,0.15);border:1.5px solid rgba(16,185,129,0.4);color:#6EE7B7;';
-    message=`<div class="result-message-title">🎉 عالی بودید!</div><div class="result-message-text">تسلط بسیار خوبی بر مفاهیم پیشرفته ۱ دارید. آماده‌اید به سطح B1 کامل بروید و مهارت‌هایی مثل Writing، Speaking و درک مطلب پیشرفته‌تر را تقویت کنید.<br><br>به شما افتخار می‌کنیم! 🌟</div>`;
+    message=`<div class="result-message-title">🎉 عالی بودید!</div><div class="result-message-text">تسلط بسیار خوبی بر مفاهیم پیشرفته ۲ دارید. آماده‌اید به سطح B1 کامل بروید و مهارت‌هایی مثل Writing، Speaking و درک مطلب پیشرفته‌تر را تقویت کنید.<br><br>به شما افتخار می‌کنیم! 🌟</div>`;
   }
 
   card.innerHTML=`
     <div class="result-wrap">
       <span class="result-big-emoji">${emoji}</span>
-      <div class="result-level-label">نتیجه ارزیابی شما — پیشرفته ۱</div>
+      <div class="result-level-label">نتیجه ارزیابی شما — پیشرفته ۲</div>
       <div class="result-level-title">${levelTitle}</div>
       <div class="result-divider"></div>
       <div class="result-score-display">
