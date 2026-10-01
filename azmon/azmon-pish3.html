@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>آزمون زبان انگلیسی — پیشرفته ۲</title>
+<title>آزمون زبان انگلیسی — پیشرفته ۳</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -280,117 +280,117 @@ async function sbPatch(table, filter, body) {
 }
 
 function genCode() {
-  return String(Math.floor(1000 + Math.random() * 9000));
+  return String(Math.floor(10000 + Math.random() * 90000));
 }
 
 const state = { screen:'access', currentQ:0, answers:[], score:0, shuffled:[] };
 
-// ─── بانک ۵۰ سوال — سطح پیشرفته ۱ (B1 ابتدایی) ─────────────────────────────
+// ─── بانک ۵۰ سوال — سطح پیشرفته ۳ (B1 متوسط) ──────────────────────────────
 const QUESTIONS_BANK = [
-  { badge:"Present Perfect", text:"کدام جمله از نظر زمان درست است؟", options:["I have finished my homework an hour ago.", "I finished my homework an hour ago.", "I have finish my homework an hour ago.", "I was finished my homework an hour ago."], correct:1 },
-  { badge:"Present Perfect", text:"جای خالی را پر کنید: She ___ in this company since 2022.", options:["works", "worked", "has worked", "is working"], correct:2 },
-  { badge:"Present Perfect", text:"کدام جمله از نظر کاربرد Present Perfect طبیعی و درست است؟", options:["I have just finished my homework.", "I have finished my homework yesterday.", "I just finish my homework.", "I have just finish my homework."], correct:0 },
-  { badge:"Present Perfect", text:"جای خالی: Have you ever ___ a horse?", options:["ride", "rode", "ridden", "riding"], correct:2 },
-  { badge:"Past Perfect", text:"When we arrived at the station, the train ___.", options:["has left", "had left", "leaves", "was leave"], correct:1 },
-  { badge:"Past Perfect", text:"کدام جمله درست است؟", options:["After she had finished dinner, she went for a walk.", "After she has finished dinner, she went for a walk.", "After she finished dinner, she had go for a walk.", "After she had finish dinner, she went for a walk."], correct:0 },
-  { badge:"Past Continuous", text:"I couldn't answer the phone because I ___ a meeting.", options:["had", "was having", "have had", "am having"], correct:1 },
-  { badge:"Past Continuous", text:"While they ___ home, it started to snow.", options:["drove", "were driving", "have driven", "are driving"], correct:1 },
-  { badge:"Future Forms", text:"Look at the sky. Those clouds are very dark. It ___.", options:["will rain", "is going to rain", "rains", "is raining yesterday"], correct:1 },
-  { badge:"Future Forms", text:"The phone is ringing. — I ___ it.", options:["am going to answer", "will answer", "answered", "have answered"], correct:1 },
-  { badge:"Future Forms", text:"We ___ our grandparents next weekend; the tickets are already booked.", options:["visit", "visited", "are visiting", "have visited"], correct:2 },
-  { badge:"Passive", text:"The emails ___ every morning by the assistant.", options:["check", "are checked", "are checking", "have check"], correct:1 },
-  { badge:"Passive", text:"The new bridge ___ next year.", options:["will build", "will be built", "is built yesterday", "will be building"], correct:1 },
-  { badge:"Passive", text:"Someone has stolen my bike. → My bike ___.", options:["has been stolen", "has stolen", "was stealing", "is stolen yesterday"], correct:0 },
-  { badge:"Conditional 1", text:"If you don't hurry, you ___ the bus.", options:["missed", "would miss", "will miss", "are missing yesterday"], correct:2 },
-  { badge:"Conditional 1", text:"If she ___ enough money, she will buy a new laptop.", options:["saves", "saved", "will save", "has saving"], correct:0 },
-  { badge:"Conditional 2", text:"If I ___ you, I would apologize.", options:["am", "were", "will be", "have been"], correct:1 },
-  { badge:"Conditional 2", text:"If he had more free time, he ___ more books.", options:["reads", "will read", "would read", "is reading"], correct:2 },
-  { badge:"Modals", text:"You ___ wear a seat belt. It's required by law.", options:["might", "must", "could", "would"], correct:1 },
-  { badge:"Modals", text:"She isn't answering. She ___ be asleep.", options:["might", "mustn't", "shouldn't", "has to"], correct:0 },
-  { badge:"Modals", text:"You look tired. You ___ take a short break.", options:["should", "mustn't", "can't", "might not"], correct:0 },
-  { badge:"Phrasal Verbs", text:"I need to ___ this form before I send it.", options:["fill in", "give up", "run out", "look after"], correct:0 },
-  { badge:"Phrasal Verbs", text:"We ___ milk, so I went to the supermarket.", options:["looked forward to", "ran out of", "gave up", "turned down"], correct:1 },
-  { badge:"Phrasal Verbs", text:"Can you ___ my dog while I'm away?", options:["look after", "turn down", "put off", "find out"], correct:0 },
-  { badge:"Vocabulary", text:"If a person is reliable, you can ___.", options:["depend on them", "avoid them", "argue with them", "replace them"], correct:0 },
-  { badge:"Vocabulary", text:"The opposite of 'generous' is ___.", options:["patient", "honest", "selfish", "careful"], correct:2 },
-  { badge:"Vocabulary", text:"If something is 'affordable', it is ___.", options:["too expensive to buy", "reasonably priced", "completely free", "difficult to find"], correct:1 },
-  { badge:"Vocabulary in Context", text:"The manager asked us to ___ the meeting until Monday.", options:["postpone", "improve", "borrow", "attend"], correct:0 },
-  { badge:"Relative Clauses", text:"The woman ___ lives next door is a doctor.", options:["which", "where", "who", "what"], correct:2 },
-  { badge:"Relative Clauses", text:"This is the restaurant ___ we had dinner last night.", options:["who", "where", "which of", "what"], correct:1 },
-  { badge:"Relative Clauses", text:"The book ___ you recommended was very useful.", options:["who", "where", "which", "when"], correct:2 },
-  { badge:"Reported Speech", text:"Tom said, 'I am busy.' → Tom said that he ___.", options:["is busy", "was busy", "has busy", "busy"], correct:1 },
-  { badge:"Reported Speech", text:"Sara asked me, 'Do you like coffee?' → Sara asked me ___.", options:["do I like coffee", "if I liked coffee", "if did I like coffee", "that I like coffee"], correct:1 },
-  { badge:"Reported Speech", text:"He said, 'I will call you tomorrow.' → He said that he ___ me the next day.", options:["will call", "would call", "called", "has called"], correct:1 },
-  { badge:"Prepositions", text:"I have been waiting ___ 8 o'clock.", options:["for", "since", "during", "from"], correct:1 },
-  { badge:"Prepositions", text:"She is very good ___ solving problems.", options:["at", "in", "on", "to"], correct:0 },
-  { badge:"Prepositions", text:"They arrived ___ the airport just before noon.", options:["at", "in", "on", "to"], correct:0 },
-  { badge:"Gerund / Infinitive", text:"He suggested ___ earlier.", options:["to leave", "leaving", "leave", "left"], correct:1 },
-  { badge:"Gerund / Infinitive", text:"I decided ___ a new course.", options:["taking", "take", "to take", "taken"], correct:2 },
-  { badge:"Gerund / Infinitive", text:"She is interested in ___ Spanish.", options:["learn", "to learn", "learning", "learned"], correct:2 },
-  { badge:"Articles", text:"I saw ___ interesting documentary about space last night.", options:["a", "an", "the", "—"], correct:1 },
-  { badge:"Articles", text:"My brother wants to become ___ engineer.", options:["a", "an", "the", "—"], correct:1 },
-  { badge:"Quantifiers", text:"There isn't ___ milk left, so we need to buy some.", options:["many", "much", "a few", "several"], correct:1 },
-  { badge:"Comparatives", text:"This exercise is ___ than the previous one.", options:["more difficult", "most difficult", "difficultest", "the more difficult"], correct:0 },
-  { badge:"Superlatives", text:"That was ___ movie I've seen this year.", options:["better", "the best", "best than", "the most good"], correct:1 },
-  { badge:"Question Tags", text:"You haven't finished yet, ___?", options:["have you", "haven't you", "did you", "are you"], correct:0 },
-  { badge:"Adverbs", text:"She speaks English ___.", options:["fluent", "fluently", "more fluent", "fluency"], correct:1 },
-  { badge:"Mixed Grammar", text:"By the time I got home, my sister ___ dinner.", options:["has cooked", "had already cooked", "is cooking", "will cook"], correct:1 },
-  { badge:"Mixed Grammar", text:"If it ___ tomorrow, we'll stay at home.", options:["rains", "rained", "will rain", "would rain"], correct:0 },
-  { badge:"Mixed Grammar", text:"I've known my best friend ___ we were children.", options:["for", "since", "during", "from"], correct:1 },
+  { badge:"Present Perfect vs Past Simple", text:"I ___ this book three times, but I still find new things in it.", options:["read", "have read", "was reading", "had read"], correct:1 },
+  { badge:"Present Perfect Continuous", text:"She ___ for the company for six years and still enjoys her job.", options:["has worked", "has been working", "is working", "worked"], correct:1 },
+  { badge:"Past Perfect Continuous", text:"They were exhausted because they ___ all morning.", options:["had been hiking", "have been hiking", "were hike", "hiked"], correct:0 },
+  { badge:"Past Perfect", text:"By the time the doctor arrived, the patient ___.", options:["already left", "has already left", "had already left", "was already leave"], correct:2 },
+  { badge:"Future Perfect", text:"By next June, I ___ English for five years.", options:["will study", "will have studied", "am studying", "have studied"], correct:1 },
+  { badge:"Future Continuous", text:"This time tomorrow, we ___ over the Atlantic.", options:["will fly", "will be flying", "have flown", "flew"], correct:1 },
+  { badge:"Mixed Tenses", text:"When I called Sarah, she said she ___ dinner and would call me later.", options:["has cooked", "was cooking", "had cooked", "cooks"], correct:1 },
+  { badge:"Passive", text:"The documents ___ before the meeting started.", options:["had been prepared", "have prepared", "were preparing", "had prepared"], correct:0 },
+  { badge:"Passive", text:"A new shopping center ___ in our town by the end of next year.", options:["will complete", "will have completed", "will have been completed", "is completing"], correct:2 },
+  { badge:"Causative", text:"I need to ___ my laptop repaired before the trip.", options:["have", "make", "let", "do"], correct:0 },
+  { badge:"Conditional 2", text:"If I ___ more confident, I would apply for the position.", options:["am", "were", "will be", "have been"], correct:1 },
+  { badge:"Conditional 3", text:"If they had left earlier, they ___ the train.", options:["would catch", "would have caught", "will have caught", "caught"], correct:1 },
+  { badge:"Mixed Conditional", text:"If I had studied harder at school, I ___ a different career now.", options:["would have", "would have had", "would be having", "will have"], correct:0 },
+  { badge:"Wish", text:"I wish I ___ so much work to do tonight.", options:["don't have", "didn't have", "haven't had", "wouldn't have"], correct:1 },
+  { badge:"Modals of Deduction", text:"The lights are on and her car is outside. She ___ be at home.", options:["must", "can't", "might not", "shouldn't"], correct:0 },
+  { badge:"Modals Past", text:"He isn't answering his phone. He ___ have forgotten about the meeting.", options:["must", "should", "might", "can't"], correct:2 },
+  { badge:"Advice", text:"You ___ have told me earlier; I could have helped you.", options:["should", "shouldn't", "should have", "must"], correct:2 },
+  { badge:"Gerund/Infinitive", text:"I regret ___ him the truth because it upset him.", options:["to tell", "telling", "tell", "to telling"], correct:1 },
+  { badge:"Gerund/Infinitive", text:"I regret ___ you that the position has been filled.", options:["telling", "to tell", "tell", "told"], correct:1 },
+  { badge:"Verb Patterns", text:"She made me ___ the report again.", options:["to write", "writing", "write", "wrote"], correct:2 },
+  { badge:"Relative Clauses", text:"The scientist, ___ research changed the field, won an international award.", options:["who", "whose", "which", "where"], correct:1 },
+  { badge:"Relative Clauses", text:"The company ___ I used to work for has moved abroad.", options:["where", "whose", "which", "who"], correct:2 },
+  { badge:"Participle Clauses", text:"___ by the sudden noise, the baby started crying.", options:["Surprising", "Surprised", "Having surprise", "To surprise"], correct:1 },
+  { badge:"Reported Speech", text:"He said, 'I have never seen this before.' → He said that he ___ it before.", options:["has never seen", "had never seen", "never saw", "would never see"], correct:1 },
+  { badge:"Reported Questions", text:"She asked me, 'Where did you buy this?' → She asked me where I ___.", options:["did I buy it", "had I bought it", "bought it", "have bought it"], correct:2 },
+  { badge:"Reported Requests", text:"The teacher said, 'Please don't use your phones.' → The teacher asked us ___ our phones.", options:["not use", "not to use", "don't use", "to not using"], correct:1 },
+  { badge:"Inversion", text:"Rarely ___ such a beautiful performance.", options:["I have seen", "have I seen", "I saw", "did I have seen"], correct:1 },
+  { badge:"Inversion", text:"Not only ___ late, but he also forgot the documents.", options:["he was", "was he", "he had been", "did he"], correct:1 },
+  { badge:"Linking Words", text:"The flight was delayed; ___, we arrived before midnight.", options:["however", "therefore", "because", "despite"], correct:0 },
+  { badge:"Concession", text:"___ being very tired, she continued working.", options:["Although", "Despite", "Because", "However"], correct:1 },
+  { badge:"Vocabulary", text:"If a decision is 'controversial', it is ___.", options:["widely accepted", "causing disagreement", "easy to explain", "legally required"], correct:1 },
+  { badge:"Vocabulary", text:"If someone is 'reluctant' to do something, they are ___.", options:["eager", "unwilling", "certain", "unable"], correct:1 },
+  { badge:"Vocabulary", text:"A 'substantial' amount of money is ___.", options:["very small", "temporary", "considerable", "borrowed"], correct:2 },
+  { badge:"Vocabulary", text:"If a plan is 'feasible', it is ___.", options:["impossible", "practical and possible", "already completed", "unnecessary"], correct:1 },
+  { badge:"Phrasal Verbs", text:"We need to ___ a solution before the deadline.", options:["come up with", "put up with", "look down on", "run into"], correct:0 },
+  { badge:"Phrasal Verbs", text:"I can't ___ this noise any longer.", options:["come across", "put up with", "bring up", "take after"], correct:1 },
+  { badge:"Phrasal Verbs", text:"She ___ an interesting article while researching the topic.", options:["came across", "gave away", "put off", "turned into"], correct:0 },
+  { badge:"Collocations", text:"The company needs to ___ a decision soon.", options:["do", "make", "take", "put"], correct:1 },
+  { badge:"Collocations", text:"He ___ responsibility for the mistake.", options:["made", "did", "took", "put"], correct:2 },
+  { badge:"Prepositions", text:"She is capable ___ solving the problem on her own.", options:["to", "for", "of", "with"], correct:2 },
+  { badge:"Prepositions", text:"We are looking forward ___ hearing from you.", options:["to", "for", "at", "on"], correct:0 },
+  { badge:"Articles", text:"___ knowledge of English can be useful in many careers.", options:["A", "An", "The", "—"], correct:0 },
+  { badge:"Articles", text:"She is ___ best candidate for the position.", options:["a", "an", "the", "—"], correct:2 },
+  { badge:"Quantifiers", text:"There were ___ people at the conference than we expected.", options:["less", "fewer", "much", "little"], correct:1 },
+  { badge:"Comparatives", text:"The more you practice, ___ your pronunciation becomes.", options:["the best", "the better", "better", "the most better"], correct:1 },
+  { badge:"Tag Question", text:"Let's meet at six, ___?", options:["will we", "shall we", "do we", "aren't we"], correct:1 },
+  { badge:"Mixed Grammar", text:"I would rather you ___ me before making a decision.", options:["tell", "told", "will tell", "have told"], correct:1 },
+  { badge:"Mixed Grammar", text:"By the end of the week, she ___ the project.", options:["will finish", "will have finished", "has finished", "would finish"], correct:1 },
+  { badge:"Mixed Grammar", text:"He speaks as if he ___ everything about the subject.", options:["knows", "knew", "has known", "will know"], correct:1 },
+  { badge:"Mixed Grammar", text:"Had I known about the problem, I ___ you earlier.", options:["would tell", "would have told", "will tell", "told"], correct:1 },
 ];
 
 // ─── توضیحات پاپ‌آپ — ۵۰ سوال ──────────────────────────────────────────────
 const EXPLANATIONS = [
-  "وقتی زمان مشخص و تمام‌شده‌ای مثل an hour ago داریم، از Past Simple استفاده می‌کنیم: I finished my homework an hour ago.",
-  "برای کاری که از گذشته شروع شده و تا حالا ادامه دارد، با since + نقطه شروع از Present Perfect استفاده می‌کنیم: has worked.",
-  "just معمولاً برای اتفاقی بسیار نزدیک به زمان حال با Present Perfect به کار می‌رود: have just finished.",
-  "بعد از have/has در Present Perfect باید شکل سوم فعل بیاید؛ شکل سوم ride، یعنی ridden است.",
-  "برای کاری که قبل از یک اتفاق دیگر در گذشته تمام شده، از Past Perfect استفاده می‌کنیم: had left.",
-  "بعد از after، وقتی پایان یک کار قبل از کار دیگری در گذشته رخ داده، had finished درست است.",
-  "برای کاری که در لحظه‌ای از گذشته در حال انجام بوده، از was/were + ing استفاده می‌کنیم: was having.",
-  "بعد از while معمولاً برای عمل در حال انجام در گذشته از Past Continuous استفاده می‌کنیم: were driving.",
-  "وقتی در زمان حال شواهد واضحی برای یک اتفاق آینده داریم، be going to مناسب است: is going to rain.",
-  "برای تصمیمی که همان لحظه هنگام شنیدن زنگ گرفته می‌شود، will طبیعی است: I will answer it.",
-  "وقتی برنامه آینده از قبل هماهنگ و قطعی شده است، Present Continuous می‌تواند برای آینده استفاده شود: are visiting.",
-  "مجهول حال ساده با am/is/are + past participle ساخته می‌شود؛ بنابراین are checked درست است.",
-  "مجهول آینده با will be + past participle ساخته می‌شود: will be built.",
-  "در Present Perfect Passive ساختار has/have been + past participle است: has been stolen.",
-  "در شرطی نوع اول، بعد از if از Present Simple و در نتیجه معمولاً از will + base verb استفاده می‌کنیم.",
-  "بعد از if در شرطی نوع اول از will استفاده نمی‌کنیم؛ saves شکل درست Present Simple است.",
-  "در شرطی نوع دوم برای موقعیت فرضی از If + past simple و معمولاً were برای I استفاده می‌کنیم: If I were you.",
-  "در نتیجه شرطی نوع دوم از would + base verb استفاده می‌شود: would read.",
-  "برای الزام قوی، مخصوصاً وقتی قانون یا مقررات مطرح است، must مناسب است.",
-  "might برای احتمال به کار می‌رود؛ از اینکه او جواب نمی‌دهد می‌توانیم احتمال بدهیم که asleep باشد.",
-  "should برای توصیه مناسب است؛ جمله به فرد خسته پیشنهاد استراحت می‌دهد.",
-  "fill in یعنی اطلاعات لازم را داخل فرم وارد کردن؛ این معنا با context جمله هماهنگ است.",
-  "run out of یعنی تمام شدن موجودی یک چیز؛ در جمله شیر تمام شده است.",
-  "look after یعنی مراقبت کردن از کسی یا چیزی؛ بنابراین برای سگ مناسب است.",
-  "reliable یعنی قابل اعتماد؛ درباره فردی reliable می‌توان روی او حساب کرد.",
-  "selfish در این مجموعه معنای مخالف generous را می‌دهد؛ یعنی کسی که بیشتر به منافع خودش فکر می‌کند.",
-  "affordable یعنی قیمتی که خریدنش از نظر مالی نسبتاً امکان‌پذیر است، نه رایگان یا بیش از حد گران.",
-  "postpone یعنی کاری را به زمان دیرتری موکول کردن؛ meeting را می‌توان تا دوشنبه به تعویق انداخت.",
-  "برای انسان در جمله وصفی معمولاً از who استفاده می‌کنیم: The woman who lives next door.",
-  "برای اشاره به مکان و توضیح جایی که اتفاقی در آن رخ داده، where مناسب است.",
-  "برای شیء یا موضوعی مثل book می‌توان از which استفاده کرد: The book which you recommended.",
-  "در نقل قول غیرمستقیم، am معمولاً یک زمان به عقب می‌رود و به was تبدیل می‌شود.",
-  "در سؤال غیرمستقیم بله/خیر، if یا whether می‌آید و ترتیب جمله خبری می‌شود: if I liked coffee.",
-  "در نقل قول غیرمستقیم، will معمولاً به would تبدیل می‌شود و tomorrow با توجه به زمان گزارش به the next day تغییر می‌کند.",
-  "since برای نقطه شروع مشخص مثل 8 o'clock به کار می‌رود؛ for برای مدت زمان است.",
-  "ترکیب ثابت good at است و بعد از حرف اضافه at می‌توان gerund آورد: good at solving.",
-  "برای رسیدن به یک مکان مشخص مانند airport از arrive at استفاده می‌کنیم.",
-  "بعد از suggest معمولاً gerund می‌آید: suggested leaving.",
-  "بعد از decide از infinitive با to استفاده می‌کنیم: decided to take.",
-  "بعد از interested in باید noun یا gerund بیاید؛ بنابراین learning درست است.",
-  "قبل از کلمه‌ای که با صدای واکه شروع می‌شود، در این جمله an می‌آید: an interesting documentary.",
-  "قبل از engineer از an استفاده می‌کنیم، چون engineer با صدای واکه شروع می‌شود.",
-  "milk اسم غیرقابل‌شمارش است، بنابراین در جمله منفی با مقدار نامشخص از much استفاده می‌کنیم.",
-  "برای صفت چندسیلابی مانند difficult از more برای comparative استفاده می‌کنیم: more difficult.",
-  "برای عالیِ good شکل بی‌قاعده best است و در این ساختار با the می‌آید: the best movie.",
-  "جمله مثبتِ negative auxiliary یعنی haven't در question tag به tag مثبت have you تبدیل می‌شود.",
-  "برای توصیف نحوه صحبت کردن از قید استفاده می‌کنیم: fluently، نه صفت fluent.",
-  "وقتی یک کار قبل از رسیدن من در گذشته کامل شده، Past Perfect مناسب است: had already cooked.",
-  "در شرطی نوع اول بعد از if از Present Simple استفاده می‌کنیم: If it rains, we'll stay at home.",
-  "since برای نقطه شروع زمانی استفاده می‌شود؛ here، we were children، نقطه شروع آشنایی است.",
+  "با عبارتی مثل three times که تجربه تا زمان حال را بیان می‌کند، Present Perfect یعنی have/has + شکل سوم مناسب است.",
+  "برای کاری که در گذشته شروع شده و تا حالا ادامه داشته و روی استمرار آن تأکید داریم، Present Perfect Continuous مناسب است.",
+  "دلیل خستگی در گذشته، کاری بوده که تا قبل از آن زمان مدتی ادامه داشته؛ بنابراین Past Perfect Continuous مناسب است.",
+  "برای کاری که قبل از یک رویداد مشخص در گذشته کامل شده، Past Perfect یعنی had + past participle به کار می‌رود.",
+  "برای کاری که تا یک زمان مشخص در آینده کامل خواهد شد، Future Perfect یعنی will have + past participle استفاده می‌شود.",
+  "برای کاری که در یک زمان مشخص در آینده در حال انجام خواهد بود، Future Continuous یعنی will be + ing مناسب است.",
+  "بعد از said و برای توصیف کاری که در همان زمان گذشته در حال انجام بوده، Past Continuous یعنی was/were + ing می‌آید.",
+  "این جمله Passive در گذشته کامل است: had been + past participle.",
+  "برای کاری که تا یک زمان مشخص آینده کامل شده است، Future Perfect Passive با will have been + past participle ساخته می‌شود.",
+  "ساختار have something done برای وقتی است که از شخص دیگری می‌خواهیم کاری را برای ما انجام دهد: have my laptop repaired.",
+  "در شرطی نوع دوم، برای موقعیت فرضی حال از If + past simple استفاده می‌کنیم و were شکل مناسب این ساختار است.",
+  "شرطی نوع سوم درباره موقعیت فرضی گذشته است: If + past perfect، سپس would have + past participle.",
+  "این Mixed Conditional گذشته را به نتیجه‌ای در زمان حال وصل می‌کند؛ بنابراین would be/ would have و مفهوم نتیجه فعلی لازم است.",
+  "بعد از wish برای بیان وضعیت غیرواقعی یا نامطلوب در زمان حال معمولاً Past Simple می‌آوریم: I wish I didn't have...",
+  "وقتی از شواهد قوی نتیجه می‌گیریم، must برای استنتاج مثبت مناسب است.",
+  "برای حدس درباره اتفاقی در گذشته، might have + past participle می‌تواند احتمال را نشان دهد.",
+  "should have + past participle برای انتقاد یا توصیه درباره کاری است که در گذشته بهتر بود انجام می‌شد.",
+  "بعد از regret وقتی از کاری که انجام داده‌ایم پشیمانیم، gerund مناسب است: regret telling.",
+  "regret to tell برای اعلام خبر ناخوشایند یا پشیمانی از اینکه مجبوریم آن را بگوییم استفاده می‌شود.",
+  "بعد از make در ساختار سببی، فعل بعدی بدون to می‌آید: make someone write.",
+  "whose برای نشان دادن مالکیت در جمله وصفی استفاده می‌شود: whose research.",
+  "برای اشاره به یک شیء که نقش مفعول دارد، which مناسب است: the company which I used to work for.",
+  "برای بیان حالت شخص یا چیزی که تحت تأثیر اتفاقی قرار گرفته، past participle یعنی Surprised مناسب است.",
+  "در Reported Speech، Present Perfect معمولاً یک زمان به عقب می‌رود و به Past Perfect تبدیل می‌شود.",
+  "در سؤال غیرمستقیم ترتیب جمله خبری است و دیگر از did استفاده نمی‌کنیم؛ بنابراین bought it درست است.",
+  "بعد از ask someone در درخواست منفی از not to + verb استفاده می‌کنیم.",
+  "بعد از قیدهای منفی یا محدودکننده مانند Rarely در ابتدای جمله، inversion رخ می‌دهد: have I seen.",
+  "بعد از Not only در ابتدای جمله نیز inversion داریم: was he.",
+  "however برای نشان دادن تضاد بین دو جمله مناسب است.",
+  "Despite قبل از اسم یا gerund می‌آید و معنی «با وجود» می‌دهد.",
+  "controversial یعنی موضوعی که درباره آن اختلاف نظر یا مخالفت وجود دارد.",
+  "reluctant یعنی تمایل نداشتن یا بی‌میل بودن به انجام کاری.",
+  "substantial یعنی قابل توجه یا نسبتاً زیاد.",
+  "feasible یعنی عملی و امکان‌پذیر.",
+  "come up with یعنی پیدا کردن یا ارائه کردن یک ایده یا راه‌حل.",
+  "put up with یعنی تحمل کردن چیزی که آزاردهنده است.",
+  "come across یعنی به‌طور اتفاقی چیزی را پیدا یا مشاهده کردن.",
+  "ترکیب رایج انگلیسی make a decision است.",
+  "ترکیب رایج take responsibility است.",
+  "capable of یک ترکیب ثابت است و بعد از of می‌توان gerund آورد.",
+  "look forward to یک عبارت ثابت است و to در آن حرف اضافه است؛ بنابراین بعد از آن gerund می‌آید.",
+  "knowledge در این جمله یک اسم مفرد غیرقابل‌شمارش است و در این کاربرد با a knowledge می‌آید.",
+  "best معمولاً با the برای ساخت superlative استفاده می‌شود: the best candidate.",
+  "people اسم قابل‌شمارش جمع است؛ بنابراین برای تعداد کمتر از انتظار از fewer استفاده می‌کنیم.",
+  "ساختار The more..., the better... برای مقایسه وابسته استفاده می‌شود.",
+  "بعد از Let's برای پیشنهاد مشترک، question tag استاندارد shall we? است.",
+  "بعد از would rather برای ترجیح درباره رفتار شخص دیگر در زمان حال، Past Simple می‌آید: I would rather you told me.",
+  "برای کاری که تا پایان یک زمان مشخص در آینده کامل می‌شود، Future Perfect مناسب است.",
+  "بعد از as if برای موقعیت غیرواقعی می‌توان Past Simple آورد: as if he knew everything.",
+  "Had I known ساختار وارونه شرطی نوع سوم است و نتیجه آن would have told است."
 ];
 
 function getExplanation(qIdx, q) {
@@ -510,7 +510,7 @@ async function submitPhone(){
       <div class="code-reveal-box">
         <div class="code-reveal-label">✦ کد اختصاصی آزمون شما</div>
         <div class="code-reveal-number">${code}</div>
-        <div class="code-reveal-msg">کد را یادداشت کنید.<br>برای ورود به آزمون پیشرفته ۱ همین کد را وارد کنید.</div>
+        <div class="code-reveal-msg">کد را یادداشت کنید.<br>برای ورود به آزمون پیشرفته ۳ همین کد را وارد کنید.</div>
       </div>
       <button class="modal-btn-submit" onclick="closeModal()" style="margin-top:20px;width:100%">متوجه شدم ✓</button>
     `;
@@ -529,14 +529,14 @@ function renderAccess(){
   card.innerHTML=`
     <div class="brand" style="justify-content:center;margin-bottom:24px">
       <div class="brand-icon">🇬🇧</div>
-      <div class="brand-name"><span>آزمون زبان انگلیسی</span>پیشرفته ۱</div>
+      <div class="brand-name"><span>آزمون زبان انگلیسی</span>پیشرفته ۳</div>
     </div>
     <div class="access-icon">🔐</div>
     <div class="access-title">کد اشتراک را وارد کنید</div>
-    <div class="access-subtitle">برای دسترسی به آزمون پیشرفته ۱، کد اختصاصی اشتراک خود را وارد کنید.</div>
+    <div class="access-subtitle">برای دسترسی به آزمون پیشرفته ۳، کد اختصاصی اشتراک خود را وارد کنید.</div>
     <label class="code-input-label" for="code-field">کد دسترسی</label>
-    <input class="code-input" id="code-field" type="text" inputmode="numeric" maxlength="4"
-      placeholder="• • • •" autocomplete="off" spellcheck="false"
+    <input class="code-input" id="code-field" type="text" inputmode="numeric" maxlength="5"
+      placeholder="• • • • •" autocomplete="off" spellcheck="false"
       onkeydown="if(event.key==='Enter') checkCode()"
       oninput="clearErr()"
     />
@@ -564,10 +564,10 @@ async function checkCode(){
     .replace(/\D/g,'');
   inp.value = val;
 
-  if(!/^\d{4}$/.test(val)){
+  if(!/^\d{5}$/.test(val)){
     inp.classList.add('shake');
     setTimeout(()=>inp.classList.remove('shake'),400);
-    errText.textContent='کد باید یک عدد ۴ رقمی باشد.';
+    errText.textContent='کد باید یک عدد ۵ رقمی باشد.';
     errMsg.classList.add('visible');
     return;
   }
@@ -605,15 +605,15 @@ function renderStart(){
   card.innerHTML=`
     <div class="brand">
       <div class="brand-icon">🇬🇧</div>
-      <div class="brand-name"><span>آزمون زبان انگلیسی</span>سطح پیشرفته ۱</div>
+      <div class="brand-name"><span>آزمون زبان انگلیسی</span>سطح پیشرفته ۳</div>
     </div>
     <div class="start-icon">📝</div>
-    <div class="start-title">آزمون ارزیابی سطح پیشرفته ۱</div>
-    <div class="start-desc">این آزمون سطح B1 ابتدایی را می‌سنجد. سوال‌ها شامل زمان‌های پیچیده‌تر مثل Present Perfect، گذشته استمراری، مجهول، شرطی، Phrasal Verbs، جمله وصفی، نقل قول غیرمستقیم و لغات پیشرفته‌تر است.</div>
+    <div class="start-title">آزمون ارزیابی سطح پیشرفته ۳</div>
+    <div class="start-desc">این آزمون سطح B2 ابتدایی / B2 ابتدایی را می‌سنجد. سوال‌ها شامل زمان‌های پیچیده‌تر مثل Present Perfect، گذشته استمراری، مجهول، شرطی، Phrasal Verbs، جمله وصفی، نقل قول غیرمستقیم و لغات پیشرفته‌تر است.</div>
     <div class="start-stats">
       <div class="stat-chip">⏱️ <span>حدود ۱۵ دقیقه</span></div>
       <div class="stat-chip">📊 <span>۵۰ سوال</span></div>
-      <div class="stat-chip">🎯 <span>سطح B1 ابتدایی</span></div>
+      <div class="stat-chip">🎯 <span>سطح B2 ابتدایی / B2 ابتدایی</span></div>
     </div>
     <button class="btn-primary" onclick="startQuiz()">شروع آزمون ←</button>
   `;
@@ -630,7 +630,7 @@ function renderQuestion(){
   card.innerHTML=`
     <div class="brand" style="margin-bottom:18px">
       <div class="brand-icon" style="width:32px;height:32px;font-size:15px;border-radius:8px">🇬🇧</div>
-      <div class="brand-name" style="font-size:11px"><span style="font-size:13px">آزمون زبان انگلیسی</span>پیشرفته ۱</div>
+      <div class="brand-name" style="font-size:11px"><span style="font-size:13px">آزمون زبان انگلیسی</span>پیشرفته ۳</div>
     </div>
     <div class="progress-wrap">
       <div class="progress-meta">
@@ -726,19 +726,19 @@ function renderResult(){
     pctBadgeClass='background:rgba(239,68,68,0.15);border:1.5px solid rgba(239,68,68,0.4);color:#FCA5A5;';
     message=`<div class="result-message-title">💡 راهنمای پیشرفت</div><div class="result-message-text">سوال‌های این سطح نیاز به تسلط کامل بر گرامر پایه دارند. پیشنهاد می‌شود ابتدا مفاهیم Present Perfect، گذشته استمراری و ساختارهای Passive را مرور کنید.<br><br>با تمرین منظم به این سطح خواهید رسید! 💪</div>`;
   } else if(pct<=70){
-    emoji='📖'; levelTitle='سطح متوسط B1'; scoreColor='#FBBF24';
+    emoji='📖'; levelTitle='سطح B1 متوسط'; scoreColor='#FBBF24';
     pctBadgeClass='background:rgba(245,158,11,0.15);border:1.5px solid rgba(245,158,11,0.4);color:#FCD34D;';
-    message=`<div class="result-message-title">🚀 در مسیر درست هستید!</div><div class="result-message-text">درک خوبی از مفاهیم پیشرفته ابتدایی دارید. تمرین بیشتر روی Conditional، Phrasal Verbs و Reported Speech شما را به سطح بالاتری می‌رساند.<br><br>ادامه دهید! ⭐</div>`;
+    message=`<div class="result-message-title">🚀 در مسیر درست هستید!</div><div class="result-message-text">درک خوبی از مفاهیم سطح پیشرفته ۳ دارید. تمرین بیشتر روی Conditional، Phrasal Verbs و Reported Speech شما را به سطح بالاتری می‌رساند.<br><br>ادامه دهید! ⭐</div>`;
   } else {
-    emoji='🏆'; levelTitle='سطح B1 قوی'; scoreColor='#34D399';
+    emoji='🏆'; levelTitle='سطح B1 رو به بالا'; scoreColor='#34D399';
     pctBadgeClass='background:rgba(16,185,129,0.15);border:1.5px solid rgba(16,185,129,0.4);color:#6EE7B7;';
-    message=`<div class="result-message-title">🎉 عالی بودید!</div><div class="result-message-text">تسلط بسیار خوبی بر مفاهیم پیشرفته ۱ دارید. آماده‌اید به سطح B1 کامل بروید و مهارت‌هایی مثل Writing، Speaking و درک مطلب پیشرفته‌تر را تقویت کنید.<br><br>به شما افتخار می‌کنیم! 🌟</div>`;
+    message=`<div class="result-message-title">🎉 عالی بودید!</div><div class="result-message-text">تسلط بسیار خوبی بر مفاهیم پیشرفته ۳ دارید. آماده‌اید به سطح B1 کامل بروید و مهارت‌هایی مثل Writing، Speaking و درک مطلب پیشرفته‌تر را تقویت کنید.<br><br>به شما افتخار می‌کنیم! 🌟</div>`;
   }
 
   card.innerHTML=`
     <div class="result-wrap">
       <span class="result-big-emoji">${emoji}</span>
-      <div class="result-level-label">نتیجه ارزیابی شما — پیشرفته ۱</div>
+      <div class="result-level-label">نتیجه ارزیابی شما — پیشرفته ۳</div>
       <div class="result-level-title">${levelTitle}</div>
       <div class="result-divider"></div>
       <div class="result-score-display">
