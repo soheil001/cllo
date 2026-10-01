@@ -196,8 +196,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-  
-<script src="auth.js"></script>
 
 <script>
 /* ============ Supabase + session (same as English page) ============ */
@@ -212,8 +210,12 @@ async function sbInsert(table,body){
     headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(body)});
   return r.ok;
 }
-
+const SESSION_KEY='lingua_session_v1';
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null');}catch(e){return null;}}
+function setSession(d){try{localStorage.setItem(SESSION_KEY,JSON.stringify(d));}catch(e){}}
+function isLoggedIn(){const s=getSession();return !!(s&&s.phone&&s.verified);}
 function showToast(m,d=2800){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),d);}
+
 /* ============ Videos — files live in /video/graphic/ ============ */
 const BASE='http://fs3.centraldnserver.com/~planlife/pics/english/video/graphic/';
 /* برای اضافه کردن ویدیو: فایل N.mp4 را در همین پوشه آپلود کنید و عدد N را به این لیست اضافه کنید */
