@@ -1,72 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- صفحه اصلی -->
   <url>
     <loc>https://cllo.ir/</loc>
-    <priority>1.0</priority>
   </url>
 
-  <!-- صفحات اصلی -->
   <url>
     <loc>https://cllo.ir/videoamozesh.html</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/podcast.html</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/Vocabulary.html</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/Video-yout.html</loc>
-    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/tamrint.html</loc>
-    <priority>0.7</priority>
   </url>
 
-  <!-- آزمون‌ها -->
   <url>
     <loc>https://cllo.ir/azmon/azmon-mobtadi.html</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/azmon/azmon-moghadamati.html</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/azmon/azmon-pish1.html</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/azmon/azmon-pish2.html</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/azmon/azmon-pish3.html</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/azmon/azmon-pish4.html</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://cllo.ir/azmon/azmon-pish5.html</loc>
-    <priority>0.9</priority>
   </url>
 
 </urlset>
