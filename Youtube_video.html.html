@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cllo — English Clips</title>
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --card: #121216;
+      --card-hover: #1a1a20;
+      --text: #e8e8ec;
+      --muted: #8a8a96;
+      --accent: #3b82f6;
+      --accent-dim: #2563eb;
+      --border: #22222a;
+      --glow: rgba(59, 130, 246, 0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.8rem;
+      background: rgba(10,10,12,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-transform: lowercase;
+    }
+    .logo span { color: var(--accent); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .search-btn, .user-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .search-btn:hover, .user-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Tabs */
+    .tabs-bar {
+      background: rgba(10,10,12,0.9);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-bar::-webkit-scrollbar { display: none; }
+    .tabs {
+      display: flex;
+      gap: 0.2rem;
+      padding: 0.6rem 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .tab {
+      flex-shrink: 0;
+      padding: 0.55rem 1.15rem;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    .tab.active {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 4px 18px var(--glow);
+    }
+
+    /* Main */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.4rem 1.2rem 4rem;
+    }
+
+    /* Row sections */
+    .row-section {
+      margin-bottom: 1.8rem;
+    }
+    .row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.7rem;
+      padding: 0 0.2rem;
+    }
+    .row-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--text);
+    }
+    .row-header .see-all {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .row-header .see-all:hover { color: var(--accent); }
+
+    /* Horizontal scroll row — cards sized so next one always peeks */
+    .h-scroll {
+      display: flex;
+      gap: 0.85rem;
+      overflow-x: auto;
+      padding-bottom: 0.7rem;
+      padding-right: 1.5rem; /* keeps a sliver of the next card visible */
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .h-scroll::-webkit-scrollbar {
+      height: 5px;
+    }
+    .h-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .h-scroll::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    .h-scroll::-webkit-scrollbar-thumb:hover {
+      background: #333;
+    }
+
+    /* Card — sized so ~2.5–3 cards visible (peek of next) on most screens */
+    .card {
+      flex: 0 0 220px;
+      width: 220px;
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      cursor: pointer;
+      scroll-snap-align: start;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border);
+      background: var(--card-hover);
+    }
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #1a1a20;
+      overflow: hidden;
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s;
+    }
+    .card:hover .card-thumb img { transform: scale(1.06); }
+    .card-thumb .play-mini {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .card:hover .play-mini { opacity: 1; }
+    .play-mini svg {
+      width: 38px; height: 38px;
+      fill: #fff;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .card-body {
+      padding: 0.65rem 0.75rem 0.85rem;
+    }
+    .card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.25rem;
+    }
+    .card-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    /* Tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      width: min(960px, 100%);
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.7);
+    }
+    .modal-content iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
+    }
+    .modal-close {
+      position: absolute;
+      top: -42px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.7rem;
+      cursor: pointer;
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      opacity: 0.85;
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-title {
+      padding: 0.85rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.8rem 1rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 800px) {
+      .card { flex: 0 0 180px; width: 180px; }
+      header { padding: 0.7rem 1rem; }
+      .tabs { padding: 0.5rem 1rem; }
+      .main { padding: 1rem 0.8rem 3rem; }
+    }
+    @media (max-width: 520px) {
+      .card { flex: 0 0 150px; width: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">cllo<span>.</span></div>
+    <div class="header-right">
+      <button class="search-btn" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="user-btn" aria-label="User">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="tabs-bar">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="all">All</button>
+      <button class="tab" data-tab="podcast">Podcast</button>
+      <button class="tab" data-tab="grammar">Grammar</button>
+      <button class="tab" data-tab="vocabulary">Vocabulary</button>
+      <button class="tab" data-tab="conversation">Conversation</button>
+      <button class="tab" data-tab="listening">Listening</button>
+      <button class="tab" data-tab="speaking">Speaking</button>
+      <button class="tab" data-tab="ielts">IELTS</button>
+      <button class="tab" data-tab="stories">Stories</button>
+      <button class="tab" data-tab="tips">Tips</button>
+    </div>
+  </div>
+
+  <main class="main">
+    <!-- Tab panels will be filled by JS -->
+    <div id="panels"></div>
+  </main>
+
+  <footer>
+    cllo · Fast-loading YouTube clips · Thumbnails only until play
+  </footer>
+
+  <!-- Player Modal -->
+  <div class="modal" id="player-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closePlayer()" aria-label="Close">×</button>
+      <div id="player-container"></div>
+      <div class="modal-title" id="player-title"></div>
+    </div>
+  </div>
+
+  <script>
+    // Base video list (will be repeated to fill 10 rows × ~8 cards)
+    const baseVideos = [
+      { id: "s2EYIDY8wSM", title: "Learning English Podcast for Beginners | A1 English Listening Practice", level: "A1" },
+      { id: "BDpPtueVaao", title: "Small Talk at Work: Speak English with Confidence", level: "B1" },
+      { id: "kjNYNPqDSlQ", title: "1-Hour B2 English Listening Practice – Improve Your English", level: "B2" },
+      { id: "72VGurgj2fg", title: "English Listening Practice", level: "A2" },
+      { id: "Z8w-AXNvAgg", title: "1.45 Hours of Slow English Listening Podcast for Beginners (A1-A2)", level: "A1-A2" },
+      { id: "ATc5ikVqank", title: "Simple Daily Routine English | Slow Listening & Speaking Practice", level: "A1" },
+      { id: "k4715CJ0Ii8", title: "IELTS Speaking Test – Perfect Band 9", level: "IELTS" },
+      { id: "gejjMrJMxYs", title: "Learn English with Stories | Slow English Podcast for Fluency", level: "A2" },
+      { id: "tLULIzOj-Ew", title: "How to Learn English On Your Own (for FREE)", level: "Tips" },
+      { id: "LTg6tD5FYQw", title: "LIVE: Learn English Through Slow Stories | A1–A2", level: "Live" },
+      { id: "pyOC7HwDgj0", title: "Improve Your English Just by Listening | 40 Minutes B1–B2", level: "B1-B2" },
+      { id: "GedeppCSt70", title: "See It, Hear It, Say It | Learn English Naturally", level: "A2" },
+      { id: "CyxNdfv0YQA", title: "Improve Your English Speaking Fluency", level: "B1" },
+      { id: "oX7OduG1YmI", title: "The Future Mark Zuckerberg Is Trying To Build", level: "Talk" }
+    ];
+
+    // Row titles per tab (10 rows each)
+    const rowTitles = {
+      all: [
+        "Featured for You", "Continue Watching", "Top Podcasts", "Beginner Essentials",
+        "Daily Practice", "Conversation Skills", "Listening Focus", "Speaking Practice",
+        "Grammar Boost", "More to Explore"
+      ],
+      podcast: [
+        "Popular Podcasts", "Slow English Podcasts", "Story Podcasts", "Daily Podcasts",
+        "Beginner Podcasts", "Intermediate Podcasts", "Long Form", "Short Episodes",
+        "New Releases", "Editor's Picks"
+      ],
+      grammar: [
+        "Grammar Essentials", "Tenses Practice", "Articles & Prepositions", "Conditionals",
+        "Reported Speech", "Passive Voice", "Common Mistakes", "Advanced Grammar",
+        "Quick Grammar Tips", "Grammar in Context"
+      ],
+      vocabulary: [
+        "Word of the Day", "Business Vocabulary", "Daily Life Words", "Idioms & Phrases",
+        "Academic Words", "Synonyms & Antonyms", "Collocations", "Topic Vocabulary",
+        "Advanced Lexis", "Vocabulary Review"
+      ],
+      conversation: [
+        "Small Talk", "Work Conversations", "Social Situations", "Phone English",
+        "Agreeing & Disagreeing", "Making Requests", "Giving Opinions", "Storytelling",
+        "Role Plays", "Natural Dialogues"
+      ],
+      listening: [
+        "Slow Listening", "Real English Audio", "News Listening", "Podcast Listening",
+        "Story Listening", "Accent Practice", "Listening Tests", "Background Listening",
+        "Dictation Practice", "Listening Challenges"
+      ],
+      speaking: [
+        "Fluency Drills", "Pronunciation", "Shadowing Practice", "Speaking Topics",
+        "Monologues", "Dialogues", "IELTS Speaking", "Impromptu Speaking",
+        "Accent Reduction", "Speaking Confidence"
+      ],
+      ielts: [
+        "IELTS Speaking", "IELTS Listening", "Band 9 Samples", "Part 1 Practice",
+        "Part 2 Cue Cards", "Part 3 Discussion", "Writing Tips", "Reading Strategies",
+        "Vocabulary for IELTS", "Full Mock Tests"
+      ],
+      stories: [
+        "Short Stories", "Slow Stories", "True Stories", "Fairy Tales",
+        "Adventure Stories", "Mystery Stories", "Daily Life Stories", "Inspirational",
+        "Story + Vocabulary", "Story Retelling"
+      ],
+      tips: [
+        "Learning Tips", "Study Methods", "How to Practice", "Motivation",
+        "Resources", "Common Mistakes", "Time Management", "Self-Study Guide",
+        "App Recommendations", "Success Stories"
+      ]
+    };
+
+    // Create enough cards by repeating base list
+    function getRepeatedVideos(count) {
+      const result = [];
+      while (result.length < count) {
+        result.push(...baseVideos);
+      }
+      return result.slice(0, count);
+    }
+
+    function thumb(id) {
+      return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    }
+
+    function createCard(v) {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.onclick = () => playVideo(v.id, v.title);
+      card.innerHTML = `
+        <div class="card-thumb">
+          <img src="${thumb(v.id)}" alt="" loading="lazy" decoding="async"
+               onerror="this.src='https://i.ytimg.com/vi/${v.id}/mqdefault.jpg'">
+          <div class="play-mini">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${v.title}</div>
+          <div class="card-meta">${v.level} · YouTube</div>
+        </div>
+      `;
+      return card;
+    }
+
+    function buildPanel(tabId) {
+      const panel = document.createElement('div');
+      panel.className = 'tab-panel' + (tabId === 'all' ? ' active' : '');
+      panel.id = 'panel-' + tabId;
+      panel.dataset.tab = tabId;
+
+      const titles = rowTitles[tabId] || rowTitles.all;
+      // 10 rows, each with 8 cards (so horizontal scroll shows ~5 and more to scroll)
+      const videosPerRow = 8;
+      const allVids = getRepeatedVideos(10 * videosPerRow);
+
+      titles.forEach((title, rowIdx) => {
+        const section = document.createElement('section');
+        section.className = 'row-section';
+        section.innerHTML = `
+          <div class="row-header">
+            <h2>${title}</h2>
+            <a href="#" class="see-all">See all ›</a>
+          </div>
+        `;
+        const scroll = document.createElement('div');
+        scroll.className = 'h-scroll';
+        const start = rowIdx * videosPerRow;
+        const rowVids = allVids.slice(start, start + videosPerRow);
+        // slight offset per row so it doesn't look identical
+        const offset = (rowIdx * 3) % baseVideos.length;
+        const rotated = [...baseVideos.slice(offset), ...baseVideos.slice(0, offset)];
+        for (let i = 0; i < videosPerRow; i++) {
+          scroll.appendChild(createCard(rotated[i % rotated.length]));
+        }
+        section.appendChild(scroll);
+        panel.appendChild(section);
+      });
+
+      return panel;
+    }
+
+    // Build all panels
+    const panelsEl = document.getElementById('panels');
+    const tabIds = ['all','podcast','grammar','vocabulary','conversation','listening','speaking','ielts','stories','tips'];
+    tabIds.forEach(id => panelsEl.appendChild(buildPanel(id)));
+
+    // Tab switching
+    document.getElementById('tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.tab');
+      if (!btn) return;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.tab === tab);
+      });
+      // scroll to top of content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function playVideo(id, title) {
+      const modal = document.getElementById('player-modal');
+      const container = document.getElementById('player-container');
+      const titleEl = document.getElementById('player-title');
+      container.innerHTML = `<iframe 
+        src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        loading="eager"
+        title="${title}"></iframe>`;
+      titleEl.textContent = title;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePlayer() {
+      const modal = document.getElementById('player-modal');
+      document.getElementById('player-container').innerHTML = '';
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('player-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'player-modal') closePlayer();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePlayer();
+    });
+  </script>
+</body>
+</html>
