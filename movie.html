@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movies Now - Streaming</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Top Genre Bar */
+  .genre-bar {
+    display: flex;
+    gap: 8px;
+    padding: 14px 20px;
+    overflow-x: auto;
+    background: #111;
+    border-bottom: 1px solid #222;
+    scrollbar-width: none;
+  }
+  .genre-bar::-webkit-scrollbar { display: none; }
+  .genre {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    background: #2a2a2a;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .genre:hover { background: #3a3a3a; }
+  .genre.active {
+    background: #e50914;
+    color: #fff;
+  }
+  .genre.sci-fi { background: #c00; color: #fff; }
+  .genre.crime { background: #c00; color: #fff; }
+
+  /* Horizontal Movie Row */
+  .row {
+    padding: 18px 0 10px;
+  }
+  .row-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 20px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scroll-row {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .scroll-row::-webkit-scrollbar { display: none; }
+
+  .poster {
+    flex: 0 0 auto;
+    width: 140px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .poster:hover { transform: scale(1.05); }
+  .poster img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #222;
+  }
+  .poster-info {
+    margin-top: 6px;
+  }
+  .poster-title {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .poster-meta {
+    font-size: 11px;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+  }
+  .star {
+    color: #f5c518;
+    font-size: 12px;
+  }
+
+  /* Featured / Watching Section */
+  .watching {
+    padding: 20px;
+  }
+  .watching-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .watching-header .play-icon {
+    width: 22px;
+    height: 22px;
+    background: #e50914;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  .watching-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .tag {
+    background: #e50914;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .featured {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  .featured img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+  .play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: rgba(0,0,0,0.55);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .play-overlay:hover {
+    background: rgba(229,9,20,0.8);
+    border-color: #e50914;
+  }
+  .featured-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.95));
+    padding: 40px 20px 16px;
+  }
+  .featured-title {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .featured-meta {
+    font-size: 13px;
+    color: #ccc;
+    margin: 4px 0 8px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .featured-desc {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.4;
+    max-width: 90%;
+  }
+
+  /* Sort Controls */
+  .sort-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px 12px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  .sort-btn {
+    background: #2a2a2a;
+    border: none;
+    color: #ccc;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .sort-btn.active {
+    background: #e50914;
+    color: #fff;
+  }
+
+  /* Videos Section */
+  .videos-section {
+    padding: 10px 0 20px;
+  }
+  .video-card {
+    flex: 0 0 auto;
+    width: 280px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .video-card iframe {
+    width: 100%;
+    height: 158px;
+    border: none;
+    display: block;
+  }
+  .video-card .v-title {
+    padding: 8px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Series */
+  .series-poster {
+    width: 160px;
+  }
+  .series-poster img {
+    height: 90px;
+    border-radius: 6px;
+  }
+
+  /* Footer */
+  footer {
+    background: #111;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #222;
+    margin-top: 30px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 12px 0;
+  }
+  .socials a {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  .contact {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .poster { width: 110px; }
+    .poster img { height: 165px; }
+    .featured img { height: 240px; }
+    .video-card { width: 240px; }
+    .video-card iframe { height: 135px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Genre Navigation -->
+<div class="genre-bar">
+  <div class="genre">Romance</div>
+  <div class="genre active">Action</div>
+  <div class="genre">Adventure</div>
+  <div class="genre">Animation</div>
+  <div class="genre sci-fi">Sci-Fi</div>
+  <div class="genre">Documentary</div>
+  <div class="genre crime">Crime</div>
+  <div class="genre">Comedy</div>
+  <div class="genre">Thriller</div>
+  <div class="genre">Biography</div>
+</div>
+
+<!-- Top Movies Row -->
+<div class="row">
+  <div class="scroll-row">
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/uxzzxaqycjzoFX2pFp2X0gD9Q2M.jpg" alt="Us">
+      <div class="poster-info">
+        <div class="poster-title">Us</div>
+        <div class="poster-meta">2019 <span class="star">★</span> 6.8</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/sGiHRSpjJvbvQcoYsFgPVKSMg4V.jpg" alt="Red Sparrow">
+      <div class="poster-info">
+        <div class="poster-title">Red Sparrow</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 6.6</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/5tjrYNzowU8zJ2xO1q6f2k6X3Y.jpg" alt="Five Feet Apart" onerror="this.src='https://via.placeholder.com/140x210/222/fff?text=Five+Feet+Apart'">
+      <div class="poster-info">
+        <div class="poster-title">Five Feet Apart</div>
+        <div class="poster-meta">2019 <span class="star">★</span> 6.2</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/jyw8VKYEiM1UDzPB7NsisUgBeJ8.jpg" alt="Jumanji">
+      <div class="poster-info">
+        <div class="poster-title">Jumanji</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 6.4</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="Venom">
+      <div class="poster-info">
+        <div class="poster-title">Venom</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 8.2</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/7WsyChQLEftFiDOVTGkv3hIckYK.jpg" alt="Mission">
+      <div class="poster-info">
+        <div class="poster-title">Mission</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 7.1</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Watching / Featured -->
+<div class="watching">
+  <div class="watching-header">
+    <div class="play-icon">▶</div>
+    <div class="watching-title">Watching</div>
+  </div>
+  <div class="tags">
+    <span class="tag">#RedSparrow</span>
+    <span class="tag">#Action</span>
+    <span class="tag">#JenniferLawrence</span>
+    <span class="tag">#2018</span>
+    <span class="tag">#Francis Lawrence</span>
+    <span class="tag">#HD</span>
+  </div>
+
+  <div class="featured">
+    <img src="https://image.tmdb.org/t/p/w1280/sGiHRSpjJvbvQcoYsFgPVKSMg4V.jpg" alt="Red Sparrow">
+    <div class="play-overlay">▶</div>
+    <div class="featured-info">
+      <div class="featured-title">Red Sparrow</div>
+      <div class="featured-meta">
+        2018 • ❤️ 393K • 👁 1M • <span class="star">★</span> 6.6
+      </div>
+      <div class="featured-desc">
+        Ballerina Dominika Egorova is recruited to ‘Sparrow School’, a Russian intelligence service where she is forced to use her body as a weapon.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Movies Section -->
+<div class="row">
+  <div class="row-title">🎬 Movies</div>
+  <div class="sort-bar">
+    Sort By:
+    <button class="sort-btn active">Latest</button>
+    <button class="sort-btn">A-Z</button>
+    <button class="sort-btn">Year</button>
+    <button class="sort-btn">Rate</button>
+  </div>
+  <div class="scroll-row">
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/uxzzxaqycjzoFX2pFp2X0gD9Q2M.jpg" alt="Black Panther">
+      <div class="poster-info">
+        <div class="poster-title">Black Panther</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 7.1</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/9Gtg2DzBhmYcG6BPTNq8nR6NRuA.jpg" alt="Incredibles 2">
+      <div class="poster-info">
+        <div class="poster-title">Incredibles 2</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 8.1</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="Venom">
+      <div class="poster-info">
+        <div class="poster-title">Venom</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 8.2</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/to0pSYycsvTX5TOLv1AAop9Y3zO.jpg" alt="Deadpool 2">
+      <div class="poster-info">
+        <div class="poster-title">Deadpool 2</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 7.3</div>
+      </div>
+    </div>
+    <div class="poster">
+      <img src="https://image.tmdb.org/t/p/w300/aQvJ5WPzZ0Yg7kMywE6N3QXUgSF.jpg" alt="Maze Runner">
+      <div class="poster-info">
+        <div class="poster-title">Maze Runner</div>
+        <div class="poster-meta">2018 <span class="star">★</span> 8.1</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Aparat Videos Section (repeated as requested) -->
+<div class="row videos-section">
+  <div class="row-title">▶ Clips from Aparat</div>
+  <div class="scroll-row">
+    <!-- Video 1 -->
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/hjrc4h8/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 1 - hjrc4h8</div>
+    </div>
+    <!-- Video 2 -->
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/amy1sx5/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 2 - amy1sx5</div>
+    </div>
+    <!-- Video 3 -->
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/jofw89w/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 3 - jofw89w</div>
+    </div>
+    <!-- Video 4 -->
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/WVwif/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 4 - WVwif</div>
+    </div>
+    <!-- Video 5 -->
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/l31s976/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 5 - l31s976</div>
+    </div>
+    <!-- Repeated -->
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/hjrc4h8/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 1 (repeat)</div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.aparat.com/video/video/embed/videohash/amy1sx5/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      <div class="v-title">Video 2 (repeat)</div>
+    </div>
+  </div>
+</div>
+
+<!-- Series Section -->
+<div class="row">
+  <div class="row-title">📺 Series</div>
+  <div class="sort-bar">
+    Sort By:
+    <button class="sort-btn">Latest</button>
+    <button class="sort-btn">A-Z</button>
+    <button class="sort-btn active">2018</button>
+    <button class="sort-btn">Rate</button>
+  </div>
+  <div class="scroll-row">
+    <div class="poster series-poster">
+      <img src="https://image.tmdb.org/t/p/w300/6l19t6Q7b8Y2n8Y5Y5Y5Y5Y5Y5.jpg" alt="This Is Us" onerror="this.src='https://via.placeholder.com/160x90/1a1a1a/fff?text=This+Is+Us'">
+      <div class="poster-info">
+        <div class="poster-title">This Is Us</div>
+        <div class="poster-meta">2018 • NBC.com</div>
+      </div>
+    </div>
+    <div class="poster series-poster">
+      <img src="https://image.tmdb.org/t/p/w300/6l19t6Q7b8Y2n8Y5Y5Y5Y5Y5Y5.jpg" alt="The Marvelous Mrs. Maisel" onerror="this.src='https://via.placeholder.com/160x90/1a1a1a/fff?text=Mrs+Maisel'">
+      <div class="poster-info">
+        <div class="poster-title">The Marvelous Mrs. Maisel</div>
+        <div class="poster-meta">2018 • Amazon.com</div>
+      </div>
+    </div>
+    <div class="poster series-poster">
+      <img src="https://via.placeholder.com/160x90/1a1a1a/fff?text=The+Good+Place" alt="The Good Place">
+      <div class="poster-info">
+        <div class="poster-title">The Good Place</div>
+        <div class="poster-meta">2018 • NBC.com</div>
+      </div>
+    </div>
+    <div class="poster series-poster">
+      <img src="https://via.placeholder.com/160x90/1a1a1a/fff?text=GLOW" alt="GLOW">
+      <div class="poster-info">
+        <div class="poster-title">GLOW</div>
+        <div class="poster-meta">2018 • Netflix.com</div>
+      </div>
+    </div>
+    <div class="poster series-poster">
+      <img src="https://via.placeholder.com/160x90/1a1a1a/fff?text=Camping" alt="Camping">
+      <div class="poster-info">
+        <div class="poster-title">Camping</div>
+        <div class="poster-meta">2018 • HBO.com</div>
+      </div>
+    </div>
+    <div class="poster series-poster">
+      <img src="https://via.placeholder.com/160x90/1a1a1a/fff?text=Atlanta" alt="Atlanta">
+      <div class="poster-info">
+        <div class="poster-title">Atlanta</div>
+        <div class="poster-meta">2018 • FX.com</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="contact">
+    <div>Email: Milad.barzegar71@gmail.com</div>
+    <div class="socials">
+      <a href="#">📷</a>
+      <a href="#">📷</a>
+      <a href="#">f</a>
+      <a href="#">🐦</a>
+    </div>
+    <div>Phone: +98-93982-775-83</div>
+  </div>
+</footer>
+
+</body>
+</html>
