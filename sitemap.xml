@@ -1,56 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://cllo.ir/</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/videoamozesh.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/podcast.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/Vocabulary.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/Video-yout.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/tamrint.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-mobtadi.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-moghadamati.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-pish1.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-pish2.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-pish3.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-pish4.html</loc>
-  </url>
-
-  <url>
-    <loc>https://cllo.ir/azmon/azmon-pish5.html</loc>
-  </url>
-
+<url><loc>https://cllo.ir/</loc></url>
+<url><loc>https://cllo.ir/podcast.html</loc></url>
+<url><loc>https://cllo.ir/Vocabulary.html</loc></url>
+<url><loc>https://cllo.ir/videoamozesh.html</loc></url>
+<url><loc>https://cllo.ir/Youtube_video.html</loc></url>
+<url><loc>https://cllo.ir/Audio_Classe.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-mobtadi.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-moghadamati.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-pish1.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-pish2.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-pish3.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-pish4.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-pish5.html</loc></url>
+<url><loc>https://cllo.ir/azmon/azmon-pish6.html</loc></url>
+<url><loc>https://cllo.ir/azmon/herfei.html</loc></url>
 </urlset>
