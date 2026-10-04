@@ -9,11 +9,12 @@
         :root {
             --primary: #f59e0b;
             --primary-glow: rgba(245, 158, 11, 0.4);
-            --bg-dark: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --bg-dark: #090d16;
+            --card-bg: rgba(30, 41, 59, 0.75);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #10b981;
+            --danger: #ef4444;
         }
 
         * {
@@ -21,11 +22,12 @@
             margin: 0;
             padding: 0;
             font-family: 'Vazirmatn', sans-serif;
+            user-select: none;
         }
 
         body {
             background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+            background-image: radial-gradient(circle at top, #1e293b, #090d16);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
@@ -36,23 +38,29 @@
 
         .game-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 620px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 15px;
         }
 
@@ -62,36 +70,66 @@
             font-size: 24px;
             color: var(--primary);
             letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--primary-glow);
         }
 
         .stats {
             display: flex;
-            gap: 15px;
-            font-size: 14px;
+            gap: 10px;
+            font-size: 13px;
             font-weight: 600;
         }
 
         .stat-badge {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             padding: 6px 12px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px var(--primary);
         }
 
         .scene-box {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 16px;
-            padding: 20px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 18px;
+            padding: 22px;
             margin-bottom: 20px;
             text-align: center;
-            border: 1px solid rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .npc-avatar {
+            font-size: 36px;
+            margin-bottom: 8px;
         }
 
         .npc-dialogue {
             font-size: 18px;
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #fbbf24;
+            font-weight: 600;
         }
 
         .npc-translation {
@@ -100,10 +138,11 @@
         }
 
         .question-box {
-            font-size: 16px;
-            margin-bottom: 20px;
+            font-size: 15px;
+            margin-bottom: 18px;
             font-weight: 600;
             text-align: right;
+            color: #e2e8f0;
         }
 
         .options-grid {
@@ -113,58 +152,71 @@
         }
 
         .option-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-main);
             padding: 14px 20px;
             border-radius: 14px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             text-align: right;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .option-btn:hover {
-            background: rgba(245, 158, 11, 0.15);
+        .option-btn:hover:not(:disabled) {
+            background: rgba(245, 158, 11, 0.12);
             border-color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateX(-3px);
         }
 
         .option-btn.correct {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: var(--accent);
-            color: #34d399;
+            background: rgba(16, 185, 129, 0.25) !important;
+            border-color: var(--accent) !important;
+            color: #34d399 !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
         }
 
         .option-btn.wrong {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: #ef4444;
-            color: #f87171;
+            background: rgba(239, 68, 68, 0.25) !important;
+            border-color: var(--danger) !important;
+            color: #f87171 !important;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
         }
 
         .footer-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 15px;
         }
 
         .btn-action {
-            background: var(--primary);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: #000;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 14px;
         }
 
         .btn-action:hover {
-            box-shadow: 0 0 15px var(--primary-glow);
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
         }
 
         .hint-text {
@@ -172,21 +224,34 @@
             color: var(--text-muted);
             cursor: pointer;
             text-decoration: underline;
+            transition: color 0.2s;
         }
+        .hint-text:hover { color: var(--primary); }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         .result-screen {
             text-align: center;
-            padding: 30px 10px;
+            padding: 20px 10px;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .result-screen h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
+            font-size: 26px;
+            margin-bottom: 12px;
             color: var(--primary);
+        }
+
+        /* Timer style */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 4px 10px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -197,23 +262,31 @@
         <div class="header">
             <div class="logo">cllo.ir</div>
             <div class="stats">
+                <div class="stat-badge">❤️ جان: <span id="lives">3</span></div>
                 <div class="stat-badge">⭐ امتیاز: <span id="score">0</span></div>
-                <div class="stat-badge">☕ مرحله: <span id="level">1</span>/3</div>
             </div>
+        </div>
+
+        <!-- نوار پیشرفت -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
 
         <!-- بدنه اصلی بازی -->
         <div id="game-screen">
             <div class="scene-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style="font-size: 12px; color: var(--text-muted);">مرحله <span id="level">1</span> از 3</div>
+                    <div class="timer-container">⏳ <span id="timer">20</span> ثانیه</div>
+                </div>
+                <div class="npc-avatar">🤵☕</div>
                 <div class="npc-dialogue" id="npc-dialogue">"Hello! Welcome to CllO Café. What would you like?"</div>
                 <div class="npc-translation" id="npc-translation">«سلام! به کافه کلو خوش آمدید. چه میل دارید؟»</div>
             </div>
 
-            <div class="question-box" id="question-text">به عنوان مشتری، چطور باید پاسخ بدهید؟</div>
+            <div class="question-box" id="question-text">کدام گزینه پاسخ درستی برای سفارش یک قهوه است؟</div>
 
-            <div class="options-grid" id="options-container">
-                <!-- گزینه‌ها به صورت داینامیک لود می‌شوند -->
-            </div>
+            <div class="options-grid" id="options-container"></div>
 
             <div class="footer-actions">
                 <span class="hint-text" onclick="showHint()">💡 راهنمایی می‌خواهم</span>
@@ -223,9 +296,10 @@
 
         <!-- صفحه پایان بازی -->
         <div id="result-screen" class="result-screen hidden">
-            <h2>🎉 مأموریت با موفقیت به پایان رسید!</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">شما توانستید در کافه موفق به مکالمه انگلیسی شوید و اصطلاحات جدید را یاد بگیرید.</p>
-            <div style="font-size: 20px; margin-bottom: 25px;">امتیاز نهایی شما: <strong id="final-score" style="color: var(--primary);">0</strong></div>
+            <div style="font-size: 50px; margin-bottom: 10px;" id="result-icon">🎉</div>
+            <h2 id="result-title">مأموریت با موفقیت به پایان رسید!</h2>
+            <p id="result-desc" style="margin-bottom: 20px; color: var(--text-muted);">شما توانستید در کافه موفق به مکالمه انگلیسی شوید.</p>
+            <div style="font-size: 18px; margin-bottom: 25px;">امتیاز نهایی شما: <strong id="final-score" style="color: var(--primary);">0</strong> از ۶۰</div>
             <button class="btn-action" onclick="restartGame()">بازی دوباره 🔄</button>
         </div>
     </div>
@@ -269,7 +343,10 @@
 
         let currentStage = 0;
         let score = 0;
+        let lives = 3;
         let answered = false;
+        let timeLeft = 20;
+        let timerInterval;
 
         const dialogueEl = document.getElementById("npc-dialogue");
         const translationEl = document.getElementById("npc-translation");
@@ -277,20 +354,95 @@
         const optionsContainer = document.getElementById("options-container");
         const scoreEl = document.getElementById("score");
         const levelEl = document.getElementById("level");
+        const livesEl = document.getElementById("lives");
         const nextBtn = document.getElementById("next-btn");
         const gameScreen = document.getElementById("game-screen");
         const resultScreen = document.getElementById("result-screen");
         const finalScoreEl = document.getElementById("final-score");
+        const progressBar = document.getElementById("progress-bar");
+        const timerEl = document.getElementById("timer");
+        const resultTitle = document.getElementById("result-title");
+        const resultDesc = document.getElementById("result-desc");
+        const resultIcon = document.getElementById("result-icon");
+
+        // سیستم تولید صداهای صوتی ساده با Web Audio API (بدون نیاز به فایل خارجی)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.15);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(120, audioCtx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.2);
+            }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 20;
+            timerEl.textContent = timeLeft;
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function handleTimeOut() {
+            if (answered) return;
+            playSound('wrong');
+            lives--;
+            livesEl.textContent = lives;
+            answered = true;
+            
+            const buttons = optionsContainer.querySelectorAll(".option-btn");
+            buttons.forEach(btn => {
+                if (btn.textContent === stages[currentStage].options.find(o => o.correct).text) {
+                    btn.classList.add("correct");
+                }
+            });
+
+            if (lives <= 0) {
+                setTimeout(showGameOver, 1000);
+            } else if (currentStage < stages.length - 1) {
+                nextBtn.classList.remove("hidden");
+            } else {
+                setTimeout(showResult, 1000);
+            }
+        }
 
         function loadStage() {
             answered = false;
             nextBtn.classList.add("hidden");
+            startTimer();
             
             const stage = stages[currentStage];
             dialogueEl.textContent = `"${stage.dialogue}"`;
             translationEl.textContent = `«${stage.translation}»`;
             questionEl.textContent = stage.question;
             levelEl.textContent = currentStage + 1;
+            progressBar.style.width = `${((currentStage) / stages.length) * 100}%`;
 
             optionsContainer.innerHTML = "";
             stage.options.forEach((option) => {
@@ -305,6 +457,7 @@
         function selectOption(button, isCorrect) {
             if (answered) return;
             answered = true;
+            clearInterval(timerInterval);
 
             const buttons = optionsContainer.querySelectorAll(".option-btn");
             buttons.forEach(btn => {
@@ -316,11 +469,20 @@
             });
 
             if (isCorrect) {
+                playSound('correct');
                 score += 20;
                 scoreEl.textContent = score;
+            } else {
+                playSound('wrong');
+                lives--;
+                livesEl.textContent = lives;
             }
 
-            if (currentStage < stages.length - 1) {
+            progressBar.style.width = `${((currentStage + 1) / stages.length) * 100}%`;
+
+            if (lives <= 0) {
+                setTimeout(showGameOver, 1000);
+            } else if (currentStage < stages.length - 1) {
                 nextBtn.classList.remove("hidden");
             } else {
                 setTimeout(showResult, 1000);
@@ -339,13 +501,27 @@
         function showResult() {
             gameScreen.classList.add("hidden");
             resultScreen.classList.remove("hidden");
+            resultIcon.textContent = "🎉";
+            resultTitle.textContent = "مأموریت با موفقیت به پایان رسید!";
+            resultDesc.textContent = "شما توانستید در کافه موفق به مکالمه انگلیسی شوید و اصطلاحات جدید را یاد بگیرید.";
+            finalScoreEl.textContent = score;
+        }
+
+        function showGameOver() {
+            gameScreen.classList.add("hidden");
+            resultScreen.classList.remove("hidden");
+            resultIcon.textContent = "💔";
+            resultTitle.textContent = "بازی به پایان رسید!";
+            resultDesc.textContent = "جان‌های شما تمام شد. دوباره تلاش کنید تا موفق شوید.";
             finalScoreEl.textContent = score;
         }
 
         function restartGame() {
             currentStage = 0;
             score = 0;
+            lives = 3;
             scoreEl.textContent = score;
+            livesEl.textContent = lives;
             resultScreen.classList.add("hidden");
             gameScreen.classList.remove("hidden");
             loadStage();
