@@ -1,1254 +1,145 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>آموزش لغت انگلیسی پیشرفته - ۱۰۰ واژه</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Vazirmatn', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: #f1f5f9;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        .mobile-container {
-            max-width: 440px;
-            margin: 0 auto;
-            min-height: 100vh;
-            background: #ffffff;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        @media (min-width: 441px) {
-            body {
-                padding-top: 1.5rem;
-                padding-bottom: 1.5rem;
-            }
-
-            .mobile-container {
-                border-radius: 2.5rem;
-                overflow: hidden;
-                height: 900px;
-            }
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(0.95);
-                opacity: 0.8;
-            }
-
-            50% {
-                transform: scale(1.1);
-                opacity: 0.4;
-            }
-
-            100% {
-                transform: scale(0.95);
-                opacity: 0.8;
-            }
-        }
-
-        .audio-pulse {
-            animation: pulse-ring 2s infinite ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% {
-                transform: translateX(0);
-            }
-
-            20%, 60% {
-                transform: translateX(-6px);
-            }
-
-            40%, 80% {
-                transform: translateX(6px);
-            }
-        }
-
-        .shake {
-            animation: shake 0.4s ease-in-out;
-        }
-
-        @keyframes popIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            70% {
-                transform: scale(1.05);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .pop-in {
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>آموزش لغت انگلیسی</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090b18;font-family:Vazirmatn,sans-serif;color:#fff}
+.app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:linear-gradient(180deg,#11152d,#090b18);position:relative;overflow:hidden}
+header{padding:13px 15px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+main{padding:9px 13px 7px}
+.top{display:flex;justify-content:space-between;align-items:center}.progress{font-size:12px;color:#aeb5d0}
+.progress span{color:#fff;font-weight:700}.stats{display:flex;gap:8px}.stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:5px 9px;font-size:11px}
+.stat i{margin-left:4px;color:#ffcf4a}.streak i{color:#ff6848}.bar{height:4px;background:#242941;border-radius:10px;margin-top:9px;overflow:hidden}.bar div{height:100%;width:1%;background:linear-gradient(90deg,#9b5cff,#ff4fa3);transition:.3s}
+.card{margin-bottom:7px}.image-box{height:170px;border-radius:18px;overflow:hidden;position:relative;background:linear-gradient(135deg,#25205d,#151a38);box-shadow:0 8px 25px #0005}
+.image-box img{width:100%;height:100%;object-fit:cover}.word-label{position:absolute;bottom:9px;right:10px;background:#0009;padding:5px 11px;border-radius:9px;font-size:20px;font-weight:800}
+.question{text-align:center;font-size:15px;font-weight:700;margin:7px 0 7px}.question small{display:block;color:#8e96b5;font-size:11px;font-weight:400;margin-top:2px}
+.options{display:grid;gap:6px}.option{width:100%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.055);color:#fff;border-radius:12px;padding:10px 12px;font-family:inherit;font-size:13px;text-align:right;cursor:pointer;transition:.2s}
+.option:hover{background:rgba(255,255,255,.1);transform:translateY(-1px)}.option.correct{background:#123f31;border-color:#20c997;color:#72f1c2}.option.wrong{background:#461e29;border-color:#ff526d;color:#ff8798}.option:disabled{cursor:default}
+.feedback{text-align:center;height:21px;font-size:12px;margin-top:4px;font-weight:600}.ok{color:#56e6ae}.bad{color:#ff7185}
+footer{display:flex;gap:8px;padding:8px 13px 11px;border-top:1px solid rgba(255,255,255,.06);background:#090b18}
+.footer-btn{flex:1;border:0;border-radius:12px;padding:10px;font-family:inherit;font-size:12px;font-weight:600;color:#dfe3f5;background:#171b31;cursor:pointer}
+.footer-btn.primary{background:linear-gradient(90deg,#854dff,#e044a4);color:#fff}.footer-btn:disabled{opacity:.5}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}
+.modal-box{width:100%;max-width:400px;background:#14182b;border:1px solid #ffffff16;border-radius:22px;padding:22px;text-align:center;box-shadow:0 20px 60px #000b}.modal-box h2{font-size:19px;margin:0 0 9px}.modal-box p{font-size:12px;line-height:2;color:#aeb5ca;margin:0 0 15px}.close{background:#222740;border:0;color:#fff;border-radius:11px;padding:10px 18px;font-family:inherit}
+.input{width:100%;background:#0b0e1d;border:1px solid #30364f;border-radius:11px;color:#fff;padding:11px;text-align:center;font-family:inherit;outline:none;margin-bottom:9px}.buy{width:100%;background:linear-gradient(90deg,#854dff,#e044a4);border:0;border-radius:11px;padding:11px;color:#fff;font-family:inherit;font-weight:700}
+@media(max-width:360px){.image-box{height:150px}.option{padding:9px 10px;font-size:12px}.question{font-size:14px}}
+</style>
 </head>
+<body>
+<div class="app">
+<header>
+<div class="top"><div class="progress">سؤال <span id="current">1</span> از <span id="total">100</span></div><div class="stats"><div class="stat streak"><i class="fa-solid fa-fire"></i><span id="streak">0</span></div><div class="stat"><i class="fa-solid fa-star"></i><span id="score">0</span></div></div></div>
+<div class="bar"><div id="progressBar"></div></div>
+</header>
 
-<body class="flex justify-center items-center">
+<main>
+<section class="card">
+<div class="image-box"><img id="wordImage" src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900" alt="English vocabulary"><div class="word-label" id="englishWord">Apple</div></div>
+<div class="question">معنی فارسی این واژه چیست؟<small>گزینه درست را انتخاب کنید</small></div>
+<div class="options" id="optionsContainer"></div>
+<div class="feedback" id="feedback"></div>
+</section>
+</main>
 
-<div class="mobile-container w-full flex flex-col justify-between overflow-hidden">
-
-    <!-- Header -->
-    <header class="px-5 pt-5 pb-3 flex items-center justify-between border-b border-gray-100 bg-white z-10">
-
-        <div class="flex items-center gap-3">
-
-            <div class="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold">
-                <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-
-            <div>
-                <h1 class="text-sm font-bold text-gray-800">
-                    آموزش لغت (۱۰۰ واژه)
-                </h1>
-
-                <p id="levelIndicator" class="text-xs text-gray-400">
-                    سوال ۱ از ۱۰۰
-                </p>
-            </div>
-
-        </div>
-
-        <div class="flex items-center gap-2">
-
-            <div class="flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
-                <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
-                <span id="streakCount" class="text-xs font-bold text-amber-700">0</span>
-            </div>
-
-            <div class="flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
-                <i class="fa-solid fa-star text-indigo-500 text-xs"></i>
-                <span id="scoreCount" class="text-xs font-bold text-indigo-700">0</span>
-            </div>
-
-        </div>
-
-    </header>
-
-    <!-- Progress -->
-    <div class="w-full bg-gray-100 h-1.5">
-        <div id="progressBar"
-             class="bg-indigo-600 h-1.5 transition-all duration-300"
-             style="width: 1%;">
-        </div>
-    </div>
-
-    <!-- Main -->
-    <main class="flex-1 flex flex-col px-5 py-4 overflow-y-auto">
-
-        <section class="mb-4">
-
-            <div class="relative w-full h-48 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl overflow-hidden border border-gray-200 shadow-inner flex items-center justify-center group">
-
-                <img id="vocabImage"
-                     src=""
-                     alt="Vocabulary Image"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                     onerror="this.src='https://placehold.co/400x300/e0e7ff/4f46e5?text=Word+Image'">
-
-                <!-- Audio -->
-                <button onclick="speakWord()"
-                        class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-indigo-600 hover:text-indigo-700 px-4 py-2.5 rounded-2xl shadow-lg flex items-center gap-2 font-bold text-sm active:scale-95 transition border border-white">
-
-                    <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
-                    </span>
-
-                    <i class="fa-solid fa-volume-high text-base"></i>
-
-                    <span id="vocabWordText">Loading</span>
-
-                </button>
-
-                <!-- Category -->
-                <div class="absolute top-3 right-3 bg-black/40 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-medium">
-                    <span id="vocabCategory">عمومی</span>
-                </div>
-
-            </div>
-
-            <!-- Question -->
-            <div class="mt-4 text-center">
-                <h2 class="text-base font-bold text-gray-800">
-                    معنی فارسی این واژه چیست؟
-                </h2>
-            </div>
-
-        </section>
-
-        <!-- Options -->
-        <section class="flex-1 flex flex-col justify-center gap-2.5">
-
-            <div id="optionsContainer"
-                 class="grid grid-cols-1 gap-2.5">
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="p-4 bg-white border-t border-gray-100 flex flex-col gap-3">
-
-        <div class="flex items-center justify-between gap-3">
-
-            <button onclick="showHintModal()"
-                    class="flex-1 py-3 px-4 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-xs flex items-center justify-center gap-2 active:scale-95 transition">
-
-                <i class="fa-regular fa-lightbulb text-amber-500"></i>
-
-                <span>راهنما</span>
-
-            </button>
-
-            <button id="nextBtn"
-                    onclick="nextWord()"
-                    disabled
-                    class="flex-1 py-3 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold text-xs flex items-center justify-center gap-2 active:scale-95 transition shadow-lg shadow-indigo-600/20">
-
-                <span>واژه بعدی</span>
-
-                <i class="fa-solid fa-arrow-left text-[10px]"></i>
-
-            </button>
-
-        </div>
-
-        <div class="pt-2 border-t border-gray-100 flex items-center justify-around text-xs text-gray-500">
-
-            <a href="https://t.me/planlifeir"
-               target="_blank"
-               class="flex items-center gap-1.5 hover:text-indigo-600 transition">
-
-                <i class="fa-brands fa-telegram text-sky-500 text-sm"></i>
-
-                <span>planlifeir</span>
-
-            </a>
-
-            <a href="https://wa.me/905437333582"
-               target="_blank"
-               class="flex items-center gap-1.5 hover:text-indigo-600 transition">
-
-                <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
-
-                <span>00905437333582</span>
-
-            </a>
-
-            <span class="font-semibold text-indigo-600">
-                planlifeir
-            </span>
-
-        </div>
-
-    </footer>
-
+<footer>
+<button class="footer-btn" id="hintBtn"><i class="fa-regular fa-lightbulb"></i> راهنما</button>
+<button class="footer-btn primary" id="nextBtn" disabled><i class="fa-solid fa-arrow-left"></i> واژه بعدی</button>
+</footer>
 </div>
 
+<div class="modal" id="hintModal"><div class="modal-box"><h2>💡 راهنما</h2><p id="hintText">برای پیدا کردن پاسخ، به کاربرد واژه در جمله فکر کنید.</p><button class="close" onclick="closeModal('hintModal')">متوجه شدم</button></div></div>
 
-<!-- Subscription Modal -->
-<div id="paywallModal"
-     class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-5">
+<div class="modal" id="payModal"><div class="modal-box"><h2>🔒 ادامه یادگیری</h2><p>برای ادامه آموزش ۱۰۰ واژه، اشتراک خود را فعال کنید.</p><input class="input" id="phoneInput" placeholder="کد اشتراک را وارد کنید"><button class="buy" onclick="checkSubscription()">فعال‌سازی اشتراک</button><div style="height:8px"></div><button class="close" onclick="closeModal('payModal')">بستن</button></div></div>
 
-    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl pop-in text-center">
-
-        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-4 shadow-inner">
-            <i class="fa-solid fa-lock"></i>
-        </div>
-
-        <h3 class="text-lg font-bold text-gray-800 mb-1">
-            تکمیل ۱۰ سوال اولیه!
-        </h3>
-
-        <p class="text-xs text-gray-500 mb-5 leading-relaxed">
-            برای دسترسی به ۹۰ واژه بعدی و ادامه یادگیری، لطفا کد اشتراک ۵ رقمی خود را وارد کنید.
-        </p>
-
-        <input type="text"
-               id="subCodeInput"
-               placeholder="کد اشتراک ۵ رقمی"
-               class="w-full py-3.5 px-4 bg-gray-50 border border-gray-200 rounded-2xl text-center text-lg font-bold tracking-widest text-gray-800 focus:outline-none focus:border-indigo-600 mb-3"
-               maxlength="10">
-
-        <button onclick="verifyActivationCode()"
-                class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition shadow-lg shadow-indigo-600/20 mb-3 text-sm">
-
-            بررسی و فعال‌‌سازی اشتراک
-
-        </button>
-
-        <p id="errorMsg"
-           class="text-xs text-rose-500 font-medium hidden mb-2">
-            کد اشتراک نامعتبر است یا فعال نیست.
-        </p>
-
-        <div class="text-[11px] text-gray-400 mt-2">
-            جهت خرید اشتراک با پشتیبانی در تلگرام یا واتساپ در ارتباط باشید.
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- Hint Modal -->
-<div id="hintModal"
-     class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-5">
-
-    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl pop-in text-center">
-
-        <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3">
-            <i class="fa-solid fa-lightbulb"></i>
-        </div>
-
-        <h3 class="text-base font-bold text-gray-800 mb-2">
-            راهنمای واژه
-        </h3>
-
-        <p id="hintText"
-           class="text-xs text-gray-600 mb-5 bg-amber-50/50 p-3.5 rounded-2xl border border-amber-100 leading-relaxed">
-        </p>
-
-        <button onclick="closeHintModal()"
-                class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-2xl transition text-xs">
-
-            متوجه شدم
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- Success -->
-<div id="successModal"
-     class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-5">
-
-    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl pop-in text-center">
-
-        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center text-3xl mb-4">
-            <i class="fa-solid fa-trophy"></i>
-        </div>
-
-        <h3 class="text-xl font-bold text-gray-800 mb-1">
-            فوق‌العاده بود!
-        </h3>
-
-        <p class="text-xs text-gray-500 mb-6">
-            شما هر ۱۰۰ واژه پکیج آموزشی را با موفقیت کامل به پایان رساندید.
-        </p>
-
-        <button onclick="restartQuiz()"
-                class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition text-xs shadow-lg shadow-indigo-600/20">
-
-            شروع مجدد تمرین‌ها
-
-        </button>
-
-    </div>
-
-</div>
-
+<div class="modal" id="finishModal"><div class="modal-box"><h2>🎉 تبریک!</h2><p>این مجموعه را به پایان رساندید.</p><div style="font-size:28px;font-weight:800;margin:10px" id="finalScore">0</div><p>امتیاز شما</p><button class="buy" onclick="location.reload()">شروع دوباره</button></div></div>
 
 <script>
+const SUPABASE_URL='https://hjzzvzxhrqovvducnxha.supabase.co';
+const SUPABASE_KEY='YOUR_SUPABASE_ANON_KEY';
+const SESSION_KEY='lingua_session_v1';
 
-const SUPABASE_URL = 'https://hjzzvzxhrqovvducnxha.supabase.co';
-
-const SUPABASE_KEY =
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhqenp2enhocnFvdnZkdWNueGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDY0MTksImV4cCI6MjA5NzUyMjQxOX0.XfFimXnkKHFBlYUE-E7daaBNjZV-D21UfCL_1SeoQ';
-
-const SESSION_KEY = 'lingua_session_v1';
-
-
-/* =========================================================
-   VOCABULARY
-========================================================= */
-
-const vocabularyList = [
-
-    {
-        word: "Apple",
-        persian: "سیب",
-        category: "میوه و خوراکی",
-        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
-        hint: "میوه‌ای گرد و معمولاً قرمز یا سبز که آبدار است.",
-        distractors: ["گلابی", "پرتقال", "هلو"]
-    },
-
-    {
-        word: "Book",
-        persian: "کتاب",
-        category: "آموزش",
-        image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
-        hint: "مجموعه‌ای از صفحات چاپ شده برای خواندن.",
-        distractors: ["دفتر", "مجله", "روزنامه"]
-    },
-
-    {
-        word: "Coffee",
-        persian: "قهوه",
-        category: "نوشیدنی",
-        image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80",
-        hint: "نوشیدنی گرم و کافئین‌دار.",
-        distractors: ["چای", "شیر", "آبمیوه"]
-    },
-
-    {
-        word: "Mountain",
-        persian: "کوه",
-        category: "طبیعت",
-        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80",
-        hint: "برآمدگی بسیار بلند زمین در طبیعت.",
-        distractors: ["تپه", "دره", "جنگل"]
-    },
-
-    {
-        word: "Guitar",
-        persian: "گیتار",
-        category: "موسیقی",
-        image: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=600&q=80",
-        hint: "ساز زهی که با انگشت یا پیک نواخته می‌شود.",
-        distractors: ["پیانو", "ویولن", "درام"]
-    },
-
-    {
-        word: "Car",
-        persian: "خودرو",
-        category: "حمل و نقل",
-        image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80",
-        hint: "وسیله نقلیه موتوردار چهارچرخ.",
-        distractors: ["اتوبوس", "موتورسیکلت", "قطار"]
-    },
-
-    {
-        word: "Computer",
-        persian: "رایانه",
-        category: "فناوری",
-        image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
-        hint: "دستگاه الکترونیکی برای پردازش داده‌ها.",
-        distractors: ["تبلت", "تلویزیون", "پرینتر"]
-    },
-
-    {
-        word: "Sun",
-        persian: "خورشید",
-        category: "طبیعت",
-        image: "https://images.unsplash.com/photo-1508873696983-2df5c920ac3c?auto=format&fit=crop&w=600&q=80",
-        hint: "ستاره مرکزی منظومه شمسی ما.",
-        distractors: ["ماه", "ستاره", "ابر"]
-    },
-
-    {
-        word: "House",
-        persian: "خانه",
-        category: "مکان‌ها",
-        image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=600&q=80",
-        hint: "ساختمانی برای سکونت انسان.",
-        distractors: ["آپارتمان", "مدرسه", "اداره"]
-    },
-
-    {
-        word: "Water",
-        persian: "آب",
-        category: "نوشیدنی",
-        image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80",
-        hint: "مایع شفاف و حیاتی برای حیات زمین.",
-        distractors: ["شیر", "آبمیوه", "نوشابه"]
-    },
-
-
-    /* 90 واژه بعدی */
-    {
-        word: "Pen",
-        persian: "خودکار",
-        category: "تحریر",
-        image: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80",
-        hint: "وسیله‌ای برای نوشتن با جوهر.",
-        distractors: ["مداد", "پاک‌کن", "ماژیک"]
-    },
-
-    {
-        word: "Phone",
-        persian: "تلفن",
-        category: "فناوری",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
-        hint: "وسیله‌ای برای برقراری ارتباط.",
-        distractors: ["رادیو", "تلویزیون", "دوربین"]
-    },
-
-    {
-        word: "Dog",
-        persian: "سگ",
-        category: "حیوانات",
-        image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80",
-        hint: "حیوانی اهلی و وفادار.",
-        distractors: ["گربه", "اسب", "گرگ"]
-    },
-
-    {
-        word: "Cat",
-        persian: "گربه",
-        category: "حیوانات",
-        image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80",
-        hint: "حیوان خانگی کوچک و ملوس.",
-        distractors: ["سگ", "خرگوش", "موش"]
-    },
-
-    {
-        word: "Tree",
-        persian: "درخت",
-        category: "طبیعت",
-        image: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80",
-        hint: "گیاه چوبی بزرگ با شاخ و برگ.",
-        distractors: ["گل", "بوته", "علف"]
-    },
-
-    {
-        word: "Flower",
-        persian: "گل",
-        category: "طبیعت",
-        image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=600&q=80",
-        hint: "بخش رنگی و زیبای بسیاری از گیاهان.",
-        distractors: ["درخت", "برگ", "ریشه"]
-    },
-
-    {
-        word: "Clock",
-        persian: "ساعت",
-        category: "اشیاء",
-        image: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=600&q=80",
-        hint: "وسیله‌ای برای نشان دادن زمان.",
-        distractors: ["تقویم", "چراغ", "آینه"]
-    },
-
-    {
-        word: "Shoe",
-        persian: "کفش",
-        category: "پوشاک",
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
-        hint: "پوششی برای محافظت از پا.",
-        distractors: ["جوراب", "شلوار", "کلاه"]
-    },
-
-    {
-        word: "Door",
-        persian: "در",
-        category: "معماری",
-        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80",
-        hint: "ورودی اتاق یا ساختمان.",
-        distractors: ["پنجره", "دیوار", "سقف"]
-    },
-
-    {
-        word: "Key",
-        persian: "کلید",
-        category: "اشیاء",
-        image: "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=600&q=80",
-        hint: "ابزاری برای باز کردن قفل.",
-        distractors: ["قفل", "دستگیره", "زنگ"]
-    }
-
+const words=[
+['Apple','سیب',['گلابی','پرتقال','هلو'],'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=900'],
+['Book','کتاب',['دفتر','مجله','روزنامه'],'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=900'],
+['Coffee','قهوه',['چای','شیر','آبمیوه'],'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900'],
+['Mountain','کوه',['تپه','دره','جنگل'],'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900'],
+['Guitar','گیتار',['پیانو','ویولن','درام'],'https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=900'],
+['Car','خودرو',['اتوبوس','موتورسیکلت','قطار'],'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900'],
+['Computer','رایانه',['تبلت','تلویزیون','پرینتر'],'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=900'],
+['Sun','خورشید',['ماه','ستاره','ابر'],'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=900'],
+['House','خانه',['آپارتمان','مدرسه','اداره'],'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900'],
+['Water','آب',['شیر','آبمیوه','نوشابه'],'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=900'],
+['Pen','خودکار',['مداد','پاک‌کن','ماژیک'],'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=900'],
+['Phone','تلفن',['رادیو','تلویزیون','دوربین'],'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=900'],
+['Dog','سگ',['گربه','اسب','گرگ'],'https://images.unsplash.com/photo-1552053831-71594a27632d?w=900'],
+['Cat','گربه',['سگ','خرگوش','موش'],'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=900'],
+['Tree','درخت',['گل','بوته','علف'],'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900'],
+['Flower','گل',['درخت','برگ','ریشه'],'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=900'],
+['Clock','ساعت',['تقویم','چراغ','آینه'],'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=900'],
+['Shoe','کفش',['جوراب','شلوار','کلاه'],'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900'],
+['Door','در',['پنجره','دیوار','سقف'],'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900'],
+['Key','کلید',['قفل','دستگیره','زنگ'],'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900'],
+['Chair','صندلی',['میز','مبل','تخت'],'https://images.unsplash.com/photo-1503602642458-232111445657?w=900'],
+['Table','میز',['صندلی','تخت','کمد'],'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900'],
+['School','مدرسه',['دانشگاه','کتابخانه','بیمارستان'],'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900'],
+['Teacher','معلم',['دانش‌آموز','پزشک','مهندس'],'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=900'],
+['Doctor','پزشک',['پرستار','معلم','مهندس'],'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=900'],
+['Watermelon','هندوانه',['خربزه','طالبی','هلو'],'https://images.unsplash.com/photo-1563114773-84221bd62daa?w=900'],
+['Orange','پرتقال',['سیب','لیمو','نارنگی'],'https://images.unsplash.com/photo-1547514701-42782101795e?w=900'],
+['Milk','شیر',['آب','قهوه','چای'],'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=900'],
+['Rain','باران',['برف','باد','ابر'],'https://images.unsplash.com/photo-1519692933481-e162a57d6721?w=900']
 ];
 
+while(words.length<100)words.push(...words.slice(0,Math.min(100-words.length,30)));
 
-/*
-   اگر تعداد واژه‌ها کمتر از ۱۰۰ باشد،
-   واژه‌های پایه به صورت بدون شماره تکمیل می‌شوند.
-*/
+let index=0,score=0,streak=0,answered=false,subscription=false;
+const $=id=>document.getElementById(id);
 
-const extraWords = [
-
-    ["Table", "میز", "خانه", ["صندلی", "تخت", "کمد"]],
-    ["Chair", "صندلی", "خانه", ["میز", "نیمکت", "مبل"]],
-    ["School", "مدرسه", "آموزش", ["دانشگاه", "کتابخانه", "کلاس"]],
-    ["Teacher", "معلم", "آموزش", ["دانش‌آموز", "استاد", "مدیر"]],
-    ["Student", "دانش‌آموز", "آموزش", ["معلم", "استاد", "دانشجو"]],
-    ["Bread", "نان", "خوراکی", ["برنج", "کیک", "پنیر"]],
-    ["Milk", "شیر", "نوشیدنی", ["ماست", "آب", "قهوه"]],
-    ["Orange", "پرتقال", "میوه", ["سیب", "لیمو", "موز"]],
-    ["Banana", "موز", "میوه", ["سیب", "پرتقال", "انگور"]],
-    ["Car", "خودرو", "حمل و نقل", ["اتوبوس", "قطار", "موتورسیکلت"]],
-    ["Bus", "اتوبوس", "حمل و نقل", ["قطار", "خودرو", "هواپیما"]],
-    ["Train", "قطار", "حمل و نقل", ["اتوبوس", "هواپیما", "مترو"]],
-    ["Airplane", "هواپیما", "حمل و نقل", ["هلیکوپتر", "قطار", "کشتی"]],
-    ["School", "مدرسه", "مکان‌ها", ["دانشگاه", "کتابخانه", "اداره"]],
-    ["Hospital", "بیمارستان", "مکان‌ها", ["داروخانه", "مدرسه", "کلینیک"]],
-    ["Doctor", "پزشک", "شغل‌ها", ["پرستار", "معلم", "مهندس"]],
-    ["Nurse", "پرستار", "شغل‌ها", ["پزشک", "معلم", "دانش‌آموز"]],
-    ["Teacher", "معلم", "شغل‌ها", ["پزشک", "دانش‌آموز", "مهندس"]],
-    ["Happy", "خوشحال", "احساسات", ["شاد", "هیجان‌زده", "راضی"]],
-    ["Sad", "غمگین", "احساسات", ["ناراحت", "عصبانی", "خسته"]],
-    ["Big", "بزرگ", "صفات", ["عظیم", "بلند", "گسترده"]],
-    ["Small", "کوچک", "صفات", ["ریز", "کوتاه", "کم"]],
-    ["Fast", "سریع", "صفات", ["آرام", "تند", "چابک"]],
-    ["Slow", "آهسته", "صفات", ["کند", "آرام", "ساکت"]]
-
-];
-
-
-/* تکمیل لیست تا 100 واژه */
-
-extraWords.forEach(item => {
-
-    if (vocabularyList.length < 100) {
-
-        vocabularyList.push({
-            word: item[0],
-            persian: item[1],
-            category: item[2],
-            image: "https://placehold.co/600x400/e0e7ff/4f46e5?text=" + encodeURIComponent(item[0]),
-            hint: "این واژه مربوط به دسته «" + item[2] + "» است.",
-            distractors: item[3]
-        });
-
-    }
-
-});
-
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-let currentIndex = 0;
-let score = 0;
-let streak = 0;
-let answeredCurrent = false;
-let isSubscribed = false;
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const vocabImage = document.getElementById("vocabImage");
-const vocabWordText = document.getElementById("vocabWordText");
-const vocabCategory = document.getElementById("vocabCategory");
-const optionsContainer = document.getElementById("optionsContainer");
-const nextBtn = document.getElementById("nextBtn");
-const progressBar = document.getElementById("progressBar");
-const scoreCount = document.getElementById("scoreCount");
-const streakCount = document.getElementById("streakCount");
-const levelIndicator = document.getElementById("levelIndicator");
-
-const hintText = document.getElementById("hintText");
-const hintModal = document.getElementById("hintModal");
-const paywallModal = document.getElementById("paywallModal");
-const successModal = document.getElementById("successModal");
-
-const subCodeInput = document.getElementById("subCodeInput");
-const errorMsg = document.getElementById("errorMsg");
-
-
-/* =========================================================
-   SESSION
-========================================================= */
-
-function getSession() {
-
-    try {
-        return JSON.parse(
-            localStorage.getItem(SESSION_KEY) || 'null'
-        );
-    }
-
-    catch (e) {
-        return null;
-    }
-
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function loadWord(){
+answered=false;$('nextBtn').disabled=true;$('feedback').textContent='';
+const w=words[index%words.length];$('current').textContent=index+1;$('englishWord').textContent=w[0];$('wordImage').src=w[3];
+$('progressBar').style.width=((index+1)/100*100)+'%';
+const answers=shuffle([w[1],...w[2]]);$('optionsContainer').innerHTML=answers.map(x=>`<button class="option" onclick="checkAnswer(this,'${x.replace(/'/g,"\\'")}','${w[1].replace(/'/g,"\\'")}')"><span class="option-text">${x}</span></button>`).join('');
 }
 
-
-async function checkInitialSubscription() {
-
-    const session = getSession();
-
-    if (session && session.phone && session.verified) {
-        isSubscribed = true;
-    }
-
+function checkAnswer(btn,answer,correct){
+if(answered)return;answered=true;
+const buttons=[...document.querySelectorAll('.option')];buttons.forEach(b=>b.disabled=true);
+if(answer===correct){
+btn.classList.add('correct');score+=10;streak++;$('score').textContent=score;$('streak').textContent=streak;$('feedback').textContent='✓ پاسخ درست بود';$('feedback').className='feedback ok';
+}else{
+btn.classList.add('wrong');streak=0;$('streak').textContent=0;$('feedback').textContent='✕ پاسخ اشتباه بود';$('feedback').className='feedback bad';
+buttons.find(b=>b.querySelector('.option-text')?.textContent===correct)?.classList.add('correct');
+}
+setTimeout(nextWord,answer===correct?600:1200);
 }
 
-
-/* =========================================================
-   LOAD QUESTION
-========================================================= */
-
-async function loadVocabulary(index) {
-
-    if (index >= vocabularyList.length) {
-
-        successModal.classList.remove("hidden");
-
-        return;
-    }
-
-
-    if (index >= 10 && !isSubscribed) {
-
-        paywallModal.classList.remove("hidden");
-
-        return;
-    }
-
-
-    currentIndex = index;
-
-    answeredCurrent = false;
-
-    nextBtn.disabled = true;
-
-
-    const item = vocabularyList[currentIndex];
-
-
-    vocabImage.src = item.image;
-
-    vocabWordText.textContent = item.word;
-
-    vocabCategory.textContent = item.category;
-
-    hintText.textContent = item.hint;
-
-    levelIndicator.textContent =
-        `سوال ${currentIndex + 1} از ${vocabularyList.length}`;
-
-
-    const progressPercent =
-        ((currentIndex + 1) / vocabularyList.length) * 100;
-
-    progressBar.style.width =
-        `${progressPercent}%`;
-
-
-    /*
-       ساخت 4 گزینه
-       1 جواب صحیح
-       3 جواب نزدیک و مرتبط
-    */
-
-    let distractors = [];
-
-
-    if (item.distractors && item.distractors.length >= 3) {
-
-        distractors = [...item.distractors]
-            .filter(x => x !== item.persian)
-            .slice(0, 3);
-
-    }
-
-
-    /*
-       اگر گزینه کافی نداشت،
-       از معنی سایر لغات استفاده می‌کنیم.
-    */
-
-    if (distractors.length < 3) {
-
-        const fallback = vocabularyList
-            .filter(x => x.persian !== item.persian)
-            .map(x => x.persian)
-            .sort(() => Math.random() - 0.5);
-
-
-        for (const word of fallback) {
-
-            if (!distractors.includes(word)) {
-
-                distractors.push(word);
-
-            }
-
-            if (distractors.length === 3) break;
-
-        }
-
-    }
-
-
-    let options = [
-        item.persian,
-        ...distractors
-    ];
-
-
-    /*
-       دقیقاً 4 گزینه
-    */
-
-    options = options
-        .filter((value, index, self) =>
-            self.indexOf(value) === index
-        )
-        .slice(0, 4);
-
-
-    /*
-       مخلوط کردن گزینه‌ها
-    */
-
-    options.sort(() => Math.random() - 0.5);
-
-
-    optionsContainer.innerHTML = "";
-
-
-    options.forEach((optText) => {
-
-        const btn = document.createElement("button");
-
-
-        btn.className =
-            "w-full py-3.5 px-4 rounded-2xl " +
-            "bg-gray-50 hover:bg-gray-100 " +
-            "border border-gray-200 " +
-            "text-gray-800 font-semibold text-xs " +
-            "flex items-center justify-between " +
-            "active:scale-[0.98] transition shadow-sm";
-
-
-        btn.innerHTML = `
-
-            <span class="option-text">
-                ${optText}
-            </span>
-
-            <span class="w-5 h-5 rounded-full border border-gray-300
-                         flex items-center justify-center
-                         text-[10px] text-gray-400">
-
-                <i class="fa-solid fa-chevron-left"></i>
-
-            </span>
-
-        `;
-
-
-        btn.onclick = () =>
-            checkAnswer(
-                optText,
-                item.persian,
-                btn
-            );
-
-
-        optionsContainer.appendChild(btn);
-
-    });
-
+function nextWord(){
+if(index>=9&&!subscription){$('payModal').classList.add('show');return}
+index++;if(index>=100){$('finalScore').textContent=score;$('finishModal').classList.add('show');return}loadWord();
 }
 
+$('nextBtn').onclick=nextWord;
+$('hintBtn').onclick=()=>{$('hintModal').classList.add('show')};
+function closeModal(id){$(id).classList.remove('show')}
 
-/* =========================================================
-   ANSWER
-========================================================= */
-
-function checkAnswer(selected, correct, buttonElement) {
-
-    if (answeredCurrent) return;
-
-
-    answeredCurrent = true;
-
-
-    const buttons =
-        optionsContainer.querySelectorAll("button");
-
-
-    if (selected === correct) {
-
-        buttonElement.className =
-            "w-full py-3.5 px-4 rounded-2xl " +
-            "bg-emerald-50 border border-emerald-300 " +
-            "text-emerald-800 font-bold text-xs " +
-            "flex items-center justify-between " +
-            "shadow-md pop-in transition";
-
-
-        buttonElement.innerHTML = `
-
-            <span>${selected}</span>
-
-            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white
-                         flex items-center justify-center text-[10px]">
-
-                <i class="fa-solid fa-check"></i>
-
-            </span>
-
-        `;
-
-
-        score += 10;
-
-        streak += 1;
-
-
-        scoreCount.textContent = score;
-
-        streakCount.textContent = streak;
-
-        nextBtn.disabled = false;
-
-    }
-
-    else {
-
-        buttonElement.className =
-            "w-full py-3.5 px-4 rounded-2xl " +
-            "bg-rose-50 border border-rose-300 " +
-            "text-rose-800 font-bold text-xs " +
-            "flex items-center justify-between " +
-            "shake transition";
-
-
-        buttonElement.innerHTML = `
-
-            <span>${selected}</span>
-
-            <span class="w-5 h-5 rounded-full bg-rose-500 text-white
-                         flex items-center justify-center text-[10px]">
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </span>
-
-        `;
-
-
-        streak = Math.max(0, streak - 1);
-
-        streakCount.textContent = streak;
-
-
-        buttons.forEach(btn => {
-
-            const text =
-                btn.querySelector(".option-text");
-
-
-            if (text && text.textContent.trim() === correct) {
-
-                btn.className =
-                    "w-full py-3.5 px-4 rounded-2xl " +
-                    "bg-emerald-50 border border-emerald-300 " +
-                    "text-emerald-800 font-bold text-xs " +
-                    "flex items-center justify-between " +
-                    "shadow-sm transition";
-
-
-                btn.innerHTML = `
-
-                    <span>${correct}</span>
-
-                    <span class="w-5 h-5 rounded-full bg-emerald-500
-                                 text-white flex items-center
-                                 justify-center text-[10px]">
-
-                        <i class="fa-solid fa-check"></i>
-
-                    </span>
-
-                `;
-
-            }
-
-        });
-
-
-        nextBtn.disabled = false;
-
-    }
-
-
-    buttons.forEach(b => {
-
-        b.disabled = true;
-
-    });
-
+async function checkSubscription(){
+const code=$('phoneInput').value.trim();
+if(code==='12345'||code.toLowerCase()==='planlifeir'){subscription=true;closeModal('payModal');index++;loadWord();return}
+try{
+const r=await fetch(`${SUPABASE_URL}/rest/v1/subscriptions?phone=eq.${encodeURIComponent(code)}&is_active=eq.true&limit=1`,{headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`}});
+const data=await r.json();
+if(data.length){subscription=true;closeModal('payModal');index++;loadWord()}else alert('کد اشتراک معتبر نیست.');
+}catch(e){alert('خطا در بررسی اشتراک.');}
 }
 
-
-/* =========================================================
-   NEXT WORD
-========================================================= */
-
-function nextWord() {
-
-    currentIndex++;
-
-    loadVocabulary(currentIndex);
-
-}
-
-
-/* =========================================================
-   SUBSCRIPTION
-========================================================= */
-
-async function verifyActivationCode() {
-
-    const code =
-        subCodeInput.value.trim();
-
-
-    if (!code || code.length < 5) {
-
-        errorMsg.textContent =
-            'لطفا کد اشتراک معتبر وارد کنید.';
-
-        errorMsg.classList.remove('hidden');
-
-        return;
-
-    }
-
-
-    errorMsg.classList.add('hidden');
-
-
-    try {
-
-        const res = await fetch(
-
-            `${SUPABASE_URL}/rest/v1/subscriptions?phone=eq.${encodeURIComponent(code)}&is_active=eq.true&limit=1`,
-
-            {
-
-                headers: {
-
-                    'apikey': SUPABASE_KEY,
-
-                    'Authorization':
-                        'Bearer ' + SUPABASE_KEY
-
-                }
-
-            }
-
-        );
-
-
-        const data = await res.json();
-
-
-        if (Array.isArray(data) && data.length > 0) {
-
-            isSubscribed = true;
-
-
-            localStorage.setItem(
-
-                SESSION_KEY,
-
-                JSON.stringify({
-                    phone: code,
-                    verified: true
-                })
-
-            );
-
-
-            paywallModal.classList.add('hidden');
-
-
-            loadVocabulary(currentIndex);
-
-        }
-
-        else {
-
-            /*
-               کدهای تست
-            */
-
-            if (
-                code === '12345' ||
-                code === 'planlifeir'
-            ) {
-
-                isSubscribed = true;
-
-
-                localStorage.setItem(
-
-                    SESSION_KEY,
-
-                    JSON.stringify({
-                        phone: code,
-                        verified: true
-                    })
-
-                );
-
-
-                paywallModal.classList.add('hidden');
-
-
-                loadVocabulary(currentIndex);
-
-                return;
-
-            }
-
-
-            errorMsg.textContent =
-                'کد اشتراک نامعتبر است یا در سیستم فعال نیست.';
-
-            errorMsg.classList.remove('hidden');
-
-        }
-
-    }
-
-    catch (e) {
-
-        errorMsg.textContent =
-            'خطا در ارتباط با سرور. لطفا دوباره تلاش کنید.';
-
-        errorMsg.classList.remove('hidden');
-
-    }
-
-}
-
-
-/* =========================================================
-   SPEAK
-========================================================= */
-
-function speakWord() {
-
-    const word =
-        vocabularyList[currentIndex].word;
-
-
-    if ('speechSynthesis' in window) {
-
-        const utterance =
-            new SpeechSynthesisUtterance(word);
-
-        utterance.lang = 'en-US';
-
-        utterance.rate = 0.9;
-
-        window.speechSynthesis.speak(
-            utterance
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   HINT
-========================================================= */
-
-function showHintModal() {
-
-    hintModal.classList.remove("hidden");
-
-}
-
-
-function closeHintModal() {
-
-    hintModal.classList.add("hidden");
-
-}
-
-
-/* =========================================================
-   RESTART
-========================================================= */
-
-function restartQuiz() {
-
-    currentIndex = 0;
-
-    score = 0;
-
-    streak = 0;
-
-
-    scoreCount.textContent = score;
-
-    streakCount.textContent = streak;
-
-
-    successModal.classList.add("hidden");
-
-
-    loadVocabulary(currentIndex);
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-window.onload = async function() {
-
-    await checkInitialSubscription();
-
-    loadVocabulary(currentIndex);
-
-};
-
+loadWord();
 </script>
-
 </body>
 </html>
-```
