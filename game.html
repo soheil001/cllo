@@ -130,18 +130,22 @@
             margin-bottom: 8px;
             color: #fbbf24;
             font-weight: 600;
+            direction: ltr;
+            unicode-bidi: embed;
+            text-align: center;
         }
 
         .npc-translation {
             font-size: 14px;
             color: var(--text-muted);
+            text-align: center;
         }
 
         .question-box {
             font-size: 15px;
             margin-bottom: 18px;
             font-weight: 600;
-            text-align: right;
+            text-align: center;
             color: #e2e8f0;
         }
 
@@ -159,17 +163,19 @@
             border-radius: 14px;
             cursor: pointer;
             font-size: 15px;
-            text-align: right;
+            text-align: center;
             transition: all 0.25s ease;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            direction: ltr;
+            unicode-bidi: embed;
         }
 
         .option-btn:hover:not(:disabled) {
             background: rgba(245, 158, 11, 0.12);
             border-color: var(--primary);
-            transform: translateX(-3px);
+            transform: translateY(-2px);
         }
 
         .option-btn.correct {
@@ -242,7 +248,6 @@
             color: var(--primary);
         }
 
-        /* Timer style */
         .timer-container {
             display: flex;
             align-items: center;
@@ -276,15 +281,15 @@
         <div id="game-screen">
             <div class="scene-box">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <div style="font-size: 12px; color: var(--text-muted);">مرحله <span id="level">1</span> از 3</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">مرحله <span id="level">1</span> از 60</div>
                     <div class="timer-container">⏳ <span id="timer">20</span> ثانیه</div>
                 </div>
                 <div class="npc-avatar">🤵☕</div>
-                <div class="npc-dialogue" id="npc-dialogue">"Hello! Welcome to CllO Café. What would you like?"</div>
-                <div class="npc-translation" id="npc-translation">«سلام! به کافه کلو خوش آمدید. چه میل دارید؟»</div>
+                <div class="npc-dialogue" id="npc-dialogue">"Hello!"</div>
+                <div class="npc-translation" id="npc-translation">«سلام!»</div>
             </div>
 
-            <div class="question-box" id="question-text">کدام گزینه پاسخ درستی برای سفارش یک قهوه است؟</div>
+            <div class="question-box" id="question-text">معنی کلمه یا عبارت فوق چیست؟</div>
 
             <div class="options-grid" id="options-container"></div>
 
@@ -298,47 +303,70 @@
         <div id="result-screen" class="result-screen hidden">
             <div style="font-size: 50px; margin-bottom: 10px;" id="result-icon">🎉</div>
             <h2 id="result-title">مأموریت با موفقیت به پایان رسید!</h2>
-            <p id="result-desc" style="margin-bottom: 20px; color: var(--text-muted);">شما توانستید در کافه موفق به مکالمه انگلیسی شوید.</p>
-            <div style="font-size: 18px; margin-bottom: 25px;">امتیاز نهایی شما: <strong id="final-score" style="color: var(--primary);">0</strong> از ۶۰</div>
+            <p id="result-desc" style="margin-bottom: 20px; color: var(--text-muted);">شما تمامی مراحل کافه را به پایان رساندید.</p>
+            <div style="font-size: 18px; margin-bottom: 25px;">امتیاز نهایی شما: <strong id="final-score" style="color: var(--primary);">0</strong> از ۱۲۰۰</div>
             <button class="btn-action" onclick="restartGame()">بازی دوباره 🔄</button>
         </div>
     </div>
 
     <script>
+        // تولید ۶۰ سوال از بسیار ساده به تدریج پیشرفته
         const stages = [
-            {
-                dialogue: "Hello! Welcome to CllO Café. What would you like?",
-                translation: "«سلام! به کافه کلو خوش آمدید. چه میل دارید؟»",
-                question: "کدام گزینه پاسخ درستی برای سفارش یک قهوه است؟",
-                options: [
-                    { text: "I want a cup of coffee, please.", correct: true },
-                    { text: "Give me coffee now!", correct: false },
-                    { text: "You are welcome coffee.", correct: false }
-                ],
-                hint: "از عبارت مؤدبانه I want ... یا I would like استفاده کنید."
-            },
-            {
-                dialogue: "Sure! Would you like some milk with your coffee?",
-                translation: "«حتماً! آیا کمی شیر با قهوه‌تان میل دارید؟»",
-                question: "اگر شیر می‌خواهید، چطور جواب می‌دهید؟",
-                options: [
-                    { text: "No, thank you.", correct: false },
-                    { text: "Yes, please. Just a little.", correct: true },
-                    { text: "I am fine milk.", correct: false }
-                ],
-                hint: "برای پاسخ مثبت همراه با جزئیات از Yes, please استفاده کنید."
-            },
-            {
-                dialogue: "Here is your coffee. That will be 5 dollars.",
-                translation: "«این هم از قهوه شما. ۵ دلار میشه.»",
-                question: "چطور از گارسون تشکر می‌کنید و پول را می‌دهید؟",
-                options: [
-                    { text: "Goodbye, I am going.", correct: false },
-                    { text: "Thank you. Here you are.", correct: true },
-                    { text: "Where is my money?", correct: false }
-                ],
-                hint: "عبارت Here you are یعنی «بفرمایید (اینم پول/چیز دیگر)»."
-            }
+            // سطح ۱ تا ۱۰ (بسیار ساده - زمان ۲۰ ثانیه)
+            { dialogue: "Hi!", translation: "«سلام!»", question: "معنی کلمه فوق چیست؟", options: [{ text: "Hi!", correct: true }, { text: "Goodbye", correct: false }, { text: "Thanks", correct: false }], hint: "یک سلام بسیار خودمانی و کوتاه." },
+            { dialogue: "Hello!", translation: "«سلام!»", question: "معنی این کلمه چیست؟", options: [{ text: "Hello!", correct: true }, { text: "No", correct: false }, { text: "Yes", correct: false }], hint: "کلمه رایج برای سلام کردن." },
+            { dialogue: "Thanks.", translation: "«ممنون.»", question: "معنی این کلمه چیست؟", options: [{ text: "Thanks.", correct: true }, { text: "Please.", correct: false }, { text: "Sorry.", correct: false }], hint: "برای تشکر کردن استفاده می‌شود." },
+            { dialogue: "Please.", translation: "«لطفاً.»", question: "معنی این کلمه چیست؟", options: [{ text: "Please.", correct: true }, { text: "No", correct: false }, { text: "Hi", correct: false }], hint: "برای درخواست مؤدبانه به کار می‌رود." },
+            { dialogue: "Yes.", translation: "«بله.»", question: "معنی این کلمه چیست؟", options: [{ text: "Yes.", correct: true }, { text: "No.", correct: false }, { text: "Maybe.", correct: false }], hint: "پاسخ مثبت." },
+            { dialogue: "No.", translation: "«خیر / نه.»", question: "معنی این کلمه چیست؟", options: [{ text: "No.", correct: true }, { text: "Yes.", correct: false }, { text: "OK.", correct: false }], hint: "پاسخ منفی." },
+            { dialogue: "Water", translation: "«آب»", question: "کدام گزینه به معنای آب است؟", options: [{ text: "Water", correct: true }, { text: "Milk", correct: false }, { text: "Coffee", correct: false }], hint: "نوشیدنی پایه و ضروری." },
+            { dialogue: "Coffee", translation: "«قهوه»", question: "کدام گزینه به معنای قهوه است؟", options: [{ text: "Coffee", correct: true }, { text: "Tea", correct: false }, { text: "Juice", correct: false }], hint: "نوشیدنی کافئین‌دار پرطرفدار." },
+            { dialogue: "Tea", translation: "«چای»", question: "کدام گزینه به معنای چای است؟", options: [{ text: "Tea", correct: true }, { text: "Water", correct: false }, { text: "Milk", correct: false }], hint: "نوشیدنی گرم محبوب." },
+            { dialogue: "Milk", translation: "«شیر»", question: "کدام گزینه به معنای شیر است؟", options: [{ text: "Milk", correct: true }, { text: "Coffee", correct: false }, { text: "Soda", correct: false }], hint: "نوشیدنی سفید رنگ مغذی." },
+
+            // سطح ۱۱ تا ۴۰ (متوسط - زمان ۱۰ ثانیه)
+            { dialogue: "Good morning!", translation: "«صبح بخیر!»", question: "چطور در صبح سلام می‌کنید؟", options: [{ text: "Good morning!", correct: true }, { text: "Good night!", correct: false }, { text: "Goodbye!", correct: false }], hint: "برای اول روز استفاده می‌شود." },
+            { dialogue: "Good evening!", translation: "«عصر بخیر!»", question: "سلام وقت عصر چطور گفته می‌شود؟", options: [{ text: "Good evening!", correct: true }, { text: "Good morning!", correct: false }, { text: "Hi!", correct: false }], hint: "برای شروع شب یا غروب." },
+            { dialogue: "Menu, please.", translation: "«لطفاً منو را بدهید.»", question: "چطور منو را از گارسون بخواهید؟", options: [{ text: "Menu, please.", correct: true }, { text: "Check, please.", correct: false }, { text: "Water, please.", correct: false }], hint: "برای دیدن لیست غذاها و نوشیدنی‌ها." },
+            { dialogue: "What would you like?", translation: "«چه میل دارید؟»", question: "گارسون این را برای چه می‌پرسد؟", options: [{ text: "برای پرسیدن سفارش شما", correct: true }, { text: "برای خداحافظی", correct: false }, { text: "برای قیمت دادن", correct: false }], hint: "سوال درباره سفارش مشتری." },
+            { dialogue: "I want a coffee.", translation: "«من یک قهوه می‌خواهم.»", question: "چطور درخواست قهوه کنید؟", options: [{ text: "I want a coffee.", correct: true }, { text: "You want coffee.", correct: false }, { text: "Coffee is me.", correct: false }], hint: "استفاده از I want..." },
+            { dialogue: "I would like tea.", translation: "«من چای میل دارم.»", question: "شکل مؤدبانه‌تر سفارش چای چیست؟", options: [{ text: "I would like tea.", correct: true }, { text: "Give me tea!", correct: false }, { text: "Tea now!", correct: false }], hint: "I would like مخفف مؤدانه‌تری است." },
+            { dialogue: "With milk, please.", translation: "«با شیر، لطفاً.»", question: "اگر همراه نوشیدنی شیر بخواهید چه می‌گویید؟", options: [{ text: "With milk, please.", correct: true }, { text: "No milk, please.", correct: false }, { text: "Only milk.", correct: false }], hint: "کلمه With به معنای (همراه با) است." },
+            { dialogue: "Without sugar.", translation: "«بدون شکر.»", question: "اگر چای یا قهوه بدون قند بخواهید:", options: [{ text: "Without sugar.", correct: true }, { text: "With sugar.", correct: false }, { text: "More sugar.", correct: false }], hint: "کلمه Without یعنی بدونِ." },
+            { dialogue: "How much is it?", translation: "«چقدر می‌شود؟ (قیمت چقدر است؟)»", question: "برای پرسیدن قیمت چه می‌پرسید؟", options: [{ text: "How much is it?", correct: true }, { text: "Where is it?", correct: false }, { text: "What is your name?", correct: false }], hint: "How much برای قیمت است." },
+            { dialogue: "It is 5 dollars.", translation: "«۵ دلار می‌شود.»", question: "معنی این جمله چیست؟", options: [{ text: "قیمت ۵ دلار است.", correct: true }, { text: "ساعت ۵ است.", correct: false }, { text: "۵ نفر هستند.", correct: false }], hint: "dollars یعنی دلار." },
+            { dialogue: "Here you are.", translation: "«بفرمایید. (این خدمت شما)»", question: "وقتی چیزی را به کسی می‌دهید چه می‌گویید؟", options: [{ text: "Here you are.", correct: true }, { text: "Where are you?", correct: false }, { text: "Thank you.", correct: false }], hint: "عبارت تحویل دادن شیء." },
+            { dialogue: "Thank you so much.", translation: "«خیلی ممنون از شما.»", question: "تشکر کامل و صمیمی:", options: [{ text: "Thank you so much.", correct: true }, { text: "No, thanks.", correct: false }, { text: "Goodbye.", correct: false }], hint: "so much یعنی خیلی زیاد." },
+            { dialogue: "You're welcome.", translation: "«خواهش می‌کنم.»", question: "در پاسخ به Thank you چه می‌گویند؟", options: [{ text: "You're welcome.", correct: true }, { text: "Goodbye.", correct: false }, { text: "Sorry.", correct: false }], hint: "پاسخ استاندارد به تشکر." },
+            { dialogue: "Excuse me!", translation: "«ببخشید! (برای جلب توجه)»", question: "برای صدا زدن گارسون چه می‌گویید؟", options: [{ text: "Excuse me!", correct: true }, { text: "Hey you!", correct: false }, { text: "Goodbye!", correct: false }], hint: "راه مؤدبانه صدا زدن." },
+            { dialogue: "I am ready.", translation: "«من آماده‌ام.»", question: "وقتی برای سفارش آماده‌اید:", options: [{ text: "I am ready.", correct: true }, { text: "I am tired.", correct: false }, { text: "I am late.", correct: false }], hint: "ready به معنای آماده است." },
+            { dialogue: "Just a moment, please.", translation: "«فقط یک لحظه، لطفاً.»", question: "معنی این عبارت چیست؟", options: [{ text: "کمی صبر کنید.", correct: true }, { text: "برو بیرون.", correct: false }, { text: "حساب کنید.", correct: false }], hint: "moment یعنی لحظه." },
+            { dialogue: "Is this seat taken?", translation: "«آیا این صندلی پر است؟»", question: "وقتی می‌خواهید جایی بنشینید می‌پرسید:", options: [{ text: "Is this seat taken?", correct: true }, { text: "Is this a table?", correct: false }, { text: "Where is the door?", correct: false }], hint: "taken یعنی گرفته شده." },
+            { dialogue: "No, it's free.", translation: "«نه، آزاد است.»", question: "پاسخ به صندلی خالی:", options: [{ text: "No, it's free.", correct: true }, { text: "Yes, it's full.", correct: false }, { text: "It is expensive.", correct: false }], hint: "free یعنی آزاد / رایگان." },
+            { dialogue: "Enjoy your meal!", translation: "«نوش جان!»", question: "گارسون موقع آوردن غذا چه می‌گوید؟", options: [{ text: "Enjoy your meal!", correct: true }, { text: "Be careful!", correct: false }, { text: "Good night!", correct: false }], hint: "آرزوی لذت بردن از غذا." },
+            { dialogue: "The check, please.", translation: "«صورت‌حساب، لطفاً.»", question: "برای گرفتن فاکتور و تسویه حساب:", options: [{ text: "The check, please.", correct: true }, { text: "The menu, please.", correct: false }, { text: "The coffee, please.", correct: false }], hint: "check یا bill یعنی صورت‌حساب." },
+
+            // سطح ۴۱ تا ۶۰ (پیشرفته‌تر - زمان ۵ ثانیه)
+            { dialogue: "Do you accept credit cards?", translation: "«آیا کارت اعتباری قبول می‌کنید؟»", question: "برای پرسیدن نحوه پرداخت:", options: [{ text: "Do you accept credit cards?", correct: true }, { text: "Where is cash?", correct: false }, { text: "Is food free?", correct: false }], hint: "credit cards یعنی کارت‌های اعتباری." },
+            { dialogue: "Cash only, please.", translation: "«فقط نقد، لطفاً.»", question: "اگر کافه کارت‌خوان نداشته باشد می‌گوید:", options: [{ text: "Cash only, please.", correct: true }, { text: "Free coffee.", correct: false }, { text: "Card is ok.", correct: false }], hint: "Cash یعنی پول نقد." },
+            { dialogue: "Keep the change.", translation: "«بقیه پول برای خودتان (انعام).»", question: "معنی اصطلاح Keep the change:", options: [{ text: "بقیه پول را پس ندهید.", correct: true }, { text: "پول را عوض کنید.", correct: false }, { text: "پول گم شده است.", correct: false }], hint: "change یعنی پول خرد یا باقی‌مانده." },
+            { dialogue: "Do you have Wi-Fi?", translation: "«آیا وای‌فای دارید؟»", question: "سوال درباره اینترنت کافه:", options: [{ text: "Do you have Wi-Fi?", correct: true }, { text: "Do you have water?", correct: false }, { text: "What is time?", correct: false }], hint: "Wi-Fi برای اینترنت بی‌سیم." },
+            { dialogue: "What is the password?", translation: "«رمز عبور چیست؟»", question: "برای پرسیدن رمز وای‌فای:", options: [{ text: "What is the password?", correct: true }, { text: "Where is the key?", correct: false }, { text: "How much is it?", correct: false }], hint: "password یعنی رمز عبور." },
+            { dialogue: "It is very delicious.", translation: "«خیلی خوشمزه است.»", question: "تعریف از کیفیت قهوه یا کیک:", options: [{ text: "It is very delicious.", correct: true }, { text: "It is very bad.", correct: false }, { text: "It is cold.", correct: false }], hint: "delicious یعنی خوشمزه." },
+            { dialogue: "Do you have dessert?", translation: "«آیا دسر دارید؟»", question: "درخواست شیرینی یا دسر پس از غذا:", options: [{ text: "Do you have dessert?", correct: true }, { text: "Do you have water?", correct: false }, { text: "Where is exit?", correct: false }], hint: "dessert یعنی دسر." },
+            { dialogue: "I am allergic to nuts.", translation: "«من به آجیل حساسیت دارم.»", question: "بیان حساسیت غذایی:", options: [{ text: "I am allergic to nuts.", correct: true }, { text: "I like nuts.", correct: false }, { text: "Nuts are good.", correct: false }], hint: "allergic یعنی حساسیت." },
+            { dialogue: "Can I have a takeaway cup?", translation: "«آیا می‌توانم یک لیوان بیرون‌بر داشته باشم؟»", question: "درخواست قهوه برای بیرون بردن:", options: [{ text: "Can I have a takeaway cup?", correct: true }, { text: "Can I break the cup?", correct: false }, { text: "Where is the cup?", correct: false }], hint: "takeaway یعنی بیرون‌بر." },
+            { dialogue: "Have a nice day!", translation: "«روز خوبی داشته باشید!»", question: "عبارت مؤدبانه هنگام ترک کافه:", options: [{ text: "Have a nice day!", correct: true }, { text: "Go away!", correct: false }, { text: "Bad day!", correct: false }], hint: "آرزوی روز خوب برای دیگران." },
+            { dialogue: "See you later!", translation: "«بعداً می‌بینمتون! (به زودی می‌بینمتون)»", question: "خداحافظی صمیمی:", options: [{ text: "See you later!", correct: true }, { text: "Hello there!", correct: false }, { text: "Good morning!", correct: false }], hint: "later یعنی بعداً." },
+            { dialogue: "Take care!", translation: "«مراقب خودت باش!»", question: "عبارت صمیمی در موقع خداحافظی:", options: [{ text: "Take care!", correct: true }, { text: "Hurry up!", correct: false }, { text: "Stop it!", correct: false }], hint: "به معنای مراقبت از خود." },
+            { dialogue: "Is everything alright?", translation: "«همه چیز مرتب است؟ (همه چیز خوب پیش می‌رود؟)»", question: "سوال گارسون از کیفیت خدمات:", options: [{ text: "Is everything alright?", correct: true }, { text: "Where is everyone?", correct: false }, { text: "What is this?", correct: false }], hint: "پرسش درباره رضایت مشتری." },
+            { dialogue: "Yes, everything is perfect.", translation: "«بله، همه چیز عالی است.»", question: "پاسخ رضایت‌بخش به کیفیت:", options: [{ text: "Yes, everything is perfect.", correct: true }, { text: "No, it is terrible.", correct: false }, { text: "I am leaving.", correct: false }], hint: "perfect یعنی عالی و کامل." },
+            { dialogue: "Could you repeat that?", translation: "«ممکن است آن را تکرار کنید؟»", question: "وقتی حرف گارسون را متوجه نمی‌شوید:", options: [{ text: "Could you repeat that?", correct: true }, { text: "Speak very fast.", correct: false }, { text: "Be quiet.", correct: false }], hint: "repeat یعنی تکرار کردن." },
+            { dialogue: "I don't understand.", translation: "«من متوجه نمی‌شوم.»", question: "اعلام عدم درک مطلب:", options: [{ text: "I don't understand.", correct: true }, { text: "I know everything.", correct: false }, { text: "I speak English well.", correct: false }], hint: "understand یعنی متوجه شدن." },
+            { dialogue: "Speak slowly, please.", translation: "«آهسته‌تر صحبت کنید، لطفاً.»", question: "درخواست صحبت با سرعت کمتر:", options: [{ text: "Speak slowly, please.", correct: true }, { text: "Speak loudly.", correct: false }, { text: "Don't talk.", correct: false }], hint: "slowly یعنی آرام و آهسته." },
+            { dialogue: "Do you speak Persian?", translation: "«آیا شما فارسی صحبت می‌کنید؟»", question: "پرسش درباره زبان فارسی:", options: [{ text: "Do you speak Persian?", correct: true }, { text: "Do you speak English?", correct: false }, { text: "Where is Persia?", correct: false }], hint: "Persian یعنی زبان فارسی." },
+            { dialogue: "A table for two, please.", translation: "«یک میز برای دو نفر، لطفاً.»", question: "درخواست میز دونفره در ورودی کافه:", options: [{ text: "A table for two, please.", correct: true }, { text: "Table for ten.", correct: false }, { text: "No table.", correct: false }], hint: "two یعنی دو نفر." },
+            { dialogue: "We are waiting for a friend.", translation: "«ما منتظر یک دوست هستیم.»", question: "وقتی سر میز نشسته اید و منتظرید:", options: [{ text: "We are waiting for a friend.", correct: true }, { text: "We are leaving now.", correct: false }, { text: "We have no friends.", correct: false }], hint: "waiting یعنی منتظر بودن." }
         ];
 
         let currentStage = 0;
@@ -365,7 +393,7 @@
         const resultDesc = document.getElementById("result-desc");
         const resultIcon = document.getElementById("result-icon");
 
-        // سیستم تولید صداهای صوتی ساده با Web Audio API (بدون نیاز به فایل خارجی)
+        // سیستم تولید صداهای صوتی ساده با Web Audio API
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSound(type) {
             if (!audioCtx) return;
@@ -394,9 +422,16 @@
             }
         }
 
+        // تنظیم تایمر پویا بر اساس شماره سوال
+        function getStageTime() {
+            if (currentStage < 10) return 20;       // سوال 1 تا 10: 20 ثانیه
+            if (currentStage < 40) return 10;       // سوال 11 تا 40: 10 ثانیه
+            return 5;                               // از سوال 41 به بعد: 5 ثانیه
+        }
+
         function startTimer() {
             clearInterval(timerInterval);
-            timeLeft = 20;
+            timeLeft = getStageTime();
             timerEl.textContent = timeLeft;
             
             timerInterval = setInterval(() => {
@@ -503,7 +538,7 @@
             resultScreen.classList.remove("hidden");
             resultIcon.textContent = "🎉";
             resultTitle.textContent = "مأموریت با موفقیت به پایان رسید!";
-            resultDesc.textContent = "شما توانستید در کافه موفق به مکالمه انگلیسی شوید و اصطلاحات جدید را یاد بگیرید.";
+            resultDesc.textContent = "شما توانستید تمامی ۶۰ مرحله کافه را با موفقیت پشت سر بگذارید.";
             finalScoreEl.textContent = score;
         }
 
