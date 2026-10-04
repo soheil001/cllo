@@ -262,7 +262,6 @@
 
         .hidden { display: none !important; }
 
-        /* Modal Overlay برای قوانین بازی */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -337,7 +336,7 @@
         <div class="modal-card">
             <div style="font-size: 45px; margin-bottom: 10px;">🏆</div>
             <h2>مأموریت یادگیری زبان انگلیسی</h2>
-            <p>به بازی چالش جذاب مکالمات و اصطلاحات روزمره خوش آمدید! در این سفر ۶۰ مرحله‌ای، مهارت انگلیسی خود را در موقعیت‌های مختلف تقویت می‌کنید.</p>
+            <p>به بازی چالش مکالمات و اصطلاحات روزمره خوش آمدید! در این سفر ۶۰ مرحله‌ای، مهارت انگلیسی خود را در موقعیت‌های مختلف تقویت می‌کنید.</p>
             <div class="rules-list">
                 <div>⚡ **سوالات ۱ تا ۱۰:** ۲۰ ثانیه زمان برای هر سوال</div>
                 <div>⚡ **سوالات ۱۱ تا ۴۰:** ۱۰ ثانیه زمان برای هر سوال</div>
@@ -349,7 +348,6 @@
     </div>
 
     <div class="game-container">
-        <!-- هدر بازی -->
         <div class="header">
             <div class="logo">cllo.ir</div>
             <div class="stats">
@@ -358,12 +356,10 @@
             </div>
         </div>
 
-        <!-- نوار پیشرفت -->
         <div class="progress-bar-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
 
-        <!-- بدنه اصلی بازی -->
         <div id="game-screen" class="hidden">
             <div class="scene-box">
                 <div class="scene-top-info">
@@ -371,8 +367,8 @@
                     <div class="timer-container">⏳ <span id="timer">20</span> ثانیه</div>
                 </div>
                 <div class="npc-avatar">🎯</div>
-                <div class="npc-dialogue" id="npc-dialogue">"Hello!"</div>
-                <div class="npc-translation" id="npc-translation">«سلام!»</div>
+                <div class="npc-dialogue" id="npc-dialogue">"Hello, how's it going?"</div>
+                <div class="npc-translation" id="npc-translation">«سلام، اوضاع چطوره؟»</div>
             </div>
 
             <div class="question-box" id="question-text">معنی عبارت فوق چیست؟</div>
@@ -385,7 +381,6 @@
             </div>
         </div>
 
-        <!-- صفحه پایان بازی -->
         <div id="result-screen" class="result-screen hidden">
             <div style="font-size: 50px; margin-bottom: 10px;" id="result-icon">🎉</div>
             <h2 id="result-title">مأموریت با موفقیت به پایان رسید!</h2>
@@ -396,19 +391,19 @@
     </div>
 
     <script>
-        // بانک ۶۰ سوال جامع و متنوع در حوزه‌های مختلف مکالمه، احوالپرسی، خرید، سفر و عمومی
+        // بانک ۶۰ سوال جامع، استاندارد و متنوع (اصلاح سوالات اولیه به سطح مبتدی واقعی و کاربردی)
         const stages = [
-            // سطح ۱ تا ۱۰ (بسیار ساده و روان - زمان ۲۰ ثانیه)
-            { dialogue: "Hi!", translation: "«سلام!»", question: "معنی کلمه فوق چیست؟", options: [{ text: "Hi!", correct: true }, { text: "Goodbye", correct: false }, { text: "Thanks", correct: false }], hint: "یک احوالپرسی کوتاه و خودمانی." },
-            { dialogue: "Hello!", translation: "«سلام!»", question: "معنی این کلمه چیست؟", options: [{ text: "Hello!", correct: true }, { text: "No", correct: false }, { text: "Yes", correct: false }], hint: "کلمه رایج برای سلام کردن." },
-            { dialogue: "Good morning!", translation: "«صبح بخیر!»", question: "چطور اول صبح سلام می‌کنید؟", options: [{ text: "Good morning!", correct: true }, { text: "Good night!", correct: false }, { text: "Goodbye!", correct: false }], hint: "مخصوص زمان صبح." },
-            { dialogue: "Thanks.", translation: "«ممنون.»", question: "معنی این کلمه چیست؟", options: [{ text: "Thanks.", correct: true }, { text: "Please.", correct: false }, { text: "Sorry.", correct: false }], hint: "برای تشکر کردن استفاده می‌شود." },
-            { dialogue: "Please.", translation: "«لطفاً.»", question: "معنی این کلمه چیست؟", options: [{ text: "Please.", correct: true }, { text: "No", correct: false }, { text: "Hi", correct: false }], hint: "برای درخواست مؤدبانه." },
-            { dialogue: "Yes.", translation: "«بله.»", question: "معنی این کلمه چیست؟", options: [{ text: "Yes.", correct: true }, { text: "No.", correct: false }, { text: "Maybe.", correct: false }], hint: "پاسخ مثبت." },
-            { dialogue: "No.", translation: "«خیر / نه.»", question: "معنی این کلمه چیست؟", options: [{ text: "No.", correct: true }, { text: "Yes.", correct: false }, { text: "OK.", correct: false }], hint: "پاسخ منفی." },
-            { dialogue: "Goodbye!", translation: "«خداحافظ!»", question: "کدام گزینه به معنای خداحافظی است؟", options: [{ text: "Goodbye!", correct: true }, { text: "Welcome!", correct: false }, { text: "Hello!", correct: false }], hint: "هنگام ترک کردن محل." },
-            { dialogue: "How are you?", translation: "«حالت چطور است؟»", question: "برای پرسیدن حال کسی چه می‌گویید؟", options: [{ text: "How are you?", correct: true }, { text: "Who are you?", correct: false }, { text: "Where are you?", correct: false }], hint: "سوال درباره احوالپرسی." },
-            { dialogue: "I am fine, thanks.", translation: "«من خوبم، ممنون.»", question: "در پاسخ به How are you چه می‌گویید؟", options: [{ text: "I am fine, thanks.", correct: true }, { text: "I am a car.", correct: false }, { text: "Goodbye.", correct: false }], hint: "بیان حال خوب." },
+            // سطح ۱ تا ۱۰ (مبتدی کاربردی و مکالمه‌ای - زمان ۲۰ ثانیه)
+            { dialogue: "How is it going?", translation: "«اوضاع چطوره؟ / همه چیز روبه‌راهه؟»", question: "معنی عبارت فوق چیست؟", options: [{ text: "How is it going?", correct: true }, { text: "Where are you going?", correct: false }, { text: "What do you want?", correct: false }], hint: "یک احوالپرسی صمیمی و رایج." },
+            { dialogue: "Long time no see!", translation: "«خیلی وقته ندیدمتت!»", question: "وقتی پس از مدت‌ها کسی را می‌بینید:", options: [{ text: "Long time no see!", correct: true }, { text: "Nice to meet you.", correct: false }, { text: "See you tomorrow.", correct: false }], hint: "اشاره به دوری و مدت زمان زیاد." },
+            { dialogue: "I am learning English.", translation: "«من دارم زبان انگلیسی یاد می‌گیرم.»", question: "برای بیان کاری که در حال انجام آن هستید:", options: [{ text: "I am learning English.", correct: true }, { text: "I am teaching English.", correct: false }, { text: "I hate English.", correct: false }], hint: "فعل learning یعنی یاد گرفتن." },
+            { dialogue: "What do you do for a living?", translation: "«شغلت چیست؟ / چیکاره‌ای؟»", question: "برای پرسیدن شغل شخص مقابل:", options: [{ text: "What do you do for a living?", correct: true }, { text: "Where do you live?", correct: false }, { text: "How old are you?", correct: false }], hint: "پرسش درباره کار و حرفه." },
+            { dialogue: "I work as a web developer.", translation: "«من به عنوان توسعه‌دهنده وب کار می‌کنم.»", question: "برای معرفی شغل خود:", options: [{ text: "I work as a web developer.", correct: true }, { text: "I am a driver.", correct: false }, { text: "I don't have a job.", correct: false }], hint: "developer یعنی طراح و توسعه‌دهنده." },
+            { dialogue: "What's the weather like today?", translation: "«امروز هوا چطور است؟»", question: "برای پرسیدن وضعیت آب و هوا:", options: [{ text: "What's the weather like today?", correct: true }, { text: "What day is today?", correct: false }, { text: "What time is it?", correct: false }], hint: "weather یعنی آب و هوا." },
+            { dialogue: "It's sunny and warm.", translation: "«هوا آفتابی و گرم است.»", question: "توصیف روز آفتابی:", options: [{ text: "It's sunny and warm.", correct: true }, { text: "It's freezing cold.", correct: false }, { text: "It's rainy outside.", correct: false }], hint: "sunny یعنی آفتابی." },
+            { dialogue: "Where are you from?", translation: "«اهل کجا هستید؟»", question: "پرسش درباره محل تولد یا اقامت:", options: [{ text: "Where are you from?", correct: true }, { text: "Where are you going?", correct: false }, { text: "Where is my bag?", correct: false }], hint: "from برای مبدا." },
+            { dialogue: "I am from Iran.", translation: "«من اهل ایران هستم.»", question: "پاسخ به محل سکونت/اصالت:", options: [{ text: "I am from Iran.", correct: true }, { text: "I live in Paris.", correct: false }, { text: "I am visiting.", correct: false }], hint: "معرفی کشور." },
+            { dialogue: "What are your hobbies?", translation: "«سرگرمی‌های شما چیست؟»", question: "پرسش درباره علایق و اوقات فراغت:", options: [{ text: "What are your hobbies?", correct: true }, { text: "What is your problem?", correct: false }, { text: "How is your family?", correct: false }], hint: "hobbies یعنی سرگرمی‌ها." },
 
             // سطح ۱۱ تا ۴۰ (متوسط و کاربردی در موقعیت‌های مختلف - زمان ۱۰ ثانیه)
             { dialogue: "What is your name?", translation: "«نام شما چیست؟»", question: "برای پرسیدن اسم شخص:", options: [{ text: "What is your name?", correct: true }, { text: "Where is home?", correct: false }, { text: "How old are you?", correct: false }], hint: "name یعنی نام." },
@@ -450,9 +445,9 @@
             { dialogue: "I'm just browsing, thanks.", translation: "«فقط دارم نگاه می‌کنم، ممنون.»", question: "وقتی فروشنده می‌پرسد کمکی نیاز دارید:", options: [{ text: "I'm just browsing, thanks.", correct: true }, { text: "I want to buy everything.", correct: false }, { text: "I am leaving now.", correct: false }], hint: "browsing یعنی تماشا کردن اجناس." },
             { dialogue: "Do you have this in a larger size?", translation: "«آیا این را در سایز بزرگ‌تر دارید؟»", question: "هنگام خرید لباس در فروشگاه:", options: [{ text: "Do you have this in a larger size?", correct: true }, { text: "Is this smaller?", correct: false }, { text: "Where is the store?", correct: false }], hint: "larger size یعنی سایز بزرگ‌تر." },
             { dialogue: "Everything is under control.", translation: "«همه چیز تحت کنترل است.»", question: "معنی این اصطلاح پرکاربرد:", options: [{ text: "همه چیز مرتب و تحت کنترل است.", correct: true }, { text: "همه چیز از دست رفت.", correct: false }, { text: "هیچ‌‌کس نیست.", correct: false }], hint: "under control یعنی تحت کنترل." },
-            { dialogue: "Actions speak louder than words.", translation: "«دو صد گفتن چون نیم کردار نیست (عمل کار برآید به سخن نیست).»", question: "معنی این ضرب‌المثل:", options: [{ text: "عمل مهم‌تر از حرف زدن است.", correct: true }, { text: "حرف زدن آسان است.", correct: false }, { text: "صدا بسیار بلند است.", correct: false }], hint: "معنای اصطلاحی عمل در برابر حرف." },
+            { dialogue: "Actions speak louder than words.", translation: "«عمل کار برآید به سخن نیست.»", question: "معنی این ضرب‌المثل:", options: [{ text: "عمل مهم‌تر از حرف زدن است.", correct: true }, { text: "حرف زدن آسان است.", correct: false }, { text: "صدا بسیار بلند است.", correct: false }], hint: "معنای اصطلاحی عمل در برابر حرف." },
             { dialogue: "Better late than never.", translation: "«دیر رسیدن بهتر از هرگز نرسیدن است.»", question: "معنی این ضرب‌المثل معروف:", options: [{ text: "انجام کار با دیرکرد بهتر از انجام ندادن آن است.", correct: true }, { text: "همیشه زودتر برسید.", correct: false }, { text: "هیچ‌وقت دیر نکنید.", correct: false }], hint: "never یعنی هرگز." },
-            { dialogue: "Practice makes perfect.", translation: "«کار نیکو کردن از پر کردن است (تمرین باعث مهارت می‌شود).»", question: "معنی این جمله انگیزشی:", options: [{ text: "تمرین و پشتکار انسان را کامل و ماهر می‌کند.", correct: true }, { text: "تمرین کردن سخت است.", correct: false }, { text: "همیشه استراحت کنید.", correct: false }], hint: "practice یعنی تمرین و تکرار." }
+            { dialogue: "Practice makes perfect.", translation: "«کار نیکو کردن از پر کردن است (تمرین مهارت می‌آورد).»", question: "معنی این جمله انگیزشی:", options: [{ text: "تمرین و پشتکار انسان را کامل و ماهر می‌کند.", correct: true }, { text: "تمرین کردن سخت است.", correct: false }, { text: "همیشه استراحت کنید.", correct: false }], hint: "practice یعنی تمرین و تکرار." }
         ];
 
         let currentStage = 0;
@@ -480,7 +475,6 @@
         const resultDesc = document.getElementById("result-desc");
         const resultIcon = document.getElementById("result-icon");
 
-        // سیستم تولید صدا با Web Audio API
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSound(type) {
             if (!audioCtx) return;
@@ -515,11 +509,10 @@
             loadStage();
         }
 
-        // تنظیم تایمر پویا بر اساس شماره سوال
         function getStageTime() {
-            if (currentStage < 10) return 20;       // سوال 1 تا 10: 20 ثانیه
-            if (currentStage < 40) return 10;       // سوال 11 تا 40: 10 ثانیه
-            return 5;                               // از سوال 41 به بعد: 5 ثانیه
+            if (currentStage < 10) return 20;
+            if (currentStage < 40) return 10;
+            return 5;
         }
 
         function startTimer() {
