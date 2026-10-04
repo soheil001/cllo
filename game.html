@@ -200,11 +200,6 @@
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         }
 
-        .npc-translation {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
         .question-box {
             font-size: 15px;
             margin-bottom: 18px;
@@ -372,7 +367,162 @@
             color: var(--primary);
             font-weight: 800;
         }
-    </style>
+    
+/* ===== CLL.O PREMIUM LIGHT GAME REDESIGN ===== */
+:root{
+  --primary:#6d5dfc;
+  --primary-2:#8b7cff;
+  --secondary:#27b6d8;
+  --accent:#ffb84d;
+  --success:#22b573;
+  --danger:#ef6b7a;
+  --bg:#f3f6ff;
+  --surface:rgba(255,255,255,.82);
+  --surface-strong:#ffffff;
+  --text:#172033;
+  --text-muted:#6f7890;
+  --border:rgba(109,93,252,.13);
+  --shadow:0 24px 70px rgba(54,64,110,.14);
+}
+body{
+  background:
+    radial-gradient(circle at 10% 5%,rgba(139,124,255,.24),transparent 30%),
+    radial-gradient(circle at 90% 15%,rgba(39,182,216,.18),transparent 28%),
+    radial-gradient(circle at 55% 100%,rgba(255,184,77,.13),transparent 32%),
+    linear-gradient(145deg,#f8faff 0%,#eef3ff 48%,#f7fbff 100%);
+  color:var(--text); min-height:100vh;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.38;background-image:radial-gradient(rgba(109,93,252,.13) 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(to bottom,black,transparent 80%)}
+.game-container{background:rgba(255,255,255,.76)!important;border:1px solid rgba(255,255,255,.95)!important;box-shadow:var(--shadow)!important;backdrop-filter:blur(24px);}
+.header{padding-bottom:18px!important;border-bottom:1px solid var(--border)}
+.logo{color:var(--primary)!important;letter-spacing:2px;text-shadow:none!important}
+.stat-badge{background:#fff!important;color:var(--text)!important;border:1px solid var(--border)!important;box-shadow:0 8px 24px rgba(65,75,120,.08)!important}
+.progress-info{color:var(--text-muted)!important}
+.progress-bar-container{background:#e9edfa!important}
+.progress-bar{background:linear-gradient(90deg,var(--primary),var(--secondary))!important;box-shadow:0 4px 16px rgba(109,93,252,.25)}
+.scene-box{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,247,255,.86))!important;border:1px solid var(--border)!important;box-shadow:0 14px 38px rgba(55,68,115,.09)!important}
+.level-indicator,.timer-container{background:#f1efff!important;color:#6254d9!important;border:1px solid rgba(109,93,252,.1)!important}
+.timer-container{background:#ecfaff!important;color:#1687a3!important}
+.npc-avatar{background:linear-gradient(145deg,#fff,#eef0ff)!important;border:3px solid rgba(109,93,252,.22)!important;box-shadow:0 12px 30px rgba(109,93,252,.16)!important}
+.npc-dialogue{color:#172033!important;font-weight:700!important}
+.question-box{background:#fff!important;border:1px solid var(--border)!important;color:#30384b!important;box-shadow:0 10px 30px rgba(55,68,115,.06)!important}
+.option-btn{background:rgba(255,255,255,.94)!important;color:#273044!important;border:1px solid #e2e6f3!important;box-shadow:0 8px 22px rgba(55,68,115,.06)!important}
+.option-btn:hover{border-color:rgba(109,93,252,.45)!important;transform:translateY(-2px);box-shadow:0 12px 28px rgba(109,93,252,.12)!important}
+.option-btn.correct{background:#eafaf2!important;border-color:#63d29d!important;color:#167a4b!important}
+.option-btn.wrong{background:#fff0f2!important;border-color:#f1a0aa!important;color:#b53d4d!important}
+.hint-text{color:#7568df!important;background:#f1efff;padding:9px 13px;border-radius:12px}
+.btn-action{background:linear-gradient(135deg,var(--primary),var(--primary-2))!important;box-shadow:0 12px 28px rgba(109,93,252,.25)!important;border:0!important}
+.result-screen,.modal-content{background:rgba(255,255,255,.96)!important;color:var(--text)!important;border:1px solid var(--border)!important;box-shadow:var(--shadow)!important}
+.modal-overlay{background:rgba(34,43,73,.28)!important;backdrop-filter:blur(8px)}
+#final-score{color:var(--primary)!important}
+@media(max-width:700px){
+ .game-container{margin:10px!important;border-radius:26px!important;padding:18px!important}
+ .header{gap:10px}.stats{gap:6px}.stat-badge{font-size:12px!important;padding:8px 10px!important}
+ .scene-box{padding:20px 16px!important}.npc-dialogue{font-size:20px!important;line-height:1.7}
+ .options-grid{grid-template-columns:1fr!important;gap:10px!important}.option-btn{min-height:58px!important}
+ .footer-actions{gap:10px;flex-direction:column}.btn-action{width:100%}
+}
+
+
+/* CllO Bright Learning Game Theme */
+:root{
+  --primary:#6d5dfc;
+  --primary-2:#8b7cff;
+  --secondary:#39b8e8;
+  --text:#182238;
+  --text-muted:#71809b;
+  --border:#e4e9f5;
+  --shadow:0 24px 70px rgba(54,64,110,.14);
+}
+body{
+  background:
+    radial-gradient(circle at 8% 8%,rgba(130,111,255,.28),transparent 30%),
+    radial-gradient(circle at 92% 18%,rgba(57,184,232,.24),transparent 30%),
+    radial-gradient(circle at 75% 92%,rgba(255,188,92,.18),transparent 28%),
+    linear-gradient(145deg,#f5f3ff 0%,#edf8ff 48%,#fff8ee 100%);
+  color:var(--text);
+}
+.game-container{background:#fff!important;border:1px solid rgba(255,255,255,.95)!important;box-shadow:0 28px 80px rgba(69,78,130,.16)!important;backdrop-filter:none!important}
+.header{border-bottom:1px solid #e8ecf5!important}
+.logo{background:linear-gradient(135deg,#6d5dfc,#39b8e8)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.stat-badge{background:#fff!important;color:#26324a!important;border:1px solid #e4e9f5!important;box-shadow:0 7px 20px rgba(69,78,130,.08)!important}
+.progress-bar-container{background:#edf0f8!important}
+.progress-bar{background:linear-gradient(90deg,#6d5dfc,#39b8e8)!important;box-shadow:0 5px 16px rgba(109,93,252,.2)!important}
+.scene-box{background:#fff!important;border:1px solid #e5e9f4!important;box-shadow:0 14px 36px rgba(69,78,130,.09)!important}
+.question-box{background:#fff!important;border:1px solid #e5e9f4!important;color:#26324a!important;box-shadow:0 10px 28px rgba(69,78,130,.06)!important}
+.option-btn{background:#fff!important;color:#26324a!important;border:1px solid #e0e6f2!important;box-shadow:0 8px 22px rgba(69,78,130,.06)!important}
+.option-btn:hover:not(:disabled){border-color:#8b7cff!important;background:#fbfaff!important}
+.option-btn.correct{background:#edfbf4!important;border-color:#5bd39b!important;color:#15764a!important}
+.option-btn.wrong{background:#fff1f3!important;border-color:#ef9eaa!important;color:#b33d4d!important}
+.footer-actions .hint-text{background:#f2efff!important;color:#6656df!important}
+.btn-action{background:linear-gradient(135deg,#6d5dfc,#8475ff)!important}
+.result-screen,.modal-card,.modal-content{background:#fff!important;color:var(--text)!important}
+.scene-top-info .level-indicator{background:#f3f0ff!important;color:#6254d9!important;border:1px solid #e4defe!important}
+.timer-container{background:#edfaff!important;color:#1686a3!important;border:1px solid #d5f2fa!important}
+.npc-avatar{background:linear-gradient(145deg,#fff,#f0f2ff)!important;border-color:#d9d3ff!important}
+.npc-dialogue{color:#172033!important}
+@media(max-width:700px){.game-container{background:#fff!important}}
+
+/* ===== CLL.O GAME NIGHT GRADIENT + WHITE CARDS ===== */
+body{
+  background:
+    radial-gradient(circle at 12% 12%, rgba(132,105,255,.48) 0%, transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(42,193,224,.34) 0%, transparent 30%),
+    radial-gradient(circle at 72% 88%, rgba(255,184,86,.24) 0%, transparent 27%),
+    radial-gradient(circle at 18% 86%, rgba(79,116,255,.24) 0%, transparent 28%),
+    linear-gradient(135deg,#263354 0%,#443b78 42%,#24566f 72%,#29375a 100%) !important;
+  color:#172033 !important;
+  position:relative;
+}
+body:after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:linear-gradient(120deg,rgba(255,255,255,.07),transparent 38%,rgba(255,255,255,.04));
+}
+.game-container{
+  background:#fff !important;
+  border:1px solid rgba(255,255,255,.92) !important;
+  box-shadow:0 30px 90px rgba(8,18,48,.30),0 0 45px rgba(129,105,255,.12) !important;
+}
+.header,.progress-wrapper,.scene-box,.question-box,.options-grid,.footer-actions{position:relative;z-index:1}
+.scene-box{
+  background:#fff !important;
+  border:1px solid #e6e9f4 !important;
+  box-shadow:0 14px 34px rgba(41,52,93,.09) !important;
+}
+.question-box{
+  background:#fff !important;
+  border:1px solid #e2e6f2 !important;
+  color:#25304a !important;
+  border-radius:16px !important;
+  padding:13px 16px !important;
+  min-height:48px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 9px 24px rgba(38,48,82,.07) !important;
+  line-height:1.8 !important;
+}
+.option-btn{
+  background:#fff !important;
+  color:#26324a !important;
+  border:1px solid #e0e5f1 !important;
+  box-shadow:0 8px 22px rgba(38,48,82,.07) !important;
+}
+.option-btn:hover:not(:disabled){
+  background:#faf9ff !important;border-color:#8172ff !important;
+  box-shadow:0 12px 28px rgba(109,93,252,.13) !important;
+}
+.progress-bar{background:linear-gradient(90deg,#7565ff,#38bce3,#ffbd63) !important}
+.logo{background:linear-gradient(135deg,#705dff,#32b7df) !important;-webkit-background-clip:text !important;background-clip:text !important;color:transparent !important}
+.stat-badge,.level-indicator,.timer-container{background:#fff !important;color:#2b3650 !important}
+.btn-action{background:linear-gradient(135deg,#705dff,#8c78ff) !important;color:#fff !important}
+.modal-overlay{background:rgba(20,27,54,.60) !important}
+.modal-card{background:#fff !important;color:#172033 !important}
+.result-screen{background:#fff !important}
+@media(max-width:700px){
+ body{padding:10px !important}
+ .game-container{margin:0 !important}
+}
+
+</style>
 </head>
 <body>
 
@@ -413,14 +563,13 @@
         <div id="game-screen" class="hidden">
             <div class="scene-box">
                 <div class="scene-top-info">
-                    <div class="level-indicator">مرحله <span id="level">1</span> از 60</div>
+                    <div class="level-indicator">مرحله <span id="level">1</span> از 60</div><div class="level-indicator" id="difficulty-badge">سطح A1</div>
                     <div class="timer-container">⏳ <span id="timer">20</span> ثانیه</div>
                 </div>
                 <div class="npc-avatar-wrapper">
                     <div class="npc-avatar" id="npc-emoji">💬</div>
                 </div>
                 <div class="npc-dialogue" id="npc-dialogue">"Could you give me a hand with this?"</div>
-                <div class="npc-translation" id="npc-translation">«ممکن است در این کار به من کمک کنید؟»</div>
             </div>
 
             <div class="question-box" id="question-text">شخص مقابل از شما چه درخواستی دارد یا بهترین پاسخ به این جمله چیست؟</div>
@@ -436,7 +585,7 @@
         <div id="result-screen" class="result-screen hidden">
             <div style="font-size: 60px; margin-bottom: 15px;" id="result-icon">🏆</div>
             <h2 id="result-title">مأموریت با موفقیت به پایان رسید!</h2>
-            <p id="result-desc" style="margin-bottom: 22px; color: var(--text-muted);">شما تمامی ۶۰ مرحله را با موفقیت پشت سر گذاشتید.</p>
+            <p id="result-desc" style="margin-bottom: 22px; color: var(--text-muted);">شما هر ۶۰ مرحله را از سطح مبتدی تا پیشرفته پشت سر گذاشتید.</p>
             <div style="font-size: 19px; margin-bottom: 28px;">امتیاز کسب شده: <strong id="final-score" style="color: var(--primary);">0</strong> از ۱۲۰۰</div>
             <button class="btn-action" onclick="restartGame()">تلاش دوباره 🔄</button>
         </div>
@@ -445,54 +594,1207 @@
     <script>
         // بانک ۶۰ سوال سناریو‌محور و اصولی (بدون تکرار عبارت در گزینه‌ها)
         const stages = [
-            // بخش اول: مکالمات و واکنش‌های کاربردی روزمره
-            { dialogue: "Could you give me a hand with this?", translation: "«ممکن است در این کار به من کمک کنید؟»", emoji: "🤝", question: "عبارت 'give me a hand' در اینجا به چه معناست؟", options: [{ text: "کمک کردن به کسی", correct: true }, { text: "دست دادن با کسی", correct: false }, { text: "پس دادن وسیله", correct: false }], hint: "give a hand یعنی یاری رساندن." },
-            { dialogue: "I'm snowed under with work today.", translation: "«امروز فوق‌العاده درگیر کار هستم.»", emoji: "💻", question: "شخص با گفتن این جمله چه وضعیتی دارد؟", options: [{ text: "کارهای بسیار زیادی برای انجام دارد", correct: true }, { text: "زیر برف گیر کرده است", correct: false }, { text: "تعطیلات استراحت دارد", correct: false }], hint: "snowed under اصطلاحی برای حجم کار بالاست." },
-            { dialogue: "Let's call it a day.", translation: "«بیایید کار را برای امروز تمام کنیم.»", emoji: "🏁", question: "معنی این اصطلاح رایج چیست؟", options: [{ text: "متوقف کردن کار و رفتن به استراحت", correct: true }, { text: "نامگذاری روز به یک اسم خاص", correct: false }, { text: "تماس تلفنی گرفتن", correct: false }], hint: "پایان دادن به فعالیت روزانه." },
-            { dialogue: "Break a leg!", translation: "«موفق باشی! / بترکون!»", emoji: "🎭", question: "این عبارت معمولاً در چه موقعیتی به کار می‌رود؟", options: [{ text: "قبل از اجرا یا امتحان برای آرزوی موفقیت", correct: true }, { text: "هنگام زمین خوردن و آسیب دیدن پا", correct: false }, { text: "دستور برای شکستن صندلی", correct: false }], hint: "یک اصطلاح تشویقی قبل از رویداد مهم." },
-            { dialogue: "It cost an arm and a leg.", translation: "«هزینه بسیار گزافی داشت.»", emoji: "💸", question: "معنی غیرواژه‌ای این اصطلاح چیست؟", options: [{ text: "بسیار گران‌‌قیمت بودن چیزی", correct: true }, { text: "پرداخت هزینه با اعضای بدن", correct: false }, { text: "خرید ارزان و مقرون‌به‌صرفه", correct: false }], hint: "اشاره به قیمت نجومی." },
-            { dialogue: "Hit the nail on the head.", translation: "«دقیقاً زدی وسط خال! / درست گفتی.»", emoji: "🎯", question: "چه زمانی از این عبارت استفاده می‌شود؟", options: [{ text: "وقتی کسی دقیقاً و به درستی به اصل مطلب اشاره کند", correct: true }, { text: "هنگام کار با ابزار نجاری و میخ‌کوبی", correct: false }, { text: "وقتی کسی اشتباه بزرگی مرتکب شود", correct: false }], hint: "درست زدن به هدف." },
-            { dialogue: "Piece of cake!", translation: "«مثل آب خوردن! / خیلی آسان است.»", emoji: "🍰", question: "منظور گوینده از این جمله چیست؟", options: [{ text: "انجام آن کار بسیار ساده و راحت است", correct: true }, { text: "دعوت کردن به خوردن کیک تولد", correct: false }, { text: "درخواست یک تکه شیرینی", correct: false }], hint: "کار بسیار راحت." },
-            { dialogue: "Spill the beans.", translation: "«بزن زیر کاسه کوزه / راز رو لو بده.»", emoji: "🤫", question: "معنی این اصطلاح چیست؟", options: [{ text: "لو دادن یک راز یا خبر پنهانی", correct: true }, { text: "ریختن دانه‌های حبوبات رو زمین", correct: false }, { text: "آماده کردن غذا", correct: false }], hint: "افشای اطلاعات محرمانه." },
-            { dialogue: "Under the weather", translation: "«حالم کمی ناخوش است / بی‌حالم.»", emoji: "🤒", question: "شخص با این توصیف چه وضعی دارد؟", options: [{ text: "احساس کسالت یا بیماری خفیف می‌کند", correct: true }, { text: "زیر باران شدید ایستاده است", correct: false }, { text: "از وضعیت آب و هوا لذت می‌برد", correct: false }], hint: "حالت جسمانی نامساعد." },
-            { dialogue: "Bite the bullet", translation: "«دندان روی جگر گذاشتن / تحمل سختی.»", emoji: "🛡️", question: "معنی این اصطلاح چیست؟", options: [{ text: "روبرو شدن شجاعانه با یک وضعیت دشوار و ناخواسته", correct: true }, { text: "گاز گرفتن گلوله فلزی", correct: false }, { text: "شلیک کردن با اسلحه", correct: false }], hint: "تحمل شرایط سخت." },
-
-            // بخش دوم: موقعیت‌های سفر، هتل و خدمات
-            { dialogue: "I'd like to check in, please.", translation: "«می‌خواهم پذیرش بگیرم (اتاق تحویل بگیرم).»", emoji: "🏨", question: "این جمله را در کجا به زبان می‌آورید؟", options: [{ text: "پذیرش هتل هنگام ورود", correct: true }, { text: "فرودگاه هنگام تحویل بار", correct: false }, { text: "رستوران هنگام سفارش غذا", correct: false }], hint: "مربوط به هتل." },
-            { dialogue: "Could you make it to-go?", translation: "«ممکن است آن را بیرون‌بر کنید؟»", emoji: "🥡", question: "این درخواست در چه مکانی مطرح می‌شود؟", options: [{ text: "کافه یا رستوران برای بسته‌بندی غذا", correct: true }, { text: "فروشگاه لباس برای تعویض سایز", correct: false }, { text: "ایستگاه قطار برای بلیط", correct: false }], hint: "غذا برای بردن." },
-            { dialogue: "Is service charge included?", translation: "«آیا حق سرویس روی مبلغ حساب شده است؟»", emoji: "🧾", question: "مفهوم اصلی این پرسش چیست؟", options: [{ text: "آیا انعام یا هزینه خدمات به فاکتور اضافه شده است؟", correct: true }, { text: "آیا اینترنت رایگان است؟", correct: false }, { text: "آیا تعمیرات رایگان انجام می‌شود؟", correct: false }], hint: "مربوط به صورت‌حساب." },
-            { dialogue: "Do you have this in a changing room?", translation: "«آیا اتاق پرو برای امتحان کردن این دارید؟»", emoji: "👕", question: "هدف مشتری از این پرسش چیست؟", options: [{ text: "پوشیدن و تست کردن لباس پیش از خرید", correct: true }, { text: "تعویض دکوراسیون فروشگاه", correct: false }, { text: "شستشوی لباس‌ها", correct: false }], hint: "مربوط به خرید پوشاک." },
-            { dialogue: "My flight is delayed.", translation: "«پرواز من با تأخیر مواجه شده است.»", emoji: "✈️", question: "این اتفاق در کجا رخ داده است؟", options: [{ text: "فرودگاه", correct: true }, { text: "هتل محل اقامت", correct: false }, { text: "رستوران بین راهی", correct: false }], hint: "مربوط به هواپیما و سفر." },
-            { dialogue: "Could you put it on my tab?", translation: "«ممکن است آن را به حساب من ثبت کنید؟ (نسیه/بعداً تسویه کنم)»", emoji: "📒", question: "معنی این درخواست در کافه یا بار چیست؟", options: [{ text: "ثبت هزینه‌ها روی حساب کلی برای پرداخت در پایان", correct: true }, { text: "پاک کردن سفارش از روی میز", correct: false }, { text: "گرفتن تخفیف نقدی", correct: false }], hint: "ثبت حساب مشتری." },
-            { dialogue: "I'm running out of time.", translation: "«دارد وقتم تمام می‌شود / کمبود وقت دارم.»", emoji: "⏳", question: "وضعیت گوینده چگونه است؟", options: [{ text: "دچار کمبود زمان برای انجام کار است", correct: true }, { text: "باتری ساعت‌اش تمام شده است", correct: false }, { text: "سرعت دویدن بالایی دارد", correct: false }], hint: "فشار زمان." },
-            { dialogue: "Let's touch base tomorrow.", translation: "«فردا ارتباطی داشته باشیم / تماسی بگیریم.»", emoji: "📞", question: "این اصطلاح کاری به چه معناست؟", options: [{ text: "برقراری ارتباط مجدد و تبادل نظر در روز آینده", correct: true }, { text: "لمس کردن پایه‌های میز کار", correct: false }, { text: "دیدار حضوری در زمین ورزش", correct: false }], hint: "هماهنگی کاری." },
-            { dialogue: "It slipped my mind.", translation: "«از خاطرم رفت / فراموش کردم.»", emoji: "🧠", question: "معنی دقیق این عبارت چیست؟", options: [{ text: "فراموش کردن یک موضوع به طور سهوی", correct: true }, { text: "سر خوردن مغز روی زمین", correct: false }, { text: "یادآوری دقیق یک خاطره قدیمی", correct: false }], hint: "فراموشی ناخواسته." },
-            { dialogue: "Back to the drawing board.", translation: "«باید از اول شروع کنیم / طرح شکست خورد.»", emoji: "📋", question: "وقتی این اصطلاح به کار می‌رود که:", options: [{ text: "یک ایده شکست خورده و باید برنامه را از نو طراحی کرد", correct: true }, { text: "برگشتن به سمت تخته سیاه مدرسه", correct: false }, { text: "کشیدن نقاشی جدید روی بوم", correct: false }], hint: "شروع مجدد پروژه." },
-
-            // بخش سوم: اصطلاحات پیشرفته و واکنش‌های حرفه‌ای
-            { dialogue: "Hit the sack.", translation: "«رفتن به رختخواب / خوابیدن.»", emoji: "🛏️", question: "معنی این اصطلاح شبانه چیست؟", options: [{ text: "آماده شدن برای خوابیدن و استراحت شبانه", correct: true }, { text: "زدن کیسه بوکس", correct: false }, { text: "خرید کیسه خواب برای کمپینگ", correct: false }], hint: "زمان خواب فرا رسیده." },
-            { dialogue: "The ball is in your court.", translation: "«توپ در زمین شماست / تصمیم با شماست.»", emoji: "🎾", question: "معنی این عبارت در مکالمه چیست؟", options: [{ text: "اکنون نوبت شماست که تصمیم بگیرید یا اقدام کنید", correct: true }, { text: "شروع بازی تنیس در زمین مسابقه", correct: false }, { text: "پرت کردن توپ به سمت حریف", correct: false }], hint: "واگذاری تصمیم." },
-            { dialogue: "Pull someone's leg.", translation: "«سر به سر کسی گذاشتن / دست انداختن.»", emoji: "🃏", question: "مفهوم این اصطلاح چیست؟", options: [{ text: "شوخی کردن و سر به سر گذاشتن دیگران به شوخی", correct: true }, { text: "کشیدن پای کسی روی زمین", correct: false }, { text: "آسیب رساندن به پای دوستان", correct: false }], hint: "شوخی و اذیت دوستانه." },
-            { dialogue: "So far, so good.", translation: "«تا اینجا که همه چیز عالی بوده.»", emoji: "👍", question: "وضعیت یک کار در حال پیشرفت چگونه است؟", options: [{ text: "تا این لحظه هیچ مشکل و خطایی وجود نداشته است", correct: true }, { text: "کار به طور کامل به اتمام رسیده است", correct: false }, { text: "همه چیز خراب شده است", correct: false }], hint: "پیشرفت رضایت‌بخش." },
-            { dialogue: "Speak of the devil!", translation: "«گرگ رو سر دست دیدی! / از مکالمه حرف می‌زدیم رسید.»", emoji: "🗣️", question: "چه زمانی از این اصطلاح استفاده می‌کنید؟", options: [{ text: "وقتی دقیقاً درباره کسی صحبت می‌کنید و او ناگهان ظاهر می‌شود", correct: true }, { text: "هنگام دیدن موجودات عجیب", correct: false }, { text: "هنگام شروع یک بحث ترسناک", correct: false }], hint: "حضور فرد مورد بحث." },
-            { dialogue: "A blessing in disguise.", translation: "«خیری در پس آن نهفته است (اتفاق بد که عاقبت خوبی داشت).»", emoji: "🍀", question: "معنی این عبارت چیست؟", options: [{ text: "پیش آمدن یک اتفاق ظاهراً بد که در نهایت نتیجه مثبتی دارد", correct: true }, { text: "پوشیدن لباس مبدل برای دعا", correct: false }, { text: "دریافت هدیه ناشناس", correct: false }], hint: "فرصت در دل تهدید." },
-            { dialogue: "Through thick and thin.", translation: "«در تمام پستی و بلندی‌ها / در سختی و آسانی.»", emoji: "🤝", question: "این صفت برای چه کسانی به کار می‌رود؟", options: [{ text: "دوستان وفاداری که در هر شرایطی کنار هم می‌مانند", correct: true }, { text: "عبور از مسیرهای باریک و کوهستانی", correct: false }, { text: "افرادی با وزن‌های مختلف", correct: false }], hint: "وفاداری در همه شرایط." },
-            { dialogue: "Costs an arm and a leg.", translation: "«بسیار گران است.»", emoji: "💎", question: "مفهوم این جمله چیست؟", options: [{ text: "قیمت نجومی و غیرقابل باور یک کالا", correct: true }, { text: "هزینه جراحی دست و پا", correct: false }, { text: "خرید ارزان", correct: false }], hint: "گران بودن." },
-            { dialogue: "Burn the midnight oil.", translation: "«تا بوق مشخص سحر بیدار ماندن و کار کردن.»", emoji: "🕯️", question: "شخص با این توصیف چه می‌کند؟", options: [{ text: "تا پاسی از شب گذشته مشغول مطالعه یا کار است", correct: true }, { text: "روشن کردن آتش در نیمه‌شب", correct: false }, { text: "سوزاندن سوخت خودرو", correct: false }], hint: "شب‌زنده‌داری برای کار." },
-            { dialogue: "Cost a dime a dozen.", translation: "«بسیار ارزان و فراوان است.»", emoji: "🪙", question: "معنی این اصطلاح چیست؟", options: [{ text: "چیزهای بسیار معمولی، ارزان و به وفور یافت‌شونده", correct: true }, { text: "خرید دقیقاً دوازده عدد سکه", correct: false }, { text: "کالای بسیار کمیاب و لوکس", correct: false }], hint: "فراوان و ارزان." },
-
-            // بقیه مراحل تکمیلی سطح بالا و چالشی
-            { dialogue: "Don't judge a book by its cover.", translation: "«از روی ظاهر قضاوت نکنید.»", emoji: "📖", question: "پیام اصلی این ضرب‌المثل چیست؟", options: [{ text: "باطن و ماهیت اشخاص یا اشیاء را نباید تنها از روی ظاهر سنجید", correct: true }, { text: "جلد کتاب‌ها نباید پاره شود", correct: false }, { text: "کتاب‌های قدیمی را نخرید", correct: false }], hint: "اهمیت باطن بر ظاهر." },
-            { dialogue: "Time flies when you're having fun.", translation: "«وقتی خوش می‌گذرد، زمان چقدر زود می‌گذرد.»", emoji: "⏰", question: "حس فرد نسبت به زمان چگونه است؟", options: [{ text: "زمان به سرعت سپری شده است", correct: true }, { text: "ساعت خراب شده و متوقف است", correct: false }, { text: "حوصله سر رفته و زمان کند می‌گذرد", correct: false }], hint: "گذر سریع زمان." },
-            { dialogue: "Actions speak louder than words.", translation: "«دو صد گفته چون نیم کردار نیست.»", emoji: "⚡", question: "مفهوم این ضرب‌المثل چیست؟", options: [{ text: "عملکرد و رفتار افراد بسیار مهم‌تر از حرف‌هایشان است", correct: true }, { text: "صدای فریاد از حرف زدن بلندتر است", correct: false }, { text: "نباید هیچ‌وقت حرف زد", correct: false }], hint: "اهمیت عمل." },
-            { dialogue: "Every cloud has a silver lining.", translation: "«پایان شب سیه سفید است / هر سختی نعمتی دارد.»", emoji: "🌤️", question: "معنی این جمله انگیزشی چیست؟", options: [{ text: "در دل هر مشکل و سختی، امیدی وجود دارد", correct: true }, { text: "آسمان ابری همیشه باران دارد", correct: false }, { text: "ابرهای نقره‌ای زیبا هستند", correct: false }], hint: "امیدواری در سختی." },
-            { dialogue: "When in Rome, do as the Romans do.", translation: "«رنگ جماعت شو / به رسم هر جا رفتار کن.»", emoji: "🏛️", question: "معنی این ضرب‌المثل چیست؟", options: [{ text: "هنگام حضور در جایی، باید به رسوم و فرهنگ آنجا احترام گذاشت", correct: true }, { text: "حتماً به شهر رم سفر کنید", correct: false }, { text: "مردم رم قوانین سختی دارند", correct: false }], hint: "همرنگ جماعت شدن." },
-            { dialogue: "The early bird catches the worm.", translation: "«سحرخیز باش تا کامروای شوی.»", emoji: "🐦", question: "مفهوم این ضرب‌المثل چیست؟", options: [{ text: "کسانی که زودتر اقدام می‌کنند موفق‌ترند", correct: true }, { text: "پرندگان صبح‌ها کرم می‌خورند", correct: false }, { text: "نباید صبح زود بیدار شد", correct: false }], hint: "ارزش سحرخیزی و تلاش زودهنگام." },
-            { dialogue: "Fortune favors the bold.", translation: "«شانس یار شجاعان است.»", emoji: "🦁", question: "معنی این جمله چیست؟", options: [{ text: "افراد شجاع که ریسک می‌کنند موفق‌ترند", correct: true }, { text: "ثروت نصیب افراد ترسو می‌شود", correct: false }, { text: "شانس اتفاقی است", correct: false }], hint: "شجاعت و موفقیت." },
-            { dialogue: "You can't make an omelet without breaking eggs.", translation: "«بی مایه فطیر است / برای نتیجه باید هزینه داد.»", emoji: "🍳", question: "معنی این اصطلاح چیست؟", options: [{ text: "برای رسیدن به هدف بزرگ باید سختی یا خسارت جزئی را پذیرفت", correct: true }, { text: "درست کردن املت کار سختی است", correct: false }, { text: "تخم‌مرغ‌ها نباید بشکنند", correct: false }], hint: "لزوم تحمل سختی برای نتیجه." },
-            { dialogue: "Out of sight, out of mind.", translation: "«از دل برود هر آنکه از دیده رفت.»", emoji: "👁️", question: "معنی این ضرب‌المثل چیست؟", options: [{ text: "با دور شدن افراد از یکدیگر، خاطره آن‌ها نیز کم‌رنگ می‌شود", correct: true }, { text: "اگر چشم بسته باشد چیزی دیده نمی‌شود", correct: false }, { text: "کور شدن باعث فراموشی می‌شود", correct: false }], hint: "دوری و فراموشی." },
-            { dialogue: "Practice makes perfect.", translation: "«کار نیکو کردن از پر کردن است.»", emoji: "🏆", question: "راز تسلط بر هر مهارت چیست؟", options: [{ text: "تکرار و تمرین مداوم", correct: true }, { text: "استراحت مطلق", correct: false }, { text: "هوش ذاتی بدون تلاش", correct: false }], hint: "نقش تمرین." }
-        ];
+            {
+                        "dialogue": "Hello! My name is Anna.",
+                        "emoji": "👋",
+                        "question": "آنا خودش را معرفی می‌کند. بهترین پاسخ کدام است؟",
+                        "options": [
+                                    {
+                                                "text": "Nice to meet you, Anna.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "See you yesterday.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "It is five o'clock.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "وقتی کسی خودش را معرفی می‌کند، پاسخ طبیعی می‌تواند Nice to meet you باشد."
+            },
+            {
+                        "dialogue": "How are you today?",
+                        "emoji": "🙂",
+                        "question": "کسی از شما می‌پرسد «امروز حالت چطور است؟» کدام پاسخ مناسب‌تر است؟",
+                        "options": [
+                                    {
+                                                "text": "I'm good, thanks.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "I'm from Tehran.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "It's Monday.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "How are you درباره حال و وضعیت فرد است."
+            },
+            {
+                        "dialogue": "I am from Iran.",
+                        "emoji": "🌍",
+                        "question": "آنا می‌گوید «من اهل ایران هستم». او چه اطلاعاتی درباره خودش می‌دهد؟",
+                        "options": [
+                                    {
+                                                "text": "Where she is from",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "What she is eating",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "What time she arrived",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "I am from برای بیان محل یا کشور مبدأ است."
+            },
+            {
+                        "dialogue": "This is my brother.",
+                        "emoji": "👨",
+                        "question": "فردی می‌گوید «این برادر من است». او چه کسی را معرفی می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "A male sibling",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "A teacher",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A neighbor's car",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "brother یعنی برادر؛ یکی از اعضای خانواده."
+            },
+            {
+                        "dialogue": "I have a red car.",
+                        "emoji": "🚗",
+                        "question": "در جمله «من یک ماشین قرمز دارم»، گوینده چه چیزی دارد؟",
+                        "options": [
+                                    {
+                                                "text": "A red car",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "A blue bicycle",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A small house",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "I have برای بیان داشتن یا مالکیت استفاده می‌شود."
+            },
+            {
+                        "dialogue": "She is a teacher.",
+                        "emoji": "👩‍🏫",
+                        "question": "از جمله «او معلم است» درباره او چه چیزی می‌فهمیم؟",
+                        "options": [
+                                    {
+                                                "text": "Her job",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Her age",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Her address",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "teacher یک شغل است."
+            },
+            {
+                        "dialogue": "I like coffee.",
+                        "emoji": "☕",
+                        "question": "فردی می‌گوید «من قهوه دوست دارم». کدام گزینه با این جمله مطابقت دارد؟",
+                        "options": [
+                                    {
+                                                "text": "Coffee is something the speaker enjoys.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The speaker is buying a car.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The speaker dislikes all drinks.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "like برای بیان علاقه استفاده می‌شود."
+            },
+            {
+                        "dialogue": "Where is the bathroom?",
+                        "emoji": "🚻",
+                        "question": "فردی می‌پرسد «دستشویی کجاست؟» او چه چیزی می‌خواهد؟",
+                        "options": [
+                                    {
+                                                "text": "Directions to the bathroom",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "A glass of water",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A train ticket",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Where is برای پرسیدن محل یک مکان استفاده می‌شود."
+            },
+            {
+                        "dialogue": "I need some water.",
+                        "emoji": "💧",
+                        "question": "فردی می‌گوید «من کمی آب لازم دارم». چه کاری برای او مناسب است؟",
+                        "options": [
+                                    {
+                                                "text": "Give them some water.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Ask them for a passport.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Show them a movie.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "need یعنی نیاز داشتن؛ درخواست درباره آب است."
+            },
+            {
+                        "dialogue": "Can you help me?",
+                        "emoji": "🤝",
+                        "question": "فردی می‌پرسد «می‌توانی به من کمک کنی؟» او چه درخواستی دارد؟",
+                        "options": [
+                                    {
+                                                "text": "Asking for help",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Saying goodbye",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Giving their address",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Can you help me یک درخواست کمک است."
+            },
+            {
+                        "dialogue": "It is five o'clock.",
+                        "emoji": "🕔",
+                        "question": "جمله «ساعت پنج است» چه اطلاعاتی به ما می‌دهد؟",
+                        "options": [
+                                    {
+                                                "text": "The time",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The weather",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The speaker's job",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "برای گفتن ساعت از ساختار It is ... o'clock استفاده می‌شود."
+            },
+            {
+                        "dialogue": "I am tired.",
+                        "emoji": "😴",
+                        "question": "فردی می‌گوید «من خسته‌ام». وضعیت او چیست؟",
+                        "options": [
+                                    {
+                                                "text": "They need rest.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "They are hungry for a meal.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "They are looking for a station.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "tired یعنی خسته؛ معمولاً نیاز به استراحت را نشان می‌دهد."
+            },
+            {
+                        "dialogue": "We live in a small house.",
+                        "emoji": "🏠",
+                        "question": "جمله «ما در یک خانه کوچک زندگی می‌کنیم» چه چیزی را توصیف می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "Their home is small.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "They live in a large hotel.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "They are moving to another country.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "small house اندازه خانه را توصیف می‌کند."
+            },
+            {
+                        "dialogue": "Please open the window.",
+                        "emoji": "🪟",
+                        "question": "فردی می‌گوید «لطفاً پنجره را باز کن». شما باید چه کاری انجام دهید؟",
+                        "options": [
+                                    {
+                                                "text": "Open the window.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Close the door.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Turn off the light.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Please open یک درخواست مودبانه برای باز کردن پنجره است."
+            },
+            {
+                        "dialogue": "I don't understand.",
+                        "emoji": "🤔",
+                        "question": "اگر کسی بگوید «متوجه نمی‌شوم»، طرف مقابل احتمالاً باید چه کاری انجام دهد؟",
+                        "options": [
+                                    {
+                                                "text": "Explain it again more clearly.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Ask what time it is.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Leave without speaking.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "I don't understand یعنی فرد مطلب را متوجه نشده و احتمالاً به توضیح نیاز دارد."
+            },
+            {
+                        "dialogue": "What did you do yesterday?",
+                        "emoji": "📅",
+                        "question": "کسی می‌پرسد «دیروز چه کار کردی؟» کدام پاسخ با این سؤال سازگار است؟",
+                        "options": [
+                                    {
+                                                "text": "I watched a movie.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "I will go tomorrow.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "I am twenty years old.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "yesterday درباره گذشته است، پس پاسخ مناسب باید درباره کاری در گذشته باشد."
+            },
+            {
+                        "dialogue": "I usually walk to work.",
+                        "emoji": "🚶",
+                        "question": "جمله «من معمولاً پیاده به محل کار می‌روم» نشان می‌دهد فرد معمولاً چگونه به محل کار می‌رود؟",
+                        "options": [
+                                    {
+                                                "text": "On foot",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "By airplane",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "By taxi every day",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "usually عادت را نشان می‌دهد و walk یعنی پیاده رفتن."
+            },
+            {
+                        "dialogue": "She doesn't eat meat.",
+                        "emoji": "🥗",
+                        "question": "جمله «او گوشت نمی‌خورد» کدام گزینه را تأیید می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "She avoids meat.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "She cooks meat every day.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "She is buying meat now.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "doesn't eat یعنی این کار را انجام نمی‌دهد."
+            },
+            {
+                        "dialogue": "I'm looking for the train station.",
+                        "emoji": "🚆",
+                        "question": "فردی می‌گوید «دنبال ایستگاه قطار می‌گردم». او به چه چیزی نیاز دارد؟",
+                        "options": [
+                                    {
+                                                "text": "The location of the train station",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "A restaurant menu",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A hotel room",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "looking for یعنی دنبال چیزی گشتن."
+            },
+            {
+                        "dialogue": "Could I have a glass of water, please?",
+                        "emoji": "🥤",
+                        "question": "جمله «می‌توانم لطفاً یک لیوان آب داشته باشم؟» نشان‌دهنده چیست؟",
+                        "options": [
+                                    {
+                                                "text": "Making a polite request",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Giving an order to leave",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Talking about yesterday",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Could I have ... please یک درخواست مودبانه است."
+            },
+            {
+                        "dialogue": "I went to the supermarket after work.",
+                        "emoji": "🛒",
+                        "question": "جمله «بعد از کار به سوپرمارکت رفتم» نشان می‌دهد خرید چه زمانی انجام شده است؟",
+                        "options": [
+                                    {
+                                                "text": "After work",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Before breakfast",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Next week",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "after work یعنی بعد از پایان کار."
+            },
+            {
+                        "dialogue": "There isn't any milk in the fridge.",
+                        "emoji": "🥛",
+                        "question": "جمله «هیچ شیری در یخچال نیست» چه وضعیتی را بیان می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "There is no milk in the fridge.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The fridge is full of milk.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Someone is cooking milk.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "There isn't any یعنی چیزی وجود ندارد."
+            },
+            {
+                        "dialogue": "How often do you exercise?",
+                        "emoji": "🏃",
+                        "question": "کسی می‌پرسد «هر چند وقت یک‌بار ورزش می‌کنی؟» او می‌خواهد چه چیزی را بداند؟",
+                        "options": [
+                                    {
+                                                "text": "The frequency of exercise",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The person's height",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The person's job",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "How often درباره تعداد دفعات یا میزان تکرار یک کار است."
+            },
+            {
+                        "dialogue": "I have been waiting for twenty minutes.",
+                        "emoji": "⏳",
+                        "question": "جمله «بیست دقیقه است که منتظر بوده‌ام» چه وضعیتی را توصیف می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "The speaker started waiting twenty minutes ago and is still waiting.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The speaker finished waiting yesterday.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The speaker will wait next year.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "have been waiting نشان می‌دهد عمل از گذشته شروع شده و تا حال ادامه دارد."
+            },
+            {
+                        "dialogue": "If it rains, we will stay home.",
+                        "emoji": "🌧️",
+                        "question": "اگر باران ببارد، طبق جمله چه اتفاقی خواهد افتاد؟",
+                        "options": [
+                                    {
+                                                "text": "They will stay home.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "They will go swimming outside.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "They will cancel the rain.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "این ساختار یک شرط واقعی و نتیجه احتمالی در آینده را نشان می‌دهد."
+            },
+            {
+                        "dialogue": "Could you tell me how to get to the airport?",
+                        "emoji": "🗺️",
+                        "question": "کسی می‌پرسد «می‌توانی بگویی چطور به فرودگاه بروم؟» او چه چیزی می‌خواهد؟",
+                        "options": [
+                                    {
+                                                "text": "Directions to the airport",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "A flight ticket for yesterday",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A hotel reservation",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "how to get to درباره مسیر رسیدن به یک مکان است."
+            },
+            {
+                        "dialogue": "I was cooking when he called me.",
+                        "emoji": "🍳",
+                        "question": "در جمله «وقتی او با من تماس گرفت، داشتم آشپزی می‌کردم»، کدام کار از قبل در حال انجام بود؟",
+                        "options": [
+                                    {
+                                                "text": "Cooking",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Calling",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Driving to work",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "was cooking نشان‌دهنده کاری است که هنگام رخ دادن تماس در جریان بوده."
+            },
+            {
+                        "dialogue": "You should get some rest.",
+                        "emoji": "🛋️",
+                        "question": "فردی می‌گوید «بهتر است کمی استراحت کنی». او چه پیشنهادی می‌دهد؟",
+                        "options": [
+                                    {
+                                                "text": "Taking a break and resting",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Working longer",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Buying a new phone",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "should برای توصیه استفاده می‌شود و get some rest یعنی استراحت کردن."
+            },
+            {
+                        "dialogue": "I haven't seen Sarah since Monday.",
+                        "emoji": "👀",
+                        "question": "جمله «از دوشنبه سارا را ندیده‌ام» چه اطلاعاتی درباره زمان می‌دهد؟",
+                        "options": [
+                                    {
+                                                "text": "The last time the speaker saw Sarah was Monday.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The speaker sees Sarah every Monday.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Sarah moved on Monday.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "since Monday نقطه شروع بازه‌ای است که تا زمان حال ادامه دارد."
+            },
+            {
+                        "dialogue": "Would you mind closing the door?",
+                        "emoji": "🚪",
+                        "question": "فردی می‌پرسد «اشکالی دارد در را ببندی؟» او چه درخواستی دارد؟",
+                        "options": [
+                                    {
+                                                "text": "A polite request to close the door",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Permission to open a window",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Information about the room",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Would you mind ... یک درخواست مودبانه است."
+            },
+            {
+                        "dialogue": "The meeting has been postponed until Friday.",
+                        "emoji": "📆",
+                        "question": "جمله «جلسه تا جمعه به تعویق افتاده است» چه اتفاقی برای جلسه افتاده؟",
+                        "options": [
+                                    {
+                                                "text": "It was moved to Friday.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "It was completed on Monday.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "It was moved to yesterday.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "postponed یعنی به زمان دیرتری منتقل شدن."
+            },
+            {
+                        "dialogue": "I used to live near the beach.",
+                        "emoji": "🏖️",
+                        "question": "جمله «قبلاً نزدیک ساحل زندگی می‌کردم» درباره گذشته چه چیزی می‌گوید؟",
+                        "options": [
+                                    {
+                                                "text": "The speaker lived there in the past but not necessarily now.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The speaker is moving there tomorrow.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The speaker has never lived there.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "used to برای عادت یا وضعیت گذشته‌ای است که دیگر ادامه ندارد."
+            },
+            {
+                        "dialogue": "By the time we arrived, the movie had started.",
+                        "emoji": "🎬",
+                        "question": "در جمله «وقتی رسیدیم، فیلم شروع شده بود»، کدام اتفاق زودتر رخ داده است؟",
+                        "options": [
+                                    {
+                                                "text": "The movie started.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "We arrived.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "We bought a ticket tomorrow.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "past perfect یعنی شروع فیلم قبل از رسیدن اتفاق افتاده است."
+            },
+            {
+                        "dialogue": "I'm not used to speaking in public.",
+                        "emoji": "🎤",
+                        "question": "فردی می‌گوید «من به صحبت کردن در جمع عادت ندارم». منظور او چیست؟",
+                        "options": [
+                                    {
+                                                "text": "Speaking in public is not familiar or comfortable for them.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "They speak to large crowds every day.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "They are preparing to travel abroad.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "be used to یعنی به چیزی عادت داشتن."
+            },
+            {
+                        "dialogue": "The report needs to be finished by tomorrow.",
+                        "emoji": "📄",
+                        "question": "جمله «گزارش باید تا فردا تمام شود» مهلت انجام کار را چه زمانی تعیین می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "By tomorrow",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "By next month",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "After the weekend next year",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "by tomorrow یعنی حداکثر تا فردا."
+            },
+            {
+                        "dialogue": "If I had more time, I would learn another language.",
+                        "emoji": "📚",
+                        "question": "جمله «اگر وقت بیشتری داشتم، یک زبان دیگر یاد می‌گرفتم» چه نوع موقعیتی را بیان می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "A hypothetical situation about having more time",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "A confirmed plan for tomorrow",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A past event that already happened",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "این ساختار second conditional برای موقعیت فرضی استفاده می‌شود."
+            },
+            {
+                        "dialogue": "She suggested going by train instead of driving.",
+                        "emoji": "🚆",
+                        "question": "او پیشنهاد کرد به‌جای رانندگی با قطار برویم. پیشنهاد او چه بود؟",
+                        "options": [
+                                    {
+                                                "text": "Taking the train",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Driving faster",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Staying at home",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "suggested going by train یعنی پیشنهاد سفر با قطار."
+            },
+            {
+                        "dialogue": "I wish I had studied harder for the exam.",
+                        "emoji": "📝",
+                        "question": "جمله «ای کاش برای امتحان بیشتر درس خوانده بودم» چه احساسی را بیان می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "Regret about the past",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Excitement about a future exam",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "A daily study habit",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "wish + past perfect معمولاً پشیمانی درباره گذشته را بیان می‌کند."
+            },
+            {
+                        "dialogue": "Despite being tired, he continued working.",
+                        "emoji": "💼",
+                        "question": "با وجود خستگی، او به کار کردن ادامه داد. نکته قابل توجه در این جمله چیست؟",
+                        "options": [
+                                    {
+                                                "text": "He kept working although he was tired.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "He stopped working because he was tired.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "He became tired after finishing work.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "despite یعنی با وجودِ؛ اتفاق اصلی برخلاف مانع ادامه پیدا کرده است."
+            },
+            {
+                        "dialogue": "The company is expected to announce the results tomorrow.",
+                        "emoji": "📢",
+                        "question": "طبق جمله، شرکت قرار است فردا چه کاری انجام دهد؟",
+                        "options": [
+                                    {
+                                                "text": "The company will probably announce the results tomorrow.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The results were announced yesterday.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The company has canceled the results.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "is expected to نشان‌دهنده انتظار یا پیش‌بینی است."
+            },
+            {
+                        "dialogue": "Had I known about the problem, I would have helped.",
+                        "emoji": "🧩",
+                        "question": "گوینده می‌گوید اگر از مشکل خبر داشت، کمک می‌کرد. منظور ضمنی او چیست؟",
+                        "options": [
+                                    {
+                                                "text": "They did not know about the problem, so they did not help.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "They knew everything and refused to help.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "They will help tomorrow.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "این ساختار شرطی نوع سوم درباره یک موقعیت فرضی در گذشته است."
+            },
+            {
+                        "dialogue": "The project was completed ahead of schedule.",
+                        "emoji": "🏆",
+                        "question": "جمله «پروژه زودتر از زمان‌بندی به پایان رسید» چه اتفاقی را بیان می‌کند؟",
+                        "options": [
+                                    {
+                                                "text": "The project finished earlier than planned.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The project was canceled before starting.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The project finished later than planned.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "ahead of schedule یعنی زودتر از برنامه زمانی."
+            },
+            {
+                        "dialogue": "I would rather stay home than go out tonight.",
+                        "emoji": "🏠",
+                        "question": "فردی می‌گوید «ترجیح می‌دهم امشب خانه بمانم تا بیرون بروم». او چه چیزی را ترجیح می‌دهد؟",
+                        "options": [
+                                    {
+                                                "text": "Staying home",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Going out",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Working all night",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "would rather ... than برای بیان ترجیح استفاده می‌شود."
+            },
+            {
+                        "dialogue": "Not only did he apologize, but he also offered to fix the problem.",
+                        "emoji": "🛠️",
+                        "question": "او علاوه بر عذرخواهی چه کار دیگری انجام داد؟",
+                        "options": [
+                                    {
+                                                "text": "He offered to fix the problem.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "He ignored the problem.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "He blamed another person.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "not only ... but also دو کار یا ویژگی را کنار هم می‌آورد."
+            },
+            {
+                        "dialogue": "The more you practice, the more confident you become.",
+                        "emoji": "📈",
+                        "question": "جمله «هرچه بیشتر تمرین کنی، اعتمادبه‌نفست بیشتر می‌شود» چه رابطه‌ای را نشان می‌دهد؟",
+                        "options": [
+                                    {
+                                                "text": "More practice leads to greater confidence.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "More practice causes less confidence.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Practice has no effect on confidence.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "ساختار the more..., the more... رابطه افزایش دو عامل را نشان می‌دهد."
+            },
+            {
+                        "dialogue": "He denied having taken the money.",
+                        "emoji": "💰",
+                        "question": "فردی می‌گوید پول را برنداشته است. او دقیقاً چه چیزی را انکار کرده است؟",
+                        "options": [
+                                    {
+                                                "text": "Taking the money",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Losing his passport",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Receiving a promotion",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "deny + gerund یعنی انجام یک کار را انکار کردن."
+            },
+            {
+                        "dialogue": "We need to take into account the additional costs.",
+                        "emoji": "🧾",
+                        "question": "جمله می‌گوید باید هزینه‌های اضافی را در نظر بگیریم. چه چیزی باید محاسبه یا لحاظ شود؟",
+                        "options": [
+                                    {
+                                                "text": "The additional costs",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Only the original price",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The weather next month",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "take into account یعنی چیزی را در تصمیم‌گیری در نظر گرفتن."
+            },
+            {
+                        "dialogue": "Had it not been for your advice, I might have made a serious mistake.",
+                        "emoji": "🙏",
+                        "question": "اگر توصیه تو نبود، ممکن بود او اشتباه جدی کند. توصیه چه تأثیری داشته است؟",
+                        "options": [
+                                    {
+                                                "text": "It may have prevented a serious mistake.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "It caused the mistake.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "It had no connection to the decision.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Had it not been for یعنی اگر آن عامل وجود نداشت، نتیجه ممکن بود متفاوت باشد."
+            },
+            {
+                        "dialogue": "The proposal was rejected on the grounds that it was too expensive.",
+                        "emoji": "📋",
+                        "question": "پیشنهاد رد شد چون بیش از حد گران بود. دلیل رد شدن چه بود؟",
+                        "options": [
+                                    {
+                                                "text": "It was considered too expensive.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "It was submitted too early.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "It contained no financial information.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "on the grounds that دلیل رد شدن را بیان می‌کند."
+            },
+            {
+                        "dialogue": "It is essential that every applicant submit the form by Friday.",
+                        "emoji": "📝",
+                        "question": "طبق جمله، چه کاری برای هر متقاضی ضروری است؟",
+                        "options": [
+                                    {
+                                                "text": "Every applicant must submit the form by Friday.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Only successful applicants may submit it next month.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The form is optional.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "essential یعنی ضروری؛ by Friday مهلت را مشخص می‌کند."
+            },
+            {
+                        "dialogue": "Were the company to change its policy, many customers might leave.",
+                        "emoji": "🏢",
+                        "question": "اگر شرکت سیاست خود را تغییر دهد، چه اتفاقی ممکن است برای مشتریان بیفتد؟",
+                        "options": [
+                                    {
+                                                "text": "Many customers might leave.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "All customers must stay.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The policy would automatically succeed.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "Were ... to یک ساختار رسمی برای شرط فرضی است."
+            },
+            {
+                        "dialogue": "She could have avoided the problem if she had checked the details.",
+                        "emoji": "🔍",
+                        "question": "جمله نشان می‌دهد او چگونه می‌توانست از مشکل جلوگیری کند؟",
+                        "options": [
+                                    {
+                                                "text": "Checking the details might have prevented the problem.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Checking the details caused the problem.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The problem happened before the details existed.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "این جمله درباره یک فرصت از دست‌رفته در گذشته است."
+            },
+            {
+                        "dialogue": "The findings raise questions about whether the policy is effective.",
+                        "emoji": "🔬",
+                        "question": "یافته‌ها درباره مؤثر بودن سیاست چه تردیدی ایجاد کرده‌اند؟",
+                        "options": [
+                                    {
+                                                "text": "Whether the policy is effective",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Who wrote the report",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "When the company opened",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "raise questions about whether یعنی درباره درست یا مؤثر بودن چیزی تردید ایجاد کردن."
+            },
+            {
+                        "dialogue": "No sooner had we arrived than the meeting began.",
+                        "emoji": "⏱️",
+                        "question": "به‌محض اینکه رسیدیم، چه اتفاقی افتاد؟",
+                        "options": [
+                                    {
+                                                "text": "The meeting began.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "We went home.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The meeting was canceled.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "no sooner ... than نشان می‌دهد اتفاق دوم بلافاصله پس از اولی رخ داده است."
+            },
+            {
+                        "dialogue": "He is widely regarded as one of the most influential researchers in the field.",
+                        "emoji": "🧠",
+                        "question": "این پژوهشگر در این حوزه چگونه دیده یا ارزیابی می‌شود؟",
+                        "options": [
+                                    {
+                                                "text": "As a highly influential researcher",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "As a beginner with no experience",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "As someone outside the field",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "widely regarded as یعنی در نگاه عمومی چنین جایگاهی برای او پذیرفته شده است."
+            },
+            {
+                        "dialogue": "The decision was made regardless of the potential consequences.",
+                        "emoji": "⚖️",
+                        "question": "تصمیم‌گیری بدون توجه به چه چیزی انجام شد؟",
+                        "options": [
+                                    {
+                                                "text": "Without allowing the possible consequences to change the decision",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Only after every consequence had been avoided",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "Because there were no possible consequences",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "regardless of یعنی بدون توجه به یا فارغ از."
+            },
+            {
+                        "dialogue": "What matters most is how effectively we respond to the situation.",
+                        "emoji": "🎯",
+                        "question": "طبق جمله، مهم‌ترین چیز در این موقعیت چیست؟",
+                        "options": [
+                                    {
+                                                "text": "How effectively we respond",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Who created the situation",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "How long the situation lasts",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "what matters most ساختاری برای برجسته کردن مهم‌ترین عامل است."
+            },
+            {
+                        "dialogue": "Had the warning been taken seriously, the incident could have been prevented.",
+                        "emoji": "⚠️",
+                        "question": "اگر هشدار جدی گرفته می‌شد، چه چیزی احتمالاً قابل پیشگیری بود؟",
+                        "options": [
+                                    {
+                                                "text": "Taking the warning seriously might have prevented the incident.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The warning caused the incident.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "There was no warning.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "این ساختار شرطی گذشته درباره نتیجه‌ای است که اتفاق نیفتاده است."
+            },
+            {
+                        "dialogue": "The extent to which technology changes our lives depends on how we use it.",
+                        "emoji": "💻",
+                        "question": "تأثیر فناوری بر زندگی ما به چه چیزی بستگی دارد؟",
+                        "options": [
+                                    {
+                                                "text": "How we use technology",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "The age of the technology",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "How expensive every device is",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "depends on نشان می‌دهد نتیجه به نحوه استفاده بستگی دارد."
+            },
+            {
+                        "dialogue": "It remains to be seen whether the new strategy will succeed.",
+                        "emoji": "🔮",
+                        "question": "در حال حاضر درباره موفقیت راهبرد جدید چه می‌دانیم؟",
+                        "options": [
+                                    {
+                                                "text": "Its success is still uncertain.",
+                                                "correct": true
+                                    },
+                                    {
+                                                "text": "Its success has already been proven.",
+                                                "correct": false
+                                    },
+                                    {
+                                                "text": "The strategy has already failed.",
+                                                "correct": false
+                                    }
+                        ],
+                        "hint": "remains to be seen یعنی نتیجه هنوز مشخص نشده است."
+            }
+];
 
         let currentStage = 0;
         let score = 0;
@@ -504,7 +1806,6 @@
         const welcomeModal = document.getElementById("welcome-modal");
         const gameScreen = document.getElementById("game-screen");
         const dialogueEl = document.getElementById("npc-dialogue");
-        const translationEl = document.getElementById("npc-translation");
         const emojiEl = document.getElementById("npc-emoji");
         const questionEl = document.getElementById("question-text");
         const optionsContainer = document.getElementById("options-container");
@@ -557,9 +1858,10 @@
         }
 
         function getStageTime() {
-            if (currentStage < 20) return 20;
-            if (currentStage < 40) return 15;
-            return 10;
+            if (currentStage < 15) return 25;
+            if (currentStage < 30) return 20;
+            if (currentStage < 45) return 16;
+            return 12;
         }
 
         function startTimer() {
@@ -607,10 +1909,11 @@
             
             const stage = stages[currentStage];
             dialogueEl.textContent = `"${stage.dialogue}"`;
-            translationEl.textContent = `«${stage.translation}»`;
             emojiEl.textContent = stage.emoji;
             questionEl.textContent = stage.question;
             levelEl.textContent = currentStage + 1;
+            const difficultyEl = document.getElementById("difficulty-badge");
+            difficultyEl.textContent = currentStage < 15 ? "A1 • مقدماتی" : currentStage < 30 ? "A2 • پایه" : currentStage < 45 ? "B1 • متوسط" : "B2 • پیشرفته";
             
             const percent = Math.round(((currentStage) / stages.length) * 100);
             progressBar.style.width = `${percent}%`;
