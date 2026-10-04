@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مأموریت کافه | یادگیری انگلیسی با بازی - CllO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-glow: rgba(245, 158, 11, 0.4);
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stat-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .scene-box {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .npc-dialogue {
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .npc-translation {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .question-box {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 14px 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: right;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent);
+            color: #34d399;
+        }
+
+        .option-btn.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #f87171;
+        }
+
+        .footer-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .hint-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .result-screen {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .result-screen h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- هدر بازی -->
+        <div class="header">
+            <div class="logo">cllo.ir</div>
+            <div class="stats">
+                <div class="stat-badge">⭐ امتیاز: <span id="score">0</span></div>
+                <div class="stat-badge">☕ مرحله: <span id="level">1</span>/3</div>
+            </div>
+        </div>
+
+        <!-- بدنه اصلی بازی -->
+        <div id="game-screen">
+            <div class="scene-box">
+                <div class="npc-dialogue" id="npc-dialogue">"Hello! Welcome to CllO Café. What would you like?"</div>
+                <div class="npc-translation" id="npc-translation">«سلام! به کافه کلو خوش آمدید. چه میل دارید؟»</div>
+            </div>
+
+            <div class="question-box" id="question-text">به عنوان مشتری، چطور باید پاسخ بدهید؟</div>
+
+            <div class="options-grid" id="options-container">
+                <!-- گزینه‌ها به صورت داینامیک لود می‌شوند -->
+            </div>
+
+            <div class="footer-actions">
+                <span class="hint-text" onclick="showHint()">💡 راهنمایی می‌خواهم</span>
+                <button class="btn-action hidden" id="next-btn" onclick="nextStage()">مرحله بعد ➔</button>
+            </div>
+        </div>
+
+        <!-- صفحه پایان بازی -->
+        <div id="result-screen" class="result-screen hidden">
+            <h2>🎉 مأموریت با موفقیت به پایان رسید!</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">شما توانستید در کافه موفق به مکالمه انگلیسی شوید و اصطلاحات جدید را یاد بگیرید.</p>
+            <div style="font-size: 20px; margin-bottom: 25px;">امتیاز نهایی شما: <strong id="final-score" style="color: var(--primary);">0</strong></div>
+            <button class="btn-action" onclick="restartGame()">بازی دوباره 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        const stages = [
+            {
+                dialogue: "Hello! Welcome to CllO Café. What would you like?",
+                translation: "«سلام! به کافه کلو خوش آمدید. چه میل دارید؟»",
+                question: "کدام گزینه پاسخ درستی برای سفارش یک قهوه است؟",
+                options: [
+                    { text: "I want a cup of coffee, please.", correct: true },
+                    { text: "Give me coffee now!", correct: false },
+                    { text: "You are welcome coffee.", correct: false }
+                ],
+                hint: "از عبارت مؤدبانه I want ... یا I would like استفاده کنید."
+            },
+            {
+                dialogue: "Sure! Would you like some milk with your coffee?",
+                translation: "«حتماً! آیا کمی شیر با قهوه‌تان میل دارید؟»",
+                question: "اگر شیر می‌خواهید، چطور جواب می‌دهید؟",
+                options: [
+                    { text: "No, thank you.", correct: false },
+                    { text: "Yes, please. Just a little.", correct: true },
+                    { text: "I am fine milk.", correct: false }
+                ],
+                hint: "برای پاسخ مثبت همراه با جزئیات از Yes, please استفاده کنید."
+            },
+            {
+                dialogue: "Here is your coffee. That will be 5 dollars.",
+                translation: "«این هم از قهوه شما. ۵ دلار میشه.»",
+                question: "چطور از گارسون تشکر می‌کنید و پول را می‌دهید؟",
+                options: [
+                    { text: "Goodbye, I am going.", correct: false },
+                    { text: "Thank you. Here you are.", correct: true },
+                    { text: "Where is my money?", correct: false }
+                ],
+                hint: "عبارت Here you are یعنی «بفرمایید (اینم پول/چیز دیگر)»."
+            }
+        ];
+
+        let currentStage = 0;
+        let score = 0;
+        let answered = false;
+
+        const dialogueEl = document.getElementById("npc-dialogue");
+        const translationEl = document.getElementById("npc-translation");
+        const questionEl = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const scoreEl = document.getElementById("score");
+        const levelEl = document.getElementById("level");
+        const nextBtn = document.getElementById("next-btn");
+        const gameScreen = document.getElementById("game-screen");
+        const resultScreen = document.getElementById("result-screen");
+        const finalScoreEl = document.getElementById("final-score");
+
+        function loadStage() {
+            answered = false;
+            nextBtn.classList.add("hidden");
+            
+            const stage = stages[currentStage];
+            dialogueEl.textContent = `"${stage.dialogue}"`;
+            translationEl.textContent = `«${stage.translation}»`;
+            questionEl.textContent = stage.question;
+            levelEl.textContent = currentStage + 1;
+
+            optionsContainer.innerHTML = "";
+            stage.options.forEach((option) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.textContent = option.text;
+                btn.onclick = () => selectOption(btn, option.correct);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(button, isCorrect) {
+            if (answered) return;
+            answered = true;
+
+            const buttons = optionsContainer.querySelectorAll(".option-btn");
+            buttons.forEach(btn => {
+                if (btn.textContent === stages[currentStage].options.find(o => o.correct).text) {
+                    btn.classList.add("correct");
+                } else if (btn === button && !isCorrect) {
+                    btn.classList.add("wrong");
+                }
+            });
+
+            if (isCorrect) {
+                score += 20;
+                scoreEl.textContent = score;
+            }
+
+            if (currentStage < stages.length - 1) {
+                nextBtn.classList.remove("hidden");
+            } else {
+                setTimeout(showResult, 1000);
+            }
+        }
+
+        function nextStage() {
+            currentStage++;
+            loadStage();
+        }
+
+        function showHint() {
+            alert(stages[currentStage].hint);
+        }
+
+        function showResult() {
+            gameScreen.classList.add("hidden");
+            resultScreen.classList.remove("hidden");
+            finalScoreEl.textContent = score;
+        }
+
+        function restartGame() {
+            currentStage = 0;
+            score = 0;
+            scoreEl.textContent = score;
+            resultScreen.classList.add("hidden");
+            gameScreen.classList.remove("hidden");
+            loadStage();
+        }
+
+        // راه‌اندازی اولیه
+        loadStage();
+    </script>
+</body>
+</html>
