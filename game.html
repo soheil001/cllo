@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مأموریت زبان انگلیسی | یادگیری با بازی - CllO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>مأموریت مکالمه پیشرفته | آکادمی CllO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #f59e0b;
-            --primary-glow: rgba(245, 158, 11, 0.4);
-            --bg-dark: #090d16;
-            --card-bg: rgba(30, 41, 59, 0.8);
+            --primary-glow: rgba(245, 158, 11, 0.5);
+            --bg-dark: #050811;
+            --card-bg: rgba(17, 24, 39, 0.85);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.4);
             --danger: #ef4444;
+            --danger-glow: rgba(239, 68, 68, 0.4);
         }
 
         * {
@@ -27,94 +29,115 @@
 
         body {
             background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at top, #1e293b, #090d16);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                linear-gradient(135deg, #090d16 0%, #050811 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .game-container {
             width: 100%;
-            max-width: 640px;
+            max-width: 680px;
             background: var(--card-bg);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 28px;
-            padding: 28px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(245, 158, 11, 0.05);
             position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-out;
+            animation: containerEntry 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes containerEntry {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 14px;
+            padding-bottom: 16px;
         }
 
         .logo {
             font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 22px;
-            color: var(--primary);
-            letter-spacing: 1px;
-            text-shadow: 0 0 12px var(--primary-glow);
+            font-weight: 800;
+            font-size: 24px;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1.5px;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
         }
 
         .stats {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             font-size: 13px;
             font-weight: 600;
         }
 
         .stat-badge {
-            background: rgba(255, 255, 255, 0.06);
-            padding: 6px 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 7px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .progress-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .progress-bar-container {
             width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.08);
+            height: 8px;
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 10px;
-            margin-bottom: 20px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .progress-bar {
             height: 100%;
-            background: var(--primary);
+            background: linear-gradient(90deg, #d97706, var(--primary));
             width: 0%;
-            transition: width 0.4s ease;
-            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px var(--primary-glow);
+            border-radius: 10px;
         }
 
         .scene-box {
-            background: rgba(15, 23, 42, 0.75);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 18px;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(11, 17, 32, 0.95));
+            border-radius: 22px;
+            padding: 24px;
+            margin-bottom: 20px;
             text-align: center;
-            border: 1px solid rgba(245, 158, 11, 0.25);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.6), 0 10px 25px rgba(0,0,0,0.3);
             position: relative;
         }
 
@@ -122,15 +145,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .level-indicator {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-muted);
             background: rgba(255,255,255,0.05);
-            padding: 4px 10px;
-            border-radius: 8px;
+            padding: 5px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .timer-container {
@@ -138,117 +162,135 @@
             align-items: center;
             gap: 6px;
             font-size: 13px;
+            font-weight: 700;
             color: #fbbf24;
             background: rgba(251, 191, 36, 0.1);
-            padding: 4px 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 5px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.1);
+        }
+
+        .npc-avatar-wrapper {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(16, 185, 129, 0.1));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 12px;
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
         }
 
         .npc-avatar {
-            font-size: 32px;
-            margin-bottom: 6px;
+            font-size: 28px;
         }
 
         .npc-dialogue {
-            font-size: 18px;
+            font-size: 19px;
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #fbbf24;
-            font-weight: 600;
+            font-weight: 700;
             direction: ltr;
             unicode-bidi: embed;
-            text-align: center;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         }
 
         .npc-translation {
             font-size: 14px;
             color: var(--text-muted);
-            text-align: center;
         }
 
         .question-box {
             font-size: 15px;
-            margin-bottom: 16px;
-            font-weight: 600;
+            margin-bottom: 18px;
+            font-weight: 700;
             text-align: center;
             color: #e2e8f0;
+            line-height: 1.6;
         }
 
         .options-grid {
             display: grid;
             gap: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .option-btn {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-main);
-            padding: 14px 20px;
-            border-radius: 14px;
+            padding: 15px 20px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 15px;
-            text-align: center;
-            transition: all 0.25s ease;
+            font-size: 14px;
+            text-align: right;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            direction: ltr;
-            unicode-bidi: embed;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .option-btn:hover:not(:disabled) {
-            background: rgba(245, 158, 11, 0.12);
-            border-color: var(--primary);
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.5);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.15);
         }
 
         .option-btn.correct {
-            background: rgba(16, 185, 129, 0.25) !important;
+            background: rgba(16, 185, 129, 0.2) !important;
             border-color: var(--accent) !important;
             color: #34d399 !important;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 25px var(--accent-glow) !important;
         }
 
         .option-btn.wrong {
-            background: rgba(239, 68, 68, 0.25) !important;
+            background: rgba(239, 68, 68, 0.2) !important;
             border-color: var(--danger) !important;
             color: #f87171 !important;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
-            animation: shake 0.4s;
+            box-shadow: 0 0 25px var(--danger-glow) !important;
+            animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-6px); }
-            75% { transform: translateX(6px); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
 
         .footer-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
+            margin-top: 18px;
             border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 15px;
+            padding-top: 18px;
         }
 
         .btn-action {
             background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #000;
+            color: #050811;
             border: none;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 14px;
+            font-weight: 800;
             cursor: pointer;
-            transition: 0.3s;
-            font-size: 14px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
 
         .btn-action:hover {
-            box-shadow: 0 0 20px var(--primary-glow);
+            filter: brightness(1.15);
             transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--primary-glow);
         }
 
         .hint-text {
@@ -256,7 +298,9 @@
             color: var(--text-muted);
             cursor: pointer;
             text-decoration: underline;
+            text-underline-offset: 4px;
             transition: color 0.2s;
+            font-weight: 500;
         }
         .hint-text:hover { color: var(--primary); }
 
@@ -268,8 +312,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 8, 17, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(3, 6, 14, 0.88);
+            backdrop-filter: blur(16px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -278,28 +322,28 @@
         }
 
         .modal-card {
-            background: #111827;
+            background: linear-gradient(145deg, #111827, #0d1322);
             border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 24px;
-            padding: 30px;
-            max-width: 500px;
+            border-radius: 28px;
+            padding: 35px;
+            max-width: 520px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-            animation: fadeIn 0.5s ease-out;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 30px rgba(245, 158, 11, 0.1);
         }
 
         .modal-card h2 {
             color: var(--primary);
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 26px;
+            margin-bottom: 14px;
+            font-weight: 800;
         }
 
         .modal-card p {
             color: var(--text-muted);
             font-size: 14px;
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             text-align: right;
         }
 
@@ -310,54 +354,60 @@
             color: #cbd5e1;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 14px;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .result-screen {
             text-align: center;
-            padding: 20px 10px;
-            animation: fadeIn 0.5s ease-out;
+            padding: 25px 10px;
         }
 
         .result-screen h2 {
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 12px;
             color: var(--primary);
+            font-weight: 800;
         }
     </style>
 </head>
 <body>
 
-    <!-- پاپ‌آپ راهنما و قوانین بازی -->
     <div id="welcome-modal" class="modal-overlay">
         <div class="modal-card">
-            <div style="font-size: 45px; margin-bottom: 10px;">🏆</div>
-            <h2>مأموریت یادگیری زبان انگلیسی</h2>
-            <p>به بازی چالش مکالمات و اصطلاحات روزمره خوش آمدید! در این سفر ۶۰ مرحله‌ای، مهارت انگلیسی خود را در موقعیت‌های مختلف تقویت می‌کنید.</p>
+            <div style="font-size: 55px; margin-bottom: 12px; filter: drop-shadow(0 0 15px rgba(245,158,11,0.4));">🚀</div>
+            <h2>چالش هوشمند مکالمه انگلیسی</h2>
+            <p>در این نسخه، سوالات به صورت سناریوهای واقعی، درک اصطلاحات و انتخاب پاسخ مناسب طراحی شده‌اند تا مهارت واقعی شما به چالش کشیده شود.</p>
             <div class="rules-list">
-                <div>⚡ **سوالات ۱ تا ۱۰:** ۲۰ ثانیه زمان برای هر سوال</div>
-                <div>⚡ **سوالات ۱۱ تا ۴۰:** ۱۰ ثانیه زمان برای هر سوال</div>
-                <div>⚡ **سوالات ۴۱ تا ۶۰:** ۵ ثانیه زمان (چالش فوق‌العاده سریع)</div>
-                <div>❤️ **تعداد جان‌ها:** ۳ عدد قلب (با پاسخ اشتباه یا تمام شدن زمان کسر می‌شود)</div>
+                <div>⚡ **سطح ۱ تا ۲۰:** مکالمات روزمره و واکنش‌های سریع</div>
+                <div>⚡ **سطح ۲۱ تا ۴۰:** اصطلاحات کاربردی در موقعیت‌های مختلف</div>
+                <div>⚡ **سطح ۴۱ تا ۶۰:** اصطلاحات پیشرفته و ساختارهای حرفه‌ای</div>
+                <div>❤ **جان‌ها:** ۳ عدد قلب برای کل مسیر مأموریت</div>
             </div>
-            <button class="btn-action" onclick="startGame()">شروع مأموریت 🚀</button>
+            <button class="btn-action" onclick="startGame()">شروع مأموریت 🎯</button>
         </div>
     </div>
 
     <div class="game-container">
         <div class="header">
-            <div class="logo">cllo.ir</div>
+            <div class="logo">CLL.O</div>
             <div class="stats">
                 <div class="stat-badge">❤️ جان: <span id="lives">3</span></div>
                 <div class="stat-badge">⭐ امتیاز: <span id="score">0</span></div>
             </div>
         </div>
 
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
+        <div class="progress-wrapper">
+            <div class="progress-info">
+                <span>پیشرفت مأموریت</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
         </div>
 
         <div id="game-screen" class="hidden">
@@ -366,88 +416,82 @@
                     <div class="level-indicator">مرحله <span id="level">1</span> از 60</div>
                     <div class="timer-container">⏳ <span id="timer">20</span> ثانیه</div>
                 </div>
-                <div class="npc-avatar">🎯</div>
-                <div class="npc-dialogue" id="npc-dialogue">"Hello, how's it going?"</div>
-                <div class="npc-translation" id="npc-translation">«سلام، اوضاع چطوره؟»</div>
+                <div class="npc-avatar-wrapper">
+                    <div class="npc-avatar" id="npc-emoji">💬</div>
+                </div>
+                <div class="npc-dialogue" id="npc-dialogue">"Could you give me a hand with this?"</div>
+                <div class="npc-translation" id="npc-translation">«ممکن است در این کار به من کمک کنید؟»</div>
             </div>
 
-            <div class="question-box" id="question-text">معنی عبارت فوق چیست؟</div>
+            <div class="question-box" id="question-text">شخص مقابل از شما چه درخواستی دارد یا بهترین پاسخ به این جمله چیست؟</div>
 
             <div class="options-grid" id="options-container"></div>
 
             <div class="footer-actions">
-                <span class="hint-text" onclick="showHint()">💡 راهنمایی می‌خواهم</span>
+                <span class="hint-text" onclick="showHint()">💡 راهنمایی می‌‌خواهم</span>
                 <button class="btn-action hidden" id="next-btn" onclick="nextStage()">مرحله بعد ➔</button>
             </div>
         </div>
 
         <div id="result-screen" class="result-screen hidden">
-            <div style="font-size: 50px; margin-bottom: 10px;" id="result-icon">🎉</div>
+            <div style="font-size: 60px; margin-bottom: 15px;" id="result-icon">🏆</div>
             <h2 id="result-title">مأموریت با موفقیت به پایان رسید!</h2>
-            <p id="result-desc" style="margin-bottom: 20px; color: var(--text-muted);">شما تمامی ۶۰ مرحله چالش را با موفقیت پشت سر گذاشتید.</p>
-            <div style="font-size: 18px; margin-bottom: 25px;">امتیاز نهایی شما: <strong id="final-score" style="color: var(--primary);">0</strong> از ۱۲۰۰</div>
-            <button class="btn-action" onclick="restartGame()">بازی دوباره 🔄</button>
+            <p id="result-desc" style="margin-bottom: 22px; color: var(--text-muted);">شما تمامی ۶۰ مرحله را با موفقیت پشت سر گذاشتید.</p>
+            <div style="font-size: 19px; margin-bottom: 28px;">امتیاز کسب شده: <strong id="final-score" style="color: var(--primary);">0</strong> از ۱۲۰۰</div>
+            <button class="btn-action" onclick="restartGame()">تلاش دوباره 🔄</button>
         </div>
     </div>
 
     <script>
-        // بانک ۶۰ سوال جامع، استاندارد و متنوع (اصلاح سوالات اولیه به سطح مبتدی واقعی و کاربردی)
+        // بانک ۶۰ سوال سناریو‌محور و اصولی (بدون تکرار عبارت در گزینه‌ها)
         const stages = [
-            // سطح ۱ تا ۱۰ (مبتدی کاربردی و مکالمه‌ای - زمان ۲۰ ثانیه)
-            { dialogue: "How is it going?", translation: "«اوضاع چطوره؟ / همه چیز روبه‌راهه؟»", question: "معنی عبارت فوق چیست؟", options: [{ text: "How is it going?", correct: true }, { text: "Where are you going?", correct: false }, { text: "What do you want?", correct: false }], hint: "یک احوالپرسی صمیمی و رایج." },
-            { dialogue: "Long time no see!", translation: "«خیلی وقته ندیدمتت!»", question: "وقتی پس از مدت‌ها کسی را می‌بینید:", options: [{ text: "Long time no see!", correct: true }, { text: "Nice to meet you.", correct: false }, { text: "See you tomorrow.", correct: false }], hint: "اشاره به دوری و مدت زمان زیاد." },
-            { dialogue: "I am learning English.", translation: "«من دارم زبان انگلیسی یاد می‌گیرم.»", question: "برای بیان کاری که در حال انجام آن هستید:", options: [{ text: "I am learning English.", correct: true }, { text: "I am teaching English.", correct: false }, { text: "I hate English.", correct: false }], hint: "فعل learning یعنی یاد گرفتن." },
-            { dialogue: "What do you do for a living?", translation: "«شغلت چیست؟ / چیکاره‌ای؟»", question: "برای پرسیدن شغل شخص مقابل:", options: [{ text: "What do you do for a living?", correct: true }, { text: "Where do you live?", correct: false }, { text: "How old are you?", correct: false }], hint: "پرسش درباره کار و حرفه." },
-            { dialogue: "I work as a web developer.", translation: "«من به عنوان توسعه‌دهنده وب کار می‌کنم.»", question: "برای معرفی شغل خود:", options: [{ text: "I work as a web developer.", correct: true }, { text: "I am a driver.", correct: false }, { text: "I don't have a job.", correct: false }], hint: "developer یعنی طراح و توسعه‌دهنده." },
-            { dialogue: "What's the weather like today?", translation: "«امروز هوا چطور است؟»", question: "برای پرسیدن وضعیت آب و هوا:", options: [{ text: "What's the weather like today?", correct: true }, { text: "What day is today?", correct: false }, { text: "What time is it?", correct: false }], hint: "weather یعنی آب و هوا." },
-            { dialogue: "It's sunny and warm.", translation: "«هوا آفتابی و گرم است.»", question: "توصیف روز آفتابی:", options: [{ text: "It's sunny and warm.", correct: true }, { text: "It's freezing cold.", correct: false }, { text: "It's rainy outside.", correct: false }], hint: "sunny یعنی آفتابی." },
-            { dialogue: "Where are you from?", translation: "«اهل کجا هستید؟»", question: "پرسش درباره محل تولد یا اقامت:", options: [{ text: "Where are you from?", correct: true }, { text: "Where are you going?", correct: false }, { text: "Where is my bag?", correct: false }], hint: "from برای مبدا." },
-            { dialogue: "I am from Iran.", translation: "«من اهل ایران هستم.»", question: "پاسخ به محل سکونت/اصالت:", options: [{ text: "I am from Iran.", correct: true }, { text: "I live in Paris.", correct: false }, { text: "I am visiting.", correct: false }], hint: "معرفی کشور." },
-            { dialogue: "What are your hobbies?", translation: "«سرگرمی‌های شما چیست؟»", question: "پرسش درباره علایق و اوقات فراغت:", options: [{ text: "What are your hobbies?", correct: true }, { text: "What is your problem?", correct: false }, { text: "How is your family?", correct: false }], hint: "hobbies یعنی سرگرمی‌ها." },
+            // بخش اول: مکالمات و واکنش‌های کاربردی روزمره
+            { dialogue: "Could you give me a hand with this?", translation: "«ممکن است در این کار به من کمک کنید؟»", emoji: "🤝", question: "عبارت 'give me a hand' در اینجا به چه معناست؟", options: [{ text: "کمک کردن به کسی", correct: true }, { text: "دست دادن با کسی", correct: false }, { text: "پس دادن وسیله", correct: false }], hint: "give a hand یعنی یاری رساندن." },
+            { dialogue: "I'm snowed under with work today.", translation: "«امروز فوق‌العاده درگیر کار هستم.»", emoji: "💻", question: "شخص با گفتن این جمله چه وضعیتی دارد؟", options: [{ text: "کارهای بسیار زیادی برای انجام دارد", correct: true }, { text: "زیر برف گیر کرده است", correct: false }, { text: "تعطیلات استراحت دارد", correct: false }], hint: "snowed under اصطلاحی برای حجم کار بالاست." },
+            { dialogue: "Let's call it a day.", translation: "«بیایید کار را برای امروز تمام کنیم.»", emoji: "🏁", question: "معنی این اصطلاح رایج چیست؟", options: [{ text: "متوقف کردن کار و رفتن به استراحت", correct: true }, { text: "نامگذاری روز به یک اسم خاص", correct: false }, { text: "تماس تلفنی گرفتن", correct: false }], hint: "پایان دادن به فعالیت روزانه." },
+            { dialogue: "Break a leg!", translation: "«موفق باشی! / بترکون!»", emoji: "🎭", question: "این عبارت معمولاً در چه موقعیتی به کار می‌رود؟", options: [{ text: "قبل از اجرا یا امتحان برای آرزوی موفقیت", correct: true }, { text: "هنگام زمین خوردن و آسیب دیدن پا", correct: false }, { text: "دستور برای شکستن صندلی", correct: false }], hint: "یک اصطلاح تشویقی قبل از رویداد مهم." },
+            { dialogue: "It cost an arm and a leg.", translation: "«هزینه بسیار گزافی داشت.»", emoji: "💸", question: "معنی غیرواژه‌ای این اصطلاح چیست؟", options: [{ text: "بسیار گران‌‌قیمت بودن چیزی", correct: true }, { text: "پرداخت هزینه با اعضای بدن", correct: false }, { text: "خرید ارزان و مقرون‌به‌صرفه", correct: false }], hint: "اشاره به قیمت نجومی." },
+            { dialogue: "Hit the nail on the head.", translation: "«دقیقاً زدی وسط خال! / درست گفتی.»", emoji: "🎯", question: "چه زمانی از این عبارت استفاده می‌شود؟", options: [{ text: "وقتی کسی دقیقاً و به درستی به اصل مطلب اشاره کند", correct: true }, { text: "هنگام کار با ابزار نجاری و میخ‌کوبی", correct: false }, { text: "وقتی کسی اشتباه بزرگی مرتکب شود", correct: false }], hint: "درست زدن به هدف." },
+            { dialogue: "Piece of cake!", translation: "«مثل آب خوردن! / خیلی آسان است.»", emoji: "🍰", question: "منظور گوینده از این جمله چیست؟", options: [{ text: "انجام آن کار بسیار ساده و راحت است", correct: true }, { text: "دعوت کردن به خوردن کیک تولد", correct: false }, { text: "درخواست یک تکه شیرینی", correct: false }], hint: "کار بسیار راحت." },
+            { dialogue: "Spill the beans.", translation: "«بزن زیر کاسه کوزه / راز رو لو بده.»", emoji: "🤫", question: "معنی این اصطلاح چیست؟", options: [{ text: "لو دادن یک راز یا خبر پنهانی", correct: true }, { text: "ریختن دانه‌های حبوبات رو زمین", correct: false }, { text: "آماده کردن غذا", correct: false }], hint: "افشای اطلاعات محرمانه." },
+            { dialogue: "Under the weather", translation: "«حالم کمی ناخوش است / بی‌حالم.»", emoji: "🤒", question: "شخص با این توصیف چه وضعی دارد؟", options: [{ text: "احساس کسالت یا بیماری خفیف می‌کند", correct: true }, { text: "زیر باران شدید ایستاده است", correct: false }, { text: "از وضعیت آب و هوا لذت می‌برد", correct: false }], hint: "حالت جسمانی نامساعد." },
+            { dialogue: "Bite the bullet", translation: "«دندان روی جگر گذاشتن / تحمل سختی.»", emoji: "🛡️", question: "معنی این اصطلاح چیست؟", options: [{ text: "روبرو شدن شجاعانه با یک وضعیت دشوار و ناخواسته", correct: true }, { text: "گاز گرفتن گلوله فلزی", correct: false }, { text: "شلیک کردن با اسلحه", correct: false }], hint: "تحمل شرایط سخت." },
 
-            // سطح ۱۱ تا ۴۰ (متوسط و کاربردی در موقعیت‌های مختلف - زمان ۱۰ ثانیه)
-            { dialogue: "What is your name?", translation: "«نام شما چیست؟»", question: "برای پرسیدن اسم شخص:", options: [{ text: "What is your name?", correct: true }, { text: "Where is home?", correct: false }, { text: "How old are you?", correct: false }], hint: "name یعنی نام." },
-            { dialogue: "My name is Ali.", translation: "«نام من علی است.»", question: "برای گفتن نام خود:", options: [{ text: "My name is Ali.", correct: true }, { text: "You are Ali.", correct: false }, { text: "Ali is here.", correct: false }], hint: "معرفی خود." },
-            { dialogue: "Nice to meet you.", translation: "«از ملاقات شما خوشحالم.»", question: "در اولین برخورد با دیگران چه می‌گویید؟", options: [{ text: "Nice to meet you.", correct: true }, { text: "Bad to see you.", correct: false }, { text: "Leave me alone.", correct: false }], hint: "عبارت صمیمانه آشنایی." },
-            { dialogue: "Excuse me!", translation: "«ببخشید! (برای جلب توجه)»", question: "برای صدا زدن یا رد شدن در مکان‌های شلوغ:", options: [{ text: "Excuse me!", correct: true }, { text: "Hey you!", correct: false }, { text: "Stop!", correct: false }], hint: "راه مؤدبانه جلب توجه." },
-            { dialogue: "I'm sorry.", translation: "«متاسفم / شرمنده.»", question: "وقتی اشتباهی مرتکب می‌شوید:", options: [{ text: "I'm sorry.", correct: true }, { text: "I'm happy.", correct: false }, { text: "That's great.", correct: false }], hint: "عذرخواهی کردن." },
-            { dialogue: "That's OK.", translation: "«اشکالی ندارد /عیبی نداره.»", question: "در پاسخ به عذرخواهی:", options: [{ text: "That's OK.", correct: true }, { text: "You are bad.", correct: false }, { text: "No way.", correct: false }], hint: "پذیرش عذرخواهی." },
-            { dialogue: "Where is the bathroom?", translation: "«دستشویی کجاست؟»", question: "برای پیدا کردن سرویس بهداشتی در بیرون:", options: [{ text: "Where is the bathroom?", correct: true }, { text: "Where is the sky?", correct: false }, { text: "What time is it?", correct: false }], hint: "bathroom یعنی دستشویی." },
-            { dialogue: "How much is this?", translation: "«این چقدر قیمت دارد؟»", question: "برای پرسیدن قیمت یک جنس در فروشگاه:", options: [{ text: "How much is this?", correct: true }, { text: "How many are you?", correct: false }, { text: "What is this color?", correct: false }], hint: "How much برای قیمت." },
-            { dialogue: "I don't understand.", translation: "«من متوجه نمی‌شوم.»", question: "وقتی منظوری را درک نمی‌کنید:", options: [{ text: "I don't understand.", correct: true }, { text: "I know everything.", correct: false }, { text: "Speak louder.", correct: false }], hint: "understand یعنی متوجه شدن." },
-            { dialogue: "Can you help me?", translation: "«می‌توانید به من کمک کنید؟»", question: "درخواست کمک از دیگران:", options: [{ text: "Can you help me?", correct: true }, { text: "Can you hurt me?", correct: false }, { text: "Where is help?", correct: false }], hint: "help یعنی کمک." },
-            { dialogue: "I'm looking for a hotel.", translation: "«من به دنبال یک هتل هستم.»", question: "در سفر برای پیدا کردن محل اقامت:", options: [{ text: "I'm looking for a hotel.", correct: true }, { text: "I'm building a hotel.", correct: false }, { text: "Hotel is closed.", correct: false }], hint: "looking for یعنی جستجو کردن." },
-            { dialogue: "What time is it?", translation: "«ساعت چند است؟»", question: "برای پرسیدن زمان جاری:", options: [{ text: "What time is it?", correct: true }, { text: "What day is today?", correct: false }, { text: "Where is the clock?", correct: false }], hint: "time یعنی زمان." },
-            { dialogue: "It's three o'clock.", translation: "«ساعت سه است.»", question: "اعلام ساعت سه:", options: [{ text: "It's three o'clock.", correct: true }, { text: "It's three days.", correct: false }, { text: "Three dollars.", correct: false }], hint: "o'clock برای ساعت دقیق." },
-            { dialogue: "Do you speak English?", translation: "«آیا انگلیسی صحبت می‌کنید؟»", question: "پرسش درباره توانایی زبان:", options: [{ text: "Do you speak English?", correct: true }, { text: "Do you eat English?", correct: false }, { text: "Where is England?", correct: false }], hint: "English یعنی زبان انگلیسی." },
-            { dialogue: "A little bit.", translation: "«یک کم (کمی).»", question: "در پاسخ به صحبت کردن زبان:", options: [{ text: "A little bit.", correct: true }, { text: "A lot of water.", correct: false }, { text: "Not at all.", correct: false }], hint: "little یعنی مقدار کم." },
-            { dialogue: "Have a good day!", translation: "«روز خوبی داشته باشید!»", question: "آرزوی روز خوب هنگام خداحافظی:", options: [{ text: "Have a good day!", correct: true }, { text: "Have a bad night!", correct: false }, { text: "Go away!", correct: false }], hint: "آرزوی خوب برای روز پیش رو." },
-            { dialogue: "See you later!", translation: "«بعداً می‌بینمتون!»", question: "خداحافظی صمیمی و دوستانه:", options: [{ text: "See you later!", correct: true }, { text: "Hello there!", correct: false }, { text: "Good morning!", correct: false }], hint: "later یعنی بعداً." },
-            { dialogue: "Take care!", translation: "«مراقب خودت باش!»", question: "عبارت صمیمی در پایان مکالمه:", options: [{ text: "Take care!", correct: true }, { text: "Hurry up!", correct: false }, { text: "Stop it!", correct: false }], hint: "مراقبت از خود." },
-            { dialogue: "I am hungry.", translation: "«من گرسنه هستم.»", question: "وقتی نیاز به غذا دارید:", options: [{ text: "I am hungry.", correct: true }, { text: "I am thirsty.", correct: false }, { text: "I am tired.", correct: false }], hint: "hungry یعنی گرسنه." },
-            { dialogue: "I am thirsty.", translation: "«من تشنه هستم.»", question: "وقتی نیاز به نوشیدنی دارید:", options: [{ text: "I am thirsty.", correct: true }, { text: "I am hungry.", correct: false }, { text: "I am happy.", correct: false }], hint: "thirsty یعنی تشنه." },
+            // بخش دوم: موقعیت‌های سفر، هتل و خدمات
+            { dialogue: "I'd like to check in, please.", translation: "«می‌خواهم پذیرش بگیرم (اتاق تحویل بگیرم).»", emoji: "🏨", question: "این جمله را در کجا به زبان می‌آورید؟", options: [{ text: "پذیرش هتل هنگام ورود", correct: true }, { text: "فرودگاه هنگام تحویل بار", correct: false }, { text: "رستوران هنگام سفارش غذا", correct: false }], hint: "مربوط به هتل." },
+            { dialogue: "Could you make it to-go?", translation: "«ممکن است آن را بیرون‌بر کنید؟»", emoji: "🥡", question: "این درخواست در چه مکانی مطرح می‌شود؟", options: [{ text: "کافه یا رستوران برای بسته‌بندی غذا", correct: true }, { text: "فروشگاه لباس برای تعویض سایز", correct: false }, { text: "ایستگاه قطار برای بلیط", correct: false }], hint: "غذا برای بردن." },
+            { dialogue: "Is service charge included?", translation: "«آیا حق سرویس روی مبلغ حساب شده است؟»", emoji: "🧾", question: "مفهوم اصلی این پرسش چیست؟", options: [{ text: "آیا انعام یا هزینه خدمات به فاکتور اضافه شده است؟", correct: true }, { text: "آیا اینترنت رایگان است؟", correct: false }, { text: "آیا تعمیرات رایگان انجام می‌شود؟", correct: false }], hint: "مربوط به صورت‌حساب." },
+            { dialogue: "Do you have this in a changing room?", translation: "«آیا اتاق پرو برای امتحان کردن این دارید؟»", emoji: "👕", question: "هدف مشتری از این پرسش چیست؟", options: [{ text: "پوشیدن و تست کردن لباس پیش از خرید", correct: true }, { text: "تعویض دکوراسیون فروشگاه", correct: false }, { text: "شستشوی لباس‌ها", correct: false }], hint: "مربوط به خرید پوشاک." },
+            { dialogue: "My flight is delayed.", translation: "«پرواز من با تأخیر مواجه شده است.»", emoji: "✈️", question: "این اتفاق در کجا رخ داده است؟", options: [{ text: "فرودگاه", correct: true }, { text: "هتل محل اقامت", correct: false }, { text: "رستوران بین راهی", correct: false }], hint: "مربوط به هواپیما و سفر." },
+            { dialogue: "Could you put it on my tab?", translation: "«ممکن است آن را به حساب من ثبت کنید؟ (نسیه/بعداً تسویه کنم)»", emoji: "📒", question: "معنی این درخواست در کافه یا بار چیست؟", options: [{ text: "ثبت هزینه‌ها روی حساب کلی برای پرداخت در پایان", correct: true }, { text: "پاک کردن سفارش از روی میز", correct: false }, { text: "گرفتن تخفیف نقدی", correct: false }], hint: "ثبت حساب مشتری." },
+            { dialogue: "I'm running out of time.", translation: "«دارد وقتم تمام می‌شود / کمبود وقت دارم.»", emoji: "⏳", question: "وضعیت گوینده چگونه است؟", options: [{ text: "دچار کمبود زمان برای انجام کار است", correct: true }, { text: "باتری ساعت‌اش تمام شده است", correct: false }, { text: "سرعت دویدن بالایی دارد", correct: false }], hint: "فشار زمان." },
+            { dialogue: "Let's touch base tomorrow.", translation: "«فردا ارتباطی داشته باشیم / تماسی بگیریم.»", emoji: "📞", question: "این اصطلاح کاری به چه معناست؟", options: [{ text: "برقراری ارتباط مجدد و تبادل نظر در روز آینده", correct: true }, { text: "لمس کردن پایه‌های میز کار", correct: false }, { text: "دیدار حضوری در زمین ورزش", correct: false }], hint: "هماهنگی کاری." },
+            { dialogue: "It slipped my mind.", translation: "«از خاطرم رفت / فراموش کردم.»", emoji: "🧠", question: "معنی دقیق این عبارت چیست؟", options: [{ text: "فراموش کردن یک موضوع به طور سهوی", correct: true }, { text: "سر خوردن مغز روی زمین", correct: false }, { text: "یادآوری دقیق یک خاطره قدیمی", correct: false }], hint: "فراموشی ناخواسته." },
+            { dialogue: "Back to the drawing board.", translation: "«باید از اول شروع کنیم / طرح شکست خورد.»", emoji: "📋", question: "وقتی این اصطلاح به کار می‌رود که:", options: [{ text: "یک ایده شکست خورده و باید برنامه را از نو طراحی کرد", correct: true }, { text: "برگشتن به سمت تخته سیاه مدرسه", correct: false }, { text: "کشیدن نقاشی جدید روی بوم", correct: false }], hint: "شروع مجدد پروژه." },
 
-            // سطح ۴۱ تا ۶۰ (پیشرفته‌تر و چالشی - زمان ۵ ثانیه)
-            { dialogue: "Could you repeat that?", translation: "«ممکن است آن را تکرار کنید؟»", question: "وقتی متوجه حرف طرف مقابل نمی‌شوید:", options: [{ text: "Could you repeat that?", correct: true }, { text: "Speak fast.", correct: false }, { text: "Be quiet.", correct: false }], hint: "repeat یعنی تکرار." },
-            { dialogue: "Speak slowly, please.", translation: "«آهسته‌تر صحبت کنید، لطفاً.»", question: "درخواست صحبت با سرعت کمتر:", options: [{ text: "Speak slowly, please.", correct: true }, { text: "Speak loudly.", correct: false }, { text: "Don't talk.", correct: false }], hint: "slowly یعنی آرام." },
-            { dialogue: "Where is the nearest station?", translation: "«نزدیک‌ترین ایستگاه کجاست؟»", question: "در شهر برای پیدا کردن مترو یا اتوبوس:", options: [{ text: "Where is the nearest station?", correct: true }, { text: "Where is the airport?", correct: false }, { text: "Where is my car?", correct: false }], hint: "station یعنی ایستگاه." },
-            { dialogue: "I would like a ticket.", translation: "«من یک بلیط می‌خواهم.»", question: "هنگام خرید بلیط سفر:", options: [{ text: "I would like a ticket.", correct: true }, { text: "I would like a box.", correct: false }, { text: "Give me money.", correct: false }], hint: "ticket یعنی بلیط." },
-            { dialogue: "Is breakfast included?", translation: "«آیا صبحانه شامل می‌شود؟ (رایگان است؟)»", question: "در هتل هنگام رزرو اتاق:", options: [{ text: "Is breakfast included?", correct: true }, { text: "Is dinner bad?", correct: false }, { text: "Where is food?", correct: false }], hint: "breakfast یعنی صبحانه." },
-            { dialogue: "Do you accept credit cards?", translation: "«آیا کارت اعتباری قبول می‌کنید؟»", question: "برای پرداخت الکترونیکی:", options: [{ text: "Do you accept credit cards?", correct: true }, { text: "Where is cash?", correct: false }, { text: "Is service free?", correct: false }], hint: "credit cards یعنی کارت اعتباری." },
-            { dialogue: "Keep the change.", translation: "«بقیه پول برای خودتان.»", question: "معنی اصطلاح Keep the change:", options: [{ text: "بقیه پول را پس ندهید (انعام).", correct: true }, { text: "پول را عوض کنید.", correct: false }, { text: "پول گم شد.", correct: false }], hint: "change یعنی پول خرد." },
-            { dialogue: "What is the Wi-Fi password?", translation: "«رمز عبور وای‌فای چیست؟»", question: "برای اتصال به اینترنت:", options: [{ text: "What is the Wi-Fi password?", correct: true }, { text: "Where is the key?", correct: false }, { text: "How much is net?", correct: false }], hint: "password یعنی رمز عبور." },
-            { dialogue: "It is very delicious.", translation: "«خیلی خوشمزه است.»", question: "تعریف از کیفیت غذا:", options: [{ text: "It is very delicious.", correct: true }, { text: "It is very bad.", correct: false }, { text: "It is cold.", correct: false }], hint: "delicious یعنی خوشمزه." },
-            { dialogue: "I am allergic to nuts.", translation: "«من به آجیل حساسیت دارم.»", question: "بیان حساسیت پزشکی یا غذایی:", options: [{ text: "I am allergic to nuts.", correct: true }, { text: "I like nuts.", correct: false }, { text: "Nuts are good.", correct: false }], hint: "allergic یعنی حساسیت." },
-            { dialogue: "Can I have the check, please?", translation: "«می‌توانم صورت‌حساب را داشته باشم؟»", question: "برای تسویه حساب در رستوران:", options: [{ text: "Can I have the check, please?", correct: true }, { text: "Can I have the menu?", correct: false }, { text: "Where is the chef?", correct: false }], hint: "check یعنی صورت‌حساب." },
-            { dialogue: "Turn left, then turn right.", translation: "«به چپ بپیچید، سپس به راست بپیچید.»", question: "آدرس‌دهی و مسیریابی:", options: [{ text: "Turn left, then turn right.", correct: true }, { text: "Go straight back.", correct: false }, { text: "Stop moving.", correct: false }], hint: "left یعنی چپ و right یعنی راست." },
-            { dialogue: "It's raining outside.", translation: "«بیرون دارد باران می‌بارد.»", question: "توصیف وضعیت آب و هوا:", options: [{ text: "It's raining outside.", correct: true }, { text: "It's sunny today.", correct: false }, { text: "It's snowing heavily.", correct: false }], hint: "raining یعنی باران." },
-            { dialogue: "What do you recommend?", translation: "«چه چیزی پیشنهاد می‌کنید؟»", question: "وقتی نظر فروشنده یا گارسون را می‌پرسید:", options: [{ text: "What do you recommend?", correct: true }, { text: "What do you sell?", correct: false }, { text: "How much is this?", correct: false }], hint: "recommend یعنی پیشنهاد کردن." },
-            { dialogue: "I'm just browsing, thanks.", translation: "«فقط دارم نگاه می‌کنم، ممنون.»", question: "وقتی فروشنده می‌پرسد کمکی نیاز دارید:", options: [{ text: "I'm just browsing, thanks.", correct: true }, { text: "I want to buy everything.", correct: false }, { text: "I am leaving now.", correct: false }], hint: "browsing یعنی تماشا کردن اجناس." },
-            { dialogue: "Do you have this in a larger size?", translation: "«آیا این را در سایز بزرگ‌تر دارید؟»", question: "هنگام خرید لباس در فروشگاه:", options: [{ text: "Do you have this in a larger size?", correct: true }, { text: "Is this smaller?", correct: false }, { text: "Where is the store?", correct: false }], hint: "larger size یعنی سایز بزرگ‌تر." },
-            { dialogue: "Everything is under control.", translation: "«همه چیز تحت کنترل است.»", question: "معنی این اصطلاح پرکاربرد:", options: [{ text: "همه چیز مرتب و تحت کنترل است.", correct: true }, { text: "همه چیز از دست رفت.", correct: false }, { text: "هیچ‌‌کس نیست.", correct: false }], hint: "under control یعنی تحت کنترل." },
-            { dialogue: "Actions speak louder than words.", translation: "«عمل کار برآید به سخن نیست.»", question: "معنی این ضرب‌المثل:", options: [{ text: "عمل مهم‌تر از حرف زدن است.", correct: true }, { text: "حرف زدن آسان است.", correct: false }, { text: "صدا بسیار بلند است.", correct: false }], hint: "معنای اصطلاحی عمل در برابر حرف." },
-            { dialogue: "Better late than never.", translation: "«دیر رسیدن بهتر از هرگز نرسیدن است.»", question: "معنی این ضرب‌المثل معروف:", options: [{ text: "انجام کار با دیرکرد بهتر از انجام ندادن آن است.", correct: true }, { text: "همیشه زودتر برسید.", correct: false }, { text: "هیچ‌وقت دیر نکنید.", correct: false }], hint: "never یعنی هرگز." },
-            { dialogue: "Practice makes perfect.", translation: "«کار نیکو کردن از پر کردن است (تمرین مهارت می‌آورد).»", question: "معنی این جمله انگیزشی:", options: [{ text: "تمرین و پشتکار انسان را کامل و ماهر می‌کند.", correct: true }, { text: "تمرین کردن سخت است.", correct: false }, { text: "همیشه استراحت کنید.", correct: false }], hint: "practice یعنی تمرین و تکرار." }
+            // بخش سوم: اصطلاحات پیشرفته و واکنش‌های حرفه‌ای
+            { dialogue: "Hit the sack.", translation: "«رفتن به رختخواب / خوابیدن.»", emoji: "🛏️", question: "معنی این اصطلاح شبانه چیست؟", options: [{ text: "آماده شدن برای خوابیدن و استراحت شبانه", correct: true }, { text: "زدن کیسه بوکس", correct: false }, { text: "خرید کیسه خواب برای کمپینگ", correct: false }], hint: "زمان خواب فرا رسیده." },
+            { dialogue: "The ball is in your court.", translation: "«توپ در زمین شماست / تصمیم با شماست.»", emoji: "🎾", question: "معنی این عبارت در مکالمه چیست؟", options: [{ text: "اکنون نوبت شماست که تصمیم بگیرید یا اقدام کنید", correct: true }, { text: "شروع بازی تنیس در زمین مسابقه", correct: false }, { text: "پرت کردن توپ به سمت حریف", correct: false }], hint: "واگذاری تصمیم." },
+            { dialogue: "Pull someone's leg.", translation: "«سر به سر کسی گذاشتن / دست انداختن.»", emoji: "🃏", question: "مفهوم این اصطلاح چیست؟", options: [{ text: "شوخی کردن و سر به سر گذاشتن دیگران به شوخی", correct: true }, { text: "کشیدن پای کسی روی زمین", correct: false }, { text: "آسیب رساندن به پای دوستان", correct: false }], hint: "شوخی و اذیت دوستانه." },
+            { dialogue: "So far, so good.", translation: "«تا اینجا که همه چیز عالی بوده.»", emoji: "👍", question: "وضعیت یک کار در حال پیشرفت چگونه است؟", options: [{ text: "تا این لحظه هیچ مشکل و خطایی وجود نداشته است", correct: true }, { text: "کار به طور کامل به اتمام رسیده است", correct: false }, { text: "همه چیز خراب شده است", correct: false }], hint: "پیشرفت رضایت‌بخش." },
+            { dialogue: "Speak of the devil!", translation: "«گرگ رو سر دست دیدی! / از مکالمه حرف می‌زدیم رسید.»", emoji: "🗣️", question: "چه زمانی از این اصطلاح استفاده می‌کنید؟", options: [{ text: "وقتی دقیقاً درباره کسی صحبت می‌کنید و او ناگهان ظاهر می‌شود", correct: true }, { text: "هنگام دیدن موجودات عجیب", correct: false }, { text: "هنگام شروع یک بحث ترسناک", correct: false }], hint: "حضور فرد مورد بحث." },
+            { dialogue: "A blessing in disguise.", translation: "«خیری در پس آن نهفته است (اتفاق بد که عاقبت خوبی داشت).»", emoji: "🍀", question: "معنی این عبارت چیست؟", options: [{ text: "پیش آمدن یک اتفاق ظاهراً بد که در نهایت نتیجه مثبتی دارد", correct: true }, { text: "پوشیدن لباس مبدل برای دعا", correct: false }, { text: "دریافت هدیه ناشناس", correct: false }], hint: "فرصت در دل تهدید." },
+            { dialogue: "Through thick and thin.", translation: "«در تمام پستی و بلندی‌ها / در سختی و آسانی.»", emoji: "🤝", question: "این صفت برای چه کسانی به کار می‌رود؟", options: [{ text: "دوستان وفاداری که در هر شرایطی کنار هم می‌مانند", correct: true }, { text: "عبور از مسیرهای باریک و کوهستانی", correct: false }, { text: "افرادی با وزن‌های مختلف", correct: false }], hint: "وفاداری در همه شرایط." },
+            { dialogue: "Costs an arm and a leg.", translation: "«بسیار گران است.»", emoji: "💎", question: "مفهوم این جمله چیست؟", options: [{ text: "قیمت نجومی و غیرقابل باور یک کالا", correct: true }, { text: "هزینه جراحی دست و پا", correct: false }, { text: "خرید ارزان", correct: false }], hint: "گران بودن." },
+            { dialogue: "Burn the midnight oil.", translation: "«تا بوق مشخص سحر بیدار ماندن و کار کردن.»", emoji: "🕯️", question: "شخص با این توصیف چه می‌کند؟", options: [{ text: "تا پاسی از شب گذشته مشغول مطالعه یا کار است", correct: true }, { text: "روشن کردن آتش در نیمه‌شب", correct: false }, { text: "سوزاندن سوخت خودرو", correct: false }], hint: "شب‌زنده‌داری برای کار." },
+            { dialogue: "Cost a dime a dozen.", translation: "«بسیار ارزان و فراوان است.»", emoji: "🪙", question: "معنی این اصطلاح چیست؟", options: [{ text: "چیزهای بسیار معمولی، ارزان و به وفور یافت‌شونده", correct: true }, { text: "خرید دقیقاً دوازده عدد سکه", correct: false }, { text: "کالای بسیار کمیاب و لوکس", correct: false }], hint: "فراوان و ارزان." },
+
+            // بقیه مراحل تکمیلی سطح بالا و چالشی
+            { dialogue: "Don't judge a book by its cover.", translation: "«از روی ظاهر قضاوت نکنید.»", emoji: "📖", question: "پیام اصلی این ضرب‌المثل چیست؟", options: [{ text: "باطن و ماهیت اشخاص یا اشیاء را نباید تنها از روی ظاهر سنجید", correct: true }, { text: "جلد کتاب‌ها نباید پاره شود", correct: false }, { text: "کتاب‌های قدیمی را نخرید", correct: false }], hint: "اهمیت باطن بر ظاهر." },
+            { dialogue: "Time flies when you're having fun.", translation: "«وقتی خوش می‌گذرد، زمان چقدر زود می‌گذرد.»", emoji: "⏰", question: "حس فرد نسبت به زمان چگونه است؟", options: [{ text: "زمان به سرعت سپری شده است", correct: true }, { text: "ساعت خراب شده و متوقف است", correct: false }, { text: "حوصله سر رفته و زمان کند می‌گذرد", correct: false }], hint: "گذر سریع زمان." },
+            { dialogue: "Actions speak louder than words.", translation: "«دو صد گفته چون نیم کردار نیست.»", emoji: "⚡", question: "مفهوم این ضرب‌المثل چیست؟", options: [{ text: "عملکرد و رفتار افراد بسیار مهم‌تر از حرف‌هایشان است", correct: true }, { text: "صدای فریاد از حرف زدن بلندتر است", correct: false }, { text: "نباید هیچ‌وقت حرف زد", correct: false }], hint: "اهمیت عمل." },
+            { dialogue: "Every cloud has a silver lining.", translation: "«پایان شب سیه سفید است / هر سختی نعمتی دارد.»", emoji: "🌤️", question: "معنی این جمله انگیزشی چیست؟", options: [{ text: "در دل هر مشکل و سختی، امیدی وجود دارد", correct: true }, { text: "آسمان ابری همیشه باران دارد", correct: false }, { text: "ابرهای نقره‌ای زیبا هستند", correct: false }], hint: "امیدواری در سختی." },
+            { dialogue: "When in Rome, do as the Romans do.", translation: "«رنگ جماعت شو / به رسم هر جا رفتار کن.»", emoji: "🏛️", question: "معنی این ضرب‌المثل چیست؟", options: [{ text: "هنگام حضور در جایی، باید به رسوم و فرهنگ آنجا احترام گذاشت", correct: true }, { text: "حتماً به شهر رم سفر کنید", correct: false }, { text: "مردم رم قوانین سختی دارند", correct: false }], hint: "همرنگ جماعت شدن." },
+            { dialogue: "The early bird catches the worm.", translation: "«سحرخیز باش تا کامروای شوی.»", emoji: "🐦", question: "مفهوم این ضرب‌المثل چیست؟", options: [{ text: "کسانی که زودتر اقدام می‌کنند موفق‌ترند", correct: true }, { text: "پرندگان صبح‌ها کرم می‌خورند", correct: false }, { text: "نباید صبح زود بیدار شد", correct: false }], hint: "ارزش سحرخیزی و تلاش زودهنگام." },
+            { dialogue: "Fortune favors the bold.", translation: "«شانس یار شجاعان است.»", emoji: "🦁", question: "معنی این جمله چیست؟", options: [{ text: "افراد شجاع که ریسک می‌کنند موفق‌ترند", correct: true }, { text: "ثروت نصیب افراد ترسو می‌شود", correct: false }, { text: "شانس اتفاقی است", correct: false }], hint: "شجاعت و موفقیت." },
+            { dialogue: "You can't make an omelet without breaking eggs.", translation: "«بی مایه فطیر است / برای نتیجه باید هزینه داد.»", emoji: "🍳", question: "معنی این اصطلاح چیست؟", options: [{ text: "برای رسیدن به هدف بزرگ باید سختی یا خسارت جزئی را پذیرفت", correct: true }, { text: "درست کردن املت کار سختی است", correct: false }, { text: "تخم‌مرغ‌ها نباید بشکنند", correct: false }], hint: "لزوم تحمل سختی برای نتیجه." },
+            { dialogue: "Out of sight, out of mind.", translation: "«از دل برود هر آنکه از دیده رفت.»", emoji: "👁️", question: "معنی این ضرب‌المثل چیست؟", options: [{ text: "با دور شدن افراد از یکدیگر، خاطره آن‌ها نیز کم‌رنگ می‌شود", correct: true }, { text: "اگر چشم بسته باشد چیزی دیده نمی‌شود", correct: false }, { text: "کور شدن باعث فراموشی می‌شود", correct: false }], hint: "دوری و فراموشی." },
+            { dialogue: "Practice makes perfect.", translation: "«کار نیکو کردن از پر کردن است.»", emoji: "🏆", question: "راز تسلط بر هر مهارت چیست؟", options: [{ text: "تکرار و تمرین مداوم", correct: true }, { text: "استراحت مطلق", correct: false }, { text: "هوش ذاتی بدون تلاش", correct: false }], hint: "نقش تمرین." }
         ];
 
         let currentStage = 0;
@@ -461,6 +505,7 @@
         const gameScreen = document.getElementById("game-screen");
         const dialogueEl = document.getElementById("npc-dialogue");
         const translationEl = document.getElementById("npc-translation");
+        const emojiEl = document.getElementById("npc-emoji");
         const questionEl = document.getElementById("question-text");
         const optionsContainer = document.getElementById("options-container");
         const scoreEl = document.getElementById("score");
@@ -470,6 +515,7 @@
         const resultScreen = document.getElementById("result-screen");
         const finalScoreEl = document.getElementById("final-score");
         const progressBar = document.getElementById("progress-bar");
+        const progressPercent = document.getElementById("progress-percent");
         const timerEl = document.getElementById("timer");
         const resultTitle = document.getElementById("result-title");
         const resultDesc = document.getElementById("result-desc");
@@ -486,20 +532,21 @@
             gainNode.connect(audioCtx.destination);
 
             if (type === 'correct') {
-                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
-                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1046.5, audioCtx.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
                 osc.start();
-                osc.stop(audioCtx.currentTime + 0.15);
+                osc.stop(audioCtx.currentTime + 0.25);
             } else if (type === 'wrong') {
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(180, audioCtx.currentTime);
-                osc.frequency.setValueAtTime(120, audioCtx.currentTime + 0.1);
-                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(90, audioCtx.currentTime + 0.15);
+                gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
                 osc.start();
-                osc.stop(audioCtx.currentTime + 0.2);
+                osc.stop(audioCtx.currentTime + 0.25);
             }
         }
 
@@ -510,9 +557,9 @@
         }
 
         function getStageTime() {
-            if (currentStage < 10) return 20;
-            if (currentStage < 40) return 10;
-            return 5;
+            if (currentStage < 20) return 20;
+            if (currentStage < 40) return 15;
+            return 10;
         }
 
         function startTimer() {
@@ -539,7 +586,7 @@
             
             const buttons = optionsContainer.querySelectorAll(".option-btn");
             buttons.forEach(btn => {
-                if (btn.textContent === stages[currentStage].options.find(o => o.correct).text) {
+                if (btn.dataset.correct === "true") {
                     btn.classList.add("correct");
                 }
             });
@@ -561,15 +608,23 @@
             const stage = stages[currentStage];
             dialogueEl.textContent = `"${stage.dialogue}"`;
             translationEl.textContent = `«${stage.translation}»`;
+            emojiEl.textContent = stage.emoji;
             questionEl.textContent = stage.question;
             levelEl.textContent = currentStage + 1;
-            progressBar.style.width = `${((currentStage) / stages.length) * 100}%`;
+            
+            const percent = Math.round(((currentStage) / stages.length) * 100);
+            progressBar.style.width = `${percent}%`;
+            progressPercent.textContent = `${percent}%`;
+
+            // ترکیب تصادفی گزینه‌ها برای چالش بیشتر
+            let shuffledOptions = [...stage.options].sort(() => Math.random() - 0.5);
 
             optionsContainer.innerHTML = "";
-            stage.options.forEach((option) => {
+            shuffledOptions.forEach((option) => {
                 const btn = document.createElement("button");
                 btn.className = "option-btn";
-                btn.textContent = option.text;
+                btn.innerHTML = `<span>${option.text}</span>`;
+                btn.dataset.correct = option.correct;
                 btn.onclick = () => selectOption(btn, option.correct);
                 optionsContainer.appendChild(btn);
             });
@@ -582,7 +637,7 @@
 
             const buttons = optionsContainer.querySelectorAll(".option-btn");
             buttons.forEach(btn => {
-                if (btn.textContent === stages[currentStage].options.find(o => o.correct).text) {
+                if (btn.dataset.correct === "true") {
                     btn.classList.add("correct");
                 } else if (btn === button && !isCorrect) {
                     btn.classList.add("wrong");
@@ -599,7 +654,9 @@
                 livesEl.textContent = lives;
             }
 
-            progressBar.style.width = `${((currentStage + 1) / stages.length) * 100}%`;
+            const percent = Math.round(((currentStage + 1) / stages.length) * 100);
+            progressBar.style.width = `${percent}%`;
+            progressPercent.textContent = `${percent}%`;
 
             if (lives <= 0) {
                 setTimeout(showGameOver, 1000);
@@ -622,18 +679,18 @@
         function showResult() {
             gameScreen.classList.add("hidden");
             resultScreen.classList.remove("hidden");
-            resultIcon.textContent = "🎉";
-            resultTitle.textContent = "مأموریت با موفقیت به پایان رسید!";
-            resultDesc.textContent = "شما توانستید تمامی ۶۰ مرحله آموزشی را به پایان برسانید.";
+            resultIcon.textContent = "🏆";
+            resultTitle.textContent = "تبریک! مأموریت با موفقیت فتح شد";
+            resultDesc.textContent = "شما توانستید تمامی چالش‌های مکالمه را با موفقیت پشت سر بگذارید.";
             finalScoreEl.textContent = score;
         }
 
         function showGameOver() {
             gameScreen.classList.add("hidden");
             resultScreen.classList.remove("hidden");
-            resultIcon.textContent = "💔";
+            resultIcon.textContent = "💀";
             resultTitle.textContent = "بازی به پایان رسید!";
-            resultDesc.textContent = "جان‌های شما تمام شد. دوباره تلاش کنید تا موفق شوید.";
+            resultDesc.textContent = "جان‌های شما تمام شد. دوباره تلاش کنید تا قهرمان شوید.";
             finalScoreEl.textContent = score;
         }
 
