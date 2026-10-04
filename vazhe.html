@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>آموزش لغت انگلیسی</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Vazirmatn for Persian typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .mobile-container {
+            max-width: 440px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 441px) {
+            body {
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
+            .mobile-container {
+                border-radius: 2.5rem;
+                overflow: hidden;
+                height: 880px;
+            }
+        }
+        /* Custom pulse animation for audio button */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .audio-pulse {
+            animation: pulse-ring 2s infinite ease-in-out;
+        }
+        /* Shake animation for incorrect answer */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        /* Success pop animation */
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .pop-in {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center">
+
+    <div class="mobile-container w-full flex flex-col justify-between overflow-hidden">
+
+        <!-- Top Header & Status Bar -->
+        <header class="px-5 pt-5 pb-3 flex items-center justify-between border-b border-gray-100 bg-white z-10">
+            <div class="flex items-center gap-3">
+                <button onclick="openMenu()" class="w-10 h-10 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-700 hover:bg-gray-100 active:scale-95 transition">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+                <div>
+                    <h1 class="text-sm font-bold text-gray-800">آموزش واژگان هوشمند</h1>
+                    <p class="text-xs text-gray-400">سطح: مقدماتی (A1)</p>
+                </div>
+            </div>
+
+            <!-- Stats & Streak -->
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
+                    <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
+                    <span id="streakCount" class="text-xs font-bold text-amber-700">5</span>
+                </div>
+                <div class="flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
+                    <i class="fa-solid fa-star text-indigo-500 text-xs"></i>
+                    <span id="scoreCount" class="text-xs font-bold text-indigo-700">120</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-100 h-1.5">
+            <div id="progressBar" class="bg-indigo-600 h-1.5 transition-all duration-300" style="width: 20%;"></div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col px-5 py-4 overflow-y-auto">
+
+            <section class="mb-4">
+                <div class="relative w-full h-52 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl overflow-hidden border border-gray-200 shadow-inner flex items-center justify-center group">
+                    <!-- Vocabulary Image with fallback -->
+                    <img id="vocabImage" src="" alt="Vocabulary Image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x300/e0e7ff/4f46e5?text=Word+Image'">
+                    
+                    <!-- Floating Audio Pronunciation Button -->
+                    <button onclick="speakWord()" class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-indigo-600 hover:text-indigo-700 px-4 py-2.5 rounded-2xl shadow-lg flex items-center gap-2 font-bold text-sm active:scale-95 transition border border-white">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                        </span>
+                        <i class="fa-solid fa-volume-high text-base"></i>
+                        <span id="vocabWordText">Apple</span>
+                    </button>
+
+                    <!-- Hint / Category Tag -->
+                    <div class="absolute top-3 right-3 bg-black/40 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-medium">
+                        <span id="vocabCategory">میوه و خوراکی</span>
+                    </div>
+                </div>
+
+                <!-- Word Meaning Prompt Question -->
+                <div class="mt-4 text-center">
+                    <h2 class="text-lg font-bold text-gray-800">معنی فارسی این لغت چیست؟</h2>
+                    <p class="text-xs text-gray-400 mt-0.5">گزینه صحیح را از بین موارد زیر انتخاب کنید</p>
+                </div>
+            </section>
+
+            <section class="flex-1 flex flex-col justify-center gap-3">
+                <div id="optionsContainer" class="grid grid-cols-1 gap-3">
+                    <!-- Options injected dynamically by JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer Control Bar -->
+        <footer class="p-5 bg-white border-t border-gray-100 flex items-center justify-between gap-3">
+            <button onclick="showHintModal()" class="flex-1 py-3 px-4 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm flex items-center justify-center gap-2 active:scale-95 transition">
+                <i class="fa-regular fa-lightbulb text-amber-500"></i>
+                <span>راهنما</span>
+            </button>
+            <button id="nextBtn" onclick="nextWord()" disabled class="flex-1 py-3 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold text-sm flex items-center justify-center gap-2 active:scale-95 transition shadow-lg shadow-indigo-600/20">
+                <span>لغت بعدی</span>
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+            </button>
+        </footer>
+
+    </div>
+
+    <!-- Hint Modal -->
+    <div id="hintModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-5">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl pop-in text-center">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-4">
+                <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">راهنمای لغت</h3>
+            <p id="hintText" class="text-sm text-gray-600 mb-6 bg-amber-50/50 p-4 rounded-2xl border border-amber-100"></p>
+            <button onclick="closeHintModal()" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-2xl transition shadow-lg shadow-amber-500/20">
+                متوجه شدم
+            </button>
+        </div>
+    </div>
+
+    <!-- Success / Completion Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-5">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl pop-in text-center">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center text-3xl mb-4">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-1">عالی بود!</h3>
+            <p class="text-sm text-gray-500 mb-6">شما تمام لغت‌های این سطح را با موفقیت به پایان رساندید.</p>
+            <button onclick="restartQuiz()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition shadow-lg shadow-indigo-600/20">
+                شروع مجدد تمرین
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Vocabulary dataset
+        const vocabularyList = [
+            {
+                word: "Apple",
+                persian: "سیب",
+                category: "میوه و خوراکی",
+                image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
+                hint: "میوه‌ای گرد و معمولاً قرمز یا سبز که در درخت می‌روید و بسیار آبدار است.",
+                distractors: ["موز", "پرتقال", "هندوانه"]
+            },
+            {
+                word: "Book",
+                persian: "کتاب",
+                category: "آموزش و مطالعه",
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+                hint: "مجموعه‌ای از صفحات چاپ شده یا خط‌کشی شده که به هم متصل شده‌اند و برای خواندن استفاده می‌شوند.",
+                distractors: ["دفترچه", "قلم", "میز"]
+            },
+            {
+                word: "Coffee",
+                persian: "قهوه",
+                category: "نوشیدنی‌ها",
+                image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80",
+                hint: "نوشیدنی گرم و کافئین‌داری که از دانه‌های برشته شده گیاه قهوه به دست می‌‌آید.",
+                distractors: ["چای", "شیر", "آبمیوه"]
+            },
+            {
+                word: "Mountain",
+                persian: "کوه",
+                category: "طبیعت",
+                image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80",
+                hint: "بخش بزرگی از زمین که به طور چشمگیری از زمین‌های اطراف خود بلندتر است.",
+                distractors: ["دریاچه", "بیابان", "جنگل"]
+            },
+            {
+                word: "Guitar",
+                persian: "گیتار",
+                category: "موسیقی و هنر",
+                image: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=600&q=80",
+                hint: "یک ساز موسیقی زهی که معمولاً با انگشت یا پیک نواخته می‌شود.",
+                distractors: ["پیانو", "ویولن", "درامز"]
+            }
+        ];
+
+        let currentIndex = 0;
+        let score = 120;
+        let streak = 5;
+        let answeredCurrent = false;
+
+        // DOM Elements
+        const vocabImage = document.getElementById("vocabImage");
+        const vocabWordText = document.getElementById("vocabWordText");
+        const vocabCategory = document.getElementById("vocabCategory");
+        const optionsContainer = document.getElementById("optionsContainer");
+        const nextBtn = document.getElementById("nextBtn");
+        const progressBar = document.getElementById("progressBar");
+        const scoreCount = document.getElementById("scoreCount");
+        const streakCount = document.getElementById("streakCount");
+        const hintText = document.getElementById("hintText");
+        const hintModal = document.getElementById("hintModal");
+        const successModal = document.getElementById("successModal");
+
+        function loadVocabulary(index) {
+            if (index >= vocabularyList.length) {
+                successModal.classList.remove("hidden");
+                return;
+            }
+
+            answeredCurrent = false;
+            nextBtn.disabled = true;
+
+            const item = vocabularyList[index];
+            vocabImage.src = item.image;
+            vocabWordText.textContent = item.word;
+            vocabCategory.textContent = item.category;
+            hintText.textContent = item.hint;
+
+            // Update Progress Bar
+            const progressPercent = ((index + 1) / vocabularyList.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            // Prepare options (correct answer + distractors shuffled)
+            let options = [item.persian, ...item.distractors];
+            options.sort(() => Math.random() - 0.5);
+
+            optionsContainer.innerHTML = "";
+            options.forEach((optText) => {
+                const btn = document.createElement("button");
+                btn.className = "w-full py-4 px-5 rounded-2xl bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-800 font-semibold text-sm flex items-center justify-between active:scale-[0.98] transition shadow-sm";
+                btn.innerHTML = `<span>${optText}</span><span class="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-xs text-gray-400"><i class="fa-solid fa-chevron-left"></i></span>`;
+                
+                btn.onclick = () => checkAnswer(optText, item.persian, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, correct, buttonElement) {
+            if (answeredCurrent) return;
+            answeredCurrent = true;
+
+            const buttons = optionsContainer.querySelectorAll("button");
+
+            if (selected === correct) {
+                // Correct Answer
+                buttonElement.className = "w-full py-4 px-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-800 font-bold text-sm flex items-center justify-between shadow-md pop-in transition";
+                buttonElement.innerHTML = `<span>${selected}</span><span class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>`;
+                
+                score += 10;
+                streak += 1;
+                scoreCount.textContent = score;
+                streakCount.textContent = streak;
+
+                // Enable next button
+                nextBtn.disabled = false;
+            } else {
+                // Incorrect Answer
+                buttonElement.className = "w-full py-4 px-5 rounded-2xl bg-rose-50 border border-rose-300 text-rose-800 font-bold text-sm flex items-center justify-between shake transition";
+                buttonElement.innerHTML = `<span>${selected}</span><span class="w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></span>`;
+
+                streak = Math.max(0, streak - 1);
+                streakCount.textContent = streak;
+
+                // Highlight the correct option
+                buttons.forEach(btn => {
+                    if (btn.querySelector("span").textContent === correct) {
+                        btn.className = "w-full py-4 px-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-800 font-bold text-sm flex items-center justify-between shadow-sm transition";
+                    }
+                });
+
+                nextBtn.disabled = false;
+            }
+
+            // Disable all buttons after choice
+            buttons.forEach(b => b.disabled = true);
+        }
+
+        function nextWord() {
+            currentIndex++;
+            loadVocabulary(currentIndex);
+        }
+
+        // Audio Speech Synthesis for English word
+        function speakWord() {
+            const word = vocabularyList[currentIndex].word;
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function showHintModal() {
+            hintModal.classList.remove("hidden");
+        }
+
+        function closeHintModal() {
+            hintModal.classList.add("hidden");
+        }
+
+        function restartQuiz() {
+            currentIndex = 0;
+            successModal.classList.add("hidden");
+            loadVocabulary(currentIndex);
+        }
+
+        function openMenu() {
+            // Placeholder for sidebar menu or settings
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance("Welcome to vocabulary learning app");
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Initialize App on load
+        window.onload = function() {
+            loadVocabulary(currentIndex);
+        };
+    </script>
+</body>
+</html>
