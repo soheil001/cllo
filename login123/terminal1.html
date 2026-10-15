@@ -179,7 +179,7 @@ async function press(k){
         render("ok");
         try{localStorage.setItem('lingua_session_v1',JSON.stringify({code,verified:true,ts:Date.now()}));}catch(e){}
         const params=new URLSearchParams(location.search);
-        const returnUrl=params.get('return')||'https://cllo.ir/';
+        const returnUrl=params.get('return')||'https://planlife.ir/h/index.html';
         setTimeout(()=>{window.location.href=returnUrl;},900);
       }else{
         sfx.bad();
