@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="سرفصل‌های دوره‌های آموزشگاه حسابداری جاویدان؛ آموزش حسابداری از پایه تا ورود به بازار کار.">
+<title>آموزشگاه حسابداری جاویدان | آموزش از صفر تا صد</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+:root{--navy:#081a33;--navy2:#102b4e;--gold:#f2b632;--gold2:#ffd98a;--ink:#eaf1fb;--muted:#a9b9d0;
+--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--stroke:rgba(255,255,255,.18);--hi:rgba(255,255,255,.35)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:'Vazirmatn',Tahoma,sans-serif;line-height:1.9;min-height:100vh;
+background:var(--navy);position:relative;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;
+background:
+radial-gradient(900px 600px at 85% -5%,rgba(242,182,50,.20),transparent 60%),
+radial-gradient(800px 700px at 5% 25%,rgba(56,120,220,.30),transparent 60%),
+radial-gradient(900px 700px at 70% 85%,rgba(110,70,210,.22),transparent 60%),
+linear-gradient(180deg,#071428,#0b2243 55%,#071428)}
+body:after{content:"";position:fixed;inset:0;z-index:-1;opacity:.05;pointer-events:none;
+background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:56px 56px;
+-webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%)}
+a{color:inherit;text-decoration:none}.container{width:min(1200px,92%);margin:auto}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.04));border:1px solid var(--stroke);
+-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+box-shadow:0 20px 50px rgba(0,0,0,.28),inset 0 1px 0 var(--hi),inset 0 -1px 0 rgba(255,255,255,.05)}
+/* header */
+header{position:sticky;top:12px;z-index:20;margin-top:12px}
+.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 20px;border-radius:20px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.1rem}
+.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--navy);display:grid;place-items:center;font-size:1.4rem;box-shadow:0 6px 18px rgba(242,182,50,.45),inset 0 1px 0 #fff8}
+.brand b{color:var(--gold)}
+nav{display:flex;gap:6px;font-size:.9rem}
+nav a{padding:7px 15px;border-radius:12px;color:#d6e2f3;transition:.2s}nav a:hover{background:var(--glass2);color:var(--gold2)}
+/* hero */
+.hero{margin-top:26px;border-radius:32px;overflow:hidden;position:relative;min-height:460px;display:flex;align-items:center;justify-content:space-between;gap:30px;padding-left:46px}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+.o1{width:340px;height:340px;background:rgba(242,182,50,.35);left:-60px;top:-90px}
+.o2{width:380px;height:380px;background:rgba(70,130,240,.40);left:25%;bottom:-170px}
+.hero-inner{position:relative;padding:56px 54px 84px;max-width:700px}
+.hero-stats{position:relative;margin-bottom:40px;display:grid;gap:16px;width:250px;flex:none}
+.stat{border-radius:20px;padding:16px 22px;display:flex;flex-direction:column}
+.stat:nth-child(2){margin-right:34px}
+.stat b{font-size:2rem;line-height:1.4;font-weight:800;background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:.88rem;color:#cfdcee}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--gold2);font-weight:700;font-size:.9rem;padding:6px 16px;border-radius:99px;background:rgba(242,182,50,.12);border:1px solid rgba(242,182,50,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+h1{font-size:clamp(2.1rem,4.6vw,3.7rem);line-height:1.35;margin:18px 0 12px;font-weight:800;letter-spacing:-.5px}
+h1 span{white-space:nowrap;background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.1rem;color:#d9e4f4;max-width:620px;margin:0 0 28px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:14px;font:inherit;font-weight:700;cursor:pointer;transition:.25s}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#0d2240;box-shadow:0 10px 26px rgba(242,182,50,.35),inset 0 1px 0 #fff9}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(242,182,50,.5)}
+.btn-outline{color:#fff;background:var(--glass);border:1px solid var(--stroke);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn-outline:hover{background:var(--glass2);transform:translateY(-3px)}
+/* stats */
+.trust{margin-top:-46px;position:relative;z-index:2;border-radius:22px;padding:20px 26px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:min(1080px,94%);margin-inline:auto}
+.trust-item{display:flex;align-items:center;justify-content:center;gap:12px;font-size:.92rem;font-weight:600;position:relative}
+.trust-item+.trust-item:before{content:"";position:absolute;right:-7px;top:12%;height:76%;width:1px;background:linear-gradient(transparent,var(--stroke),transparent)}
+.trust-item span{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(242,182,50,.14);border:1px solid rgba(242,182,50,.35);color:var(--gold2);font-size:1.1rem}
+/* section */
+.section{padding:86px 0 40px}
+.section-head{text-align:center;max-width:780px;margin:0 auto 30px}
+h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin:14px 0 8px;font-weight:800}
+.section-head p{color:var(--muted);margin:0}
+.tools{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;border-radius:18px;margin-bottom:22px}
+.search{flex:1;min-width:230px;display:flex;align-items:center;gap:10px;padding:0 16px;border-radius:13px;background:rgba(5,15,32,.35);border:1px solid var(--stroke)}
+.search:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,182,50,.18)}
+.search input{flex:1;background:none;border:0;outline:0;color:#fff;font:inherit;padding:11px 0}.search input::placeholder{color:#8ea1bd}
+.count{font-size:.88rem;color:var(--muted);white-space:nowrap}.count b{color:var(--gold2)}
+.btn-sm{padding:10px 18px;font-size:.88rem;border-radius:12px}
+/* cards */
+.course-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.card{border-radius:24px;padding:24px 22px 18px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;
+background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035));border:1px solid var(--stroke);
+-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+box-shadow:0 18px 44px rgba(0,0,0,.26),inset 0 1px 0 var(--hi)}
+.card:before{content:"";position:absolute;top:-60px;left:-60px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(242,182,50,.22),transparent 70%);opacity:.6;transition:.4s;pointer-events:none}
+.card:hover{transform:translateY(-6px);border-color:rgba(242,182,50,.55);box-shadow:0 26px 60px rgba(0,0,0,.4),0 0 0 1px rgba(242,182,50,.15),inset 0 1px 0 var(--hi)}
+.card:hover:before{opacity:1;transform:scale(1.25)}
+.card-top{display:flex;gap:14px;align-items:center;position:relative}
+.num{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-weight:800;font-size:1.2rem;color:var(--navy);
+background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 8px 20px rgba(242,182,50,.35),inset 0 1px 0 #fffa}
+.card small{color:var(--gold2);font-size:.76rem;font-weight:600;opacity:.9}
+.card h3{margin:0;font-size:1.06rem;font-weight:800;line-height:1.6;color:#fff}
+.meta{margin:14px 0 10px;position:relative}
+.meta span{display:inline-block;font-size:.76rem;padding:2px 12px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--stroke);color:#cfdcee}
+.topics{list-style:none;margin:0;padding:0;position:relative;max-height:158px;overflow:hidden;transition:max-height .5s ease;
+-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+.card.open .topics{max-height:1400px;-webkit-mask-image:none;mask-image:none}
+.topics li{position:relative;padding:5px 22px 5px 0;font-size:.9rem;color:#d3dfef;line-height:1.85}
+.topics li:before{content:"";position:absolute;right:2px;top:15px;width:7px;height:7px;border-radius:2px;transform:rotate(45deg);background:var(--gold);opacity:.85}
+.more{position:relative;width:100%;margin-top:12px;padding:9px;border-radius:13px;border:1px solid var(--stroke);background:rgba(255,255,255,.06);color:var(--gold2);font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;gap:8px;justify-content:center;align-items:center;transition:.2s}
+.more:hover{background:rgba(242,182,50,.14);border-color:rgba(242,182,50,.45)}
+.more i{font-style:normal;transition:transform .3s}.card.open .more i{transform:rotate(180deg)}
+.card.hide{display:none}
+.empty{display:none;text-align:center;padding:40px;border-radius:20px;color:var(--muted)}
+.note{margin-top:28px;border-radius:18px;padding:16px 22px;color:#c3d1e5;font-size:.9rem}.note strong{color:var(--gold2)}
+/* cta */
+.cta{padding:30px 0 80px}
+.cta-panel{border-radius:30px;padding:42px 46px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;
+background:linear-gradient(120deg,rgba(242,182,50,.20),rgba(255,255,255,.06) 55%,rgba(80,130,230,.18))}
+.cta-panel:after{content:"↗";font-size:10rem;line-height:1;position:absolute;left:28px;bottom:-34px;color:#ffffff10;font-weight:800}
+.cta h2{font-size:1.7rem;margin:0 0 6px}.cta p{margin:0;color:#d0dcee}.cta .btn{position:relative;z-index:1;white-space:nowrap}
+footer{padding:0 0 28px}
+.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:18px 26px;border-radius:18px;color:var(--muted);font-size:.86rem}
+.footer-inner strong{color:#fff}
+@media(max-width:980px){.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-inner{padding:44px 30px}.hero-stats{display:none}.hero{padding-left:0}}
+@media(max-width:700px){nav{display:none}.nav{min-height:60px}.hero{min-height:400px;border-radius:24px}.hero-inner{padding:38px 22px}
+.trust{grid-template-columns:repeat(2,1fr);margin-top:-30px;padding:18px 12px}.trust-item+.trust-item:before{display:none}.trust-item{font-size:.82rem}
+.section{padding:60px 0 24px}.course-grid{grid-template-columns:1fr;gap:16px}.cta-panel{padding:28px 22px;flex-direction:column;align-items:flex-start}.cta h2{font-size:1.35rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass,.card{background:rgba(20,45,84,.88)}}
+</style>
+</head>
+<body>
+<header><div class="container"><div class="nav glass">
+<a class="brand" href="#home"><span class="logo">✦</span><span>آموزشگاه حسابداری <b>جاویدان</b></span></a>
+<nav aria-label="ناوبری اصلی"><a href="#home">صفحه اصلی</a><a href="#courses">سرفصل‌های آموزشی</a><a href="#about">درباره دوره</a><a href="#contact">تماس با ما</a></nav>
+</div></div></header>
+<main>
+<div class="container"><section class="hero glass" id="home">
+<div class="orb o1"></div><div class="orb o2"></div>
+<div class="hero-inner">
+<div class="eyebrow">مسیر حرفه‌ای شدن شما از اینجا شروع می‌شود</div>
+<h1>حسابداری را از <span>صفر تا صد</span> یاد بگیرید</h1>
+<p>در آموزشگاه حسابداری جاویدان، مفاهیم پایه تا مهارت‌های کاربردی بازار کار را قدم‌به‌قدم یاد می‌گیرید؛ از ثبت اسناد تا تهیه صورت‌های مالی و گزارش‌های مالیاتی.</p>
+<div class="hero-actions"><a class="btn btn-gold" href="#courses">مشاهده سرفصل‌ها ←</a><a class="btn btn-outline" href="#contact">اطلاعات دوره‌ها</a></div>
+</div>
+<div class="hero-stats" aria-hidden="true">
+<div class="stat glass"><b>۲۲</b><span>بخش آموزشی</span></div>
+<div class="stat glass"><b>۳۰۰</b><span>سرفصل کاربردی</span></div>
+<div class="stat glass"><b>۱۰۰٪</b><span>عملی و پروژه‌محور</span></div>
+</div></section></div>
+<div class="container"><div class="trust glass" id="about">
+<div class="trust-item"><span>✦</span> آموزش از پایه</div><div class="trust-item"><span>▣</span> تمرین‌های کاربردی</div><div class="trust-item"><span>↗</span> آمادگی بازار کار</div><div class="trust-item"><span>✓</span> مسیر یادگیری مرحله‌ای</div>
+</div></div>
+<section class="section" id="courses"><div class="container">
+<div class="section-head"><div class="eyebrow">برنامه آموزشی جامع</div><h2>سرفصل‌های آموزشی</h2><p>تمامی مباحث زیر در کلاس‌های آموزشگاه حسابداری جاویدان، به‌صورت منظم و مرحله‌به‌مرحله آموزش داده می‌شوند.</p></div>
+<div class="tools glass">
+<label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="جست‌وجو در سرفصل‌ها، مثلاً «استهلاک» یا «اکسل»…" aria-label="جست‌وجو در سرفصل‌ها"></label>
+<span class="count"><b id="cn">۲۲</b> بخش · ۳۰۰ سرفصل</span>
+<button class="btn btn-outline btn-sm" id="all" type="button">باز کردن همه</button>
+</div>
+<div class="course-grid" id="grid">
+<article class="card" data-t="مبانی و اصول حسابداری آشنایی با مفهوم حسابداری و کاربردهای آن تاریخچه و انواع حسابداری وظایف حسابدار و بازار کار حسابداری آشنایی با اصول و مفروضات حسابداری معادله اساسی حسابداری دارایی، بدهی و حقوق مالکانه درآمد، هزینه و سود و زیان آشنایی با ماهیت حساب‌ها بدهکار و بستانکار قواعد ثبت حسابداری طبقه‌بندی حساب‌ها کدینگ حسابداری و ساختار حساب‌ها">
+<div class="card-top"><span class="num">۱</span><div><small>بخش اول</small><h3>مبانی و اصول حسابداری</h3></div></div>
+<div class="meta"><span>۱۲ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با مفهوم حسابداری و کاربردهای آن</li><li>تاریخچه و انواع حسابداری</li><li>وظایف حسابدار و بازار کار حسابداری</li><li>آشنایی با اصول و مفروضات حسابداری</li><li>معادله اساسی حسابداری</li><li>دارایی، بدهی و حقوق مالکانه</li><li>درآمد، هزینه و سود و زیان</li><li>آشنایی با ماهیت حساب‌ها</li><li>بدهکار و بستانکار</li><li>قواعد ثبت حسابداری</li><li>طبقه‌بندی حساب‌ها</li><li>کدینگ حسابداری و ساختار حساب‌ها</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="چرخه حسابداری آشنایی با چرخه حسابداری تجزیه و تحلیل رویدادهای مالی اسناد و مدارک مثبته حسابداری ثبت رویدادهای مالی در دفتر روزنامه انتقال اطلاعات به دفتر کل تهیه دفتر معین تهیه تراز آزمایشی اصلاح و تعدیل حساب‌ها ثبت‌های اصلاحی پایان دوره تهیه تراز آزمایشی اصلاح‌شده بستن حساب‌های موقت تهیه تراز آزمایشی اختتامی افتتاح حساب‌ها در دوره مالی جدید">
+<div class="card-top"><span class="num">۲</span><div><small>بخش دوم</small><h3>چرخه حسابداری</h3></div></div>
+<div class="meta"><span>۱۳ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با چرخه حسابداری</li><li>تجزیه و تحلیل رویدادهای مالی</li><li>اسناد و مدارک مثبته حسابداری</li><li>ثبت رویدادهای مالی در دفتر روزنامه</li><li>انتقال اطلاعات به دفتر کل</li><li>تهیه دفتر معین</li><li>تهیه تراز آزمایشی</li><li>اصلاح و تعدیل حساب‌ها</li><li>ثبت‌های اصلاحی پایان دوره</li><li>تهیه تراز آزمایشی اصلاح‌شده</li><li>بستن حساب‌های موقت</li><li>تهیه تراز آزمایشی اختتامی</li><li>افتتاح حساب‌ها در دوره مالی جدید</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری مالی و صورت‌های مالی آشنایی با صورت‌های مالی اساسی تهیه صورت سود و زیان تهیه صورت وضعیت مالی یا ترازنامه تهیه صورت تغییرات حقوق مالکانه تهیه صورت جریان وجوه نقد ارتباط بین صورت‌های مالی یادداشت‌های توضیحی صورت‌های مالی اصول تهیه و ارائه صورت‌های مالی آشنایی با استانداردهای حسابداری مبانی حسابداری نقدی و تعهدی">
+<div class="card-top"><span class="num">۳</span><div><small>بخش سوم</small><h3>حسابداری مالی و صورت‌های مالی</h3></div></div>
+<div class="meta"><span>۱۰ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با صورت‌های مالی اساسی</li><li>تهیه صورت سود و زیان</li><li>تهیه صورت وضعیت مالی یا ترازنامه</li><li>تهیه صورت تغییرات حقوق مالکانه</li><li>تهیه صورت جریان وجوه نقد</li><li>ارتباط بین صورت‌های مالی</li><li>یادداشت‌های توضیحی صورت‌های مالی</li><li>اصول تهیه و ارائه صورت‌های مالی</li><li>آشنایی با استانداردهای حسابداری</li><li>مبانی حسابداری نقدی و تعهدی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری وجوه نقد و بانک حسابداری صندوق تنخواه‌گردان حسابداری حساب‌های بانکی ثبت دریافت‌ها و پرداخت‌ها مغایرت‌گیری بانکی کنترل وجوه نقد مدیریت اسناد دریافتنی و پرداختنی">
+<div class="card-top"><span class="num">۴</span><div><small>بخش چهارم</small><h3>حسابداری وجوه نقد و بانک</h3></div></div>
+<div class="meta"><span>۷ سرفصل</span></div>
+<ul class="topics"><li>حسابداری صندوق</li><li>تنخواه‌گردان</li><li>حسابداری حساب‌های بانکی</li><li>ثبت دریافت‌ها و پرداخت‌ها</li><li>مغایرت‌گیری بانکی</li><li>کنترل وجوه نقد</li><li>مدیریت اسناد دریافتنی و پرداختنی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری خرید و فروش ثبت خرید کالا و خدمات ثبت فروش کالا و خدمات برگشت از خرید و فروش تخفیفات تجاری و نقدی هزینه‌های حمل و خرید حسابداری خریدهای نقدی و اعتباری حسابداری فروش‌های نقدی و اعتباری حساب‌های دریافتنی حساب‌های پرداختنی پیش‌پرداخت‌ها و پیش‌دریافت‌ها کنترل حساب مشتریان و تأمین‌کنندگان تهیه صورت‌حساب اشخاص">
+<div class="card-top"><span class="num">۵</span><div><small>بخش پنجم</small><h3>حسابداری خرید و فروش</h3></div></div>
+<div class="meta"><span>۱۲ سرفصل</span></div>
+<ul class="topics"><li>ثبت خرید کالا و خدمات</li><li>ثبت فروش کالا و خدمات</li><li>برگشت از خرید و فروش</li><li>تخفیفات تجاری و نقدی</li><li>هزینه‌های حمل و خرید</li><li>حسابداری خریدهای نقدی و اعتباری</li><li>حسابداری فروش‌های نقدی و اعتباری</li><li>حساب‌های دریافتنی</li><li>حساب‌های پرداختنی</li><li>پیش‌پرداخت‌ها و پیش‌دریافت‌ها</li><li>کنترل حساب مشتریان و تأمین‌کنندگان</li><li>تهیه صورت‌حساب اشخاص</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری موجودی کالا و انبار آشنایی با انواع موجودی کالا سیستم ادواری و دائمی موجودی کالا روش‌های قیمت‌گذاری موجودی کالا روش فایفو (FIFO) روش میانگین موزون محاسبه بهای تمام‌شده کالای فروش‌رفته ثبت ورود و خروج کالا کنترل موجودی انبار انبارگردانی کسری و اضافی انبار کاهش ارزش موجودی کالا تطبیق حسابداری با اطلاعات انبار">
+<div class="card-top"><span class="num">۶</span><div><small>بخش ششم</small><h3>حسابداری موجودی کالا و انبار</h3></div></div>
+<div class="meta"><span>۱۲ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با انواع موجودی کالا</li><li>سیستم ادواری و دائمی موجودی کالا</li><li>روش‌های قیمت‌گذاری موجودی کالا</li><li>روش فایفو (FIFO)</li><li>روش میانگین موزون</li><li>محاسبه بهای تمام‌شده کالای فروش‌رفته</li><li>ثبت ورود و خروج کالا</li><li>کنترل موجودی انبار</li><li>انبارگردانی</li><li>کسری و اضافی انبار</li><li>کاهش ارزش موجودی کالا</li><li>تطبیق حسابداری با اطلاعات انبار</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری دارایی‌های ثابت شناخت دارایی‌های ثابت مشهود و نامشهود ثبت خرید و تحصیل دارایی‌ها محاسبه بهای تمام‌شده دارایی روش‌های محاسبه استهلاک ثبت هزینه استهلاک فروش و کنارگذاری دارایی‌های ثابت تعمیرات و مخارج سرمایه‌ای کاهش ارزش دارایی‌ها حسابداری دارایی‌های نامشهود تهیه جدول دارایی‌های ثابت">
+<div class="card-top"><span class="num">۷</span><div><small>بخش هفتم</small><h3>حسابداری دارایی‌های ثابت</h3></div></div>
+<div class="meta"><span>۱۰ سرفصل</span></div>
+<ul class="topics"><li>شناخت دارایی‌های ثابت مشهود و نامشهود</li><li>ثبت خرید و تحصیل دارایی‌ها</li><li>محاسبه بهای تمام‌شده دارایی</li><li>روش‌های محاسبه استهلاک</li><li>ثبت هزینه استهلاک</li><li>فروش و کنارگذاری دارایی‌های ثابت</li><li>تعمیرات و مخارج سرمایه‌ای</li><li>کاهش ارزش دارایی‌ها</li><li>حسابداری دارایی‌های نامشهود</li><li>تهیه جدول دارایی‌های ثابت</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری حقوق و دستمزد آشنایی با قوانین و مقررات کار محاسبه حقوق و دستمزد محاسبه اضافه‌کاری و مزایای شغلی محاسبه حق مسکن، بن کارگری و حق اولاد محاسبه بیمه تأمین اجتماعی محاسبه مالیات حقوق محاسبه عیدی و پاداش محاسبه سنوات و مزایای پایان کار تهیه لیست حقوق و دستمزد ثبت حسابداری حقوق و دستمزد تهیه و ارسال لیست بیمه تهیه و ارسال فهرست مالیات حقوق تسویه حساب کارکنان">
+<div class="card-top"><span class="num">۸</span><div><small>بخش هشتم</small><h3>حسابداری حقوق و دستمزد</h3></div></div>
+<div class="meta"><span>۱۳ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با قوانین و مقررات کار</li><li>محاسبه حقوق و دستمزد</li><li>محاسبه اضافه‌کاری و مزایای شغلی</li><li>محاسبه حق مسکن، بن کارگری و حق اولاد</li><li>محاسبه بیمه تأمین اجتماعی</li><li>محاسبه مالیات حقوق</li><li>محاسبه عیدی و پاداش</li><li>محاسبه سنوات و مزایای پایان کار</li><li>تهیه لیست حقوق و دستمزد</li><li>ثبت حسابداری حقوق و دستمزد</li><li>تهیه و ارسال لیست بیمه</li><li>تهیه و ارسال فهرست مالیات حقوق</li><li>تسویه حساب کارکنان</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری مالیاتی آشنایی با قوانین مالیاتی اشخاص حقیقی و حقوقی از نظر مالیاتی تشکیل پرونده مالیاتی آشنایی با سامانه مؤدیان صورتحساب الکترونیکی آشنایی با مالیات بر ارزش افزوده محاسبه مالیات و عوارض ارزش افزوده ثبت حسابداری مالیات بر ارزش افزوده مالیات عملکرد اشخاص حقیقی مالیات عملکرد اشخاص حقوقی هزینه‌های قابل قبول مالیاتی هزینه‌های غیرقابل قبول مالیاتی معافیت‌های مالیاتی تهیه اظهارنامه مالیاتی آشنایی با دفاتر و اسناد مالیاتی رسیدگی مالیاتی و پاسخ به برگ تشخیص جرایم و بخشودگی‌های مالیاتی تهیه گزارش‌های مالیاتی">
+<div class="card-top"><span class="num">۹</span><div><small>بخش نهم</small><h3>حسابداری مالیاتی</h3></div></div>
+<div class="meta"><span>۱۸ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با قوانین مالیاتی</li><li>اشخاص حقیقی و حقوقی از نظر مالیاتی</li><li>تشکیل پرونده مالیاتی</li><li>آشنایی با سامانه مؤدیان</li><li>صورتحساب الکترونیکی</li><li>آشنایی با مالیات بر ارزش افزوده</li><li>محاسبه مالیات و عوارض ارزش افزوده</li><li>ثبت حسابداری مالیات بر ارزش افزوده</li><li>مالیات عملکرد اشخاص حقیقی</li><li>مالیات عملکرد اشخاص حقوقی</li><li>هزینه‌های قابل قبول مالیاتی</li><li>هزینه‌های غیرقابل قبول مالیاتی</li><li>معافیت‌های مالیاتی</li><li>تهیه اظهارنامه مالیاتی</li><li>آشنایی با دفاتر و اسناد مالیاتی</li><li>رسیدگی مالیاتی و پاسخ به برگ تشخیص</li><li>جرایم و بخشودگی‌های مالیاتی</li><li>تهیه گزارش‌های مالیاتی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری بیمه و تأمین اجتماعی آشنایی با قوانین تأمین اجتماعی محاسبه حق بیمه سهم کارفرما و کارکنان تهیه لیست بیمه ارسال لیست بیمه در سامانه مربوطه آشنایی با بازرسی بیمه مفاصاحساب بیمه قراردادهای پیمانکاری و بیمه آن‌ها محاسبه حق بیمه قراردادها رسیدگی به بدهی‌های بیمه‌ای">
+<div class="card-top"><span class="num">۱۰</span><div><small>بخش دهم</small><h3>حسابداری بیمه و تأمین اجتماعی</h3></div></div>
+<div class="meta"><span>۹ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با قوانین تأمین اجتماعی</li><li>محاسبه حق بیمه سهم کارفرما و کارکنان</li><li>تهیه لیست بیمه</li><li>ارسال لیست بیمه در سامانه مربوطه</li><li>آشنایی با بازرسی بیمه</li><li>مفاصاحساب بیمه</li><li>قراردادهای پیمانکاری و بیمه آن‌ها</li><li>محاسبه حق بیمه قراردادها</li><li>رسیدگی به بدهی‌های بیمه‌ای</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری شرکت‌ها آشنایی با انواع شرکت‌ها مراحل ثبت شرکت و سرمایه اولیه حسابداری سرمایه شرکت افزایش و کاهش سرمایه حسابداری اندوخته‌ها تقسیم سود بین شرکا و سهامداران حسابداری جاری شرکا حسابداری وام‌ها و تسهیلات بانکی محاسبه و ثبت سود و کارمزد تسهیلات حسابداری اسناد تجاری حسابداری معاملات ارزی تسعیر ارز حسابداری ذخایر و بدهی‌های احتمالی حسابداری پیش‌پرداخت و پیش‌دریافت حسابداری هزینه‌های معوق و درآمدهای تحقق‌یافته تهیه صورت‌های مالی شرکت‌ها">
+<div class="card-top"><span class="num">۱۱</span><div><small>بخش یازدهم</small><h3>حسابداری شرکت‌ها</h3></div></div>
+<div class="meta"><span>۱۶ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با انواع شرکت‌ها</li><li>مراحل ثبت شرکت و سرمایه اولیه</li><li>حسابداری سرمایه شرکت</li><li>افزایش و کاهش سرمایه</li><li>حسابداری اندوخته‌ها</li><li>تقسیم سود بین شرکا و سهامداران</li><li>حسابداری جاری شرکا</li><li>حسابداری وام‌ها و تسهیلات بانکی</li><li>محاسبه و ثبت سود و کارمزد تسهیلات</li><li>حسابداری اسناد تجاری</li><li>حسابداری معاملات ارزی</li><li>تسعیر ارز</li><li>حسابداری ذخایر و بدهی‌های احتمالی</li><li>حسابداری پیش‌پرداخت و پیش‌دریافت</li><li>حسابداری هزینه‌های معوق و درآمدهای تحقق‌یافته</li><li>تهیه صورت‌های مالی شرکت‌ها</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری صنعتی و بهای تمام‌شده آشنایی با حسابداری صنعتی مفاهیم هزینه و طبقه‌بندی هزینه‌ها هزینه‌های مستقیم و غیرمستقیم هزینه‌های ثابت و متغیر مواد مستقیم و غیرمستقیم دستمزد مستقیم و غیرمستقیم سربار ساخت محاسبه بهای تمام‌شده محصول حسابداری مواد و دستمزد تخصیص سربار تولید هزینه‌یابی سفارش کار هزینه‌یابی مرحله‌ای هزینه‌یابی استاندارد هزینه‌یابی بر مبنای فعالیت محاسبه کالای در جریان ساخت محاسبه کالای ساخته‌شده تجزیه و تحلیل نقطه سر به سر تحلیل هزینه، حجم فعالیت و سود بودجه‌بندی تولید گزارش بهای تمام‌شده کالای فروش‌رفته">
+<div class="card-top"><span class="num">۱۲</span><div><small>بخش دوازدهم</small><h3>حسابداری صنعتی و بهای تمام‌شده</h3></div></div>
+<div class="meta"><span>۲۰ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با حسابداری صنعتی</li><li>مفاهیم هزینه و طبقه‌بندی هزینه‌ها</li><li>هزینه‌های مستقیم و غیرمستقیم</li><li>هزینه‌های ثابت و متغیر</li><li>مواد مستقیم و غیرمستقیم</li><li>دستمزد مستقیم و غیرمستقیم</li><li>سربار ساخت</li><li>محاسبه بهای تمام‌شده محصول</li><li>حسابداری مواد و دستمزد</li><li>تخصیص سربار تولید</li><li>هزینه‌یابی سفارش کار</li><li>هزینه‌یابی مرحله‌ای</li><li>هزینه‌یابی استاندارد</li><li>هزینه‌یابی بر مبنای فعالیت</li><li>محاسبه کالای در جریان ساخت</li><li>محاسبه کالای ساخته‌شده</li><li>تجزیه و تحلیل نقطه سر به سر</li><li>تحلیل هزینه، حجم فعالیت و سود</li><li>بودجه‌بندی تولید</li><li>گزارش بهای تمام‌شده کالای فروش‌رفته</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری پیمانکاری آشنایی با قراردادهای پیمانکاری انواع قراردادهای پیمانکاری ثبت دریافت پیش‌پرداخت قرارداد ثبت صورت‌وضعیت‌های پیمانکاری حسابداری کسورات قانونی قراردادها حسابداری سپرده حسن انجام کار محاسبه درآمد و هزینه پیمان شناسایی درآمد قراردادهای بلندمدت محاسبه سود و زیان پیمان تهیه گزارش‌های مالی پروژه تسویه و خاتمه قرارداد پیمانکاری">
+<div class="card-top"><span class="num">۱۳</span><div><small>بخش سیزدهم</small><h3>حسابداری پیمانکاری</h3></div></div>
+<div class="meta"><span>۱۱ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با قراردادهای پیمانکاری</li><li>انواع قراردادهای پیمانکاری</li><li>ثبت دریافت پیش‌پرداخت قرارداد</li><li>ثبت صورت‌وضعیت‌های پیمانکاری</li><li>حسابداری کسورات قانونی قراردادها</li><li>حسابداری سپرده حسن انجام کار</li><li>محاسبه درآمد و هزینه پیمان</li><li>شناسایی درآمد قراردادهای بلندمدت</li><li>محاسبه سود و زیان پیمان</li><li>تهیه گزارش‌های مالی پروژه</li><li>تسویه و خاتمه قرارداد پیمانکاری</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری پیشرفته آشنایی با استانداردهای حسابداری پیشرفته حسابداری سرمایه‌گذاری‌ها حسابداری تسهیلات و ابزارهای مالی حسابداری اجاره‌ها حسابداری کاهش ارزش دارایی‌ها حسابداری درآمدهای عملیاتی حسابداری ذخایر و بدهی‌های احتمالی حسابداری مالیات انتقالی حسابداری ترکیب‌های تجاری صورت‌های مالی تلفیقی حسابداری شعب حسابداری مشارکت‌ها حسابداری تغییرات نرخ ارز رویدادهای بعد از دوره گزارشگری اصلاح اشتباهات و تغییر رویه‌های حسابداری">
+<div class="card-top"><span class="num">۱۴</span><div><small>بخش چهاردهم</small><h3>حسابداری پیشرفته</h3></div></div>
+<div class="meta"><span>۱۵ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با استانداردهای حسابداری پیشرفته</li><li>حسابداری سرمایه‌گذاری‌ها</li><li>حسابداری تسهیلات و ابزارهای مالی</li><li>حسابداری اجاره‌ها</li><li>حسابداری کاهش ارزش دارایی‌ها</li><li>حسابداری درآمدهای عملیاتی</li><li>حسابداری ذخایر و بدهی‌های احتمالی</li><li>حسابداری مالیات انتقالی</li><li>حسابداری ترکیب‌های تجاری</li><li>صورت‌های مالی تلفیقی</li><li>حسابداری شعب</li><li>حسابداری مشارکت‌ها</li><li>حسابداری تغییرات نرخ ارز</li><li>رویدادهای بعد از دوره گزارشگری</li><li>اصلاح اشتباهات و تغییر رویه‌های حسابداری</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="تجزیه و تحلیل صورت‌های مالی آشنایی با تحلیل صورت‌های مالی تحلیل افقی و عمودی تحلیل روند محاسبه نسبت‌های نقدینگی محاسبه نسبت‌های فعالیت محاسبه نسبت‌های سودآوری محاسبه نسبت‌های اهرمی تحلیل سرمایه در گردش تحلیل جریان وجوه نقد تحلیل ساختار مالی شرکت ارزیابی عملکرد مالی تهیه گزارش تحلیلی برای مدیریت">
+<div class="card-top"><span class="num">۱۵</span><div><small>بخش پانزدهم</small><h3>تجزیه و تحلیل صورت‌های مالی</h3></div></div>
+<div class="meta"><span>۱۲ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با تحلیل صورت‌های مالی</li><li>تحلیل افقی و عمودی</li><li>تحلیل روند</li><li>محاسبه نسبت‌های نقدینگی</li><li>محاسبه نسبت‌های فعالیت</li><li>محاسبه نسبت‌های سودآوری</li><li>محاسبه نسبت‌های اهرمی</li><li>تحلیل سرمایه در گردش</li><li>تحلیل جریان وجوه نقد</li><li>تحلیل ساختار مالی شرکت</li><li>ارزیابی عملکرد مالی</li><li>تهیه گزارش تحلیلی برای مدیریت</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابداری مدیریت و بودجه‌بندی آشنایی با حسابداری مدیریت تفاوت حسابداری مالی و مدیریت تهیه بودجه عملیاتی تهیه بودجه نقدی بودجه‌بندی فروش و تولید کنترل بودجه تحلیل انحرافات بودجه محاسبه بهای تمام‌شده هدف تصمیم‌گیری بر اساس اطلاعات مالی تحلیل سودآوری محصولات ارزیابی عملکرد واحدهای سازمان تهیه گزارش‌های مدیریتی">
+<div class="card-top"><span class="num">۱۶</span><div><small>بخش شانزدهم</small><h3>حسابداری مدیریت و بودجه‌بندی</h3></div></div>
+<div class="meta"><span>۱۲ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با حسابداری مدیریت</li><li>تفاوت حسابداری مالی و مدیریت</li><li>تهیه بودجه عملیاتی</li><li>تهیه بودجه نقدی</li><li>بودجه‌بندی فروش و تولید</li><li>کنترل بودجه</li><li>تحلیل انحرافات بودجه</li><li>محاسبه بهای تمام‌شده هدف</li><li>تصمیم‌گیری بر اساس اطلاعات مالی</li><li>تحلیل سودآوری محصولات</li><li>ارزیابی عملکرد واحدهای سازمان</li><li>تهیه گزارش‌های مدیریتی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="حسابرسی و کنترل داخلی آشنایی با مفهوم حسابرسی انواع حسابرسی اصول و استانداردهای حسابرسی مستندات و شواهد حسابرسی ارزیابی ریسک حسابرسی آشنایی با کنترل‌های داخلی کنترل داخلی صندوق و بانک کنترل حساب‌های دریافتنی و پرداختنی کنترل موجودی کالا حسابرسی درآمدها و هزینه‌ها رسیدگی به اسناد و مدارک مالی تهیه کاربرگ‌های حسابرسی انواع اظهارنظر حسابرس تهیه گزارش حسابرسی">
+<div class="card-top"><span class="num">۱۷</span><div><small>بخش هفدهم</small><h3>حسابرسی و کنترل داخلی</h3></div></div>
+<div class="meta"><span>۱۴ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با مفهوم حسابرسی</li><li>انواع حسابرسی</li><li>اصول و استانداردهای حسابرسی</li><li>مستندات و شواهد حسابرسی</li><li>ارزیابی ریسک حسابرسی</li><li>آشنایی با کنترل‌های داخلی</li><li>کنترل داخلی صندوق و بانک</li><li>کنترل حساب‌های دریافتنی و پرداختنی</li><li>کنترل موجودی کالا</li><li>حسابرسی درآمدها و هزینه‌ها</li><li>رسیدگی به اسناد و مدارک مالی</li><li>تهیه کاربرگ‌های حسابرسی</li><li>انواع اظهارنظر حسابرس</li><li>تهیه گزارش حسابرسی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="نرم‌افزارهای حسابداری آشنایی با محیط نرم‌افزارهای حسابداری تعریف شرکت و سال مالی ایجاد کدینگ حساب‌ها تعریف اشخاص و طرف حساب‌ها ثبت سند حسابداری ثبت دریافت و پرداخت ثبت فاکتور خرید و فروش ثبت عملیات انبار ثبت حقوق و دستمزد ثبت دارایی‌های ثابت تهیه گزارش دفتر روزنامه و کل تهیه تراز آزمایشی تهیه گزارش سود و زیان و ترازنامه بستن حساب‌ها در پایان سال آشنایی با نرم‌افزارهای رایج حسابداری در بازار کار ایران">
+<div class="card-top"><span class="num">۱۸</span><div><small>بخش هجدهم</small><h3>نرم‌افزارهای حسابداری</h3></div></div>
+<div class="meta"><span>۱۵ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با محیط نرم‌افزارهای حسابداری</li><li>تعریف شرکت و سال مالی</li><li>ایجاد کدینگ حساب‌ها</li><li>تعریف اشخاص و طرف حساب‌ها</li><li>ثبت سند حسابداری</li><li>ثبت دریافت و پرداخت</li><li>ثبت فاکتور خرید و فروش</li><li>ثبت عملیات انبار</li><li>ثبت حقوق و دستمزد</li><li>ثبت دارایی‌های ثابت</li><li>تهیه گزارش دفتر روزنامه و کل</li><li>تهیه تراز آزمایشی</li><li>تهیه گزارش سود و زیان و ترازنامه</li><li>بستن حساب‌ها در پایان سال</li><li>آشنایی با نرم‌افزارهای رایج حسابداری در بازار کار ایران</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="اکسل ویژه حسابداران آشنایی با محیط اکسل ورود و قالب‌بندی اطلاعات فرمول‌های پایه توابع SUM، AVERAGE، IF و SUMIF توابع COUNTIF و SUMIFS توابع جست‌وجو مانند VLOOKUP و XLOOKUP مرتب‌سازی و فیلتر داده‌ها حذف داده‌های تکراری قالب‌بندی شرطی تهیه جدول‌های مالی استفاده از PivotTable تهیه گزارش‌های مالی و نمودارها مغایرت‌گیری با اکسل تهیه فایل حقوق و دستمزد تهیه گزارش‌های مدیریتی با اکسل آشنایی مقدماتی با Power Query">
+<div class="card-top"><span class="num">۱۹</span><div><small>بخش نوزدهم</small><h3>اکسل ویژه حسابداران</h3></div></div>
+<div class="meta"><span>۱۶ سرفصل</span></div>
+<ul class="topics"><li>آشنایی با محیط اکسل</li><li>ورود و قالب‌بندی اطلاعات</li><li>فرمول‌های پایه</li><li>توابع SUM، AVERAGE، IF و SUMIF</li><li>توابع COUNTIF و SUMIFS</li><li>توابع جست‌وجو مانند VLOOKUP و XLOOKUP</li><li>مرتب‌سازی و فیلتر داده‌ها</li><li>حذف داده‌های تکراری</li><li>قالب‌بندی شرطی</li><li>تهیه جدول‌های مالی</li><li>استفاده از PivotTable</li><li>تهیه گزارش‌های مالی و نمودارها</li><li>مغایرت‌گیری با اکسل</li><li>تهیه فایل حقوق و دستمزد</li><li>تهیه گزارش‌های مدیریتی با اکسل</li><li>آشنایی مقدماتی با Power Query</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="مهارت‌های عملی و ورود به بازار کار تشکیل پرونده مالی یک شرکت فرضی طراحی کدینگ حسابداری متناسب با فعالیت شرکت ثبت اسناد یک ماه کامل ثبت خرید، فروش، دریافت و پرداخت ثبت اسناد بانکی و مغایرت‌گیری ثبت عملیات انبار و کنترل موجودی تهیه لیست حقوق و دستمزد ثبت بیمه و مالیات حقوق ثبت دارایی‌های ثابت و استهلاک تهیه تراز آزمایشی ماهانه انجام اصلاحات پایان ماه بستن حساب‌ها در پایان سال تهیه صورت‌های مالی پایان سال تهیه گزارش‌های مالیاتی تهیه گزارش‌های بیمه‌ای تهیه گزارش عملکرد مالی شرکت کنترل اسناد و بایگانی مدارک آشنایی با مکاتبات مالی و اداری تهیه گزارش برای مدیر مالی بررسی خطاهای رایج حسابداری تمرین سناریوهای واقعی حسابداری آشنایی با شرح وظایف حسابدار، حسابدار ارشد و کمک‌حسابدار آمادگی برای مصاحبه استخدامی حسابداری">
+<div class="card-top"><span class="num">۲۰</span><div><small>بخش بیستم</small><h3>مهارت‌های عملی و ورود به بازار کار</h3></div></div>
+<div class="meta"><span>۲۳ سرفصل</span></div>
+<ul class="topics"><li>تشکیل پرونده مالی یک شرکت فرضی</li><li>طراحی کدینگ حسابداری متناسب با فعالیت شرکت</li><li>ثبت اسناد یک ماه کامل</li><li>ثبت خرید، فروش، دریافت و پرداخت</li><li>ثبت اسناد بانکی و مغایرت‌گیری</li><li>ثبت عملیات انبار و کنترل موجودی</li><li>تهیه لیست حقوق و دستمزد</li><li>ثبت بیمه و مالیات حقوق</li><li>ثبت دارایی‌های ثابت و استهلاک</li><li>تهیه تراز آزمایشی ماهانه</li><li>انجام اصلاحات پایان ماه</li><li>بستن حساب‌ها در پایان سال</li><li>تهیه صورت‌های مالی پایان سال</li><li>تهیه گزارش‌های مالیاتی</li><li>تهیه گزارش‌های بیمه‌ای</li><li>تهیه گزارش عملکرد مالی شرکت</li><li>کنترل اسناد و بایگانی مدارک</li><li>آشنایی با مکاتبات مالی و اداری</li><li>تهیه گزارش برای مدیر مالی</li><li>بررسی خطاهای رایج حسابداری</li><li>تمرین سناریوهای واقعی حسابداری</li><li>آشنایی با شرح وظایف حسابدار، حسابدار ارشد و کمک‌حسابدار</li><li>آمادگی برای مصاحبه استخدامی حسابداری</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="مباحث تکمیلی و تخصصی حسابداری بانک‌ها و مؤسسات مالی حسابداری بیمه حسابداری شرکت‌های بازرگانی حسابداری شرکت‌های تولیدی حسابداری شرکت‌های خدماتی حسابداری فروشگاه‌ها و کسب‌وکارهای کوچک حسابداری مؤسسات غیرانتفاعی حسابداری پروژه‌ای حسابداری ارزی و تجارت خارجی حسابداری صادرات و واردات حسابداری شرکت‌های فناوری و استارتاپ‌ها آشنایی با سیستم‌های برنامه‌ریزی منابع سازمانی (ERP) تحلیل داده‌های مالی اتوماسیون فرایندهای حسابداری اخلاق حرفه‌ای و مسئولیت‌های حسابدار محرمانگی اطلاعات مالی قوانین و مقررات مرتبط با اسناد مالی به‌روزرسانی دانش حسابداری و قوانین مالیاتی">
+<div class="card-top"><span class="num">۲۱</span><div><small>بخش بیست‌ویکم</small><h3>مباحث تکمیلی و تخصصی</h3></div></div>
+<div class="meta"><span>۱۸ سرفصل</span></div>
+<ul class="topics"><li>حسابداری بانک‌ها و مؤسسات مالی</li><li>حسابداری بیمه</li><li>حسابداری شرکت‌های بازرگانی</li><li>حسابداری شرکت‌های تولیدی</li><li>حسابداری شرکت‌های خدماتی</li><li>حسابداری فروشگاه‌ها و کسب‌وکارهای کوچک</li><li>حسابداری مؤسسات غیرانتفاعی</li><li>حسابداری پروژه‌ای</li><li>حسابداری ارزی و تجارت خارجی</li><li>حسابداری صادرات و واردات</li><li>حسابداری شرکت‌های فناوری و استارتاپ‌ها</li><li>آشنایی با سیستم‌های برنامه‌ریزی منابع سازمانی (ERP)</li><li>تحلیل داده‌های مالی</li><li>اتوماسیون فرایندهای حسابداری</li><li>اخلاق حرفه‌ای و مسئولیت‌های حسابدار</li><li>محرمانگی اطلاعات مالی</li><li>قوانین و مقررات مرتبط با اسناد مالی</li><li>به‌روزرسانی دانش حسابداری و قوانین مالیاتی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+<article class="card" data-t="تسلط نهایی و آمادگی شغلی انجام پروژه جامع حسابداری از ابتدای دوره مالی تا پایان سال ثبت کامل عملیات مالی یک شرکت بازرگانی ثبت کامل عملیات مالی یک شرکت تولیدی تهیه صورت‌های مالی از روی اسناد واقعی یا شبیه‌سازی‌شده انجام مغایرت‌گیری حساب‌های بانکی و اشخاص تهیه و کنترل گزارش‌های مالیاتی و بیمه‌ای تهیه گزارش بهای تمام‌شده تحلیل صورت‌های مالی و ارائه پیشنهاد مدیریتی تسلط بر یک نرم‌افزار حسابداری تسلط بر اکسل کاربردی حسابداری تمرین پرونده‌های واقعی و رفع مغایرت‌ها اجرای مستقل فرایند حسابداری یک کسب‌وکار از ثبت اسناد تا تهیه صورت‌های مالی و گزارش‌های قانونی">
+<div class="card-top"><span class="num">۲۲</span><div><small>بخش بیست‌ودوم</small><h3>تسلط نهایی و آمادگی شغلی</h3></div></div>
+<div class="meta"><span>۱۲ سرفصل</span></div>
+<ul class="topics"><li>انجام پروژه جامع حسابداری از ابتدای دوره مالی تا پایان سال</li><li>ثبت کامل عملیات مالی یک شرکت بازرگانی</li><li>ثبت کامل عملیات مالی یک شرکت تولیدی</li><li>تهیه صورت‌های مالی از روی اسناد واقعی یا شبیه‌سازی‌شده</li><li>انجام مغایرت‌گیری حساب‌های بانکی و اشخاص</li><li>تهیه و کنترل گزارش‌های مالیاتی و بیمه‌ای</li><li>تهیه گزارش بهای تمام‌شده</li><li>تحلیل صورت‌های مالی و ارائه پیشنهاد مدیریتی</li><li>تسلط بر یک نرم‌افزار حسابداری</li><li>تسلط بر اکسل کاربردی حسابداری</li><li>تمرین پرونده‌های واقعی و رفع مغایرت‌ها</li><li>اجرای مستقل فرایند حسابداری یک کسب‌وکار از ثبت اسناد تا تهیه صورت‌های مالی و گزارش‌های قانونی</li></ul>
+<button class="more" type="button" aria-expanded="false"><span>نمایش همه سرفصل‌ها</span><i>⌄</i></button>
+</article>
+</div>
+<div class="empty glass" id="empty">موردی با این عبارت پیدا نشد.</div>
+<div class="note glass"><strong>توجه:</strong> ترتیب و عمق آموزش هر مبحث می‌تواند با توجه به سطح هنرجویان و نیازهای دوره تنظیم شود. مباحث قانونی و مالیاتی بر اساس مقررات جاری بررسی می‌شوند.</div>
+</div></section>
+<section class="cta" id="contact"><div class="container"><div class="cta-panel glass">
+<div><h2>آماده‌اید حسابداری را حرفه‌ای یاد بگیرید؟</h2><p>با یادگیری اصولی و تمرین عملی، قدم بعدی مسیر شغلی خود را بردارید.</p></div>
+<a class="btn btn-gold" href="mailto:info@example.com?subject=%D8%AF%D8%B1%D8%AE%D9%88%D8%A7%D8%B3%D8%AA%20%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA%20%D8%AF%D9%88%D8%B1%D9%87">درخواست اطلاعات دوره‌ها ←</a>
+</div></div></section>
+</main>
+<footer><div class="container"><div class="footer-inner glass"><span><strong>آموزشگاه حسابداری جاویدان</strong> — آموزش حسابداری از صفر تا صد</span><span>© تمامی حقوق محفوظ است.</span></div></div></footer>
+<script>
+(function(){
+var cards=[].slice.call(document.querySelectorAll('.card')),q=document.getElementById('q'),all=document.getElementById('all'),empty=document.getElementById('empty'),cn=document.getElementById('cn');
+var fa=function(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d]})};
+function setOpen(c,o){c.classList.toggle('open',o);var b=c.querySelector('.more');b.setAttribute('aria-expanded',o);b.firstChild.textContent=o?'بستن سرفصل‌ها':'نمایش همه سرفصل‌ها'}
+cards.forEach(function(c){c.querySelector('.more').addEventListener('click',function(){setOpen(c,!c.classList.contains('open'))})});
+var allOpen=false;all.addEventListener('click',function(){allOpen=!allOpen;cards.forEach(function(c){if(!c.classList.contains('hide'))setOpen(c,allOpen)});all.textContent=allOpen?'بستن همه':'باز کردن همه'});
+q.addEventListener('input',function(){var v=q.value.trim().replace(/ي/g,'ی').replace(/ك/g,'ک'),n=0;
+cards.forEach(function(c){var t=c.dataset.t,m=!v||t.indexOf(v)>-1;c.classList.toggle('hide',!m);if(m)n++;
+var lis=c.querySelectorAll('li');lis.forEach(function(l){l.style.color=(v&&l.textContent.indexOf(v)>-1)?'#ffd98a':''});
+if(v&&m)setOpen(c,true)});
+cn.textContent=fa(n);empty.style.display=n?'none':'block'});
+})();
+</script>
+</body>
+</html>
