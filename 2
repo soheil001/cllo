@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شاینو | پخش مواد غذایی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0f5a2a;
+    --green-dark:#0a431f;
+    --hero-bg:url("https://shaayno.com/wp-content/uploads/2026/11/IMG_6090.webp"); /* کامپیوتر و تبلت */
+    --hero-bg-m:url("https://shaayno.com/wp-content/uploads/2026/11/IMG_6091.jpeg"); /* موبایل */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Vazirmatn",Tahoma,sans-serif;background:#fff}
+
+  /* ===== اسلاید: نسبت ۱۶:۹ ===== */
+  .hero{
+    position:relative;width:100%;aspect-ratio:16/9;
+    background:var(--hero-bg) center/100% 100% no-repeat;
+    container-type:inline-size;overflow:visible;
+  }
+
+  /* ===== سربرگ شیشه‌ای ===== */
+  .glass{
+    background:rgba(255,255,255,.28);
+    -webkit-backdrop-filter:blur(16px) saturate(170%);
+    backdrop-filter:blur(16px) saturate(170%);
+    border:1px solid rgba(255,255,255,.55);
+    box-shadow:0 8px 32px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .nav{
+    position:absolute;top:2.1%;right:25.1%;width:43%;height:7.6%;
+    border-radius:999px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 1.2%;z-index:10;
+  }
+  .nav ul{list-style:none;display:flex;align-items:center;justify-content:space-between;width:100%;height:100%}
+  .nav li{position:relative;height:100%;display:flex;align-items:center}
+  .nav a{
+    display:flex;align-items:center;gap:.5cqw;text-decoration:none;color:#1b3a24;
+    font-weight:600;font-size:1.25cqw;padding:.7cqw 1.4cqw;border-radius:999px;transition:.25s;white-space:nowrap;
+  }
+  .nav a:hover{background:rgba(255,255,255,.45)}
+  .nav a.active{background:var(--green);color:#fff;box-shadow:0 4px 14px rgba(15,90,42,.4)}
+  .nav svg{width:1.5cqw;height:1.5cqw}
+  .chev{width:.9cqw!important;height:.9cqw!important;transition:.25s}
+  .has-sub:hover .chev{transform:rotate(180deg)}
+
+  /* زیرمنو */
+  .sub{
+    position:absolute;top:100%;right:0;min-width:13cqw;margin-top:.4cqw;padding:.6cqw;
+    border-radius:1.2cqw;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.25s;
+    display:flex;flex-direction:column;
+  }
+  .has-sub:hover .sub{opacity:1;visibility:visible;transform:none}
+  .sub a{font-size:1.15cqw;border-radius:.8cqw}
+
+  /* ===== جستجو ===== */
+  .search{
+    position:absolute;top:2.1%;left:5.5%;width:21.2%;height:7.3%;
+    border-radius:999px;display:flex;align-items:center;gap:.8cqw;padding:0 1.5cqw;z-index:10;
+  }
+  .search input{
+    flex:1;min-width:0;border:0;outline:0;background:transparent;
+    font-family:inherit;font-size:1.15cqw;color:#1b3a24;
+  }
+  .search input::placeholder{color:#5c6f60}
+  .search button{background:none;border:0;cursor:pointer;display:flex;color:#1b3a24}
+  .search svg{width:1.9cqw;height:1.9cqw}
+
+  /* ===== دکمه مشاهده محصولات ===== */
+  .cta{
+    position:absolute;top:79.5%;right:4.3%;width:17.5%;height:7.7%;z-index:10;
+    display:flex;align-items:center;justify-content:center;gap:1cqw;
+    background:var(--green);color:#fff;text-decoration:none;border-radius:999px;
+    font-weight:800;font-size:1.35cqw;box-shadow:0 8px 22px rgba(10,67,31,.45);
+    transition:.3s;
+  }
+  .cta:hover{background:var(--green-dark);transform:translateY(-3px);box-shadow:0 12px 28px rgba(10,67,31,.55)}
+  .cta svg{width:1.8cqw;height:1.8cqw}
+  .cta .arrow{transition:.3s}
+  .cta:hover .arrow{transform:translateX(-5px)}
+
+  /* ===== موبایل: عکس مربع ۱:۱ و بقیه صفحه خالی ===== */
+  @media (max-width:600px){
+    .hero{aspect-ratio:1/1;height:auto;background-image:var(--hero-bg-m);background-size:100% 100%}
+    .nav{top:2.5%;right:2.5%;width:95%;height:11%;transform:none;padding:0 1%}
+    .nav a{font-size:3.3cqw;padding:2cqw 2.6cqw;gap:1cqw}
+    .nav svg{width:4cqw;height:4cqw}
+    .chev{width:2.4cqw!important;height:2.4cqw!important}
+    .sub{min-width:34cqw;margin-top:1.5cqw;padding:1.5cqw;border-radius:4cqw}
+    .sub a{font-size:3.3cqw;border-radius:3cqw}
+    .search{display:none}
+    .cta{top:auto;bottom:4%;right:50%;transform:translateX(50%);width:62%;height:11%;font-size:4.2cqw;gap:2.5cqw}
+    .cta:hover{transform:translateX(50%) translateY(-3px)}
+    .cta svg{width:5.5cqw;height:5.5cqw}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <!-- سربرگ -->
+  <nav class="nav glass">
+    <ul>
+      <li><a href="/" class="active">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg>
+        صفحه اصلی</a></li>
+
+      <li class="has-sub">
+        <a href="/products">محصولات
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="sub glass">
+          <a href="/products/beans">لوبیا</a>
+          <a href="/products/lentils">عدس</a>
+          <a href="/products/chickpeas">نخود</a>
+          <a href="/products/mung">ماش</a>
+        </div>
+      </li>
+
+      <li class="has-sub">
+        <a href="/about">درباره ما
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="sub glass">
+          <a href="/about">معرفی شاینو</a>
+          <a href="/quality">تضمین کیفیت</a>
+        </div>
+      </li>
+
+      <li><a href="/contact">تماس با ما</a></li>
+    </ul>
+  </nav>
+
+  <!-- جستجو -->
+  <form class="search glass" action="/search" method="get">
+    <button type="submit" aria-label="جستجو">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <input type="text" name="q" placeholder="جستجو در محصولات...">
+  </form>
+
+  <!-- دکمه -->
+  <a href="/products" class="cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 11h10L20 7H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+    مشاهده محصولات
+    <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg>
+  </a>
+
+</section>
+
+</body>
+</html>
