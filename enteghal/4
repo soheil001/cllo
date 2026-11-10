@@ -1,395 +1,293 @@
 
-/* آف‌تور۲۴ - دریافت تورهای تأییدشده از API مرکزی */
-'use strict';
+<?php
+require_once __DIR__ . '/auth_common.php';
 
-var CONFIG = { toursUrl: '/api/tours.php', bookingUrl: '/api/booking.php' };
-var TOURS = [];
-var tab = 'all';
-var loadingTours = true;
+$agency = ot_require_agency();
 
-var $ = function (s, root) { return (root || document).querySelector(s); };
-var fa = function (n) { return Number(n || 0).toLocaleString('fa-IR'); };
-var en = function (s) {
-  return String(s == null ? '' : s)
-    .replace(/[۰-۹]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); })
-    .replace(/[٠-٩]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.indexOf(d); });
-};
-var esc = function (s) {
-  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
-  });
-};
-var toImageUrl = function (url) {
-  if (!url) return '';
-  url = String(url).trim();
-  if (/^https?:\/\//i.test(url) || url.indexOf('/') === 0) return url;
-  return '/' + url.replace(/^\.?\//, '');
-};
-var parseDate = function (value) {
-  if (!value) return null;
-  var s = en(value).slice(0, 10);
-  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
-  if (!m) return null;
-  var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
-  return isNaN(d.getTime()) ? null : d;
-};
-var dateFa = function (value) {
-  var d = parseDate(value);
-  return d ? d.toLocaleDateString('fa-IR') : 'اعلام نشده';
-};
-var daysBetween = function (start, end) {
-  var a = parseDate(start), b = parseDate(end);
-  if (!a || !b) return 0;
-  return Math.max(1, Math.round((b - a) / 86400000) + 1);
-};
-var close = function () {
-  $('#ov').classList.remove('on');
-  document.body.style.overflow = '';
-};
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $stmt = $pdo->prepare('SELECT data FROM agencies WHERE id = ? LIMIT 1');
+    $stmt->execute([$agency['id']]);
+    $a = ot_decode_row(($stmt->fetch()['data'] ?? null));
 
-/* تبدیل ساختار دیتابیس به ساختار مورد استفاده در کارت و پنجره جزئیات */
-function normalizeTour(raw) {
-  var gallery = Array.isArray(raw.gallery) ? raw.gallery : [];
-  var image = toImageUrl(raw.image || gallery[0] || '');
-  var images = (gallery.length ? gallery : []).map(toImageUrl).filter(Boolean);
-  if (image && images.indexOf(image) === -1) images.unshift(image);
+    unset($a['password'], $a['password_hash']);
 
-  var features = Array.isArray(raw.features)
-    ? raw.features
-    : String(raw.features || '').split(/[،,؛;]/).map(function (x) { return x.trim(); }).filter(Boolean);
+    $stmt = $pdo->prepare(
+        'SELECT data FROM tours WHERE agency_id = ? ORDER BY created_at DESC'
+    );
+    $stmt->execute([$agency['id']]);
 
-  var start = raw.start || '';
-  var end = raw.end || '';
-  var days = daysBetween(start, end);
-
-  return {
-    id: String(raw.id || ''),
-    code: String(raw.code || raw.id || ''),
-    t: raw.type === 'out' ? 'out' : 'in',
-    name: String(raw.name || 'تور بدون عنوان'),
-    destination: String(raw.destination || ''),
-    days: days,
-    price: Number(raw.price || 0),
-    capacity: Number(raw.capacity || 0),
-    remaining: Number(raw.remaining == null ? raw.capacity || 0 : raw.remaining),
-    start: start,
-    end: end,
-    date: start && end ? dateFa(start) + ' تا ' + dateFa(end) : 'تاریخ متعاقباً اعلام می‌شود',
-    from: 'تهران',
-    ins: 'بیمه مسافرتی',
-    guide: 'سرپرست تور',
-    veh: 'طبق توضیحات تور',
-    stay: 'طبق توضیحات تور',
-    meal: 'طبق توضیحات تور',
-    cap: fa(raw.capacity || 0) + ' نفر',
-    img: image,
-    imgs: images,
-    features: features,
-    feat: features,
-    description: String(raw.description || ''),
-    agencyCode: String(raw.agencyCode || '')
-  };
-}
-
-async function loadTours() {
-  loadingTours = true;
-  try {
-    var response = await fetch(CONFIG.toursUrl, {
-      method: 'GET',
-      credentials: 'same-origin',
-      cache: 'no-store',
-      headers: { 'Accept': 'application/json' }
-    });
-    if (!response.ok) throw new Error('HTTP ' + response.status);
-    var data = await response.json();
-    if (!data || data.success !== true || !Array.isArray(data.tours)) {
-      throw new Error('ساختار پاسخ فهرست تورها معتبر نیست');
+    $tours = [];
+    foreach ($stmt->fetchAll() as $r) {
+        $tours[] = ot_decode_row($r['data'] ?? null);
     }
 
-    /* API فقط تورهای تأییدشده و فعال را برمی‌گرداند. */
-    TOURS = data.tours
-      .filter(function (t) {
-        return t && t.id && t.status !== 'inactive' &&
-          (t.approval_status == null || t.approval_status === 'approved');
-      })
-      .map(normalizeTour);
-  } catch (error) {
-    console.error('خطا در دریافت تورها:', error);
-    TOURS = [];
-    var grid = $('#grid');
-    if (grid) {
-      grid.innerHTML = '<div class="empty">دریافت تورها با مشکل مواجه شد. لطفاً چند لحظه دیگر صفحه را تازه‌سازی کنید.</div>';
-    }
-  } finally {
-    loadingTours = false;
-    if (typeof render === 'function') render();
-  }
-}
+    $stmt = $pdo->prepare(
+        'SELECT data FROM bookings WHERE agency_id = ? ORDER BY created_at DESC'
+    );
+    $stmt->execute([$agency['id']]);
 
-/* اسلایدر صفحه */
-var slides = document.querySelectorAll('.slide');
-var dots = $('#dots');
-var cur = 0;
-var timer;
-var CAPS = [
-  ['سفر بعدی‌ات را همین امروز رزرو کن', 'تورهای داخلی و خارجی با برنامه مشخص، قیمت شفاف و پشتیبانی تا برگشت.', 'مشاهده تورها', '#tours'],
-  ['از شمال تا استانبول، همه‌جا همراهتیم', 'تورهای داخلی را با ظرفیت محدود و قیمت ویژه از آف‌تور۲۴ بگیر.', 'رزرو تور خارجی', '#tours']
-];
-
-if (dots) {
-  slides.forEach(function (_, i) {
-    var b = document.createElement('button');
-    b.setAttribute('aria-label', 'اسلاید ' + (i + 1));
-    b.onclick = function () { go(i, true); };
-    dots.appendChild(b);
-  });
-}
-function go(i) {
-  if (!slides.length) return;
-  cur = (i + slides.length) % slides.length;
-  slides.forEach(function (s, k) { s.classList.toggle('on', k === cur); });
-  if (dots) [].forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === cur); });
-  var c = CAPS[cur];
-  if ($('#ch')) $('#ch').textContent = c[0];
-  if ($('#cp')) $('#cp').textContent = c[1];
-  if ($('#cb')) {
-    $('#cb').textContent = c[2];
-    $('#cb').dataset.go = cur === 1 ? 'out' : '';
-  }
-  clearInterval(timer);
-  timer = setInterval(function () { go(cur + 1); }, 6000);
-}
-if ($('#sp')) $('#sp').onclick = function () { go(cur - 1); };
-if ($('#sn')) $('#sn').onclick = function () { go(cur + 1); };
-if (slides.length) go(0);
-
-/* فهرست و فیلتر تورها */
-function render() {
-  if (!$('#grid')) return;
-  var q = en($('#q') ? $('#q').value.trim() : '').toLowerCase();
-  var sort = $('#sort') ? $('#sort').value : '';
-  var dur = $('#dur') ? $('#dur').value : '';
-
-  var list = TOURS.filter(function (x) {
-    var searchable = (x.name + ' ' + x.destination + ' ' + x.code + ' ' + x.agencyCode).toLowerCase();
-    return (tab === 'all' || x.t === tab) &&
-      (!q || searchable.indexOf(q) > -1) &&
-      (!dur || (dur === 's' ? (x.days > 0 && x.days <= 3) : x.days > 3));
-  });
-
-  if (sort) list.sort(function (a, b) {
-    return sort === 'a' ? a.price - b.price : b.price - a.price;
-  });
-
-  if ($('#stitle')) $('#stitle').textContent = { all: 'همه تورها', in: 'تورهای داخلی', out: 'تورهای خارجی' }[tab];
-  if ($('#cnt')) $('#cnt').textContent = fa(list.length) + ' تور';
-
-  if (loadingTours && !TOURS.length) {
-    $('#grid').innerHTML = '<div class="empty">در حال دریافت تورها...</div>';
-    return;
-  }
-
-  $('#grid').innerHTML = list.length ? list.map(function (x) {
-    var cover = x.img || '';
-    return '<button class="card" type="button" data-id="' + esc(x.id) + '">' +
-      '<div class="cimg">' +
-      (cover ? '<img src="' + esc(cover) + '" alt="' + esc(x.name) + '" loading="lazy">' : '<div class="empty">تصویر موجود نیست</div>') +
-      '<span class="badge' + (x.t === 'out' ? ' ext' : '') + '">' + (x.t === 'out' ? 'خارجی' : 'داخلی') + '</span>' +
-      '</div><div class="cbody"><h3>' + esc(x.name) + '</h3>' +
-      '<div class="code">' + esc(x.destination) + '</div>' +
-      '<div class="cfoot"><span>' + (x.days ? fa(x.days) + ' روزه' : 'مدت نامشخص') + '</span>' +
-      '<span class="price">' + fa(x.price) + ' تومان</span></div></div></button>';
-  }).join('') : '<div class="empty">توری با این مشخصات پیدا نشد. فیلتر را تغییر بده.</div>';
-}
-
-document.querySelectorAll('.tab').forEach(function (b) {
-  b.onclick = function () { setTab(b.dataset.t); };
-});
-function setTab(t) {
-  tab = t;
-  document.querySelectorAll('.tab').forEach(function (b) {
-    b.classList.toggle('on', b.dataset.t === t);
-  });
-  render();
-}
-['q', 'sort', 'dur'].forEach(function (id) {
-  if ($('#' + id)) $('#' + id).addEventListener('input', render);
-});
-if ($('#fgo')) $('#fgo').onclick = function () {
-  render();
-  if ($('#tours')) $('#tours').scrollIntoView({ behavior: 'smooth' });
-};
-document.querySelectorAll('[data-go]').forEach(function (a) {
-  a.addEventListener('click', function () {
-    if (a.dataset.go) setTab(a.dataset.go);
-    if ($('#nav')) $('#nav').classList.remove('on');
-  });
-});
-if ($('#burger')) $('#burger').onclick = function () { $('#nav').classList.toggle('on'); };
-
-/* جزئیات تور */
-function openT(id) {
-  var x = TOURS.find(function (t) { return String(t.id) === String(id); });
-  if (!x) return;
-
-  var rows = [
-    ['مقصد', x.destination],
-    ['نوع تور', x.t === 'out' ? 'خارجی' : 'داخلی'],
-    ['مدت', x.days ? fa(x.days) + ' روز' : 'اعلام نشده'],
-    ['تاریخ شروع', dateFa(x.start)],
-    ['تاریخ پایان', dateFa(x.end)],
-    ['ظرفیت کل', fa(x.capacity) + ' نفر'],
-    ['ظرفیت باقی‌مانده', fa(x.remaining) + ' نفر'],
-    ['امکانات', x.features.join('، ') || '—'],
-    ['شناسه آژانس', x.agencyCode || '—']
-  ];
-
-  var imageList = x.imgs.length ? x.imgs : (x.img ? [x.img] : []);
-  var safeRows = rows.map(function (r) {
-    return '<tr><th>' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>';
-  }).join('');
-
-  $('#modal').innerHTML =
-    '<button class="x" aria-label="بستن" id="mx" type="button">×</button>' +
-    '<div class="gmain">' +
-    (imageList.length ? '<img id="gm" src="' + esc(imageList[0]) + '" alt="' + esc(x.name) + '">' : '<div class="empty">تصویری برای این تور ثبت نشده است</div>') +
-    (imageList.length > 1 ? '<button class="gn gp" id="gpv" aria-label="عکس قبلی" type="button">›</button><button class="gn gx" id="gnx" aria-label="عکس بعدی" type="button">‹</button>' : '') +
-    '</div>' +
-    (imageList.length > 1 ? '<div class="gth">' + imageList.map(function (u, i) {
-      return '<button type="button" class="' + (i ? '' : 'on') + '" data-i="' + i + '"><img src="' + esc(u) + '" alt=""></button>';
-    }).join('') + '</div>' : '') +
-    '<div class="mb"><h2>' + esc(x.name) + '</h2>' +
-    '<div class="code">' + esc(x.destination) + '</div>' +
-    '<table>' + safeRows + '</table>' +
-    (x.description ? '<p>' + esc(x.description).replace(/\n/g, '<br>') + '</p>' : '') +
-    '<div class="chips">' + x.features.map(function (f) { return '<span>' + esc(f) + '</span>'; }).join('') + '</div>' +
-    '<div class="mact"><span class="price">' + fa(x.price) + ' تومان / نفر</span><button class="btn sun" id="rb" type="button">رزرو تور</button><a class="btn line" href="tel:+982100000000">مشاوره تلفنی</a></div>' +
-    '<div class="rform" id="rf"><input id="rn" placeholder="نام و نام خانوادگی" maxlength="150"><input id="rp" type="tel" inputmode="tel" placeholder="شماره موبایل" maxlength="20"><input id="rc" type="number" min="1" max="' + Math.max(1, x.remaining) + '" value="1" aria-label="تعداد نفرات"><button class="btn" id="rs" type="button">ثبت درخواست</button></div>' +
-    '<div class="ok" id="ok">درخواست رزرو ثبت شد. همکاران ما به‌زودی تماس می‌گیرند.</div></div>';
-
-  $('#ov').classList.add('on');
-  document.body.style.overflow = 'hidden';
-  $('#mx').onclick = close;
-  $('#rb').onclick = function () { $('#rf').classList.add('on'); $('#rn').focus(); };
-
-  $('#rs').onclick = function () {
-    var btn = this;
-    var name = $('#rn').value.trim();
-    var phone = en($('#rp').value.trim());
-    var count = Math.max(1, parseInt($('#rc').value, 10) || 1);
-
-    if (!name || !/^09\d{9}$/.test(phone)) {
-      alert('نام و شماره موبایل معتبر (مثل 09123456789) وارد کن.');
-      return;
-    }
-    if (x.remaining > 0 && count > x.remaining) {
-      alert('تعداد نفرات از ظرفیت باقی‌مانده بیشتر است.');
-      return;
+    $bookings = [];
+    foreach ($stmt->fetchAll() as $r) {
+        $bookings[] = ot_decode_row($r['data'] ?? null);
     }
 
-    btn.disabled = true;
-    fetch(CONFIG.bookingUrl, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        tour: x.code,
-        tourId: x.id,
-        agencyCode: x.agencyCode,
-        name: name,
-        phone: phone,
-        count: count
-      })
-    })
-    .then(function (r) {
-      return r.json().then(function (d) {
-        if (!r.ok || d.success === false) throw new Error(d.error || 'ثبت رزرو انجام نشد');
-        return d;
-      });
-    })
-    .then(function () {
-      $('#rf').classList.remove('on');
-      $('#ok').classList.add('on');
-    })
-    .catch(function (err) {
-      console.error('Booking error:', err);
-      alert(err.message || 'ثبت آنلاین انجام نشد. لطفاً دوباره تلاش کنید.');
-    })
-    .then(function () { btn.disabled = false; });
-  };
+    ot_json([
+        'success' => true,
+        'agency' => [
+            'id' => $agency['id'],
+            'loginId' => $agency['login_id'],
+            'name' => $a['name'] ?? '',
+            'code' => $a['code'] ?? $agency['login_id'],
+            'owner' => $a['owner'] ?? '',
+            'license' => $a['license'] ?? '',
+            'phone1' => $a['phone1'] ?? '',
+            'phone2' => $a['phone2'] ?? '',
+            'phone3' => $a['phone3'] ?? '',
+            'insurance' => $a['insurance'] ?? '',
+            'address' => $a['address'] ?? '',
+            'notes' => $a['notes'] ?? '',
+            'baleChatId' => $a['baleChatId'] ?? ''
+        ],
+        'tours' => $tours,
+        'bookings' => $bookings,
+        'csrf' => $agency['csrf']
+    ]);
+}
 
-  var gi = 0;
-  var thumbs = document.querySelectorAll('.gth button');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Allow: GET, POST');
+    ot_json([
+        'success' => false,
+        'error' => 'Method not allowed'
+    ], 405);
+}
 
-  function showG(i) {
-    if (!imageList.length) return;
+ot_require_csrf($agency['csrf']);
 
-    gi = (i + imageList.length) % imageList.length;
-    $('#gm').src = imageList[gi];
+$input = ot_read_json(2 * 1024 * 1024);
+$action = $input['action'] ?? '';
 
-    thumbs.forEach(function (k, j) {
-      k.classList.toggle('on', j === gi);
-    });
+/* فقط نام آژانس قابل تغییر است */
+if ($action === 'update_profile') {
+    $name = trim((string)($input['name'] ?? ''));
 
-    if (thumbs[gi]) {
-      thumbs[gi].scrollIntoView({
-        block: 'nearest',
-        inline: 'nearest'
-      });
+    if ($name === '' || mb_strlen($name, 'UTF-8') > 150) {
+        ot_json([
+            'success' => false,
+            'error' => 'نام آژانس باید بین ۱ تا ۱۵۰ کاراکتر باشد'
+        ], 400);
     }
-  }
 
-  thumbs.forEach(function (b) {
-    b.onclick = function () {
-      showG(+b.dataset.i);
-    };
-  });
+    $stmt = $pdo->prepare(
+        'SELECT data FROM agencies WHERE id = ? LIMIT 1'
+    );
+    $stmt->execute([$agency['id']]);
+    $row = $stmt->fetch();
 
-  if ($('#gpv')) {
-    $('#gpv').onclick = function () {
-      showG(gi - 1);
-    };
+    if (!$row) {
+        ot_json([
+            'success' => false,
+            'error' => 'اطلاعات آژانس پیدا نشد'
+        ], 404);
+    }
 
-    $('#gnx').onclick = function () {
-      showG(gi + 1);
-    };
+    $data = ot_decode_row($row['data'] ?? null);
 
-    var sx = 0;
-    var gm = $('.gmain');
+    /* سایر اطلاعات بدون تغییر باقی می‌مانند */
+    $data['name'] = $name;
 
-    gm.addEventListener('touchstart', function (e) {
-      sx = e.touches[0].clientX;
-    }, { passive: true });
+    $json = json_encode(
+        $data,
+        JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+    );
 
-    gm.addEventListener('touchend', function (e) {
-      var delta = e.changedTouches[0].clientX - sx;
+    $stmt = $pdo->prepare(
+        'UPDATE agencies SET data = ? WHERE id = ?'
+    );
+    $stmt->execute([$json, $agency['id']]);
 
-      if (Math.abs(delta) > 40) {
-        showG(gi + (delta < 0 ? 1 : -1));
-      }
-    });
-  }
+    ot_json([
+        'success' => true,
+        'message' => 'نام آژانس با موفقیت تغییر کرد',
+        'name' => $name
+    ]);
 }
 
-/* کلیک روی کارت تور */
-if ($('#grid')) {
-  $('#grid').addEventListener('click', function (e) {
-    var card = e.target.closest('.card[data-id]');
-    if (card) openT(card.dataset.id);
-  });
+/* ثبت تور جدید */
+if ($action === 'create_tour') {
+    $name = trim((string)($input['name'] ?? ''));
+    $destination = trim((string)($input['destination'] ?? ''));
+    $type = (string)($input['type'] ?? '');
+    $start = trim((string)($input['start'] ?? ''));
+    $end = trim((string)($input['end'] ?? ''));
+
+    $price = filter_var(
+        $input['price'] ?? 0,
+        FILTER_VALIDATE_INT
+    );
+
+    $capacity = filter_var(
+        $input['capacity'] ?? 0,
+        FILTER_VALIDATE_INT
+    );
+
+    if (
+        $name === '' ||
+        $destination === '' ||
+        !in_array($type, ['in', 'out'], true) ||
+        $price === false ||
+        $price < 0 ||
+        $capacity === false ||
+        $capacity < 0
+    ) {
+        ot_json([
+            'success' => false,
+            'error' => 'نام، مقصد، نوع تور، قیمت و ظرفیت را صحیح وارد کنید'
+        ], 400);
+    }
+
+    if (
+        $start !== '' &&
+        !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)
+    ) {
+        ot_json([
+            'success' => false,
+            'error' => 'تاریخ شروع نامعتبر است'
+        ], 400);
+    }
+
+    if (
+        $end !== '' &&
+        !preg_match('/^\d{4}-\d{2}-\d{2}$/', $end)
+    ) {
+        ot_json([
+            'success' => false,
+            'error' => 'تاریخ پایان نامعتبر است'
+        ], 400);
+    }
+
+    if ($start !== '' && $end !== '' && $end < $start) {
+        ot_json([
+            'success' => false,
+            'error' => 'تاریخ پایان نمی‌تواند قبل از شروع باشد'
+        ], 400);
+    }
+
+    $id = 'tr_' . bin2hex(random_bytes(10));
+
+    $tour = [
+        'id' => $id,
+        'name' => $name,
+        'destination' => $destination,
+        'type' => $type,
+        'agencyId' => $agency['id'],
+        'agencyCode' => $agency['login_id'],
+        'start' => $start,
+        'end' => $end,
+        'price' => $price,
+        'capacity' => $capacity,
+        'remaining' => $capacity,
+        'features' => trim((string)($input['features'] ?? '')),
+        'image' => trim((string)($input['image'] ?? '')),
+        'gallery' => is_array($input['gallery'] ?? null)
+            ? array_values($input['gallery'])
+            : [],
+        'description' => trim((string)($input['description'] ?? '')),
+        'status' => 'active',
+        'approval_status' => 'pending',
+        'submitted_by_role' => 'agency',
+        'createdAt' => time() * 1000
+    ];
+
+    $json = json_encode(
+        $tour,
+        JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+    );
+
+    $stmt = $pdo->prepare(
+        "INSERT INTO tours
+        (id, agency_id, status, data, approval_status, submitted_by_role)
+        VALUES (?, ?, 'active', ?, 'pending', 'agency')"
+    );
+
+    $stmt->execute([
+        $id,
+        $agency['id'],
+        $json
+    ]);
+
+    ot_json([
+        'success' => true,
+        'tour' => $tour,
+        'message' => 'تور برای بررسی مدیریت ارسال شد'
+    ]);
 }
 
-/* بستن پنجره جزئیات */
-if ($('#ov')) {
-  $('#ov').onclick = function (e) {
-    if (e.target === this) close();
-  };
+/* مدیریت وضعیت و برنامه زمانی تور */
+if ($action === 'update_tour_schedule') {
+    $id = trim((string)($input['id'] ?? ''));
+    $start = trim((string)($input['start'] ?? ''));
+    $end = trim((string)($input['end'] ?? ''));
+    $status = (string)($input['status'] ?? 'active');
+
+    if (
+        $id === '' ||
+        !in_array($status, ['active', 'inactive'], true) ||
+        ($start !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)) ||
+        ($end !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $end)) ||
+        ($start !== '' && $end !== '' && $end < $start)
+    ) {
+        ot_json([
+            'success' => false,
+            'error' => 'اطلاعات وضعیت یا تاریخ نامعتبر است'
+        ], 400);
+    }
+
+    $stmt = $pdo->prepare(
+        'SELECT data, approval_status FROM tours
+         WHERE id = ? AND agency_id = ? LIMIT 1'
+    );
+
+    $stmt->execute([$id, $agency['id']]);
+    $row = $stmt->fetch();
+
+    if (!$row) {
+        ot_json([
+            'success' => false,
+            'error' => 'تور متعلق به این آژانس نیست یا پیدا نشد'
+        ], 404);
+    }
+
+    $tour = ot_decode_row($row['data']);
+
+    $tour['start'] = $start;
+    $tour['end'] = $end;
+    $tour['status'] = $status;
+
+    $json = json_encode(
+        $tour,
+        JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+    );
+
+    $stmt = $pdo->prepare(
+        'UPDATE tours SET status = ?, data = ?
+         WHERE id = ? AND agency_id = ?'
+    );
+
+    $stmt->execute([
+        $status,
+        $json,
+        $id,
+        $agency['id']
+    ]);
+
+    ot_json([
+        'success' => true,
+        'tour' => $tour
+    ]);
 }
 
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') close();
-});
-
-/* شروع دریافت اطلاعات */
-render();
-loadTours();
+ot_json([
+    'success' => false,
+    'error' => 'عملیات ناشناخته است'
+], 400);
