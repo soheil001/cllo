@@ -1,293 +1,794 @@
 
-<?php
-require_once __DIR__ . '/auth_common.php';
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>پنل آژانس | آف‌تور۲۴</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 
-$agency = ot_require_agency();
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f5f8;color:#182235;font-family:Vazirmatn,Tahoma,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:255px;background:#173d67;color:#fff;padding:24px 15px;flex-shrink:0}
+.brand{font-size:21px;font-weight:900;padding:5px 12px 28px}
+.brand small{display:block;font-size:11px;color:#c4d5e8;font-weight:400;margin-top:5px}
+.nav-title{font-size:11px;color:#a9bfd8;padding:12px}
+.nav a{display:flex;align-items:center;gap:12px;padding:13px 12px;margin:4px 0;border-radius:10px;color:#e6eef7;text-decoration:none;font-size:14px;transition:.2s}
+.nav a:hover,.nav a.active{background:#ffffff20;color:white}
+.nav .num{font-size:11px;color:#afc6df;width:20px}
+.side-bottom{margin-top:35px;border-top:1px solid #ffffff25;padding-top:18px}
+.main{flex:1;min-width:0;padding:25px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+.topbar h1{font-size:23px;margin:0}
+.topbar p{margin:5px 0 0;color:#778397;font-size:13px}
+.top-actions{display:flex;align-items:center;gap:10px}
+.panel-card{background:#fff;border:1px solid #e9edf2;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px #1c2d4008}
+h2{font-size:18px;margin:0 0 15px}
+h3{font-size:16px}
+.muted{color:#748094;font-size:13px}
+.btn{border:0;border-radius:9px;background:#173d67;color:white;padding:11px 17px;font-size:13px}
+.btn:hover{filter:brightness(1.08)}
+.btn.secondary{background:#64748b}
+.btn.light{background:#edf2f7;color:#34445a}
+.btn.red{background:#b42318}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.menu-btn{display:none}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid #e9edf2;border-radius:14px;padding:17px}
+.stat strong{display:block;font-size:24px;color:#173d67}
+.stat span{font-size:12px;color:#748094}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 20px}
+.tab{border:1px solid #e0e6ee;border-radius:9px;padding:10px 16px;background:#fff;color:#526176;font-size:13px}
+.tab.active{background:#173d67;border-color:#173d67;color:#fff}
+.tab-count{display:inline-block;margin-right:5px;font-size:11px;opacity:.8}
+.tour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tour{border:1px solid #e8edf3;border-radius:13px;overflow:hidden;background:#fff}
+.tour-img{height:170px;background:#edf1f5;display:flex;align-items:center;justify-content:center}
+.tour-img img{width:100%;height:100%;object-fit:cover}
+.tour-body{padding:15px}
+.tour-body h3{margin:0 0 8px}
+.tour-meta{font-size:12px;color:#718096;line-height:2}
+.status{display:inline-block;padding:5px 10px;border-radius:20px;font-size:11px;background:#fff2d5;color:#925b00}
+.status.approved{background:#dcfce7;color:#166534}
+.status.rejected{background:#fee2e2;color:#991b1b}
+.status.inactive{background:#edf0f4;color:#526176}
+.tour-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.tour-actions button{font-size:12px;padding:8px 12px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;font-size:13px;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d8e0e9;border-radius:9px;background:#fff;color:#182235}
+textarea{min-height:90px;resize:vertical}
+.field{min-width:0}
+.readonly{background:#f2f4f7;color:#64748b}
+.preview{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.preview img{width:90px;height:70px;object-fit:cover;border-radius:8px}
+.empty{text-align:center;color:#7b8798;padding:35px 12px;background:#f8fafc;border:1px dashed #dce3ec;border-radius:12px;font-size:13px}
+.message{margin-top:12px;font-size:13px;white-space:pre-wrap}
+.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.profile-item{padding:12px;background:#f7f9fb;border-radius:10px;min-width:0}
+.profile-item small{display:block;color:#78869a;margin-bottom:5px}
+.profile-item strong{font-size:14px;overflow-wrap:anywhere}
+.placeholder{text-align:center;padding:65px 20px}
+.placeholder .symbol{font-size:35px;margin-bottom:10px}
+.hidden{display:none!important}
+#toast{position:fixed;bottom:20px;left:20px;background:#172b45;color:white;padding:13px 18px;border-radius:10px;z-index:1000;display:none;font-size:13px;max-width:90vw}
+@media(max-width:850px){
+ .sidebar{position:fixed;right:-270px;top:0;bottom:0;z-index:100;transition:.25s;overflow:auto}
+ .sidebar.open{right:0}
+ .menu-btn{display:inline-block}
+ .main{padding:17px;width:100%}
+}
+@media(max-width:600px){
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tour-grid,.form-grid,.profile-grid{grid-template-columns:1fr}
+ .topbar h1{font-size:19px}
+ .panel-card{padding:16px}
+}
+</style>
+</head>
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $stmt = $pdo->prepare('SELECT data FROM agencies WHERE id = ? LIMIT 1');
-    $stmt->execute([$agency['id']]);
-    $a = ot_decode_row(($stmt->fetch()['data'] ?? null));
+<body>
+<div class="layout">
 
-    unset($a['password'], $a['password_hash']);
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    OFFTOUR24
+    <small>پنل اختصاصی آژانس‌های همکار</small>
+  </div>
 
-    $stmt = $pdo->prepare(
-        'SELECT data FROM tours WHERE agency_id = ? ORDER BY created_at DESC'
-    );
-    $stmt->execute([$agency['id']]);
+  <div class="nav-title">منوی اصلی</div>
 
-    $tours = [];
-    foreach ($stmt->fetchAll() as $r) {
-        $tours[] = ot_decode_row($r['data'] ?? null);
-    }
+  <nav class="nav">
+    <a href="#profile" data-page="profile">
+      <span class="num">۰۱</span> مشخصات آژانس
+    </a>
+    <a href="#tours" data-page="tours">
+      <span class="num">۰۲</span> تورهای من
+    </a>
+    <a href="#bookings" data-page="bookings">
+      <span class="num">۰۳</span> رزروها
+    </a>
+    <a href="#finance" data-page="finance">
+      <span class="num">۰۴</span> مالی
+    </a>
+    <a href="#rating" data-page="rating">
+      <span class="num">۰۵</span> امتیاز آژانس شما در سایت
+    </a>
+    <a href="#rules" data-page="rules">
+      <span class="num">۰۶</span> قوانین سایت
+    </a>
+  </nav>
 
-    $stmt = $pdo->prepare(
-        'SELECT data FROM bookings WHERE agency_id = ? ORDER BY created_at DESC'
-    );
-    $stmt->execute([$agency['id']]);
+  <div class="side-bottom">
+    <button class="btn secondary" id="logout" style="width:100%">خروج از حساب</button>
+  </div>
+</aside>
 
-    $bookings = [];
-    foreach ($stmt->fetchAll() as $r) {
-        $bookings[] = ot_decode_row($r['data'] ?? null);
-    }
+<main class="main">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="btn menu-btn" id="menuBtn">☰</button>
+      <div>
+        <h1 id="pageTitle">مشخصات آژانس</h1>
+        <p id="pageSubtitle">مدیریت اطلاعات حساب کاربری</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="muted" id="agencyCodeTop">در حال دریافت...</span>
+    </div>
+  </header>
 
-    ot_json([
-        'success' => true,
-        'agency' => [
-            'id' => $agency['id'],
-            'loginId' => $agency['login_id'],
-            'name' => $a['name'] ?? '',
-            'code' => $a['code'] ?? $agency['login_id'],
-            'owner' => $a['owner'] ?? '',
-            'license' => $a['license'] ?? '',
-            'phone1' => $a['phone1'] ?? '',
-            'phone2' => $a['phone2'] ?? '',
-            'phone3' => $a['phone3'] ?? '',
-            'insurance' => $a['insurance'] ?? '',
-            'address' => $a['address'] ?? '',
-            'notes' => $a['notes'] ?? '',
-            'baleChatId' => $a['baleChatId'] ?? ''
-        ],
-        'tours' => $tours,
-        'bookings' => $bookings,
-        'csrf' => $agency['csrf']
-    ]);
+  <section id="pageContent">
+    <div class="empty">در حال دریافت اطلاعات...</div>
+  </section>
+</main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+
+const API = '/api/';
+let csrf = '';
+let currentAgency = null;
+let tours = [];
+let bookings = [];
+let currentTab = 'approved';
+
+const $ = id => document.getElementById(id);
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c]));
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Allow: GET, POST');
-    ot_json([
-        'success' => false,
-        'error' => 'Method not allowed'
-    ], 405);
+function fa(value) {
+  return Number(value || 0).toLocaleString('fa-IR');
 }
 
-ot_require_csrf($agency['csrf']);
-
-$input = ot_read_json(2 * 1024 * 1024);
-$action = $input['action'] ?? '';
-
-/* فقط نام آژانس قابل تغییر است */
-if ($action === 'update_profile') {
-    $name = trim((string)($input['name'] ?? ''));
-
-    if ($name === '' || mb_strlen($name, 'UTF-8') > 150) {
-        ot_json([
-            'success' => false,
-            'error' => 'نام آژانس باید بین ۱ تا ۱۵۰ کاراکتر باشد'
-        ], 400);
-    }
-
-    $stmt = $pdo->prepare(
-        'SELECT data FROM agencies WHERE id = ? LIMIT 1'
-    );
-    $stmt->execute([$agency['id']]);
-    $row = $stmt->fetch();
-
-    if (!$row) {
-        ot_json([
-            'success' => false,
-            'error' => 'اطلاعات آژانس پیدا نشد'
-        ], 404);
-    }
-
-    $data = ot_decode_row($row['data'] ?? null);
-
-    /* سایر اطلاعات بدون تغییر باقی می‌مانند */
-    $data['name'] = $name;
-
-    $json = json_encode(
-        $data,
-        JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
-    );
-
-    $stmt = $pdo->prepare(
-        'UPDATE agencies SET data = ? WHERE id = ?'
-    );
-    $stmt->execute([$json, $agency['id']]);
-
-    ot_json([
-        'success' => true,
-        'message' => 'نام آژانس با موفقیت تغییر کرد',
-        'name' => $name
-    ]);
+function toast(message) {
+  const box = $('toast');
+  box.textContent = message;
+  box.style.display = 'block';
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    box.style.display = 'none';
+  }, 3000);
 }
 
-/* ثبت تور جدید */
-if ($action === 'create_tour') {
-    $name = trim((string)($input['name'] ?? ''));
-    $destination = trim((string)($input['destination'] ?? ''));
-    $type = (string)($input['type'] ?? '');
-    $start = trim((string)($input['start'] ?? ''));
-    $end = trim((string)($input['end'] ?? ''));
+async function requestJSON(url, options = {}) {
+  const response = await fetch(url, {
+    credentials: 'same-origin',
+    cache: 'no-store',
+    ...options
+  });
 
-    $price = filter_var(
-        $input['price'] ?? 0,
-        FILTER_VALIDATE_INT
-    );
+  const raw = await response.text();
+  let data;
 
-    $capacity = filter_var(
-        $input['capacity'] ?? 0,
-        FILTER_VALIDATE_INT
-    );
+  try {
+    data = JSON.parse(raw);
+  } catch (e) {
+    throw new Error('پاسخ سرور معتبر نیست. کد HTTP: ' + response.status);
+  }
+
+  if (!response.ok || data.success === false) {
+    throw new Error(data.error || 'ارتباط با سرور ناموفق بود');
+  }
+
+  return data;
+}
+
+/* دریافت اطلاعات آژانس، تورها و رزروها */
+async function load() {
+  const data = await requestJSON(API + 'agency.php');
+
+  if (!data.agency || !data.csrf) {
+    throw new Error('اطلاعات نشست آژانس ناقص است');
+  }
+
+  csrf = data.csrf;
+  currentAgency = data.agency;
+  tours = Array.isArray(data.tours) ? data.tours : [];
+  bookings = Array.isArray(data.bookings) ? data.bookings : [];
+
+  $('agencyCodeTop').textContent =
+    'شناسه آژانس: ' + (currentAgency.loginId || currentAgency.code || '—');
+
+  renderPage();
+}
+
+/* تغییر صفحه */
+const pageInfo = {
+  profile: ['مشخصات آژانس', 'مشاهده و ویرایش اطلاعات آژانس'],
+  tours: ['تورهای من', 'مدیریت تورهای ثبت‌شده'],
+  bookings: ['رزروها', 'مدیریت درخواست‌های رزرو'],
+  finance: ['مالی', 'اطلاعات مالی آژانس'],
+  rating: ['امتیاز آژانس شما در سایت', 'عملکرد و امتیاز آژانس'],
+  rules: ['قوانین سایت', 'قوانین و مقررات همکاری']
+};
+
+function renderPage() {
+  let page = location.hash.replace('#', '') || 'profile';
+
+  if (!pageInfo[page]) page = 'profile';
+
+  $('pageTitle').textContent = pageInfo[page][0];
+  $('pageSubtitle').textContent = pageInfo[page][1];
+
+  document.querySelectorAll('[data-page]').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === page);
+  });
+
+  if (page === 'profile') renderProfile();
+  else if (page === 'tours') renderToursPage();
+  else renderPlaceholder(page);
+
+  $('sidebar').classList.remove('open');
+}
+
+/* مشخصات آژانس */
+function renderProfile() {
+  const a = currentAgency || {};
+
+  const fields = [
+    ['شناسه آژانس', a.loginId || a.code],
+    ['نام مالک / مسئول', a.owner],
+    ['شماره تماس اول', a.phone1],
+    ['شماره تماس دوم', a.phone2],
+    ['شماره تماس سوم', a.phone3],
+    ['شماره بیمه', a.insurance],
+    ['شماره جواز / مجوز', a.license],
+    ['شناسه گفت‌وگوی بله', a.baleChatId],
+    ['آدرس', a.address],
+    ['توضیحات تکمیلی', a.notes]
+  ];
+
+  $('pageContent').innerHTML = `
+    <div class="panel-card">
+      <h2>اطلاعات اصلی آژانس</h2>
+      <p class="muted">
+        نام آژانس قابل ویرایش است. سایر مشخصات فقط جهت مشاهده نمایش داده می‌شوند.
+      </p>
+
+      <form id="profileForm">
+        <label for="agencyName">نام آژانس</label>
+        <input id="agencyName" name="name"
+          value="${esc(a.name)}" required maxlength="150">
+
+        <div style="margin-top:15px">
+          <button class="btn" type="submit" id="saveProfile">
+            ذخیره تغییرات نام آژانس
+          </button>
+        </div>
+
+        <p id="profileMsg" class="message" role="alert"></p>
+      </form>
+    </div>
+
+    <div class="panel-card">
+      <h2>مشخصات ثبت‌شده و غیرقابل ویرایش</h2>
+      <div class="profile-grid">
+        ${fields.map(([label, value]) => `
+          <div class="profile-item">
+            <small>${esc(label)}</small>
+            <strong>${esc(value || 'ثبت نشده')}</strong>
+          </div>
+        `).join('')}
+      </div>
+
+      <p class="muted" style="margin-top:15px">
+        برای اصلاح اطلاعات هویتی و مجوزها باید با مدیریت آف‌تور۲۴ تماس بگیرید.
+      </p>
+    </div>
+  `;
+
+  $('profileForm').addEventListener('submit', saveProfile);
+}
+
+/* ذخیره فقط نام آژانس */
+async function saveProfile(e) {
+  e.preventDefault();
+
+  const button = $('saveProfile');
+  const msg = $('profileMsg');
+  const name = $('agencyName').value.trim();
+
+  if (!name) {
+    msg.textContent = 'نام آژانس را وارد کنید.';
+    return;
+  }
+
+  button.disabled = true;
+  msg.textContent = 'در حال ذخیره...';
+
+  try {
+    const data = await requestJSON(API + 'agency.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrf
+      },
+      body: JSON.stringify({
+        action: 'update_profile',
+        name: name
+      })
+    });
+
+    currentAgency.name = data.name;
+    msg.textContent = 'نام آژانس با موفقیت ذخیره شد.';
+    toast('اطلاعات ذخیره شد');
+    renderProfile();
+
+  } catch (error) {
+    msg.textContent = 'خطا: ' + error.message;
+  } finally {
+    button.disabled = false;
+  }
+}
+
+/* وضعیت تورها */
+function tourStatus(t) {
+  if (t.approval_status === 'rejected') return 'rejected';
+  if (t.approval_status === 'approved') return 'approved';
+  return 'pending';
+}
+
+function statusText(status) {
+  return {
+    approved: 'تأیید شده',
+    rejected: 'رد شده',
+    pending: 'در انتظار تأیید'
+  }[status] || 'در انتظار تأیید';
+}
+
+function renderToursPage() {
+  const approved = tours.filter(t => tourStatus(t) === 'approved');
+  const rejected = tours.filter(t => tourStatus(t) === 'rejected');
+  const pending = tours.filter(t => tourStatus(t) === 'pending');
+
+  $('pageContent').innerHTML = `
+    <div class="stats">
+      <div class="stat">
+        <strong>${fa(approved.length)}</strong>
+        <span>تورهای تأییدشده</span>
+      </div>
+      <div class="stat">
+        <strong>${fa(pending.length)}</strong>
+        <span>در انتظار تأیید</span>
+      </div>
+      <div class="stat">
+        <strong>${fa(rejected.length)}</strong>
+        <span>تورهای ردشده</span>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <h2 style="margin-bottom:5px">مدیریت تورهای من</h2>
+          <p class="muted" style="margin:0">وضعیت تورهای ثبت‌شده خود را مشاهده کنید.</p>
+        </div>
+        <button class="btn" id="newTourBtn">+ ثبت تور جدید</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab ${currentTab === 'approved' ? 'active' : ''}" data-tab="approved">
+          تأیید شده‌ها <span class="tab-count">${fa(approved.length)}</span>
+        </button>
+        <button class="tab ${currentTab === 'rejected' ? 'active' : ''}" data-tab="rejected">
+          رد شده‌ها <span class="tab-count">${fa(rejected.length)}</span>
+        </button>
+        <button class="tab ${currentTab === 'pending' ? 'active' : ''}" data-tab="pending">
+          در انتظار تأیید <span class="tab-count">${fa(pending.length)}</span>
+        </button>
+      </div>
+
+      <div id="tourList"></div>
+    </div>
+  `;
+
+  $('newTourBtn').onclick = showTourForm;
+
+  document.querySelectorAll('[data-tab]').forEach(button => {
+    button.onclick = () => {
+      currentTab = button.dataset.tab;
+      renderToursPage();
+    };
+  });
+
+  drawTours();
+}
+
+function drawTours() {
+  const list = tours.filter(t => tourStatus(t) === currentTab);
+
+  $('tourList').innerHTML = list.length
+    ? '<div class="tour-grid">' + list.map(t => tourCard(t)).join('') + '</div>'
+    : '<div class="empty">در این بخش هنوز توری ثبت نشده است.</div>';
+}
+
+function tourCard(t) {
+  const status = tourStatus(t);
+
+  return `
+    <article class="tour">
+      <div class="tour-img">
+        ${t.image
+          ? `<img src="${esc(t.image)}" alt="${esc(t.name)}" loading="lazy">`
+          : '🧳'}
+      </div>
+
+      <div class="tour-body">
+        <span class="status ${status}">${statusText(status)}</span>
+        <h3>${esc(t.name || 'بدون نام')}</h3>
+
+        <div class="tour-meta">
+          مقصد: ${esc(t.destination || '—')}<br>
+          شروع: ${esc(t.start || 'اعلام نشده')}<br>
+          پایان: ${esc(t.end || 'اعلام نشده')}<br>
+          قیمت: ${fa(t.price)} تومان<br>
+          ظرفیت: ${fa(t.remaining ?? t.capacity)} از ${fa(t.capacity)} نفر
+        </div>
+
+        ${status === 'rejected' && t.rejection_reason
+          ? `<p class="muted">دلیل رد: ${esc(t.rejection_reason)}</p>`
+          : ''}
+
+        ${status === 'pending'
+          ? '<p class="muted">تور شما در صف بررسی مدیریت قرار دارد.</p>'
+          : ''}
+
+        ${status === 'approved'
+          ? '<p class="muted">تور شما تأیید شده است.</p>'
+          : ''}
+      </div>
+    </article>
+  `;
+}
+</script>
+
+/* فرم ثبت تور جدید */
+function showTourForm() {
+  $('pageContent').innerHTML = `
+    <div class="panel-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <h2>ثبت تور جدید</h2>
+        <button class="btn light" id="cancelTour">بازگشت</button>
+      </div>
+
+      <p class="muted">
+        تور پس از ثبت برای بررسی و تأیید مدیریت ارسال می‌شود.
+      </p>
+
+      <form id="tourForm">
+        <div class="form-grid">
+          <div class="field">
+            <label>نام تور *</label>
+            <input name="name" required maxlength="150">
+          </div>
+
+          <div class="field">
+            <label>مقصد *</label>
+            <input name="destination" required maxlength="150">
+          </div>
+
+          <div class="field">
+            <label>نوع تور *</label>
+            <select name="type" required>
+              <option value="">انتخاب کنید</option>
+              <option value="in">تور داخلی</option>
+              <option value="out">تور خارجی</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>قیمت هر نفر (تومان) *</label>
+            <input name="price" type="number" min="0" required>
+          </div>
+
+          <div class="field">
+            <label>ظرفیت کل *</label>
+            <input name="capacity" type="number" min="1" max="100000" required>
+          </div>
+
+          <div class="field">
+            <label>تاریخ شروع</label>
+            <input name="start" type="date">
+          </div>
+
+          <div class="field">
+            <label>تاریخ پایان</label>
+            <input name="end" type="date">
+          </div>
+        </div>
+
+        <label>امکانات تور</label>
+        <textarea name="features" placeholder="هتل، صبحانه، ترانسفر و ..."></textarea>
+
+        <label>توضیحات کامل تور</label>
+        <textarea name="description" placeholder="توضیحات کامل تور را وارد کنید..."></textarea>
+
+        <label>تصویر اصلی تور *</label>
+        <input id="mainImage" type="file" accept="image/jpeg,image/png,image/webp" required>
+        <div id="mainPreview" class="preview"></div>
+
+        <label>تصاویر گالری (حداکثر ۵ تصویر)</label>
+        <input id="galleryImages" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+        <div id="galleryPreview" class="preview"></div>
+
+        <p class="muted">
+          فرمت مجاز JPG، PNG و WEBP؛ حداکثر ۸ مگابایت برای هر تصویر.
+        </p>
+
+        <button class="btn" id="submitTour" type="submit">
+          ثبت و ارسال تور برای تأیید
+        </button>
+
+        <p id="tourMsg" class="message" role="alert"></p>
+      </form>
+    </div>
+  `;
+
+  $('cancelTour').onclick = renderToursPage;
+
+  $('mainImage').onchange = () => {
+    previewFiles($('mainImage'), $('mainPreview'));
+  };
+
+  $('galleryImages').onchange = () => {
+    const input = $('galleryImages');
+
+    if (input.files.length > 5) {
+      alert('حداکثر ۵ تصویر برای گالری مجاز است.');
+      input.value = '';
+    }
+
+    previewFiles(input, $('galleryPreview'));
+  };
+
+  $('tourForm').onsubmit = submitTour;
+}
+
+/* پیش‌نمایش تصاویر */
+function previewFiles(input, container) {
+  container.innerHTML = '';
+
+  Array.from(input.files || []).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+
+    const img = document.createElement('img');
+    img.alt = 'پیش‌نمایش تصویر';
+    img.src = URL.createObjectURL(file);
+    container.appendChild(img);
+  });
+}
+
+/* آپلود تصویر */
+async function uploadImage(file) {
+  const fd = new FormData();
+  fd.append('image', file);
+
+  const data = await requestJSON(API + 'upload.php', {
+    method: 'POST',
+    headers: {
+      'X-CSRF-Token': csrf
+    },
+    body: fd
+  });
+
+  if (!data.url) {
+    throw new Error('آدرس تصویر از سرور دریافت نشد');
+  }
+
+  return data.url;
+}
+
+/* ارسال تور */
+async function submitTour(e) {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+  const button = $('submitTour');
+  const msg = $('tourMsg');
+  const data = new FormData(form);
+
+  const main = $('mainImage').files[0];
+  const gallery = Array.from($('galleryImages').files);
+
+  if (!main) {
+    msg.textContent = 'تصویر اصلی تور را انتخاب کنید.';
+    return;
+  }
+
+  if (gallery.length > 5) {
+    msg.textContent = 'حداکثر ۵ تصویر گالری مجاز است.';
+    return;
+  }
+
+  const files = [main, ...gallery];
+
+  if (files.some(f => !['image/jpeg','image/png','image/webp'].includes(f.type))) {
+    msg.textContent = 'فقط تصاویر JPG، PNG و WEBP مجاز هستند.';
+    return;
+  }
+
+  if (files.some(f => f.size > 8 * 1024 * 1024)) {
+    msg.textContent = 'حجم هر تصویر باید حداکثر ۸ مگابایت باشد.';
+    return;
+  }
+
+  if (
+    data.get('start') &&
+    data.get('end') &&
+    data.get('end') < data.get('start')
+  ) {
+    msg.textContent = 'تاریخ پایان نمی‌تواند قبل از شروع باشد.';
+    return;
+  }
+
+  button.disabled = true;
+
+  try {
+    msg.textContent = 'در حال آپلود تصویر اصلی...';
+
+    const image = await uploadImage(main);
+    const galleryUrls = [];
+
+    for (let i = 0; i < gallery.length; i++) {
+      msg.textContent =
+        'در حال آپلود تصویر ' + (i + 1) + ' از ' + gallery.length;
+
+      galleryUrls.push(await uploadImage(gallery[i]));
+    }
+
+    msg.textContent = 'در حال ثبت تور...';
+
+    await requestJSON(API + 'agency.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrf
+      },
+      body: JSON.stringify({
+        action: 'create_tour',
+        name: String(data.get('name')).trim(),
+        destination: String(data.get('destination')).trim(),
+        type: data.get('type'),
+        price: Number(data.get('price')),
+        capacity: Number(data.get('capacity')),
+        start: data.get('start') || '',
+        end: data.get('end') || '',
+        features: String(data.get('features') || ''),
+        description: String(data.get('description') || ''),
+        image: image,
+        gallery: galleryUrls
+      })
+    });
+
+    toast('تور برای بررسی مدیریت ارسال شد');
+    await load();
+
+    currentTab = 'pending';
+    renderToursPage();
+
+  } catch (error) {
+    msg.textContent = 'خطا: ' + error.message;
+  } finally {
+    button.disabled = false;
+  }
+}
+
+/* منوهای رزرو، مالی، امتیاز و قوانین */
+function renderPlaceholder(page) {
+  const messages = {
+    bookings: 'بخش مدیریت رزروها در مرحله بعدی فعال می‌شود.',
+    finance: 'بخش مالی آژانس در مرحله بعدی فعال می‌شود.',
+    rating: 'سیستم امتیازدهی آژانس‌ها به‌زودی فعال می‌شود.',
+    rules: 'قوانین و مقررات همکاری در مرحله بعدی در این بخش قرار می‌گیرد.'
+  };
+
+  $('pageContent').innerHTML = `
+    <div class="panel-card placeholder">
+      <div class="symbol">◈</div>
+      <h2>${esc(pageInfo[page][0])}</h2>
+      <p class="muted">${esc(messages[page])}</p>
+      <span class="status">به‌زودی فعال می‌شود</span>
+    </div>
+  `;
+}
+
+/* خروج امن از پنل */
+$('logout').addEventListener('click', async () => {
+  if (!confirm('از حساب آژانس خارج می‌شوید؟')) return;
+
+  try {
+    await requestJSON(API + 'agency-auth.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrf
+      },
+      body: JSON.stringify({
+        action: 'logout'
+      })
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  location.href = '/agency/';
+});
+
+/* باز و بسته شدن منوی موبایل */
+$('menuBtn').addEventListener('click', () => {
+  $('sidebar').classList.toggle('open');
+});
+
+/* تغییر صفحات پنل */
+window.addEventListener('hashchange', renderPage);
+
+/* شروع پنل */
+(async function init() {
+  try {
+    await load();
+
+    if (!location.hash) {
+      location.hash = '#profile';
+    } else {
+      renderPage();
+    }
+
+  } catch (error) {
+    console.error(error);
+
+    $('pageContent').innerHTML = `
+      <div class="empty">
+        دریافت اطلاعات با مشکل مواجه شد.
+        <br>
+        ${esc(error.message)}
+      </div>
+    `;
 
     if (
-        $name === '' ||
-        $destination === '' ||
-        !in_array($type, ['in', 'out'], true) ||
-        $price === false ||
-        $price < 0 ||
-        $capacity === false ||
-        $capacity < 0
+      error.message.includes('ابتدا وارد حساب') ||
+      error.message.includes('احراز هویت')
     ) {
-        ot_json([
-            'success' => false,
-            'error' => 'نام، مقصد، نوع تور، قیمت و ظرفیت را صحیح وارد کنید'
-        ], 400);
+      location.href = '/agency/';
     }
-
-    if (
-        $start !== '' &&
-        !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)
-    ) {
-        ot_json([
-            'success' => false,
-            'error' => 'تاریخ شروع نامعتبر است'
-        ], 400);
-    }
-
-    if (
-        $end !== '' &&
-        !preg_match('/^\d{4}-\d{2}-\d{2}$/', $end)
-    ) {
-        ot_json([
-            'success' => false,
-            'error' => 'تاریخ پایان نامعتبر است'
-        ], 400);
-    }
-
-    if ($start !== '' && $end !== '' && $end < $start) {
-        ot_json([
-            'success' => false,
-            'error' => 'تاریخ پایان نمی‌تواند قبل از شروع باشد'
-        ], 400);
-    }
-
-    $id = 'tr_' . bin2hex(random_bytes(10));
-
-    $tour = [
-        'id' => $id,
-        'name' => $name,
-        'destination' => $destination,
-        'type' => $type,
-        'agencyId' => $agency['id'],
-        'agencyCode' => $agency['login_id'],
-        'start' => $start,
-        'end' => $end,
-        'price' => $price,
-        'capacity' => $capacity,
-        'remaining' => $capacity,
-        'features' => trim((string)($input['features'] ?? '')),
-        'image' => trim((string)($input['image'] ?? '')),
-        'gallery' => is_array($input['gallery'] ?? null)
-            ? array_values($input['gallery'])
-            : [],
-        'description' => trim((string)($input['description'] ?? '')),
-        'status' => 'active',
-        'approval_status' => 'pending',
-        'submitted_by_role' => 'agency',
-        'createdAt' => time() * 1000
-    ];
-
-    $json = json_encode(
-        $tour,
-        JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
-    );
-
-    $stmt = $pdo->prepare(
-        "INSERT INTO tours
-        (id, agency_id, status, data, approval_status, submitted_by_role)
-        VALUES (?, ?, 'active', ?, 'pending', 'agency')"
-    );
-
-    $stmt->execute([
-        $id,
-        $agency['id'],
-        $json
-    ]);
-
-    ot_json([
-        'success' => true,
-        'tour' => $tour,
-        'message' => 'تور برای بررسی مدیریت ارسال شد'
-    ]);
-}
-
-/* مدیریت وضعیت و برنامه زمانی تور */
-if ($action === 'update_tour_schedule') {
-    $id = trim((string)($input['id'] ?? ''));
-    $start = trim((string)($input['start'] ?? ''));
-    $end = trim((string)($input['end'] ?? ''));
-    $status = (string)($input['status'] ?? 'active');
-
-    if (
-        $id === '' ||
-        !in_array($status, ['active', 'inactive'], true) ||
-        ($start !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $start)) ||
-        ($end !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $end)) ||
-        ($start !== '' && $end !== '' && $end < $start)
-    ) {
-        ot_json([
-            'success' => false,
-            'error' => 'اطلاعات وضعیت یا تاریخ نامعتبر است'
-        ], 400);
-    }
-
-    $stmt = $pdo->prepare(
-        'SELECT data, approval_status FROM tours
-         WHERE id = ? AND agency_id = ? LIMIT 1'
-    );
-
-    $stmt->execute([$id, $agency['id']]);
-    $row = $stmt->fetch();
-
-    if (!$row) {
-        ot_json([
-            'success' => false,
-            'error' => 'تور متعلق به این آژانس نیست یا پیدا نشد'
-        ], 404);
-    }
-
-    $tour = ot_decode_row($row['data']);
-
-    $tour['start'] = $start;
-    $tour['end'] = $end;
-    $tour['status'] = $status;
-
-    $json = json_encode(
-        $tour,
-        JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
-    );
-
-    $stmt = $pdo->prepare(
-        'UPDATE tours SET status = ?, data = ?
-         WHERE id = ? AND agency_id = ?'
-    );
-
-    $stmt->execute([
-        $status,
-        $json,
-        $id,
-        $agency['id']
-    ]);
-
-    ot_json([
-        'success' => true,
-        'tour' => $tour
-    ]);
-}
-
-ot_json([
-    'success' => false,
-    'error' => 'عملیات ناشناخته است'
-], 400);
+  }
+})();
+</script>
+</body>
+</html>
